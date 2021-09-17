@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<schema xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:kad="http://www.kadaster.nl/kad/pdok" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kadaster.nl/kad/pdok" elementFormDefault="qualified">
+	<import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"></import>
+	<element name="Provincies" type="kad:ProvinciesType" substitutionGroup="gml:AbstractFeature"></element>
+	<complexType name="ProvinciesType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<element name="Provincienaam">
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="25"></maxLength>
+							</restriction>
+						</simpleType>
+					</element>
+					<element ref="gml:surfaceProperty" minOccurs="0"></element>
+					<element ref="gml:multiSurfaceProperty" minOccurs="0"></element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>

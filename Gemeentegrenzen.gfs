@@ -1,0 +1,27 @@
+<GMLFeatureClassList>
+  <GMLFeatureClass>
+    <Name>Gemeenten</Name>
+    <ElementPath>Gemeenten</ElementPath>
+    <!--MULTIPOLYGON-->
+    <GeometryType>6</GeometryType>
+    <SRSName>EPSG:28992</SRSName>
+    <DatasetSpecificInfo>
+      <FeatureCount>352</FeatureCount>
+      <ExtentXMin>10425.15600</ExtentXMin>
+      <ExtentXMax>278026.09000</ExtentXMax>
+      <ExtentYMin>306846.19800</ExtentYMin>
+      <ExtentYMax>621876.30000</ExtentYMax>
+    </DatasetSpecificInfo>
+    <PropertyDefn>
+      <Name>Code</Name>
+      <ElementPath>Code</ElementPath>
+      <Type>Integer</Type>
+    </PropertyDefn>
+    <PropertyDefn>
+      <Name>Gemeentenaam</Name>
+      <ElementPath>Gemeentenaam</ElementPath>
+      <Type>String</Type>
+      <Width>29</Width>
+    </PropertyDefn>
+  </GMLFeatureClass>
+</GMLFeatureClassList>
