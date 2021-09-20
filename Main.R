@@ -5,9 +5,9 @@ source('librariesMinimal.R')
 source("MappingFunctions.R")
 
 
-source("countries/LoadNetherlands.R")
-NETHERLANDS = LoadNetherlands()
+source("countries/LoadPhilippines.R")
+PHILIPPINES = LoadPhilippines()
 
 #set ascertainment bias
-NETHERLANDS$AB = 3
-EventMap(NETHERLANDS,50)
+PHILIPPINES$AB = 3
+EventMap(PHILIPPINES,50)

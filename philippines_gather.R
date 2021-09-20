@@ -110,8 +110,36 @@ unzip(temp, adm2$Name[grep("phl_admbnda_adm2_psa_namria_20200529",x=adm2$Name)],
 geomPhilippines_raw <- st_read(paste(tempdir(),"phl_admbnda_adm2_psa_namria_20200529.shp",sep = "\\"))
 unlink(temp)
 
+# geom1k <- geomPhilippines_raw%>%
+#   st_transform(3121)%>%
+#   st_simplify(dTolerance = 1000)%>%
+#   st_transform(4326)
+# 
+# geom2k <- geomPhilippines_raw%>%
+#   st_transform(3121)%>%
+#   st_simplify(dTolerance = 2000)%>%
+#   st_transform(4326)
+# 
+# geom3k <- geomPhilippines_raw%>%
+#   st_transform(3121)%>%
+#   st_simplify(dTolerance = 2000)%>%
+#   st_transform(4326)
+# 
+# ggplot()+
+#   geom_sf(data = geom1k, fill = NA, color = 'red')+
+#   geom_sf(data = geom2k, fill = NA, color = 'blue')+
+#   geom_sf(data = geom3k, fill = NA, color = 'green')
+# 
+# geom500 <- 
+# 
+# ggplot()+
+#   geom_sf(data = geomPhilippines_raw, fill = NA, color = 'black')+
+#   geom_sf(data = geom500, fill = NA, color = 'red')
 
 geomPhilippines <- geomPhilippines_raw%>%
+  st_transform(3121)%>%
+  st_simplify(dTolerance = 500)%>%
+  st_transform(4326)%>%
   mutate(
     ADM2_EN = case_when(
       str_detect(ADM2_EN, "^NCR") == T ~ "NCR",
@@ -146,3 +174,8 @@ data%>%
   select(ProvRes)%>%
   pull
 
+# Test
+geomPhilippines%>%
+  st_drop_geometry()%>%
+  left_join(philippinesPop,by = c("ADM2_EN" = "Location"))%>%
+  filter(is.na(Pop2015)==T)

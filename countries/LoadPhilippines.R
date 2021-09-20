@@ -1,15 +1,14 @@
 LoadPhilippines <- function(){
-#Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
   key <- readChar("drive_api.txt",file.info("drive_api.txt")$size)
   drive_auth_configure(api_key = key)
-  drive_api_key()
-  
+
   url1 <- "bit.ly/DataDropPH"
   req1 <- GET(url1)
   folder_dr <- drive_ls(str_extract(req1$url,"[:graph:]*(?=\\?)"))
   drive_download(
-    file = paste("https://drive.google.com/file/d",folder_dr["id"]%>%pull,sep = "/")
+    file = paste("https://drive.google.com/file/d",folder_dr["id"]%>%pull,sep = "/"),
+    overwrite = TRUE
   )
   
   readme_pdf <- dir()%>%
@@ -57,7 +56,33 @@ LoadPhilippines <- function(){
                        DateOnset = col_date(format = "%Y-%m-%d"))
     )
   
-  data <- case_details%>%
+  philippinesData <- case_details%>%
+    mutate(
+      ProvRes = case_when(
+        str_detect(ProvRes, "\\(") == T ~ str_to_title(str_replace(ProvRes, "\\s\\(([:graph:]*[:blank:]?)*\\)","")),
+        TRUE ~ str_to_title(ProvRes)
+      ),
+      ProvRes = str_replace_all(
+        ProvRes,
+        "\\sDel\\s",
+        " del "
+      ),
+      ProvRes = str_replace_all(
+        ProvRes,
+        "\\sDe\\s",
+        " de "
+      ),
+      ProvRes = str_replace_all(
+        ProvRes,
+        "\\sOf\\s",
+        " of "
+      ),
+      ProvRes = str_replace_all(
+        ProvRes,
+        "^Ncr$",
+        "NCR"
+      )
+    )%>%
     group_by(
       DateRepConf,
       RegionRes,
@@ -65,46 +90,52 @@ LoadPhilippines <- function(){
     )%>%
     summarise(
       TotalReported = n()
-    )
+    )%>%
+    ungroup()
   
-data <- read.csv('https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv', sep = ';',fileEncoding = 'UTF-8')
-netherlandsData <- data[,c('Date_of_publication','Municipality_code','Municipality_name','Province','Total_reported')]
-names(netherlandsData) <- c('Date','Code','Municipality','Province','Cases')
-netherlandsData$Date <- as.Date(netherlandsData$Date)
+names(philippinesData) <- c('Date','Region','Province','Cases')
+### Population
+philippinesPop <- read_csv("countries/data/philippinesPop2015.csv")
+
+
+
 ### Municipalities:
-municipality <- unique(netherlandsData$Municipality)
+province <- unique(philippinesData$Province)
+province <- province[is.na(province)==F]
 getData <- function(code){
-  temp <- netherlandsData %>% filter(netherlandsData$Municipality == municipality[code])
+  temp <- philippinesData %>% filter(philippinesData$Province == province[code])
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
   past_date <- today - 14
   pastData <- temp[temp$Date <= past_date,]
-  ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
   difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)])/14*10
-  vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
+  vec <- data.frame(Province = province[code], Date = today, Difference = difference)
   return(vec)
 }
 
-netherlandsTable <- data.frame()
-for (i in 1:length(municipality)){
+philippinesTable <- data.frame()
+for (i in 1:length(province)){
   vec <- getData(i)
-  netherlandsTable <- rbind(netherlandsTable,vec)
+  philippinesTable <- bind_rows(philippinesTable,vec)
 }
-
-netherlandsTable$Municipality[netherlandsTable$Municipality == "'s-Gravenhage" ] <- "Des Gravenhage"
-
 
 ### Geometry:
 #geomNetherlands <- st_read('https://opendata.arcgis.com/datasets/620c2ab925f64ed5979d251ba7753b7f_0.geojson')
 # Note that geomNetherlands$Bevolkingsaantal is population size.
-geomNetherlands = st_read("countries/data/geom/geomNetherlands.geojson")
+geomPhilippines = st_read("countries/data/geom/geomPhilippines.geojson")
 
-netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("Gemeentecode" = "Code"))
-netherlandsMap$RegionName = paste0(netherlandsMap$Municipality,", Netherlands")
-netherlandsMap$Country = "Netherlands"
-netherlandsMap$DateReport = as.character(netherlandsMap$Date)
-netherlandsMap$pInf = netherlandsMap$Difference/netherlandsMap$Bevolkingsaantal
-NETHERLANDS_DATA = subset(netherlandsMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+geomPhilippines <- geomPhilippines%>%
+  left_join(
+    philippinesPop,
+    by = c("ADM2_EN" = "Location")
+  )
 
-return(NETHERLANDS_DATA)
+philippinesMap <- inner_join(geomPhilippines, philippinesTable, by = c("ADM2_EN" = "Province"))
+philippinesMap$RegionName = paste0(philippinesMap$ADM2_EN,", Philippines")
+philippinesMap$Country = "Philippines"
+philippinesMap$DateReport = as.character(philippinesMap$Date)
+philippinesMap$pInf = philippinesMap$Difference/philippinesMap$Pop2015
+PHILIPPINES_DATA = subset(philippinesMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+
+return(PHILIPPINES_DATA)
 }
