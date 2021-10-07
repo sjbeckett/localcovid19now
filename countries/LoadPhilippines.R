@@ -1,7 +1,9 @@
 LoadPhilippines <- function(){
 
-  key <- readChar("drive_api.txt",file.info("drive_api.txt")$size)
-  drive_auth_configure(api_key = key)
+  # key <- readChar("drive_api.txt",file.info("drive_api.txt")$size)
+  # drive_auth_configure(api_key = key)
+  # drive_auth_configure(path = "phil_oauth.json")
+  drive_auth(path = "philippinescovid-bab51c18081c.json")
 
   url1 <- "bit.ly/DataDropPH"
   req1 <- GET(url1)
@@ -46,7 +48,7 @@ LoadPhilippines <- function(){
   case_details <- drive_read_string(
     file=paste("https://drive.google.com/file/d",caseinfo_id,sep = "/")
   )%>%
-    read_csv(
+    vroom(
       # text = .,
       col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
                        DateResultRelease = col_date(format = "%Y-%m-%d"),
@@ -95,7 +97,7 @@ LoadPhilippines <- function(){
   
 names(philippinesData) <- c('Date','Region','Province','Cases')
 ### Population
-philippinesPop <- read_csv("countries/data/philippinesPop2015.csv")
+philippinesPop <- vroom("countries/data/philippinesPop2015.csv")
 
 
 

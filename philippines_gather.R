@@ -9,8 +9,8 @@ invisible(lapply(c(list.of.packages, "rvest","lubridate"),FUN = require,characte
 
 # drive_auth_configure(path = "C:/Users/Freyja/OneDrive - Georgia Institute of Technology/CDC GRA/cdc-gra/OAuth/philippines_oauth.json")
 key <- readChar("drive_api.txt",file.info("drive_api.txt")$size)
-drive_auth_configure(api_key = key)
-drive_api_key()
+drive_auth_configure(path = "phil_oauth.json")
+
 
 url1 <- "bit.ly/DataDropPH"
 req1 <- GET(url1)
