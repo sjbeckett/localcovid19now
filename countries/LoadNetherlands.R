@@ -44,7 +44,7 @@ netherlandsTable$Municipality[netherlandsTable$Municipality == "'s-Gravenhage" ]
 ### Geometry:
 #geomNetherlands <- st_read('https://opendata.arcgis.com/datasets/620c2ab925f64ed5979d251ba7753b7f_0.geojson')
 # Note that geomNetherlands$Bevolkingsaantal is population size.
-geomNetherlands = st_read("countries/data/geom/geomNetherlands.geojson")
+geomNetherlands <- st_read("countries/data/geom/geomNetherlands.geojson")
 netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("Gemeentecode"="Code"))
 netherlandsMap$RegionName = paste0(netherlandsMap$Municipality,", Netherlands")
 netherlandsMap$Country = "Netherlands"

@@ -14,6 +14,6 @@ library(shiny)
 library(RColorBrewer)
 #library(xts)
 library(rgdal)
-
+library(vroom)
 library(COVID19) #for Chile, Peru,..
 library(data.table) #for the fread function (large speed up vs. read.csv for large files). Just using this for the Germany dataset right now, but could be useful for other files also.

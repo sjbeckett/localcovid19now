@@ -4,23 +4,29 @@ library(sf)
 
 temp <- tempfile()
 download.file("https://service.pdok.nl/kadaster/bestuurlijkegrenzen/atom/v1_0/downloads/bestuurlijkegrenzen_gml.zip", temp)
-unzip(temp, c("Gemeentegrenzen.gml", "Gemeentegrenzen.xsd"))
-netherlandsNew <- st_read("Gemeentegrenzen.gml")
+temppath <- unzip(temp, exdir = tempdir())
+netherlandsNew <- st_read(temppath[1]) # I know that "Gemeentegrenzen.gml" is the first item in temppath
 unlink(temp)
 
 netherlandsOrig <- st_read("orig/countries/data/geom/geomNetherlands.geojson")
 
+# I entered this project in fall 2021 when we had population data that came with the original geojson. Instead of getting this data from the confusing netherlands state statistical website, i just reused it.
 old_details <- netherlandsOrig%>%
   st_drop_geometry()
 
 merged <- netherlandsNew%>%
-  select(-gml_id)%>%
+  select(-gml_id, -Gemeentenaam)%>%
   mutate(
     Gemeentecode = paste0("GM",Code)
   )%>%
   left_join(old_details, by = "Gemeentecode")
 
-changes2021 <- read_xlsx("grenswijzigingen-tussen-resp-opheffing-samenvoeging-en-nieuwvorming-van-gemeenten-1-januari-2021.xlsx",skip=7)
+# The statistical site (cbs.nl) publishes a spreadsheet with all the inter-municipality land and population changes summarized. 
+temp2 <- tempfile()
+download.file("https://www.cbs.nl/-/media/_excel/2021/22/grenswijzigingen-tussen-resp-opheffing-samenvoeging-en-nieuwvorming-van-gemeenten-1-januari-2021.xlsx",temp2, mode="wb")
+
+changes2021 <- read_xlsx(temp2,skip=7)
+unlink(temp2)
 
 changes2021 <- changes2021%>%
   slice(3:15)%>%
@@ -46,29 +52,37 @@ changes2021 <- changes2021%>%
     extra = "merge"
   )
 
-# Look only at those with to/from greater than 10. This was arbitrary, probably 100+ would be more appropriate, but it didn't matter here.
+# Isolate areas with populations additions and subtractions
+
 pop_change <- changes2021%>%
   filter(
-    effect %in% c("to","from"),
-    inwoners>=10
-    )%>%
-  select(-woningen, -area_km2)
+    effect %in% c("to","from")
+  )%>%
+  select(-woningen, -area_km2)%>%
+  mutate(effect = case_when(
+    effect == "from" ~ -1,
+    effect == "to" ~ 1
+  ))%>%
+  group_by(code)%>%
+  summarise(netchange = sum(effect*inwoners))%>% # in case somewhere loses some population and gains other population from different sources, this gives the net change for the year
+  ungroup()
 
-# Because we had so few changes, I didn't try to make it more automated. It proved not worth it.
+# automated version because I realized how to do it
 merge_update <- merged%>%
+  left_join(pop_change, by = c("Code"="code"))%>%
+  replace_na(list(netchange = 0))%>%
   mutate(
-    Bevolkingsaantal = case_when(
-      Code == pop_change$code[1] ~ as.numeric(Bevolkingsaantal)+pop_change$inwoners[1],
-      Code == pop_change$code[2] ~ as.numeric(Bevolkingsaantal)+pop_change$inwoners[2],
-      Code == pop_change$code[3] ~ as.numeric(Bevolkingsaantal)+pop_change$inwoners[3],
-      Code == pop_change$code[4] ~ as.numeric(Bevolkingsaantal)+pop_change$inwoners[4],
-      TRUE ~ as.numeric(Bevolkingsaantal)
-    )
-  )
+    Bevolkingsaantal = as.numeric(Bevolkingsaantal)+netchange
+  )%>%
+  select(-netchange)
+
 # show the differences
-#compareDF::compare_df(st_drop_geometry(merged), st_drop_geometry(merge_update), group_col = "Code")
+# compdf <- compareDF::compare_df(st_drop_geometry(merged), st_drop_geometry(merge_update), group_col = "Code")
+
+orig_border <- st_union(netherlandsOrig)
 
 geomNetherlands <- merge_update%>%
-  st_transform(st_crs(netherlandsOrig))
+  st_transform(st_crs(netherlandsOrig))%>%
+  st_intersection(orig_border)
 st_write(geomNetherlands, "./countries/data/geom/geomNetherlands.geojson", delete_dsn=TRUE)
-# delete_dsn = T enables overwrite
+## delete_dsn = T enables overwrite

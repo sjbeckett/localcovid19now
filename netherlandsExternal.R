@@ -1,11 +1,14 @@
+# This has been replaced by netherlandsAdjustPop.R
 library(cbsodataR)
 library(sf)
 
 temp <- tempfile()
+tempd <- tempdir()
 download.file("https://service.pdok.nl/kadaster/bestuurlijkegrenzen/atom/v1_0/downloads/bestuurlijkegrenzen_gml.zip", temp)
-unzip(temp, c("Gemeentegrenzen.gml", "Gemeentegrenzen.xsd"))
-geomNetherlands <- st_read("Gemeentegrenzen.gml")
+temppath <- unzip(temp, exdir = tempdir())
+geomNetherlandsR <- st_read(paste(tempd,"Gemeentegrenzen.gml",sep="\\"))
 unlink(temp)
+unlink(tempd)
 
 st_write(geomNetherlands, "geomNetherlands.geojson")
 
