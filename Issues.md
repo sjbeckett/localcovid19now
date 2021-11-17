@@ -10,7 +10,6 @@ Probably this type of link: https://www.covid19.admin.ch/api/data/20210729-matmg
  *Afghanistan -- unsure how well supported this dataset will be given the current situation.
  
 #CODING/MAPPING
- *Netherlands -- geojson is not quite correct due to municipality redistricting in Jan 2021. Tilburg should fill the empty space.
  *Philippines -- currently saves readme pdf for each day it is run.
   
 #Future incorporation
