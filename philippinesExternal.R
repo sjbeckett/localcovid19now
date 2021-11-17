@@ -94,9 +94,9 @@ philippinesPop2%>%
 # geoJson
 temp <- tempfile()
 download.file("https://data.humdata.org/dataset/caf116df-f984-4deb-85ca-41b349d3f313/resource/12457689-6a86-4474-8032-5ca9464d38a8/download/phl_adm_psa_namria_20200529_shp.zip", temp)
-adm2 <- unzip(temp, list = T)
-unzip(temp, adm2$Name[grep("phl_admbnda_adm2_psa_namria_20200529",x=adm2$Name)], exdir = tempdir())
-geomPhilippines_raw <- st_read(paste(tempdir(),"phl_admbnda_adm2_psa_namria_20200529.shp",sep = "\\"))
+temppath <- unzip(temp, exdir = tempdir())
+
+geomPhilippines_raw <- st_read(temppath[37])
 unlink(temp)
 
 geomPhilippines <- geomPhilippines_raw%>%

@@ -1,30 +1,20 @@
-LoadPhilippines <- function(){
+LoadPhilippines <- function(oauth){
+  
+  drive_auth(path = oauth)
 
-  # key <- readChar("drive_api.txt",file.info("drive_api.txt")$size)
-  # drive_auth_configure(api_key = key)
-  # drive_auth_configure(path = "phil_oauth.json")
-  drive_auth(path = "philippinescovid-bab51c18081c.json")
-
+  tempPDF <- tempfile()
   url1 <- "bit.ly/DataDropPH"
   req1 <- GET(url1)
   folder_dr <- drive_ls(str_extract(req1$url,"[:graph:]*(?=\\?)"))
   drive_download(
     file = paste("https://drive.google.com/file/d",folder_dr["id"]%>%pull,sep = "/"),
-    overwrite = TRUE
+    overwrite = TRUE,
+    path = tempPDF
   )
   
-  readme_pdf <- dir()%>%
-    .[str_detect(dir(),"READ ME FIRST")]%>%
-    as_tibble()%>%
-    mutate(file_date= str_extract(value,"[:digit:]{2}_[:digit:]{2}")%>%
-             paste(.,"2021",sep="_")%>%
-             mdy()
-    )%>%
-    filter(
-      file_date == max(file_date)
-    )%>%
-    .$"value"%>%
+  readme_pdf <- tempPDF%>%
     pdf_text()
+  unlink(tempPDF)
   
   data_link <- readme_pdf%>%
     str_extract("(?<=bit.ly)[:graph:]*")%>%
@@ -35,33 +25,37 @@ LoadPhilippines <- function(){
   req2 <- GET(url2)
   folder_data <- drive_ls(str_extract(req2$url,"[:graph:]*(?=\\?)"))
   
-  caseinfo_id <- folder_data%>%
-    filter(str_detect(name,"04 Case Information.csv"))%>%
+  caseinfo_ids <- folder_data%>%
+    filter(str_detect(name,"04 Case Information"))%>%
+    arrange(name)%>%
     select(id)%>%
     pull
   
-  # case_download <- drive_download(
-  #     file=paste("https://drive.google.com/file/d",caseinfo_id,sep = "/"),
-  #     path = paste(tempdir(),"philippinescases.csv",sep="/")
-  #     )
-  
-  case_details <- drive_read_string(
-    file=paste("https://drive.google.com/file/d",caseinfo_id,sep = "/")
-  )%>%
-    vroom(
-      # text = .,
-      col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
-                       DateResultRelease = col_date(format = "%Y-%m-%d"),
-                       DateRepConf = col_date(format = "%Y-%m-%d"),
-                       DateDied = col_date(format = "%Y-%m-%d"),
-                       DateRecover = col_date(format = "%Y-%m-%d"),
-                       DateOnset = col_date(format = "%Y-%m-%d"))
-    )
+  purrr::map_df(
+    caseinfo_ids,
+    function(x){
+      temp = tempfile()
+      drive_download(
+        file=paste("https://drive.google.com/file/d",x,sep = "/"),
+        path = temp
+        )
+      vroom(
+        temp,
+        col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
+                         DateResultRelease = col_date(format = "%Y-%m-%d"),
+                         DateRepConf = col_date(format = "%Y-%m-%d"),
+                         DateDied = col_date(format = "%Y-%m-%d"),
+                         DateRecover = col_date(format = "%Y-%m-%d"),
+                         DateOnset = col_date(format = "%Y-%m-%d"))
+      )
+    }) -> case_details
+  unlink(temp)
   
   philippinesData <- case_details%>%
     mutate(
       ProvRes = case_when(
         str_detect(ProvRes, "\\(") == T ~ str_to_title(str_replace(ProvRes, "\\s\\(([:graph:]*[:blank:]?)*\\)","")),
+        RegionRes == "NCR" & is.na(ProvRes) ~ "NCR", # the NCR region doesn't have provinces, so I would assume that if the Region is NCR, then the province would also be NCR.
         TRUE ~ str_to_title(ProvRes)
       ),
       ProvRes = str_replace_all(
@@ -93,9 +87,15 @@ LoadPhilippines <- function(){
     summarise(
       TotalReported = n()
     )%>%
-    ungroup()
+    ungroup()%>%
+    rename(
+      Date = DateRepConf,
+      Region = RegionRes,
+      Province = ProvRes,
+      Cases = TotalReported
+    )
   
-names(philippinesData) <- c('Date','Region','Province','Cases')
+# names(philippinesData) <- c('Date','Region','Province','Cases')
 ### Population
 philippinesPop <- vroom("countries/data/philippinesPop2015.csv")
 
@@ -122,9 +122,10 @@ for (i in 1:length(province)){
 }
 
 ### Geometry:
-#geomNetherlands <- st_read('https://opendata.arcgis.com/datasets/620c2ab925f64ed5979d251ba7753b7f_0.geojson')
+# source("philippinesExternal.R")
+
 # Note that geomNetherlands$Bevolkingsaantal is population size.
-geomPhilippines = st_read("countries/data/geom/geomPhilippines.geojson")
+geomPhilippines <- st_read("countries/data/geom/geomPhilippines.geojson")
 
 geomPhilippines <- geomPhilippines%>%
   left_join(
