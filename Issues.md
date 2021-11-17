@@ -11,7 +11,6 @@ Probably this type of link: https://www.covid19.admin.ch/api/data/20210729-matmg
  
 #CODING/MAPPING
  *Netherlands -- geojson is not quite correct due to municipality redistricting in Jan 2021. Tilburg should fill the empty space.
- *Philippines -- currently saves readme pdf for each day it is run.
   
 #Future incorporation
  *Turkey -- potentially could scrape cases from here and convert: https://covid19.saglik.gov.tr/
