@@ -1,5 +1,4 @@
-#Singapore, Brunei, Djibouti, Qatar, Marshall Islands, Saint Kitts and Nevis, Timor-Leste, Maldives, Grenada, Saint Vincent and the Grenadines, Saint Lucia, Barbados, Antigua and Barbuda, Seychelles, Palau, Micronesia, Dominica, Bahrain, Kiribati, Sao Tome and Principe, Comoros, Mauritius, Samoa, Trinidad and Tobago, Lebanon, Jamaica, Gambia, Vanuatu, Bahamas, Eswatini, Kuwait, Fiji, El Salvador, Belize, Cabo Verde, Palestine; and
-# Faroe Islands, Falkland Islands, Greenland, New Caledonia, Turks and Caicos Islands, Anguilla, British Virgin Islands, Gibraltar, Bermuda, Sint Maarten, Aruba, Curacao, Cook Islands
+#Singapore, Brunei, Djibouti, Qatar, Marshall Islands, Saint Kitts and Nevis, Timor-Leste, Maldives, Grenada, Saint Vincent and the Grenadines, Saint Lucia, Barbados, Antigua and Barbuda, Seychelles, Palau, Micronesia, Dominica, Bahrain, Kiribati, Sao Tome and Principe, Comoros, Mauritius, Samoa, Trinidad and Tobago, Lebanon, Jamaica, Gambia, Vanuatu, Bahamas, Eswatini, Kuwait, Fiji, El Salvador, Belize, Cabo Verde, Palestine; and Faroe Islands, Falkland Islands, Greenland, New Caledonia, Turks and Caicos Islands, Anguilla, British Virgin Islands, Gibraltar, Bermuda, Sint Maarten, Aruba, Curacao, Cook Islands
 ##### Released: XXXX
 Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University
 https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
@@ -168,7 +167,7 @@ Real-time county level COVID19 data comes from the NYTimes COVID19 data project:
 
 US 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
 
-### Venezuala
+### Venezuela
 #### Released: XXXX
 Aggregated from local resources by OCHA Venezuela:  https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela
 
