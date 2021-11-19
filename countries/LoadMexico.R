@@ -24,10 +24,10 @@ geomMEX$geometry[916]  = CH
 
 
 #Main COVID-19 hub page: https://datos.covid-19.conacyt.mx/#DownZCSV
-#need to try 2 days if it doesn't work!
+#need to try 2 days if it doesn't work.
 
 flag=0
-aa=0
+aa=1
 while(flag==0){
 	DATE = Sys.Date()-aa
 	formDATE = format(DATE, "%Y%m%d")
