@@ -14,7 +14,7 @@ names(czech_pop)[1] <- 'code'
 
 #case data
 czechData <- read.csv('https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv', encoding = 'UTF-8')
-names(czechData) <- c('Date','code','District','Confirmed','Cure','Death')
+names(czechData) <- c('id','Date','code','District','Confirmed','Cure','Death')
 czechData$Date <- as.Date(czechData$Date)
 czechData = czechData %>% 
     group_by(District) %>% 
@@ -27,7 +27,7 @@ czechData = czechData %>%
   names(czech_data_join) <- c('Code','Difference','Date','name','Population')
   CzechMap <- inner_join(geomCzechia,czech_data_join, by = 'name')
   
-  CzechMap$RegionName = paste0(CzechMap$name,", Czech Republic")
+  CzechMap$RegionName = paste0(CzechMap$name,", Czechia")
   CzechMap$Country = "Czechia"
   CzechMap$DateReport = as.character(CzechMap$Date) 
   CzechMap$pInf = CzechMap$Difference/CzechMap$Population
