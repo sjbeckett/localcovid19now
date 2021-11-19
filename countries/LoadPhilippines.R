@@ -1,6 +1,12 @@
-LoadPhilippines <- function(oauth){
+LoadPhilippines <- function(){
   
-  drive_auth(path = oauth)
+  if("oauth" %in% ls()){
+    oauthpath <- oauth
+  }else{
+    oauthpath <- readline(prompt = "Enter OAuth filepath:  ")
+  }
+  
+  drive_auth(path = oauthpath)
 
   tempPDF <- tempfile()
   url1 <- "bit.ly/DataDropPH"
