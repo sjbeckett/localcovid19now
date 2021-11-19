@@ -6,7 +6,14 @@ LoadGermany <- function() {
 #GERMANY_SOURCE_Data <-  data.frame(st_read('https://opendata.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0.geojson')) #note this is a large file > 1GB.
 #alternative:
 #GERMANY_SOURCE_Data = fread("https://opendata.arcgis.com/api/v3/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/downloads/data?format=csv&spatialRefId=4326", encoding="UTF-8") # file size > 220MB.
-GERMANY_SOURCE_Data = vroom::vroom("https://opendata.arcgis.com/api/v3/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/downloads/data?format=csv&spatialRefId=4326") # file 
+## The vroom direct from url was not working/ it takes forever to load
+# GERMANY_SOURCE_Data = vroom::vroom("https://opendata.arcgis.com/api/v3/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/downloads/data?format=csv&spatialRefId=4326") # file 
+
+# file attempt with download
+temp = tempfile()
+download.file(url = "https://opendata.arcgis.com/api/v3/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/downloads/data?format=csv&spatialRefId=4326", destfile = temp)
+GERMANY_SOURCE_Data = vroom::vroom(temp)
+unlink(temp)
 
 germanyData <- GERMANY_SOURCE_Data[,c("Landkreis","AnzahlFall","Meldedatum",'IdLandkreis')] #note that cases are split by age group and gender
 # rename columns

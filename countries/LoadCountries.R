@@ -9,6 +9,7 @@ if(is.null(countries)){
 
 for(country in countries){
 	#Load in data for this country
+  cat("\n",country,"\n")
 	try({
 		this_country = get(country)()
 		NEWMAP = rbind(NEWMAP,this_country)

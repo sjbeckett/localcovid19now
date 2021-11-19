@@ -8,7 +8,7 @@ source("sourceCountryList.R")
 #source mapping utilities
 source("MappingFunctions.R")
 
-
+oauth = "covidoauth.json"
 ###LOAD IN DATA
 #COMBINE DATASETS INTO SINGLE OBJECT
 GLOBALMAP <- LoadCountries()
