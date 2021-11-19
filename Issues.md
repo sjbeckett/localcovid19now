@@ -17,4 +17,3 @@ Probably this type of link: https://www.covid19.admin.ch/api/data/20210729-matmg
 #### Future incorporation
  * Turkey -- potentially could scrape cases from here and convert: https://covid19.saglik.gov.tr/
  * Haiti -- https://docs.google.com/spreadsheets/d/10YxLT870MwYJ3Tm_a3WvvU2r1zQbT5F20TSXzw03BxQ/edit#gid=1307875485  or https://github.com/covid19datahub/COVID19/blob/master/R/ds_humdata.org.R . Appears to be updated only intermittently.
-
