@@ -1,4 +1,4 @@
-LoadPhilippines <- function(oauth){
+LoadPhilippines <- function(oauth=oauth){
   
   drive_auth(path = oauth)
 
@@ -49,7 +49,7 @@ LoadPhilippines <- function(oauth){
                          DateOnset = col_date(format = "%Y-%m-%d"))
       )
     }) -> case_details
-  unlink(temp)
+  # unlink(temp)
   
   philippinesData <- case_details%>%
     mutate(
