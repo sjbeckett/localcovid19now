@@ -43,10 +43,10 @@ by the COVID-19 Data Repository by the Center for Systems Science and Engineerin
 Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
 ### Cuba
-####Released: XXXX
+#### Released: XXXX
 Data aggregated from local health resources by Covid19CubaData http://covid19cubadata.github.io/
 
-### Czech Republic
+### Czechia
 #### Released: October 27, 2020
 COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: https://onemocneni-aktualne.mzcr.cz/covid-19 
 
@@ -92,11 +92,11 @@ Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc
 Italian maps: http://datainterfaces.org/projects/covid19eventi/
 
 ### Japan
-####Released: XXXX
+#### Released: XXXX
 Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
 
 ### Malaysia
-####Released: XXXX
+#### Released: XXXX
 Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
 
 ### Mexico
@@ -123,7 +123,7 @@ Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data
 Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
 ### South Africa
-####Released: XXXX
+#### Released: XXXX
 Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: https://github.com/dsfsi/covid19za
 
 ### Spain
