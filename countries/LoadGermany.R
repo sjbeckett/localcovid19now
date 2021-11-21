@@ -50,12 +50,22 @@ pop <- read.csv('countries/data/germanyPop.csv')
 # turn Id Landkreis columns into numeric form:
 pop$IdLandkreis <- as.numeric(pop$IdLandkreis)
 
+#SK Eisenach (16056) is reported with LK Wartburgkreis (16063) (according to RKI)
+pop$Population[which(pop$IdLandkreis=="16063")] = pop$Population[which(pop$IdLandkreis=="16056")] + pop$Population[which(pop$IdLandkreis=="16063")]
+
 # Geometry
 #geomGermany <- st_read('https://public.opendatasoft.com/explore/dataset/covid-19-germany-landkreise/download/?format=geojson&timezone=Europe/Berlin&lang=en')
 #geomGermany <- geomGermany[,c('county','geometry')]
 #alter names to match the case dataset
-#geomGermany$county[geomGermany$county=="StädteRegion Aachen"] <- "Städteregion Aachen" 
+#geomGermany$county[geomGermany$county=="Städteregion Aachen"] <- "StädteRegion Aachen"
+#IND1 = which(geomGermany$county=="SK Eisenach")
+#IND2 = which(geomGermany$county=="LK Wartburgkreis")
+#HMM<- st_union(geomGermany[c(IND1,IND2),])%>% st_cast("MULTIPOLYGON")
+#geomGermany$geometry[IND2] = HMM
+#geomGermany = geomGermany[-IND1,]
 geomGermany <- st_read("countries/data/geom/geomGermany.geojson")
+
+
 
 #integrate datasets
 germanydf <- inner_join(germanyTable,pop, by = 'IdLandkreis') # add pop column into the main germany table
