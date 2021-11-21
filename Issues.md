@@ -10,7 +10,6 @@ Probably this type of link: https://www.covid19.admin.ch/api/data/20210729-matmg
  * Afghanistan -- unsure how well supported this dataset will be given the current situation.
 
 #### CODING/MAPPING
- * Philippines -- currently saves readme pdf for each day it is run.
 
 #### Future incorporation
  * Turkey -- potentially could scrape cases from here and convert: https://covid19.saglik.gov.tr/
