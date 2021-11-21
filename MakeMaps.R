@@ -26,7 +26,7 @@ GLOBALMAP$pInf[GLOBALMAP$pInf==0]=NA
 GLOBALMAP$pInf[which(GLOBALMAP$DateReport < (Sys.Date()-30))] = NA
 
 #Map with 50 people
-MapTogether = EventMap(GLOBALMAP3,50)
+MapTogether = EventMap(GLOBALMAP,50)
 if (interactive())
     MapTogether
 
