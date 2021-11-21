@@ -9,7 +9,6 @@ sapply(country_source_files, source)
 #source mapping utilities
 source("MappingFunctions.R")
 
-oauth = "covidoauth.json"
 ###LOAD IN DATA
 # define 'oauth' as the file path to the oauth json file.
 #COMBINE DATASETS INTO SINGLE OBJECT

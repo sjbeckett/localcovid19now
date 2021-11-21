@@ -1,4 +1,4 @@
-LoadPhilippines <- function(oauth=oauth){
+LoadPhilippines <- function(){
 
 #Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
   
