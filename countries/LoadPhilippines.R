@@ -1,4 +1,5 @@
 LoadPhilippines <- function(){
+
 #Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
   
   if("oauth" %in% ls()){
@@ -9,21 +10,14 @@ LoadPhilippines <- function(){
   
   drive_auth(path = oauthpath)
 
-  tempPDF <- tempfile()
   url1 <- "bit.ly/DataDropPH"
   req1 <- GET(url1)
   folder_dr <- drive_ls(str_extract(req1$url,"[:graph:]*(?=\\?)"))
-  drive_download(
-    file = paste("https://drive.google.com/file/d",folder_dr["id"]%>%pull,sep = "/"),
-    overwrite = TRUE,
-    path = tempPDF
-  )
   
-  readme_pdf <- tempPDF%>%
-    pdf_text()
-  unlink(tempPDF)
-  
-  data_link <- readme_pdf%>%
+  data_link <- drive_read_raw(
+    file = paste("https://drive.google.com/file/d", pull(folder_dr["id"]), sep = "/")
+    )%>%
+    pdf_text()%>%
     str_extract("(?<=bit.ly)[:graph:]*")%>%
     .[!is.na(.)]
   
@@ -58,7 +52,7 @@ LoadPhilippines <- function(){
       unlink(temp)
       return(A)
     }) -> case_details
-  
+
   philippinesData <- case_details%>%
     mutate(
       ProvRes = case_when(
