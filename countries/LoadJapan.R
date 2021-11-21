@@ -33,15 +33,15 @@ names(vec) <- c('Prefecture','Difference')
 
 ## Geojson file
 #geomJapan <- st_read('https://raw.githubusercontent.com/deldersveld/topojson/master/countries/japan/jp-prefectures.json')
-#geomJapan <- geomJap[c('NAME_1','geometry')]
-#geomJapan[geomJap$NAME_1 == 'Naoasaki',1] <- "Nagasaki"
+#geomJapan <- geomJapan[c('NAME_1','geometry')]
+#geomJapan[geomJapan$NAME_1 == 'Naoasaki',1] <- "Nagasaki"
 #geomJapan = st_set_crs(geomJapan,4326)
 
 geomJapan = st_read("countries/data/geom/geomJapan.geojson")
 
 
 ## Population
-pop <- read.csv('countries/data/JapPopulation.csv')
+pop <- read.csv('countries/data/JapanPopulation.csv')
 japandf <- inner_join(vec,pop, by = 'Prefecture')
 japandf$Difference <- as.numeric(japandf$Difference)
 
@@ -54,5 +54,3 @@ JapanMap$pInf = JapanMap$Difference/JapanMap$Population
 JAPAN_DATA = subset(JapanMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(JAPAN_DATA)
 }
-
-

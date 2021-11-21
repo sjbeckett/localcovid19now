@@ -1,4 +1,3 @@
-
 #calculate risk
 estRisk <- function(Infected,A,G){#A is ascertainment bias, G is group size
   Risk = 100*(1-(1-(A*Infected))^G)
@@ -105,4 +104,3 @@ EventMapB <- function(DATA,G){ #map data, Ascertainty bias, Group size
                   direction = "auto")) %>%
     addLegend(pal = pal, values = ~risk, opacity = 0.9, title = 'Risk Level (%)', na.label = 'NA',
               position = "bottomleft",labFormat = labelFormat())
-}

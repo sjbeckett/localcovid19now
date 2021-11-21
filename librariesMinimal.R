@@ -9,6 +9,7 @@ library(rvest)
 library(rmapshaper) #for the ms_simplify function - simplifies polygons.
 library(stringr)
 library(vroom)
+library(htmlwidgets)
 
 library(shiny)
 library(RColorBrewer)
