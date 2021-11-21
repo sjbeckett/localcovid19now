@@ -1,27 +1,27 @@
 LoadPhilippines <- function(){
 #Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
- 
   
+  if("oauth" %in% ls()){
+    oauthpath <- oauth
+  }else{
+    oauthpath <- readline(prompt = "Enter OAuth filepath:  ")
+  }
+  
+  drive_auth(path = oauthpath)
+
+  tempPDF <- tempfile()
   url1 <- "bit.ly/DataDropPH"
   req1 <- GET(url1)
   folder_dr <- drive_ls(str_extract(req1$url,"[:graph:]*(?=\\?)"))
   drive_download(
     file = paste("https://drive.google.com/file/d",folder_dr["id"]%>%pull,sep = "/"),
-    overwrite = TRUE
+    overwrite = TRUE,
+    path = tempPDF
   )
   
-  readme_pdf <- dir()%>%
-    .[str_detect(dir(),"READ ME FIRST")]%>%
-    as_tibble()%>%
-    mutate(file_date= str_extract(value,"[:digit:]{2}_[:digit:]{2}")%>%
-             paste(.,"2021",sep="_")%>%
-             mdy()
-    )%>%
-    filter(
-      file_date == max(file_date)
-    )%>%
-    .$"value"%>%
+  readme_pdf <- tempPDF%>%
     pdf_text()
+  unlink(tempPDF)
   
   data_link <- readme_pdf%>%
     str_extract("(?<=bit.ly)[:graph:]*")%>%
@@ -32,35 +32,38 @@ LoadPhilippines <- function(){
   req2 <- GET(url2)
   folder_data <- drive_ls(str_extract(req2$url,"[:graph:]*(?=\\?)"))
   
-  caseinfo_id <- folder_data%>%
-    filter(str_detect(name,"04 Case Information.csv"))%>%
+  caseinfo_ids <- folder_data%>%
+    filter(str_detect(name,"04 Case Information"))%>%
+    arrange(name)%>%
     select(id)%>%
     pull
   
-  # case_download <- drive_download(
-  #     file=paste("https://drive.google.com/file/d",caseinfo_id,sep = "/"),
-  #     path = paste(tempdir(),"philippinescases.csv",sep="/")
-  #     )
-  
-  case_details <- drive_read_string(
-    file=paste("https://drive.google.com/file/d",caseinfo_id,sep = "/")
-  )%>%
-    fread(showProgress = TRUE, select = c("DateRepConf","ProvRes","RegionRes"), encoding = "UTF-8"
-      # text = .,
-    )
-	
-	
-	  col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
-                       DateResultRelease = col_date(format = "%Y-%m-%d"),
-                       DateRepConf = col_date(format = "%Y-%m-%d"),
-                       DateDied = col_date(format = "%Y-%m-%d"),
-                       DateRecover = col_date(format = "%Y-%m-%d"),
-                       DateOnset = col_date(format = "%Y-%m-%d"))
+  purrr::map_df(
+    caseinfo_ids,
+    function(x){
+      temp = tempfile()
+      drive_download(
+        file=paste("https://drive.google.com/file/d",x,sep = "/"),
+        path = temp
+        )
+      A=vroom(
+        temp,
+        col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
+                         DateResultRelease = col_date(format = "%Y-%m-%d"),
+                         DateRepConf = col_date(format = "%Y-%m-%d"),
+                         DateDied = col_date(format = "%Y-%m-%d"),
+                         DateRecover = col_date(format = "%Y-%m-%d"),
+                         DateOnset = col_date(format = "%Y-%m-%d"))
+      )
+      unlink(temp)
+      return(A)
+    }) -> case_details
   
   philippinesData <- case_details%>%
     mutate(
       ProvRes = case_when(
         str_detect(ProvRes, "\\(") == T ~ str_to_title(str_replace(ProvRes, "\\s\\(([:graph:]*[:blank:]?)*\\)","")),
+        RegionRes == "NCR" & is.na(ProvRes) ~ "NCR", # the NCR region doesn't have provinces, so I would assume that if the Region is NCR, then the province would also be NCR.
         TRUE ~ str_to_title(ProvRes)
       ),
       ProvRes = str_replace_all(
@@ -92,13 +95,16 @@ LoadPhilippines <- function(){
     summarise(
       TotalReported = n()
     )%>%
-    ungroup()
-  
-names(philippinesData) <- c('Date','Region','Province','Cases')
+    ungroup()%>%
+    rename(
+      Date = DateRepConf,
+      Region = RegionRes,
+      Province = ProvRes,
+      Cases = TotalReported
+    )
+
 ### Population
-philippinesPop <- read_csv("countries/data/philippinesPop2015.csv")
-
-
+philippinesPop <- vroom("countries/data/philippinesPop2015.csv")
 
 ### Municipalities:
 province <- unique(philippinesData$Province)
@@ -107,10 +113,10 @@ getData <- function(code){
   temp <- philippinesData %>% filter(philippinesData$Province == province[code])
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
-  past_date <- as.Date(today) - 14
+  past_date <- today - 14
   pastData <- temp[temp$Date <= past_date,]
   difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)])/14*10
-  vec <- data.frame(Province = province[code], Date = as.character(today), Difference = difference)
+  vec <- data.frame(Province = province[code], Date = today, Difference = difference)
   return(vec)
 }
 
@@ -121,7 +127,9 @@ for (i in 1:length(province)){
 }
 
 ### Geometry:
-geomPhilippines = st_read("countries/data/geom/geomPhilippines.geojson")
+# source("philippinesExternal.R")
+  
+geomPhilippines <- st_read("countries/data/geom/geomPhilippines.geojson")
 
 geomPhilippines <- geomPhilippines%>%
   left_join(
