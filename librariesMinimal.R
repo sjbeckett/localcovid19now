@@ -9,6 +9,7 @@ library(rvest)
 library(rmapshaper) #for the ms_simplify function - simplifies polygons.
 library(stringr)
 library(vroom)
+library(htmlwidgets)
 
 library(shiny)
 library(RColorBrewer)
@@ -20,4 +21,3 @@ library(data.table) #for the fread function (large speed up vs. read.csv for lar
 #for Philippines
 library(googledrive)
 library(pdftools)
-library(readr)
