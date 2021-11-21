@@ -4,7 +4,7 @@ source('librariesMinimal.R')
 
 #source local files
 #source country by country files
-country_source_files = list.files('./countries/', pattern - "*.R", full.names = T)
+country_source_files = list.files('./countries/', pattern = "*.R", full.names = T)
 sapply(country_source_files, source)
 #source mapping utilities
 source("MappingFunctions.R")
