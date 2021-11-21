@@ -20,4 +20,3 @@ library(data.table) #for the fread function (large speed up vs. read.csv for lar
 #for Philippines
 library(googledrive)
 library(pdftools)
-library(readr)

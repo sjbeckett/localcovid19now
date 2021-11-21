@@ -10,6 +10,7 @@ source("MappingFunctions.R")
 
 
 ###LOAD IN DATA
+# define 'oauth' as the file path to the oauth json file.
 #COMBINE DATASETS INTO SINGLE OBJECT
 GLOBALMAP <- LoadCountries()
 GLOBALMAP <- ms_simplify(GLOBALMAP,keep=0.05,keep_shapes=TRUE)
