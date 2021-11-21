@@ -1,4 +1,5 @@
-LoadPhilippines <- function(){
+LoadPhilippines <- function(oauth=oauth){
+
 #Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
   
   if("oauth" %in% ls()){
@@ -58,7 +59,7 @@ LoadPhilippines <- function(){
       unlink(temp)
       return(A)
     }) -> case_details
-  
+
   philippinesData <- case_details%>%
     mutate(
       ProvRes = case_when(
