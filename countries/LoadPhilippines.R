@@ -1,4 +1,5 @@
 LoadPhilippines <- function(){
+#Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
   
   if("oauth" %in% ls()){
     oauthpath <- oauth
@@ -45,7 +46,7 @@ LoadPhilippines <- function(){
         file=paste("https://drive.google.com/file/d",x,sep = "/"),
         path = temp
         )
-      vroom(
+      A=vroom(
         temp,
         col_types = cols(DateSpecimen = col_date(format = "%Y-%m-%d"),
                          DateResultRelease = col_date(format = "%Y-%m-%d"),
@@ -54,8 +55,9 @@ LoadPhilippines <- function(){
                          DateRecover = col_date(format = "%Y-%m-%d"),
                          DateOnset = col_date(format = "%Y-%m-%d"))
       )
+      unlink(temp)
+      return(A)
     }) -> case_details
-  unlink(temp)
   
   philippinesData <- case_details%>%
     mutate(
@@ -126,8 +128,7 @@ for (i in 1:length(province)){
 
 ### Geometry:
 # source("philippinesExternal.R")
-
-# Note that geomNetherlands$Bevolkingsaantal is population size.
+  
 geomPhilippines <- st_read("countries/data/geom/geomPhilippines.geojson")
 
 geomPhilippines <- geomPhilippines%>%
