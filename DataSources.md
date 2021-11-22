@@ -135,8 +135,9 @@ COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos I
 Swedish COVID-19 National Statistics from Folkhälsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
 
 ### Switzerland and Liechenstein
-#### Released: October 5, 2020
-Specialist Unit for Open Government Data Canton of Zurich COVID-19 data: https://github.com/openZH/covid_19
+#### Released: XXXX
+(from October 5, 2020 till XXXX) Specialist Unit for Open Government Data Canton of Zurich COVID-19 data: https://github.com/openZH/covid_19
+(from XXXX) Federal Office of Public Health FOPH: https://www.covid19.admin.ch/en/overview
 
 ### Saudi Arabia
 #### Released: XXXX
