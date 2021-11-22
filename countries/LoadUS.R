@@ -47,6 +47,8 @@ LoadUS <- function(){
     filter(date == cur_date) %>%
     mutate(fips = case_when(
       county == "New York City" ~ 99999,
+      county == "Kansas City" ~ 29991,
+      county == "Joplin" ~ 29992,
       TRUE ~ as.numeric(fips)
     )) %>%
     select(c(date,fips, cases, deaths,))
@@ -54,13 +56,14 @@ LoadUS <- function(){
     filter(date == past_date) %>%
     mutate(fips = case_when(
       county == "New York City" ~ 99999,
+      county == "Kansas City" ~ 29991,
+      county == "Joplin" ~ 29992,
       TRUE ~ as.numeric(fips)
     )) %>%
     select(date_past = date, fips = fips, cases_past = cases)
   data_join <<- data_cur %>%
     inner_join(data_past, by = "fips") %>%
-    inner_join(pop, by = "fips") %>%  mutate(n = date - date_past) %>%
-  select(-c('X'))
+    inner_join(pop, by = "fips") %>%  mutate(n = date - date_past)
   data_join$n <- as.numeric(data_join$n)
   data_join$CaseDiff <- (data_join$cases-data_join$cases_past)*10/data_join$n
   
