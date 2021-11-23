@@ -79,13 +79,16 @@ difference <- (latest_update$Cases-past_update$Cases)*10/DateDiff
 finalData <- data.frame(Arrondissement = latest_update[,'Arrondissement'], Difference = difference)
 
 # geojson file
+#geomBelgium <- st_read('countries/data/geom/geomBelgium.geojson')
+#geomBelgium <- geomBelgium[,c("NameDUT","geometry")]
+#for (i in 1:length(geomBelgium$NameDUT)){
+#  geomBelgium$NameDUT[i] <- unlist(strsplit(geomBelgium$NameDUT[i], "Arrondissement "))[2]
+#}
+#geomBelgium$NameDUT[28] <- sort(finalData$Arrondissement)[22] # La Louviere
+#geomBelgium$NameDUT[39] <- sort(finalData$Arrondissement)[29] # Neufchâteau
+#geomBelgium <- st_write(geomBelgium,'countries/data/geom/geomBelgium.geojson')
 geomBelgium <- st_read('countries/data/geom/geomBelgium.geojson')
-geomBelgium <- geomBelgium[,c("NameDUT","geometry")]
-for (i in 1:length(geomBelgium$NameDUT)){
-  geomBelgium$NameDUT[i] <- unlist(strsplit(geomBelgium$NameDUT[i], "Arrondissement "))[2]
-}
-geomBelgium$NameDUT[28] <- sort(finalData$Arrondissement)[22] # La Louviere
-geomBelgium$NameDUT[39] <- sort(finalData$Arrondissement)[29] # Neufchâteau
+
 finalData <- inner_join(geomBelgium, finalData, by = c('NameDUT' = 'Arrondissement'))
 
 #population
