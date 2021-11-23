@@ -20,11 +20,8 @@ LoadItaly <- function() {
     group_by(code) %>%
     dplyr::summarise(date = first(date), cases = first(cases), region = first(region), province = first(province), n = n())
  
-#geometry 
-  #geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/italy_simpler.geojson")
-  geom <- st_read("countries/data/geom/geomItaly.geojson")
 #population
-  pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/italy_pop.csv", stringsAsFactors = FALSE)
+  pop <- read.csv("countries/data/italy_pop.csv", stringsAsFactors = FALSE)
   
   data_join <<- data_cur %>%
     inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
@@ -32,6 +29,10 @@ LoadItaly <- function() {
   data_join <- as.data.frame(data_join)
   data_join$CaseDiff <- (data_join$cases-data_join$cases_past)*10/14
   data_join$date <- as.Date(data_join$date)
+  
+#geometry 
+  #geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/italy_simpler.geojson")
+  geom <- st_read("countries/data/geom/geomItaly.geojson")
   
 #integrate datasets
   
