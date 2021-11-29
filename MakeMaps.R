@@ -15,10 +15,12 @@ source("MappingFunctions.R")
 GLOBALMAP <- LoadCountries()
 GLOBALMAP <- ms_simplify(GLOBALMAP,keep=0.05,keep_shapes=TRUE)
 ###Append ascertainment bias calculations to each region via country level statistics
+# today's date
+filedate <- paste(day(today()), month(today(), label=T, abbr = F), year(today()), sep = "")
 #APPEND AB to country.
 GLOBALMAP$AB = 3
 #save map
-st_write(GLOBALMAP,"GlobalRiskMapping_ABD_18October2021.geojson")
+st_write(GLOBALMAP,sprintf("GlobalRiskMapping_ABD_%s.geojson",filedate))
 
 #No data if pInf = 0
 GLOBALMAP$pInf[GLOBALMAP$pInf==0]=NA
@@ -31,4 +33,4 @@ if (interactive())
     MapTogether
 
 
-htmlwidgets::saveWidget(MapTogether,"GlobalRiskMapping_ABD_100_11August2021.html",selfcontained=T) 
+htmlwidgets::saveWidget(MapTogether,sprintf("GlobalRiskMapping_ABD_100_%s.html", filedate),selfcontained=T) 
