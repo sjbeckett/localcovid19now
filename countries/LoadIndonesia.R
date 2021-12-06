@@ -34,7 +34,8 @@ Indonesiadf = inner_join(caseTable,popul, by =c("provinces" = "NAME"))
 #geomIndonesia$NAME_1[18] =  "Daerah Istimewa Yogyakarta"
 #geomIndonesia$NAME_1upper = toupper(geomIndonesia$NAME_1)
 #geomIndonesia = ms_simplify(geomIndonesia,keep=0.05,keep_shapes=TRUE)
-geomIndonesia = st_read("countries/data/geom/geomIndonesia.geojson")
+geomIndonesia = st_read("countries/data/geom/geomIndonesia.geojson")%>%
+  mutate(NAME_1upper = str_to_upper(NAME_1))
 
 #integrate datasets
 IndonesiaMap = inner_join(geomIndonesia,Indonesiadf,by=c("NAME_1upper"="provinces"))
