@@ -374,7 +374,7 @@ geomDenmark%>%
 
 # Europe"
 
-geomEurope1 <- st_read("countries/data/orig_geom/geomEurope.geojson")
+geomEurope <- st_read("countries/data/orig_geom/geomEurope.geojson")
 namesEurope <-  vroom::vroom("countries/data/namesEurope.csv")
 
 ##Remove countries
@@ -1129,9 +1129,13 @@ geom_list <- list.files("countries/data/temp_geom/", full.names = T)
 
 geom_list <- str_extract(geom_list[str_which(geom_list,".geojson$")],"[:alpha:]*(?=.geojson)")
 
-geomWorld <- purrr::map_df(geom_list, ~get(.x))%>%
-  st_collection_extract()
+geomWorld <- purrr::map_df(geom_list, ~get(.x)%>%
+                             mutate(filename=.x)%>%
+                             st_collection_extract()%>%
+                             st_cast("MULTIPOLYGON")
+    )%>%
+  st_as_sf()%>%
+  tibble::remove_rownames()
 
-if(any(na.omit(st_is_valid(geomWorld)))){
-  st_write(geomWorld, "countries/data/WorldPreSimp/geomWorld_presimp.geojson")
-}
+st_write(geomWorld, "countries/data/WorldPreSimp/geomWorld_presimp.geojson", delete_dsn = T)
+# file.remove(list.files("countries/data/temp_geom", full.names = T))
