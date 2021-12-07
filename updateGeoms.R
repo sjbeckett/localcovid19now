@@ -2,13 +2,14 @@ source("librariesMinimal.R")
 library(readr)
 
 # Fields will be as follows:
-## id
-## m49_code
+## GEOID = ISO3m49_micro_macro
+## m49code
+## iso3
 ## county_name
-## region_code
-## region_name
-## district_code
-## district_name
+## macro_code
+## macro_name
+## micro_code
+## micro_name
 ## geometry
 
 ## Load in the m49 codes for countries
@@ -25,17 +26,16 @@ geomAfghanistan <- st_read("countries/data/orig_geom/geomAfghanistan.geojson")
 geomAfghanistan <- geomAfghanistan%>%
   mutate(
     country_name = "Afghanistan",
-    filename = "geomAfghanistan"
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = id,
-    district_name = name,
-    filename
+    micro_code = id,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -55,9 +55,10 @@ geomAlgeria <- geomAlgeria%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = ID,
-    district_name = NAME
+    micro_code = ID,
+    micro_name = NAME
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -69,6 +70,10 @@ geomAlgeria%>%
 # Argentina
 geomArgentina <- st_read("countries/data/orig_geom/geomArgentina.geojson")
 
+geomArgentina%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscArgentina.csv")
+
 geomArgentina <- geomArgentina%>%
   mutate(
     country_name = "Argentina",
@@ -78,9 +83,10 @@ geomArgentina <- geomArgentina%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = ID_1,
-    district_name = NAME_1
+    micro_code = ID_1,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -100,9 +106,10 @@ geomAustralia <- geomAustralia%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = STATE_CODE,
-    district_name = STATE_NAME
+    micro_code = STATE_CODE,
+    micro_name = STATE_NAME
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -123,9 +130,10 @@ geomAustria <- geomAustria%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = iso,
-    district_name = name
+    micro_code = iso,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -139,16 +147,17 @@ geomBelgium <- st_read("countries/data/orig_geom/geomBelgium.geojson")
 geomBelgium <- geomBelgium%>%
   mutate(
     country_name = "Belgium",
-    district_code = row_number() # I'm assigning IDs based on row number, but we could go back and do country subdivision ISOs
+    micro_code = row_number() # I'm assigning IDs based on row number, but we could go back and do country subdivision ISOs
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = NameDUT
+    micro_code,
+    micro_name = NameDUT
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -170,10 +179,11 @@ geomBrazil <- geomBrazil%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code = regiao_id,
-    district_code = codigo_ibg,
-    district_name = nome
+    macro_code = regiao_id,
+    micro_code = codigo_ibg,
+    micro_name = nome
   )%>%
   st_make_valid()%>% # Brazil has some invalidity
   mutate(across(.cols=ends_with("code"),.fns=as.character))
@@ -200,9 +210,10 @@ geomCanada <- geomCanada%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = HR_UID,
-    district_name = ENGNAME
+    micro_code = HR_UID,
+    micro_name = ENGNAME
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make canada valid
@@ -220,6 +231,10 @@ geomCanada%>%
 
 geomChile <- st_read("countries/data/orig_geom/geomChile.geojson")
 
+geomChile%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscChile.csv")
+
 geomChile <- geomChile%>%
   mutate(
     country_name = "Chile"
@@ -229,9 +244,10 @@ geomChile <- geomChile%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = codregion,
-    district_name = matchName
+    micro_code = codregion,
+    micro_name = matchName
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make Chile valid
@@ -248,6 +264,10 @@ geomChile%>%
 
 geomChina <- st_read("countries/data/orig_geom/geomChina.geojson")
 
+geomChina%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscChina.csv")
+
 geomChina <- geomChina%>%
   mutate(
     country_name = "China"
@@ -257,10 +277,12 @@ geomChina <- geomChina%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = ISO,
-    district_name = NAME_1
+    micro_code = ISO,
+    micro_name = NAME_1
   )%>%
+  filter(micro_code != "CN-71")%>% # Remove Taiwan because we have higher resolution in geomTaiwan
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
 geomChina%>%
@@ -281,9 +303,10 @@ geomColombia <- geomColombia%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = DPTO,
-    district_name = NOMBRE_DPT
+    micro_code = DPTO,
+    micro_name = NOMBRE_DPT
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -304,9 +327,10 @@ geomCuba <- geomCuba%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = province_id,
-    district_name = province
+    micro_code = province_id,
+    micro_name = province
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make Cuba valid
@@ -327,16 +351,17 @@ geomCzechia <- st_read("countries/data/orig_geom/geomCzechia.geojson")
 geomCzechia <- geomCzechia%>%
   mutate(
     country_name = "Czechia",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = name
+    micro_code,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -355,16 +380,17 @@ geomDenmark <- geomDenmark%>%
   st_cast("MULTIPOLYGON")%>%
   mutate(
     country_name = "Denmark",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = name
+    micro_code,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -409,9 +435,10 @@ geomEurope <- geomEurope%>%
   filter(rem == 0)%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name = CountryName,
-    district_code = UID,
-    district_name = Region
+    micro_code = UID,
+    micro_name = Region
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make Europe valid
@@ -424,6 +451,7 @@ geomEurope%>%
   st_write("countries/data/temp_geom/geomEurope.geojson")
 #rm(geomEurope)
 rm(namesEurope)
+rm(CountriesCovered)
 
 # France"
 
@@ -438,9 +466,10 @@ geomFrance <- geomFrance%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = code,
-    district_name = nom
+    micro_code = code,
+    micro_name = nom
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -455,16 +484,17 @@ geomGermany <- st_read("countries/data/orig_geom/geomGermany.geojson")
 geomGermany <- geomGermany%>%
   mutate(
     country_name = "Germany",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = county
+    micro_code,
+    micro_name = county
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -477,18 +507,22 @@ geomGermany%>%
 geomIndia <- st_read("countries/data/orig_geom/geomIndia.geojson")
 
 geomIndia <- geomIndia%>%
+  group_by(NAME_1)%>% # Merge the two Dadra... so they only take up one entry
+  summarise()%>%
+  st_cast("MULTIPOLYGON")%>%
   mutate(
     country_name = "India",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = NAME_1
+    micro_code,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -503,16 +537,17 @@ geomIndonesia <- st_read("countries/data/orig_geom/geomIndonesia.geojson")
 geomIndonesia <- geomIndonesia%>%
   mutate(
     country_name = "Indonesia",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = NAME_1
+    micro_code,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -524,6 +559,15 @@ geomIndonesia%>%
 
 geomIreland <- st_read("countries/data/orig_geom/geomIreland.geojson")
 
+provIreland <- geomIreland%>%
+  group_by(PROVINCE)%>%
+  group_keys()%>%
+  tibble::rowid_to_column("macro_code")
+
+geomIreland%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscIreland.csv")
+
 geomIreland <- geomIreland%>%
   mutate(
     country_name = "Ireland"
@@ -531,12 +575,15 @@ geomIreland <- geomIreland%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
+  left_join(provIreland)%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_name = PROVINCE,
-    district_code = CO_ID,
-    district_name = id
+    macro_code,
+    macro_name = PROVINCE,
+    micro_code = CO_ID,
+    micro_name = CONTAE
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make Ireland valid
@@ -548,7 +595,7 @@ geomIreland <- geomIreland%>%
 geomIreland%>%
   st_write("countries/data/temp_geom/geomIreland.geojson")
 #rm(geomIreland)
-
+rm(provIreland)
 # Italy"
 
 geomItaly <- st_read("countries/data/orig_geom/geomItaly.geojson")
@@ -562,11 +609,12 @@ geomItaly <- geomItaly%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_name = reg_name,
-    region_code = reg_istat_code,
-    district_code = prov_istat_code,
-    district_name = prov_name
+    macro_code = reg_istat_code,
+    macro_name = reg_name,
+    micro_code = prov_istat_code,
+    micro_name = prov_name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -581,16 +629,17 @@ geomJapan <- st_read("countries/data/orig_geom/geomJapan.geojson")
 geomJapan <- geomJapan%>%
   mutate(
     country_name = "Japan",
-    district_code = row_number()
+    micro_code = row_number()
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code,
-    district_name = NAME_1
+    micro_code,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -617,9 +666,10 @@ geomMalaysia <- geomMalaysia%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = id,
-    district_name = Name
+    micro_code = id,
+    micro_name = Name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -634,18 +684,19 @@ geomMexico <- st_read("countries/data/orig_geom/geomMexico.geojson")
 geomMexico <- geomMexico%>%
   mutate(
     country_name = "Mexico",
-    region_code = str_sub(CVEGEO, 1, 2)
+    macro_code = str_sub(CVEGEO, 1, 2)
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code,
-    region_name = estado,
-    district_code = CVEGEO,
-    district_name = NOMGEO
+    macro_code,
+    macro_name = estado,
+    micro_code = CVEGEO,
+    micro_name = NOMGEO
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -672,9 +723,10 @@ geomMozambique <- geomMozambique%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = ID_1,
-    district_name = NAME_1
+    micro_code = ID_1,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -688,7 +740,7 @@ geomNetherlands <- st_read("countries/data/orig_geom/geomNetherlands.geojson")
 
 geomNetherlands%>%
   st_drop_geometry()%>%
-  write_csv("countries/data/netherlands_pop.csv")
+  write_csv("countries/data/miscNetherlands.csv")
 
 geomNetherlands <- geomNetherlands%>%
   mutate(
@@ -699,11 +751,12 @@ geomNetherlands <- geomNetherlands%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code = Provinciecode,
-    region_name = Provincie,
-    district_code = Code,
-    district_name = Gemeentenaam
+    macro_code = Provinciecode,
+    macro_name = Provincie,
+    micro_code = Code,
+    micro_name = Gemeentenaam
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -724,9 +777,10 @@ geomNigeria <- geomNigeria%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = admin1Pcod,
-    district_name = admin1Name
+    micro_code = admin1Pcod,
+    micro_name = admin1Name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -758,11 +812,12 @@ geomNorway <- geomNorway%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code = fylke_no,
-    region_name = fylke_name,
-    district_code = kommune_no,
-    district_name = kommune_name
+    macro_code = fylke_no,
+    macro_name = fylke_name,
+    micro_code = kommune_no,
+    micro_name = kommune_name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -784,9 +839,10 @@ geomNZ <- geomNZ%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = DHB2015_Co,
-    district_name = DHB2015_Na
+    micro_code = DHB2015_Co,
+    micro_name = DHB2015_Na
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -812,9 +868,10 @@ geomPeru <- geomPeru%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = FIRST_IDDP,
-    district_name = NOMBDEP
+    micro_code = FIRST_IDDP,
+    micro_name = NOMBDEP
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -840,11 +897,12 @@ geomPhilippines <- geomPhilippines%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code = ADM1_PCODE,
-    region_name = ADM1_EN,
-    district_code = ADM2_PCODE,
-    district_name = ADM2_EN
+    macro_code = ADM1_PCODE,
+    macro_name = ADM1_EN,
+    micro_code = ADM2_PCODE,
+    micro_name = ADM2_EN
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -857,6 +915,10 @@ rm(namesPhilippines)
 
 geomSaudiArabia <- st_read("countries/data/orig_geom/geomSaudiArabia.geojson")
 
+geomSaudiArabia%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscSaudiArabia.csv")
+
 geomSaudiArabia <- geomSaudiArabia%>%
   mutate(
     country_name = "Saudi Arabia"
@@ -866,9 +928,10 @@ geomSaudiArabia <- geomSaudiArabia%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = REG_CODE,
-    district_name = region_name_en
+    micro_code = REG_CODE,
+    micro_name = region_name_en
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))%>%
   st_make_valid() # Make Saudi Arabia valid
@@ -890,8 +953,9 @@ geomSouthAfrica <- geomSouthAfrica%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = PROVINCE
+    micro_code = PROVINCE
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -902,6 +966,8 @@ geomSouthAfrica%>%
 # Spain"
 
 geomSpain <- st_read("countries/data/orig_geom/geomSpain.geojson")
+namesSpain <- vroom::vroom("countries/data/namesSpain.csv")%>%
+  mutate(cod_ccaa = str_pad(Code,width = 2, side = "left",pad = "0"))
 
 geomSpain <- geomSpain%>%
   mutate(
@@ -910,12 +976,15 @@ geomSpain <- geomSpain%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
   )%>%
+  left_join(namesSpain)%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_code = cod_ccaa,
-    district_code = cod_prov,
-    district_name = name
+    macro_code = cod_ccaa,
+    macro_name = Region,
+    micro_code = cod_prov,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))%>%
   st_make_valid()# Make Spain valid
@@ -923,6 +992,7 @@ geomSpain <- geomSpain%>%
 geomSpain%>%
   st_write("countries/data/temp_geom/geomSpain.geojson")
 #rm(geomSpain)
+rm(namesSpain)
 
 # Sweden"
 
@@ -937,9 +1007,10 @@ geomSweden <- geomSweden%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = cartodb_id,
-    district_name = name
+    micro_code = cartodb_id,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -962,9 +1033,10 @@ geomSwitzerlandLiechtenstein <- geomSwitzerlandLiechtenstein%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    district_code = id,
-    district_name = name
+    micro_code = id,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -985,13 +1057,15 @@ geomTaiwan <- st_read("countries/data/orig_geom/geomTaiwan.geojson")
 geomTaiwan <- geomTaiwan%>%
   mutate(
     country_name = "Taiwan",
-    m49code = 158 # Using ISO3166 code bc Taiwan is not in the M49 list
+    m49code = 158, # Using ISO3166 code bc Taiwan is not in the M49 list
+    iso3 = "TWN"
   )%>%
   select(
     m49code,
+    iso3,
     country_name,
-    district_code = COUNTYSN,
-    district_name = COUNTYNAME
+    micro_code = COUNTYSN,
+    micro_name = COUNTYNAME
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -1003,6 +1077,10 @@ geomTaiwan%>%
 
 geomThailand <- st_read("countries/data/orig_geom/geomThailand.geojson")
 
+geomThailand%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscThailand.csv")
+
 geomThailand <- geomThailand%>%
   mutate(
     country_name = "Thailand"
@@ -1012,10 +1090,11 @@ geomThailand <- geomThailand%>%
   )%>%
   select(
     m49code = M49Code,
+    iso3 = ISOalpha3Code,
     country_name,
-    region_name = reg_nesdb,
-    district_code = pro_code,
-    district_name = pro_en
+    macro_name = reg_nesdb,
+    micro_code = pro_code,
+    micro_name = pro_en
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -1027,16 +1106,22 @@ geomThailand%>%
 
 geomUnitedKingdom <- st_read("countries/data/orig_geom/geomUnitedKingdom.geojson")
 
+geomUnitedKingdom%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/miscUK.csv")
+
 geomUnitedKingdom <- geomUnitedKingdom%>%
   mutate(
     country_name = "United Kingdom",
-    m49code = m49$M49Code[which(m49$CountryorArea == "United Kingdom of Great Britain and Northern Ireland")]
+    m49code = m49$M49Code[which(m49$CountryorArea == "United Kingdom of Great Britain and Northern Ireland")],
+    iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "United Kingdom of Great Britain and Northern Ireland")]
   )%>%
   select(
     m49code,
+    iso3,
     country_name,
-    district_code = code,
-    district_name = name
+    micro_code = code,
+    micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -1051,46 +1136,49 @@ geomUnitedStates <- st_read("countries/data/orig_geom/geomUnitedStates.geojson")
 geomUnitedStates <- geomUnitedStates%>%
   mutate(
     country_name = "United States",
-    region_code = str_sub(GEOID, 1, 2),
-    m49code = m49$M49Code[which(m49$CountryorArea == "United States of America")]
+    macro_code = str_sub(GEOID, 1, 2),
+    m49code = m49$M49Code[which(m49$CountryorArea == "United States of America")],
+    iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "United States of America")]
   )%>%
   select(
     m49code,
+    iso3,
     country_name,
-    region_code,
-    region_name = stname,
-    district_code = GEOID,
-    district_name = NAME
+    macro_code,
+    macro_name = stname,
+    micro_code = GEOID,
+    micro_name = NAME
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
 geomAK <- geomUnitedStates%>%
-  filter(region_name == "AK")%>%
+  filter(macro_name == "AK")%>%
   st_transform(3467)%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomCO <- geomUnitedStates%>%
-  filter(region_name == "CO")%>%
+  filter(macro_name == "CO")%>%
   st_transform(2773)%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomID <- geomUnitedStates%>%
-  filter(region_name == "ID")%>%
+  filter(macro_name == "ID")%>%
   st_transform(2788)%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomKS <- geomUnitedStates%>%
-  filter(region_name == "KS")%>%
+  filter(macro_name == "KS")%>%
   st_make_valid()
 
 geomNew <- bind_rows(geomAK, geomCO, geomID, geomKS)
 
-for(x in geomNew$district_code){
-  st_geometry(geomUnitedStates)[geomUnitedStates$district_code==x] = st_geometry(geomNew)[geomNew$district_code==x]
+for(x in geomNew$micro_code){
+  st_geometry(geomUnitedStates)[geomUnitedStates$micro_code==x] = st_geometry(geomNew)[geomNew$micro_code==x]
 }
+rm(x)
 
 geomUnitedStates%>%
   st_write("countries/data/temp_geom/geomUnitedStates.geojson")
@@ -1104,13 +1192,15 @@ geomVenezuela <- st_read("countries/data/orig_geom/geomVenezuela.geojson")
 geomVenezuela <- geomVenezuela%>%
   mutate(
     country_name = "Venezuela",
-    m49code = m49$M49Code[which(m49$CountryorArea == "Venezuela (Bolivarian Republic of)")]
+    m49code = m49$M49Code[which(m49$CountryorArea == "Venezuela (Bolivarian Republic of)")],
+    iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "Venezuela (Bolivarian Republic of)")]
   )%>%
   select(
     m49code,
+    iso3,
     country_name,
-    district_code = ID_1,
-    district_name = NAME_1
+    micro_code = ID_1,
+    micro_name = NAME_1
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
@@ -1129,13 +1219,27 @@ geom_list <- list.files("countries/data/temp_geom/", full.names = T)
 
 geom_list <- str_extract(geom_list[str_which(geom_list,".geojson$")],"[:alpha:]*(?=.geojson)")
 
-geomWorld <- purrr::map_df(geom_list, ~get(.x)%>%
-                             mutate(filename=.x)%>%
-                             st_collection_extract()%>%
-                             st_cast("MULTIPOLYGON")
+geomWorld <- purrr::map_df(
+  geom_list,
+  ~get(.x)%>%
+    mutate(
+      filename=.x
+      )%>%
+    st_collection_extract()%>%
+    st_cast("MULTIPOLYGON")
+  )%>%
+  replace_na(list("macro_code"="00"))%>%
+  mutate(
+    geoid = paste(paste0(iso3,m49code), macro_code, micro_code, sep="_")
     )%>%
+  select(geoid, m49code, iso3, country_name, macro_code, macro_name, everything())%>%
   st_as_sf()%>%
   tibble::remove_rownames()
 
-st_write(geomWorld, "countries/data/WorldPreSimp/geomWorld_presimp.geojson", delete_dsn = T)
+st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn = T)
 # file.remove(list.files("countries/data/temp_geom", full.names = T))
+rm(list = geom_list)
+
+file.remove("countries/data/WorldPreSimp.zip")
+zip(zipfile = "countries/data/WorldPreSimp.zip","geomWorld_presimp.geojson")
+file.remove("geomWorld_presimp.geojson")
