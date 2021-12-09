@@ -23,6 +23,14 @@ for(aa in 1:length(CountriesCovered)){
 			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Isle of Man")]
 			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Guernsey")]
 			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Jersey")]
+			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Gibraltar")]
+	}
+	if(CountriesCovered[aa]=="Denmark"){ #keep Faroe Islands, Greenland
+			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Faroe")]
+			INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Greenland")]
+	}
+	if(CountriesCovered[aa]=="Norway"){ #keep Svalbard and Jan Mayen Islands
+		INDXs = INDXs[-which(EuroMap$Region[INDXs]=="Svalbard and Jan Mayen Islands")]
 	}
 	RM_REGIONS = c(RM_REGIONS, INDXs)
 }
