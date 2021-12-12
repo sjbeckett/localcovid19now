@@ -13,7 +13,10 @@ pInf=c()
 for(aa in 1:length(regions)){
 	subsetdata = x[which(x$administrative_area_level_2==regions[aa]),]
 	DateReport[aa] = as.character(max(subsetdata$date))
-	CaseDifference[aa] = (10/14)*diff(range(tail(subsetdata$confirmed,14)))
+	#CaseDifference[aa] = (10/14)*diff(range(tail(subsetdata$confirmed,14)))
+	## diff(range(tail(subsetdata$confirmed,14))) returns NA
+	currentInd = nrow(subsetdata)
+	CaseDifference[aa] = (10/14)*(subsetdata$confirmed[currentInd] - subsetdata$confirmed[currentInd-14])
 	pInf[aa] = CaseDifference[aa]/subsetdata$population[1]
 }
 
