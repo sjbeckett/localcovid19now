@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-rubregionalcovid19.Rproj
+subregionalcovid19.Rproj
+covidoauth.json
