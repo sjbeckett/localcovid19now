@@ -5,7 +5,7 @@ LoadCanada <- function(){
 CANADADATA<- vroom::vroom("https://github.com/ishaberry/Covid19Canada/raw/master/timeseries_hr/cases_timeseries_hr.csv")
 
 #CAN_LINK<- read.csv("https://raw.githubusercontent.com/ishaberry/Covid19Canada/master/other/hr_map.csv",encoding="UTF-8")#contains pop and health region ID codes
-CAN_LINK <- read.csv("countries/data/Canada_pop.csv")
+CAN_LINK <- vroom("countries/data/Canada_pop.csv")
 
 #shrink this data file
 DATES = as.Date(CANADADATA$date_report,format="%d-%m-%Y")
@@ -81,9 +81,9 @@ geomCAN = st_read("countries/data/geom/geomCanada.geojson")
 
 
 #integrate datasets
-HAM = inner_join(geomCAN,CANADARISK,by = c("HR_UID" = "HR_UID"))
-HAM$RegionName = paste0(HAM$health_region,", ",HAM$province,", Canada")
-HAM$Country = "Canada"
+HAM = inner_join(geomCAN,CANADARISK,by = c("micro_code" = "HR_UID"))
+HAM$RegionName = paste(HAM$health_region, HAM$province, HAM$country_name, sep=", ")
+HAM$Country = HAM$country_name
 
 CANADA_DATA = subset(HAM,select = c("DateReport","RegionName","Country","pInf","geometry"))
 return(CANADA_DATA)

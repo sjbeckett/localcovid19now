@@ -6,14 +6,14 @@ LoadCzechia <- function(){
 #Geometry
 #geomCzechia <<- st_read('https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/distictsCzechiaLow.json') 
 geomCzechia <- st_read("countries/data/geom/geomCzechia.geojson")
-geomCzechia <- geomCzechia %>% select(name, geometry) %>% mutate(name = as.character(name))
+# geomCzechia <- geomCzechia %>% select(name, geometry) %>% mutate(name = as.character(name))
 
 #population
-czech_pop <- read.csv('countries/data/czech_pop.csv',encoding = 'UTF-8')
+czech_pop <- vroom('countries/data/czech_pop.csv')
 # names(czech_pop)[1] <- 'code'
 
 #case data
-czechData <- read.csv('https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv', encoding = 'UTF-8')
+czechData <- vroom('https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv')
 
 names(czechData) <- c('id','Date','Code','District','Confirmed','Cure','Death')
 
@@ -27,10 +27,10 @@ czechData = czechData %>%
 #integrate datasets  
   czech_data_join <- inner_join(as.data.frame(czechData), czech_pop, by = c("District" = "Code"))
   names(czech_data_join) <- c('Code','Difference','Date','name','Population')
-  CzechMap <- inner_join(geomCzechia,czech_data_join, by = 'name')
+  CzechMap <- inner_join(geomCzechia,czech_data_join, by = c("micro_name"='name'))
   
-  CzechMap$RegionName = paste0(CzechMap$name,", Czechia")
-  CzechMap$Country = "Czechia"
+  CzechMap$RegionName = paste0(CzechMap$name,CzechMap$country_name, sep=", ")
+  CzechMap$Country = CzechMap$country_name
   CzechMap$DateReport = as.character(CzechMap$Date) 
   CzechMap$pInf = CzechMap$Difference/CzechMap$Population
   

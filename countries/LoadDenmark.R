@@ -6,11 +6,11 @@ LoadDenmark <- function(){
   #geometry
   #geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')
   geomDenmark <-st_read("countries/data/geom/geomDenmark.geojson")
-  #name alteration for matching case data
-  Name2save1 = geomDenmark$micro_name[42] #"Høje-Taastrup"
-  Name2save2 = geomDenmark$micro_name[60] #"Lyngby-Taarbæk"
-  Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
-  
+  # #name alteration for matching case data
+  # Name2save1 = geomDenmark$micro_name[42] #"Høje-Taastrup"
+  # Name2save2 = geomDenmark$micro_name[60] #"Lyngby-Taarbæk"
+  # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
+  # 
   
   #case data
   # 1.)  identify file location from webpages
@@ -37,40 +37,7 @@ LoadDenmark <- function(){
   DenmarkData  <- vroom(file.path(temp2, "Municipality_cases_time_series.csv"),delim=";")
   unlink(temp)
   unlink(temp2)
-  otime <- system.time({
-  #calculate case differences per location (file is new cases per day)
-  DenmarkCounty <- names(DenmarkData)[2:length(names(DenmarkData))] 
-  DenmarkData$SampleDate <- as.Date(DenmarkData$SampleDate)
   
-  getDenmarkData <- function(code){
-    subdata <- DenmarkData[,c("SampleDate",DenmarkCounty[code])]
-    subdata$CumCases <- cumsum(subdata[,DenmarkCounty[code]])
-    x <- length(subdata$SampleDate)
-    difference <- ((subdata[x,'CumCases'] - subdata[x-14,'CumCases'])*10/14)
-    vec <- data.frame(Municipality = DenmarkCounty[code], Date = subdata$SampleDate[x], Difference = pull(difference))
-    return(vec)
-  }
-  
-  dataTable <- data.frame(Municipality = as.character(), Date = as.character(), Difference = as.numeric())
-  for (ii in 1:length(DenmarkCounty)){
-    vec <- getDenmarkData(ii)
-    dataTable <- rbind(dataTable,vec)
-  }
-  dataTable <- dataTable %>% mutate(Municipality = as.character(Municipality), Date = as.Date(Date))
-     
- 
-  # adjust some municipalities' names so that they match with population file
-
-  dataTable$Municipality[which(dataTable$Municipality == "Faaborg.Midtfyn")] <-  "Faaborg-Midtfyn"
-  dataTable$Municipality[which(dataTable$Municipality == "Ikast.Brande")] <-  "Ikast-Brande"
-  
-  dataTable$Municipality[which(dataTable$Municipality == sort(DenmarkCounty)[42])] = Name2save1
-  dataTable$Municipality[which(dataTable$Municipality == sort(DenmarkCounty)[60])] = Name2save2
-  dataTable$Municipality[which(dataTable$Municipality == sort(DenmarkCounty)[74])] = Name2save3
-  
-  })
-  #test
-  ntime <- system.time({
   curdate <- DenmarkData$SampleDate%>%sort()%>%last()
   
   dataTable2 <- DenmarkData%>%
@@ -96,9 +63,6 @@ LoadDenmark <- function(){
       Date=curdate
     )%>%
     select(Date, everything(), -starts_with("d",ignore.case = F))
-  })
-otime
-ntime
  
   #population
   DenmarkPop <- vroom("countries/data/denmark_pop.csv") ## get from Statistics Denmark: https://www.statbank.dk/statbank5a/SelectVarVal/saveselections.asp
@@ -111,10 +75,10 @@ ntime
   Denmarkdf$Municipality[which(Denmarkdf$Municipality == 'Nordfyns')] <- "Nordfyn"
   Denmarkdf$Municipality[which(Denmarkdf$Municipality == 'Vesthimmerlands')] <- "Vesthimmerland"
     
-  DenmarkMap <- inner_join(geomDenmark, Denmarkdf, by = c("name" = "Municipality"))
+  DenmarkMap <- inner_join(geomDenmark, Denmarkdf, by = c("micro_name" = "Municipality"))
  
-  DenmarkMap$RegionName = paste(DenmarkMap$micro_name,DenmarkMap$country_name, )
-  DenmarkMap$Country = "Denmark"
+  DenmarkMap$RegionName = paste(DenmarkMap$micro_name,DenmarkMap$country_name, sep=", ")
+  DenmarkMap$Country = DenmarkMap$country_name
   DenmarkMap$DateReport = as.character(DenmarkMap$Date) 
   DenmarkMap$pInf = DenmarkMap$Difference/as.numeric(DenmarkMap$Population)
   DENMARK_DATA = subset(DenmarkMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

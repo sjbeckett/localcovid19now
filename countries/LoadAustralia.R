@@ -16,16 +16,16 @@ for (i in 1:length(stateList)){
 
 
 ## population
-pop <- read.csv('countries/data/AustraliaPop.csv')
+pop <- vroom('countries/data/AustraliaPop.csv')
 australiadf <- inner_join(australiaCases,pop, by = 'state')
 
 #geom
 #geomAustralia <- st_read('https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson')
 geomAustralia <-st_read("countries/data/geom/geomAustralia.geojson")
 
-AustraliaMap <- inner_join(geomAustralia, australiadf, by = c("STATE_NAME" = "state"))
-AustraliaMap$RegionName = paste0(AustraliaMap$STATE_NAME,", Australia")
-AustraliaMap$Country = "Australia"
+AustraliaMap <- inner_join(geomAustralia, australiadf, by = c("micro_name" = "state"))
+AustraliaMap$RegionName = paste(AustraliaMap$micro_name, AustraliaMap$country_name, sep = ", ")
+AustraliaMap$Country = AustraliaMap$country_name
 AustraliaMap$DateReport = as.character(AustraliaMap$Date)
 AustraliaMap$pInf = AustraliaMap$Difference/AustraliaMap$Population
 Australia_DATA = subset(AustraliaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

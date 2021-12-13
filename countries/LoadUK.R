@@ -39,7 +39,7 @@ LoadUK <- function(){
   
 #population	
   #pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/uk_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
-  pop <- read.csv("countries/data/UK_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
+  pop <- vroom("countries/data/UK_pop.csv", n_max = )%>% drop_na()%>% select(-c("name"))
   
   #Join geom and pop of Hackney and City of London
   #Hackney: (E09000012) ; C.o.L. (E09000001)
@@ -76,17 +76,21 @@ LoadUK <- function(){
  #st_write(geom,"countries/data/geom/geomUnitedKingdom.geojson")
  geom<- st_read("countries/data/geom/geomUnitedKingdom.geojson")
 
+ misc <- vroom("countries/data/miscUK.csv")
 
   #integrate datasets
   
   data_join <<- data_cur %>%
     inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
-    inner_join(pop, by = c("code"))
+    inner_join(pop, by = c("code"))%>%
+    inner_join(misc, by = "code")
 
   data_join$Difference <- (data_join$cases - data_join$cases_past)*10/14
-  UKMap <- inner_join(geom,data_join,by = 'code')
-  UKMap$RegionName = paste0(UKMap$name,", UK")
-  UKMap$Country = "United Kingdom"
+  UKMap <- inner_join(geom,data_join,by = c("micro_code"='code'))
+  UKMap$RegionName = paste(UKMap$micro_name,UKMap$country_name, sep=", ")
+  # If the wlesh names aren't already present, then:
+    #sprintf(paste("%s",UKMap$country_name, sep=", "), if_else(is.na(UKMap$welshname)==F & UKMap$welshname != UKMap$micro_name, paste(UKMap$micro_name,UKMap$welshname, sep="/"), UKMap$micro_name))
+  UKMap$Country = UKMap$country_name
   UKMap$DateReport = as.character(UKMap$date) 
   UKMap$pInf = UKMap$Difference/UKMap$pop
   UK_DATA = subset(UKMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

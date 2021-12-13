@@ -18,7 +18,7 @@ flag=0
 aa=0
 while(flag==0){
 	STRING = paste0('https://epistat.sciensano.be/Data/',getDate(aa,0),'/COVID19BE_CASES_MUNI_CUM_',getDate(aa,0),'.csv')
-	latest_data <- try(read.csv(STRING,encoding="UTF-8"))
+	latest_data <- try(vroom(STRING))
 	if (is.null(dim(latest_data)) == FALSE){
 		flag=1
 	}else{
@@ -36,7 +36,7 @@ flag=0
 aa=0
 while(flag==0){
 	STRING = paste0('https://epistat.sciensano.be/Data/',getDate(14+aa,0),'/COVID19BE_CASES_MUNI_CUM_',getDate(14+aa,0),'.csv')
-	past_data <- try(read.csv(STRING,encoding="UTF-8"))
+	past_data <- try(vroom(STRING))
 	if (is.null(dim(past_data)) == FALSE){
 		flag=1
 	}else{
@@ -80,46 +80,48 @@ finalData <- data.frame(Arrondissement = latest_update[,'Arrondissement'], Diffe
 
 # geojson file
 #geomBelgium <- st_read('countries/data/geom/geomBelgium.geojson')
-#geomBelgium <- geomBelgium[,c("NameDUT","geometry")]
-#for (i in 1:length(geomBelgium$NameDUT)){
-#  geomBelgium$NameDUT[i] <- unlist(strsplit(geomBelgium$NameDUT[i], "Arrondissement "))[2]
+#geomBelgium <- geomBelgium[,c("micro_name","geometry")]
+#for (i in 1:length(geomBelgium$micro_name)){
+#  geomBelgium$micro_name[i] <- unlist(strsplit(geomBelgium$micro_name[i], "Arrondissement "))[2]
 #}
-#geomBelgium$NameDUT[28] <- sort(finalData$Arrondissement)[22] # La Louviere
-#geomBelgium$NameDUT[39] <- sort(finalData$Arrondissement)[29] # Neufchâteau
+#geomBelgium$micro_name[28] <- sort(finalData$Arrondissement)[22] # La Louviere
+#geomBelgium$micro_name[39] <- sort(finalData$Arrondissement)[29] # Neufch?teau
 #geomBelgium <- st_write(geomBelgium,'countries/data/geom/geomBelgium.geojson')
 geomBelgium <- st_read('countries/data/geom/geomBelgium.geojson')
 
-finalData <- inner_join(geomBelgium, finalData, by = c('NameDUT' = 'Arrondissement'))
+finalData <- inner_join(geomBelgium, finalData, by = c('micro_name' = 'Arrondissement'))
 
 #population
-pop <- read.csv("countries/data/belgiumPopulation.csv",encoding="UTF-8")
+pop <- vroom("countries/data/belgiumPopulation.csv")
 
 #add to dataset
-belgiumdf <- inner_join(finalData,pop, by = c('NameDUT' = 'Name'))
+belgiumdf <- inner_join(finalData,pop, by = c('micro_name' = 'Name'))
 
 
 # Change names to account for NL and FR:
-nameMuni <- read.csv('countries/data/belgiumNames.csv')
-for (i in 1:length(belgiumdf$NameDUT)){
+nameMuni <- vroom('countries/data/belgiumNames.csv')%>%
+  rename_with(.fn = \(x) str_replace_all(x,"\\s","\\."))
+
+for (i in 1:length(belgiumdf$micro_name)){
   for (j in 1:length(nameMuni$Dutch.name)){
-    if (belgiumdf$NameDUT[i] == nameMuni$Dutch.name[j] & nameMuni$French.name[j] != '-'){
-      belgiumdf$NAME[i] <- paste0(belgiumdf$NameDUT[i],'/',nameMuni$French.name[j])
+    if (belgiumdf$micro_name[i] == nameMuni$Dutch.name[j] & nameMuni$French.name[j] != '-'){
+      belgiumdf$micro_name[i] <- paste0(belgiumdf$micro_name[i],'/',nameMuni$French.name[j])
     }
-    else if (belgiumdf$NameDUT[i] == nameMuni$French.name[j] & nameMuni$Dutch.name[j] != '-'){
-      belgiumdf$NAME[i] <- paste0(belgiumdf$NameDUT[i],'/',nameMuni$Dutch.name[j])
+    else if (belgiumdf$micro_name[i] == nameMuni$French.name[j] & nameMuni$Dutch.name[j] != '-'){
+      belgiumdf$micro_name[i] <- paste0(belgiumdf$micro_name[i],'/',nameMuni$Dutch.name[j])
     }
-    else if ((belgiumdf$NameDUT[i] == nameMuni$Dutch.name[j] | belgiumdf$NameDUT[i] == nameMuni$French.name[j]) & (nameMuni$French.name[j] == '-' | nameMuni$Dutch.name[j] == '-')){
-      belgiumdf$NAME[i] <- belgiumdf$NameDUT[i]
+    else if ((belgiumdf$micro_name[i] == nameMuni$Dutch.name[j] | belgiumdf$micro_name[i] == nameMuni$French.name[j]) & (nameMuni$French.name[j] == '-' | nameMuni$Dutch.name[j] == '-')){
+      belgiumdf$micro_name[i] <- belgiumdf$micro_name[i]
     }
   }
-  if (belgiumdf$NameDUT[i] == 'Tournai-Mouscron'){
-    belgiumdf$NAME[i] <- paste0('Tournai/Doornik-Mouscron/Moeskroen')
+  if (belgiumdf$micro_name[i] == 'Tournai-Mouscron'){
+    belgiumdf$micro_name[i] <- paste0('Tournai/Doornik-Mouscron/Moeskroen')
   }
 }
 
 #integrate datsets
-belgiumdf$RegionName = paste0(belgiumdf$NAME, ", Belgium")
-belgiumdf$Country = "Belgium"
+belgiumdf$RegionName = paste(belgiumdf$micro_name, belgiumdf$country_name, sep = ", ")
+belgiumdf$Country = belgiumdf$country_name
 belgiumdf$DateReport = as.character(UpdateDate) 
 belgiumdf$pInf = belgiumdf$Difference/belgiumdf$Population
 

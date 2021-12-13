@@ -18,7 +18,7 @@ m49 <- m49%>%
   rename_with(
     .fn = \(x) str_replace_all(x, "[\\s/-]","")
   )
-geom_list <- c()
+
 # Afghanistan
 
 geomAfghanistan <- st_read("countries/data/orig_geom/geomAfghanistan.geojson")
@@ -182,7 +182,7 @@ geomBrazil <- geomBrazil%>%
     iso3 = ISOalpha3Code,
     country_name,
     macro_code = regiao_id,
-    micro_code = codigo_ibg,
+    micro_code = sigla,
     micro_name = nome
   )%>%
   st_make_valid()%>% # Brazil has some invalidity
@@ -212,6 +212,7 @@ geomCanada <- geomCanada%>%
     m49code = M49Code,
     iso3 = ISOalpha3Code,
     country_name,
+    macro_code = Province,
     micro_code = HR_UID,
     micro_name = ENGNAME
   )%>%
@@ -332,7 +333,8 @@ geomCuba <- geomCuba%>%
     micro_code = province_id,
     micro_name = province
   )%>%
-  mutate(across(.cols=ends_with("code"),.fns=as.character))
+  mutate(across(.cols=ends_with("code"),.fns=as.character))%>%
+  filter(micro_code != "unk")
 # Make Cuba valid
 geomCuba <- geomCuba%>%
   st_transform(32617)%>%
@@ -348,10 +350,14 @@ geomCuba%>%
 
 geomCzechia <- st_read("countries/data/orig_geom/geomCzechia.geojson")
 
+namesCzechia <- vroom('countries/data/czech_pop.csv')%>%
+  select(-Population)
+# Load codes for Local Admin Units (LAU)
 geomCzechia <- geomCzechia%>%
+  full_join(namesCzechia, by=c("name"="District"))%>%
   mutate(
     country_name = "Czechia",
-    micro_code = row_number()
+    macro_code = str_sub(Code, 1,5) # NUTS 3 level code
   )%>%
   left_join(
     m49, by = c("country_name" = "CountryorArea")
@@ -360,7 +366,8 @@ geomCzechia <- geomCzechia%>%
     m49code = M49Code,
     iso3 = ISOalpha3Code,
     country_name,
-    micro_code,
+    macro_code,
+    micro_code = Code,
     micro_name = name
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
@@ -427,7 +434,7 @@ geomEurope <- geomEurope%>%
       TRUE~CountryName
     ),
     rem = case_when(
-      Region %in% c("Isle of Man","Guernsey","Jersey") ~ 0,
+      Region %in% c("Isle of Man","Guernsey","Jersey","Gibraltar", "Faroe", "Greenland","Svalbard and Jan Mayen Islands") ~ 0,
       CountryName %in% c(CountriesCovered, "Turkmenistan") ~ 1,
       TRUE ~ 0
     )
@@ -1133,21 +1140,25 @@ geomUnitedKingdom%>%
 
 geomUnitedStates <- st_read("countries/data/orig_geom/geomUnitedStates.geojson")
 
+usStatelines <- st_read("countries/data/orig_geom/US_stateLines.geojson")%>%
+  st_drop_geometry()
+
 geomUnitedStates <- geomUnitedStates%>%
   mutate(
     country_name = "United States",
-    macro_code = str_sub(GEOID, 1, 2),
+    # macro_code = str_sub(GEOID, 1, 2),
     m49code = m49$M49Code[which(m49$CountryorArea == "United States of America")],
     iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "United States of America")]
   )%>%
+  inner_join(usStatelines, by = c("stname"="STUSPS"))%>%str()
   select(
     m49code,
     iso3,
     country_name,
-    macro_code,
-    macro_name = stname,
-    micro_code = GEOID,
-    micro_name = NAME
+    macro_code = STATEFP,
+    macro_name = NAME.y,
+    micro_code = GEOID.x,
+    micro_name = NAME.x
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 

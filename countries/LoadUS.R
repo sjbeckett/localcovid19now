@@ -18,11 +18,6 @@ LoadUS <- function(){
   #county$GEOID[30] = 2998
   #county$NAME[30] = "Yakutat plus Hoonah-Angoon"
   county <- st_read("countries/data/geom/geomUnitedStates.geojson") 
- 
-#state data  
-  stateline <- as.data.frame(st_read("countries/data/geom/US_stateLines.geojson"))
-  stateline <- stateline[,c('STUSPS','NAME')] 
-  names(stateline) <- c('stname','name')
 
 #county population level data
   #pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/county-population.csv", stringsAsFactors = FALSE)
@@ -68,11 +63,10 @@ LoadUS <- function(){
   data_join$CaseDiff <- (data_join$cases-data_join$cases_past)*10/data_join$n
   
 #integrate datasets  
-  USMap <- data_join %>% inner_join(county, by = c('fips' = 'GEOID')) %>%
-  inner_join(stateline, by = 'stname')
+  USMap <- data_join %>% inner_join(county, by = c('fips' = "micro_code"))
   
-  USMap$RegionName = paste0(USMap$NAME,', ',USMap$name,', USA')
-  USMap$Country = "United States"
+  USMap$RegionName = paste(USMap$micro_name,USMap$macro_name,USMap$iso3, sep=", ")
+  USMap$Country = USMap$country_name
   USMap$DateReport = as.character(USMap$date) 
   USMap$pInf = USMap$CaseDiff/USMap$pop
   US_DATA = subset(USMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

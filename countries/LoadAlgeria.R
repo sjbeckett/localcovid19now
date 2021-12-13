@@ -9,9 +9,9 @@ ALG = fromJSON("https://api.corona-dz.live/province/all")
 #geomAlgeria = st_read("https://github.com/Amine27/covid-19-dz/raw/master/static/map/algeria.json")
 geomAlgeria = st_read("countries/data/geom/geomAlgeria.geojson")
 
-name2save1 = geomAlgeria$NAME[22] #"Sidi Bel Abbès"
-name2save2 = geomAlgeria$NAME[44] #"Aïn Defla"
-name2save3 = geomAlgeria$NAME[46] #"Aïn Témouchent"
+name2save1 = geomAlgeria$micro_name[22] #"Sidi Bel Abbès"
+name2save2 = geomAlgeria$micro_name[44] #"Aïn Defla"
+name2save3 = geomAlgeria$micro_name[46] #"Aïn Témouchent"
 
 #regions
 provinces = ALG$name
@@ -34,16 +34,16 @@ for(aa in 1:length(provinces)){
 caseTable = data.frame(provinces,DateReport,CaseDifference)
 
 #population
-pop = read.csv("countries/data/algeria_pop.csv") #2008 census
+pop = vroom("countries/data/algeria_pop.csv") #2008 census
 
 Algeriadf = inner_join(caseTable,pop,by=c("provinces"="Name"))
 
 
 
-AlgeriaMap = inner_join(geomAlgeria,Algeriadf, by = c('NAME' = 'provinces'))
+AlgeriaMap = inner_join(geomAlgeria,Algeriadf, by = c('micro_name' = 'provinces'))
 AlgeriaMap$pInf = AlgeriaMap$CaseDifference/AlgeriaMap$population
-AlgeriaMap$RegionName = paste0(AlgeriaMap$NAME,', Algeria')
-AlgeriaMap$Country = "Algeria"
+AlgeriaMap$RegionName = paste(AlgeriaMap$micro_name,AlgeriaMap$country_name, sep=", ")
+AlgeriaMap$Country = AlgeriaMap$country_name
 ALGERIA_DATA = subset(AlgeriaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 
 return(ALGERIA_DATA)

@@ -10,7 +10,7 @@ while(flag==0){
 	DATE = Sys.Date()-aa
 	formDATE = format(DATE, "%Y%m%d")
 	STRING = paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_",formDATE)
-	MEX<- try(read.csv(STRING,encoding="UTF-8"))  #note older files are DELETED.
+	MEX<- try(vroom(STRING))  #note older files are DELETED.
 	if (is.null(dim(MEX)) == FALSE){
 		flag=1
 	}else{
@@ -64,9 +64,9 @@ DATA = as.data.frame(DataJoin)
 geomMEX = st_read("countries/data/geom/geomMexico.geojson")
 
 #integrate datasets
-MexicoMap = inner_join(geomMEX, DATA, by = c("CVEGEO" = "CVE"))
-MexicoMap$RegionName = paste0(MexicoMap$NOMGEO,", ",MexicoMap$estado,", Mexico")
-MexicoMap$Country = "Mexico"
+MexicoMap = inner_join(geomMEX, DATA, by = c("micro_code" = "CVE"))
+MexicoMap$RegionName = paste(MexicoMap$micro_name,MexicoMap$estado,MexicoMap$country_name,sep=", ")
+MexicoMap$Country = MexicoMap$country_name
 MexicoMap$DateReport = as.character(MexicoMap$DateReport)
 MEXICO_DATA = subset(MexicoMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 

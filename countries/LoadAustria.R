@@ -35,9 +35,9 @@ data_join$Difference <- (data_join$cases-data_join$cases_past)*10/14
 geomAustria<- st_read("countries/data/geom/geomAustria.geojson") 
  
 #integrate datsets
-AustriaMap <- inner_join(geomAustria,data_join,by = c('iso' = 'code'))
-AustriaMap$RegionName = paste0(AustriaMap$name,", Austria")
-AustriaMap$Country = "Austria"
+AustriaMap <- inner_join(geomAustria,data_join,by = c('micro_code' = 'code'))
+AustriaMap$RegionName = paste(AustriaMap$micro_name, AustriaMap$country_name, sep = ", ")
+AustriaMap$Country = AustriaMap$country_name
 AustriaMap$DateReport = as.character(AustriaMap$date) 
 AustriaMap$pInf = AustriaMap$Difference/AustriaMap$pop
 AUSTRIA_DATA = subset(AustriaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

@@ -2,7 +2,7 @@ LoadItaly <- function() {
 #Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc/COVID-19/
 
   dataQueryItaly <- function(date) {
-    data <- read.csv((paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", str_replace_all(as.character(date), "-", ""), ".csv")), stringsAsFactors = FALSE) %>%
+    data <- vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", str_replace_all(as.character(date), "-", ""), ".csv")) %>%
       select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)    
     return(data)
   }
@@ -21,7 +21,7 @@ LoadItaly <- function() {
     dplyr::summarise(date = first(date), cases = first(cases), region = first(region), province = first(province), n = n())
  
 #population
-  pop <- read.csv("countries/data/italy_pop.csv", stringsAsFactors = FALSE)
+  pop <- vroom("countries/data/italy_pop.csv")
   
   data_join <<- data_cur %>%
     inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
@@ -36,9 +36,9 @@ LoadItaly <- function() {
   
 #integrate datasets
   
-  ItalyMap <- inner_join(geom,data_join, by = c("prov_istat_code_num" = 'code'))
-  ItalyMap$RegionName = paste0(ItalyMap$name,", Italy")
-  ItalyMap$Country = "Italy"
+  ItalyMap <- inner_join(geom,data_join, by = c("micro_code" = 'code'))
+  ItalyMap$RegionName = paste(ItalyMap$name,ItalyMap$country_name, sep = ", ")
+  ItalyMap$Country = ItalyMap$country_name
   ItalyMap$DateReport = as.character(ItalyMap$date) 
   ItalyMap$pInf = ItalyMap$CaseDiff/ItalyMap$pop
   ITALY_DATA = subset(ItalyMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
