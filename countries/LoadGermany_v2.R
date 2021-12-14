@@ -1,5 +1,5 @@
-LoadGermany_v2 <- function(){
-links <- c('https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.geojson', #Baden-W�rttemberg
+LoadGermany <- function(){
+links <- c('https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.geojson', #Baden-Württemberg
           'https://opendata.arcgis.com/datasets/45258e51f57d43efb612f700a876ae8f_0.geojson', # bayern
           'https://opendata.arcgis.com/datasets/3949d6fd2dc74386b763e451f4c6e384_0.geojson', # Berlin
           'https://opendata.arcgis.com/datasets/5f81692e203a4888a64cb1976aafbd34_0.geojson', #Brandenburg
@@ -14,7 +14,7 @@ links <- c('https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366
           'https://opendata.arcgis.com/datasets/3d3235c08d4f44a2afd088546b704902_0.geojson', #Sachsen
           'https://opendata.arcgis.com/datasets/06a1c943a9b845968b5ad0607f5f48f5_0.geojson', #Sachsen-Anhalt
           'https://opendata.arcgis.com/datasets/4a648483aedd49b8a6655290181d4c2a_0.geojson', #Schleswig-Holstein
-          'https://opendata.arcgis.com/datasets/790f5423e03e49c4baec55a1a232c136_0.geojson' #Th�ringen
+          'https://opendata.arcgis.com/datasets/790f5423e03e49c4baec55a1a232c136_0.geojson' #Thüringen
           ) 
 germanyData <- data.frame()
 ### recommendation to use geojsonsf::geojson_sf instead of st_read
@@ -68,7 +68,7 @@ pop$Population[which(pop$IdLandkreis=="16063")] = pop$Population[which(pop$IdLan
 #geomGermany <- st_read('https://public.opendatasoft.com/explore/dataset/covid-19-germany-landkreise/download/?format=geojson&timezone=Europe/Berlin&lang=en')
 #geomGermany <- geomGermany[,c('county','geometry')]
 #alter names to match the case dataset
-#geomGermany$county[geomGermany$county=="Städteregion Aachen"] <- "StädteRegion Aachen"
+#geomGermany$county[geomGermany$county=="StÃ¤dteregion Aachen"] <- "StÃ¤dteRegion Aachen"
 #IND1 = which(geomGermany$county=="SK Eisenach")
 #IND2 = which(geomGermany$county=="LK Wartburgkreis")
 #HMM<- st_union(geomGermany[c(IND1,IND2),])%>% st_cast("MULTIPOLYGON")
