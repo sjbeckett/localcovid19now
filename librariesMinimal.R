@@ -10,7 +10,7 @@ library(rmapshaper) #for the ms_simplify function - simplifies polygons.
 library(stringr)
 library(vroom)
 library(htmlwidgets)
-
+library(purrr)
 library(shiny)
 library(RColorBrewer)
 library(rgdal)

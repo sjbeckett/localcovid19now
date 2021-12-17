@@ -15,7 +15,7 @@ for(aa in 1:length(regions)){
 	DateReport[aa] = as.character(max(subsetdata$date))
 	#CaseDifference[aa] = (10/14)*diff(range(tail(subsetdata$confirmed,14)))
 	## diff(range(tail(subsetdata$confirmed,14))) returns NA
-	currentInd = nrow(subsetdata)
+	currentInd = nrow(subsetdata)-1 #most recent date may not have case updates.
 	CaseDifference[aa] = (10/14)*(subsetdata$confirmed[currentInd] - subsetdata$confirmed[currentInd-14])
 	pInf[aa] = CaseDifference[aa]/subsetdata$population[1]
 }
