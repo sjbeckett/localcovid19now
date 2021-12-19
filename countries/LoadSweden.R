@@ -24,7 +24,7 @@ LoadSweden <- function() {
 
   #population
   #pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/sweden_pop.csv", encoding = 'UTF-8')
-  pop <-read.csv("countries/data/Sweden_pop.csv", encoding="UTF-8")
+  pop <-vroom("countries/data/Sweden_pop.csv")
 
 
   data_cur <<- data %>%
@@ -43,9 +43,9 @@ LoadSweden <- function() {
   data_join$Difference <- (data_join$cases - data_join$cases_past)*10/14
 
 #integrate datasets
-  SwedenMap <- inner_join(geom,data_join, by = c("name"='County'))
-  SwedenMap$RegionName = paste0(SwedenMap$name,", Sweden")
-  SwedenMap$Country = "Sweden"
+  SwedenMap <- inner_join(geom,data_join, by = c("micro_name"='County'))
+  SwedenMap$RegionName = paste(SwedenMap$micro_name,SwedenMap$country_name, sep = ", ")
+  SwedenMap$Country = SwedenMap$country_name
   SwedenMap$DateReport = as.character(SwedenMap$date)
   SwedenMap$pInf = SwedenMap$Difference/SwedenMap$Population
   SWEDEN_DATA = subset(SwedenMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

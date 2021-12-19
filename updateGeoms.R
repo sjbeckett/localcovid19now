@@ -762,7 +762,7 @@ geomNetherlands <- geomNetherlands%>%
     country_name,
     macro_code = Provinciecode,
     macro_name = Provincie,
-    micro_code = Code,
+    micro_code = Gemeentecode,
     micro_name = Gemeentenaam
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
@@ -1225,6 +1225,35 @@ geomVenezuela%>%
   st_write("countries/data/temp_geom/geomVenezuela.geojson")
 #rm(geomVenezuela)
 
+# Small Countries
+geomSmallCountries <- st_read("countries/data/orig_geom/WB_countries_Admin0_lowres.geojson")
+
+geomSmallCountries%>%
+  st_drop_geometry()%>%
+  write_csv("countries/data/popSmallCountries.csv")
+
+geomSmallCountries <- geomSmallCountries%>%
+  left_join(m49, by=c("ISO_A3"="ISOalpha3Code"))%>%
+  select(
+    m49code = M49Code,
+    iso3 = ISO_A3,
+    country_name = NAME_EN
+  )
+
+geomFiji <- geomSmallCountries[c(166),]%>% # Fiji
+  st_cast("POLYGON")%>%
+  group_by(m49code, iso3, country_name)%>%
+  summarise()%>%
+  ungroup()
+
+geomSmallCountries <- geomSmallCountries[which(st_is_valid(geomSmallCountries, reason=T)=="Valid Geometry"),]%>%
+  bind_rows(geomFiji)
+
+geomSmallCountries%>%
+  st_write("countries/data/temp_geom/geomSmallCountries.geojson")
+
+
+# Tidy up and finish
 
 geom_list <- list.files("countries/data/temp_geom/", full.names = T)
 

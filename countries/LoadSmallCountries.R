@@ -8,7 +8,7 @@ CountryList = c("Singapore","Brunei","Djibouti","Qatar","Marshall Islands","Sain
 ProvinceList = c("Falkland Islands (Malvinas)","New Caledonia","Turks and Caicos Islands","Anguilla","British Virgin Islands","Bermuda","Sint Maarten","Aruba","Curacao","Cook Islands")
 
 #load cases data
-data <- read.csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+data <- vroom('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv', .name_repair = make.names)
 
 # get updated date:
 date <- names(data)[length(names(data))]
@@ -36,23 +36,26 @@ caseTable$CountryList[which(caseTable$CountryList=="Curacao")] = "Curaçao"
 caseTable$CountryList[which(caseTable$CountryList=="Falkland Islands (Malvinas)")] = "Falkland Islands"
 
 #Geography
-geomGL = st_read("countries/data/geom/WB_countries_Admin0_lowres.geojson") #from world bank https://datacatalog.worldbank.org/dataset/world-bank-official-boundaries
-geomGL$NAME_EN[which(geomGL$NAME_EN=="Federated States of Micronesia")] = "Micronesia"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="The Bahamas")] = "Bahamas"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="The Gambia")] = "Gambia"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="eSwatini")] = "Eswatini"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="East Timor")] = "Timor-Leste"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="Cape Verde")] = "Cabo Verde"
-geomGL$NAME_EN[which(geomGL$NAME_EN=="Palestine")] = "West Bank and Gaza"
+geomGL = st_read("countries/data/orig_geom/geomSmallCountries.geojson") #from world bank https://datacatalog.worldbank.org/dataset/world-bank-official-boundaries
+smallPop <- vroom("countries/data/popSmallCountries.csv")
+geomGL <- inner_join(geomGL, smallPop, by = c("country_name"="NAME_EN"))
+
+geomGL$country_name[which(geomGL$country_name=="Federated States of Micronesia")] = "Micronesia"
+geomGL$country_name[which(geomGL$country_name=="The Bahamas")] = "Bahamas"
+geomGL$country_name[which(geomGL$country_name=="The Gambia")] = "Gambia"
+geomGL$country_name[which(geomGL$country_name=="eSwatini")] = "Eswatini"
+geomGL$country_name[which(geomGL$country_name=="East Timor")] = "Timor-Leste"
+geomGL$country_name[which(geomGL$country_name=="Cape Verde")] = "Cabo Verde"
+geomGL$country_name[which(geomGL$country_name=="Palestine")] = "West Bank and Gaza"
 
 
 
 
 #integrate datasets
-MapGL = inner_join(geomGL,caseTable,by=c("NAME_EN"="CountryList"))
-MapGL$RegionName = MapGL$NAME_EN
-MapGL$Country = MapGL$NAME_EN
-MapGL$DateReport = as.character(date) 
+MapGL = inner_join(geomGL,caseTable,by="country_name")
+MapGL$RegionName = MapGL$country_name
+MapGL$Country = MapGL$country_name
+MapGL$DateReport = as.character(MapGL$DateReport) 
 MapGL$pInf = MapGL$CaseDifference/MapGL$POP_EST
 
 COUNTRIES = subset(MapGL,select=c("DateReport","RegionName","Country","pInf","geometry"))

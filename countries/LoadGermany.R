@@ -67,11 +67,11 @@ geomGermany <- st_read("countries/data/geom/geomGermany.geojson")
 
 #integrate datasets
 germanydf <- inner_join(germanyTable,pop, by = 'IdLandkreis') # add pop column into the main germany table
-germanyMap <- inner_join(geomGermany, germanydf, by = c("county" = "Region")) #link to geometry
+germanyMap <- inner_join(geomGermany, germanydf, by = c("micro_name" = "Region")) #link to geometry
 
 germanyMap$DateReport =  as.character(germanyMap$Date)
-germanyMap$RegionName = paste0(germanyMap$county,', Germany')
-germanyMap$Country = "Germany"
+germanyMap$RegionName = paste(germanyMap$micro_name,germanyMap$country_name, sep=", ")
+germanyMap$Country = germanyMap$country_name
 germanyMap$pInf = germanyMap$Difference/germanyMap$Population
 GERMANY_DATA = subset(germanyMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(GERMANY_DATA)

@@ -54,10 +54,10 @@ geomIndia<-st_read("countries/data/geom/geomIndia.geojson")
 #'   year = 2020
 #' }
 
-indiaMap <- inner_join(geomIndia,indiadf,by = c('NAME_1' = 'State'))
+indiaMap <- inner_join(geomIndia,indiadf,by = c('micro_name' = 'State'))
 indiaMap$DateReport =  as.character(indiaMap$Date)
-indiaMap$RegionName = paste0(indiaMap$NAME_1, ', India')
-indiaMap$Country = "India"
+indiaMap$RegionName = paste(indiaMap$micro_name, indiaMap$country_name, sep=", ")
+indiaMap$Country = indiaMap$country_name
 indiaMap$pInf = as.numeric(indiaMap$Difference)/as.numeric(indiaMap$Population)
 india_DATA = subset(indiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(india_DATA)
