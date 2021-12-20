@@ -22,11 +22,11 @@ LoadIreland <- function() {
   data_join <<- inner_join(data_cur, data_past, by = "CountyName", suffix=c('', '_past'))
   data_join$Difference <- (data_join$cases - data_join$cases_past)*10/14
   
-  miscIreland <- vroom("countries/data/miscIreland.R")
+  miscIreland <- vroom("countries/data/miscIreland.csv", col_types = cols(CO_ID=col_character()))
 
 #integrate datasets
-  IrelandMap <- inner_join(geom,data_join, by = c('micro_name' = 'CountyName'))
-  IrelandMap <- inner_join(IrelandMap, miscIreland, by = c("micro_code"="CO_ID"))
+  IrelandMap <- inner_join(geom,data_join, by = c('micro_name' = 'CountyName'))%>%
+    inner_join(miscIreland, by = c("micro_code"="CO_ID"))
   IrelandMap$RegionName = paste(paste(IrelandMap$micro_name, IrelandMap$CONTAE, sep = "/"),IrelandMap$country_name, sep = ", ")
   IrelandMap$Country = IrelandMap$country_name
   IrelandMap$DateReport = as.character(IrelandMap$date) 

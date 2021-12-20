@@ -17,7 +17,8 @@ LoadUS <- function(){
   #county$geometry[30] = HMM
   #county$GEOID[30] = 2998
   #county$NAME[30] = "Yakutat plus Hoonah-Angoon"
-  county <- st_read("countries/data/geom/geomUnitedStates.geojson") 
+  county <- st_read("countries/data/geom/geomUnitedStates.geojson")%>%
+    mutate(micro_code=as.numeric(micro_code))
 
 #county population level data
   #pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/county-population.csv", stringsAsFactors = FALSE)

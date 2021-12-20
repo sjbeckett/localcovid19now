@@ -40,7 +40,7 @@ LoadDenmark <- function(){
   
   curdate <- DenmarkData$SampleDate%>%sort()%>%last()
   
-  dataTable2 <- DenmarkData%>%
+  dataTable <- DenmarkData%>%
     pivot_longer(
       cols = -SampleDate,
       names_to = "Municipality",

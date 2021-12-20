@@ -22,19 +22,18 @@ while(flag==0){
 	}
 }
 
-NUMCHARS = nchar(as.character(MEX$cve_ent))
-IND = which(NUMCHARS==4)
+# NUMCHARS = nchar(as.character(MEX$cve_ent))
+# IND = which(NUMCHARS==4)
 
 DataJoin = c()
 SZ = dim(MEX)
 DataJoin$Name = MEX$nombre
 NAME = strsplit(names(MEX)[SZ[2]],"X")
 DataJoin$pop = MEX$poblacion
-DataJoin$DateReport = as.Date(NAME[[1]][2],"%d.%m.%Y")
+DataJoin$DateReport = dmy(NAME)#as.Date(NAME[[1]][2],"%d.%m.%Y")
 DataJoin$CaseDiff = rowSums(MEX[,(SZ[2]-14):(SZ[2])])/14*10
 DataJoin$pInf = DataJoin$CaseDiff/DataJoin$pop
-DataJoin$CVE = as.character(MEX$cve_ent)
-DataJoin$CVE[IND] =  paste0("0",as.character(MEX$cve_ent[IND]))
+DataJoin$CVE = str_pad(as.character(MEX$cve_ent), pad = "0", side = "left", width = 5)
 
 DATA = as.data.frame(DataJoin)
 

@@ -36,7 +36,7 @@ caseTable$CountryList[which(caseTable$CountryList=="Curacao")] = "Curaçao"
 caseTable$CountryList[which(caseTable$CountryList=="Falkland Islands (Malvinas)")] = "Falkland Islands"
 
 #Geography
-geomGL = st_read("countries/data/orig_geom/geomSmallCountries.geojson") #from world bank https://datacatalog.worldbank.org/dataset/world-bank-official-boundaries
+geomGL = st_read("countries/data/geom/geomSmallCountries.geojson") #from world bank https://datacatalog.worldbank.org/dataset/world-bank-official-boundaries
 smallPop <- vroom("countries/data/popSmallCountries.csv")
 geomGL <- inner_join(geomGL, smallPop, by = c("country_name"="NAME_EN"))
 
@@ -52,7 +52,7 @@ geomGL$country_name[which(geomGL$country_name=="Palestine")] = "West Bank and Ga
 
 
 #integrate datasets
-MapGL = inner_join(geomGL,caseTable,by="country_name")
+MapGL = inner_join(geomGL,caseTable,by=c("country_name"="CountryList"))
 MapGL$RegionName = MapGL$country_name
 MapGL$Country = MapGL$country_name
 MapGL$DateReport = as.character(MapGL$DateReport) 

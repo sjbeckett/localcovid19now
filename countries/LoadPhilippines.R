@@ -104,13 +104,13 @@ philippinesPop <- vroom("countries/data/philippinesPop2015.csv")
 province <- unique(philippinesData$Province)
 province <- province[is.na(province)==F]
 getData <- function(code){
-  temp <- philippinesData %>% filter(philippinesData$Province == province[code])
+  temp <- philippinesData %>% filter(Province == code)
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
   past_date <- today - 14
   pastData <- temp[temp$Date <= past_date,]
   difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)])/14*10
-  vec <- data.frame(Province = province[code], Date = today, Difference = difference)
+  vec <- data.frame(Province = code, Date = today, Difference = difference)
   return(vec)
 }
 

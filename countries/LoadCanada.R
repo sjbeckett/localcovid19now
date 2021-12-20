@@ -17,10 +17,12 @@ CANADARISK = c()
 count = 1
 CPro = unique(CAN_LINK$province)
 for( aa in 1:length(CPro) ){
+  # cat("aa:",aa,"\n")
 	subsetCANL = CAN_LINK[CAN_LINK$province==CPro[aa],]
 	subsetCAND = CANDATASMALLER[CANDATASMALLER$province==CPro[aa],]
 	CHR = unique(subsetCANL$health_region)
 	for (bb in 1:length(CHR)) {
+	  # cat("bb:",bb,"\n")
 		subset2CAND = subsetCAND[subsetCAND$health_region==CHR[bb],]
 		subset2CANL = subsetCANL[subsetCANL$health_region==CHR[bb],]
 		CANDATES = as.Date(subset2CAND$date_report,format="%d-%m-%Y")

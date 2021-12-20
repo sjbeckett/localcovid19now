@@ -375,6 +375,7 @@ geomCzechia <- geomCzechia%>%
 geomCzechia%>%
   st_write("countries/data/temp_geom/geomCzechia.geojson")
 #rm(geomCzechia)
+rm(namesCzechia)
 
 # Denmark"
 
@@ -413,7 +414,7 @@ namesEurope <-  vroom::vroom("countries/data/namesEurope.csv")
 ##Remove countries
 #Turkmenistan - no testing performed. Hence no cases found.
 #Countries which we have higher resolution maps
-CountriesCovered = c("Italy","Switzerland","Ireland","United Kingdom","Austria","France","Czech Republic","Spain","Denmark","Sweden","Netherlands","Germany","Norway","Belgium","Liechtenstein")
+# CountriesCovered = c("Italy","Switzerland","Ireland","United Kingdom","Austria","France","Czech Republic","Spain","Denmark","Sweden","Netherlands","Germany","Norway","Belgium","Liechtenstein")
 
 geomEurope <- geomEurope%>%
   inner_join(namesEurope, by = "UID")%>%
@@ -432,14 +433,15 @@ geomEurope <- geomEurope%>%
       CountryName == "United Kingdom of Great Britain and Northern Ireland"~"United Kingdom",
       CountryName == "Russian Federation" ~ "Russia",
       TRUE~CountryName
-    ),
-    rem = case_when(
-      Region %in% c("Isle of Man","Guernsey","Jersey","Gibraltar", "Faroe", "Greenland","Svalbard and Jan Mayen Islands") ~ 0,
-      CountryName %in% c(CountriesCovered, "Turkmenistan") ~ 1,
-      TRUE ~ 0
+  ## Removing the code that filters out countries in favor of relegating that process to LoadEurope()
+    # ),
+    # rem = case_when(
+    #   Region %in% c("Isle of Man","Guernsey","Jersey","Gibraltar", "Faroe", "Greenland","Svalbard and Jan Mayen Islands") ~ 0,
+    #   CountryName %in% c(CountriesCovered, "Turkmenistan") ~ 1,
+    #   TRUE ~ 0
     )
   )%>%
-  filter(rem == 0)%>%
+  # filter(rem == 0)%>%
   select(
     m49code = M49Code,
     iso3 = ISOalpha3Code,
@@ -458,7 +460,7 @@ geomEurope%>%
   st_write("countries/data/temp_geom/geomEurope.geojson")
 #rm(geomEurope)
 rm(namesEurope)
-rm(CountriesCovered)
+# rm(CountriesCovered)
 
 # France"
 
@@ -1150,12 +1152,12 @@ geomUnitedStates <- geomUnitedStates%>%
     m49code = m49$M49Code[which(m49$CountryorArea == "United States of America")],
     iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "United States of America")]
   )%>%
-  inner_join(usStatelines, by = c("stname"="STUSPS"))%>%str()
+  inner_join(usStatelines, by = c("stname"="STUSPS"))%>%
   select(
     m49code,
     iso3,
     country_name,
-    macro_code = STATEFP,
+    macro_code = stname,
     macro_name = NAME.y,
     micro_code = GEOID.x,
     micro_name = NAME.x
@@ -1163,39 +1165,48 @@ geomUnitedStates <- geomUnitedStates%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
 geomAK <- geomUnitedStates%>%
-  filter(macro_name == "AK")%>%
+  filter(macro_code == "AK")%>%
   st_transform(3467)%>%
+  group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name)%>%
+  summarise()%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomCO <- geomUnitedStates%>%
-  filter(macro_name == "CO")%>%
+  filter(macro_code == "CO")%>%
   st_transform(2773)%>%
+  group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name)%>%
+  summarise()%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomID <- geomUnitedStates%>%
-  filter(macro_name == "ID")%>%
+  filter(macro_code == "ID")%>%
   st_transform(2788)%>%
+  group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name)%>%
+  summarise()%>%
   st_make_valid()%>%
   st_transform(4326)
 
 geomKS <- geomUnitedStates%>%
-  filter(macro_name == "KS")%>%
+  filter(macro_code == "KS")%>%
   st_make_valid()
 
-geomNew <- bind_rows(geomAK, geomCO, geomID, geomKS)
+# geomNew <- bind_rows(geomAK, geomCO, geomID, geomKS)
 
-for(x in geomNew$micro_code){
-  st_geometry(geomUnitedStates)[geomUnitedStates$micro_code==x] = st_geometry(geomNew)[geomNew$micro_code==x]
-}
-rm(x)
+# for(x in geomNew$micro_code){
+#   st_geometry(geomUnitedStates)[geomUnitedStates$micro_code==x] = st_geometry(geomNew)[geomNew$micro_code==x]
+# }
+# rm(x)
+geomUnitedStates <- geomUnitedStates%>%
+  filter(!macro_code %in%c("AK","CO","ID","KS"))%>%
+  bind_rows(geomAK, geomCO, geomID, geomKS)
 
 geomUnitedStates%>%
   st_write("countries/data/temp_geom/geomUnitedStates.geojson")
 #rm(geomUnitedStates)
 rm(list=c("geomAK", "geomCO", "geomID", "geomKS", "geomNew"))
-
+rm(usStatelines)
 # Venezuela"
 
 geomVenezuela <- st_read("countries/data/orig_geom/geomVenezuela.geojson")
@@ -1247,11 +1258,12 @@ geomFiji <- geomSmallCountries[c(166),]%>% # Fiji
   ungroup()
 
 geomSmallCountries <- geomSmallCountries[which(st_is_valid(geomSmallCountries, reason=T)=="Valid Geometry"),]%>%
-  bind_rows(geomFiji)
+  bind_rows(geomFiji)%>%
+  mutate(across(.cols=ends_with("code"),.fns=as.character))
 
 geomSmallCountries%>%
   st_write("countries/data/temp_geom/geomSmallCountries.geojson")
-
+rm(geomFiji)
 
 # Tidy up and finish
 
@@ -1283,3 +1295,5 @@ rm(list = geom_list)
 file.remove("countries/data/WorldPreSimp.zip")
 zip(zipfile = "countries/data/WorldPreSimp.zip","geomWorld_presimp.geojson")
 file.remove("geomWorld_presimp.geojson")
+rm(m49)
+rm(geom_list)

@@ -30,7 +30,7 @@ LoadNetherlands <- function(){
 
 # Note that geomNetherlands$Bevolkingsaantal is population size.
   geomNetherlands <- st_read("countries/data/geom/geomNetherlands.geojson")
-  popNetherlands <- vroom("countries/data/miscNetherlands")
+  popNetherlands <- vroom("countries/data/miscNetherlands.csv")
 
   netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code"="Code"))
   netherlandsMap <- inner_join(netherlandsMap, popNetherlands, by = c("micro_code"="Gemeentecode"))

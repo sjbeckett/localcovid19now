@@ -1,3 +1,4 @@
+library(rmapshaper) #for the ms_simplify function - simplifies polygons.
 temp <- unzip(zipfile = "countries/data/WorldPreSimp.zip", exdir = tempdir() )
 geomWorld <- st_read(temp)
 unlink(temp)

@@ -31,7 +31,7 @@ DateReport=c()
 CaseDiff=c()
 Pop=c()
 for(bb in 1:length(KEYS)){
-  cat("\n",bb,"\n")
+  # cat("\n",bb,"\n")
 	DAT = vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/",KEYS[bb],".csv"), guess_max = 1000, show_col_types = FALSE)
 	problems(DAT)
 	naIND = which(is.na(DAT$new_confirmed))

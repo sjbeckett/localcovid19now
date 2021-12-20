@@ -33,7 +33,7 @@ Thailanddf = inner_join(caseTable,popul, by = c('provinces'='Name'))
 #geomThai$pro_en[geomThai$pro_en=="Si Sa Ket"] = "Sisaket"
 #geomThai$pro_en[geomThai$pro_en=="Samut Prakarn"] = "Samut Prakan"
 geomThailand = st_read("countries/data/geom/geomThailand.geojson")
-miscThailand <- vroom("countries/data/miscThailand.csv")
+miscThailand <- vroom("countries/data/miscThailand.csv", col_types=cols(pro_code=col_character()))
 
 ThailandMap = inner_join(geomThailand,Thailanddf, by = c('micro_name' = 'provinces'))%>%
   inner_join(miscThailand, by=c("micro_code"="pro_code"))
