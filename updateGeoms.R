@@ -590,7 +590,7 @@ geomIreland <- geomIreland%>%
     macro_code,
     macro_name = PROVINCE,
     micro_code = CO_ID,
-    micro_name = CONTAE
+    micro_name = id
   )%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 # Make Ireland valid

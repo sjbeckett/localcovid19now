@@ -12,7 +12,7 @@ while(flag==0){
 	DATE = Sys.Date()-aa
 	formDATE = format(DATE, "%Y-%m-%d")
 	STRING = paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/",formDATE,".csv")
-	NZ<- try(read.csv(STRING,encoding="UTF-8"))
+	NZ<- try(vroom(STRING))
 	if (is.null(dim(NZ)) == FALSE){
 		flag=1
 	}else{
@@ -31,7 +31,7 @@ CaseDifference = c()
 for(aa in 1:length(Regions)){
 	subsetdata = NZ[which(NZ$DHBName == Regions[aa]),]
 	DateReport[aa] = max(subsetdata$ReportDate)
-	eligibleC = subsetdata$Confirmed[which(as.Date(subsetdata$ReportDate)>as.Date(DateReport[aa])-14)]
+	eligibleC = subsetdata$Confirmed[which(as_date(subsetdata$ReportDate)>as_date(DateReport[aa])-14)]
 	CaseDifference[aa] = (10/14)*sum(eligibleC)
 
 }
@@ -53,14 +53,14 @@ NZdf = inner_join(CaseTable,Pop,by=c("Regions"="Place"))
 #https://github.com/leon-sleepinglion/NZ-COVID-19-Visualization
 #geomNZ = st_read("https://github.com/leon-sleepinglion/NZ-COVID-19-Visualization/raw/master/dhb.geojson")
 geomNZ = st_read("countries/data/geom/geomNZ.geojson")
-Name2Move = geomNZ$DHB2015_Na[8]
-geomNZ$DHB2015_Na[8] = "Tairawhiti"
+Name2Move = geomNZ$micro_name[8]
+geomNZ$micro_name[8] = "Tairawhiti"
 
 #integrate datasets
-MapNZ = inner_join(geomNZ,NZdf, by = c("DHB2015_Na" = "Regions"))
-MapNZ$DHB2015_Na[8] = Name2Move
-MapNZ$RegionName = paste0(MapNZ$DHB2015_Na,", New Zealand")
-MapNZ$Country = "New Zealand"
+MapNZ = inner_join(geomNZ,NZdf, by = c("micro_name" = "Regions"))
+MapNZ$micro_name[8] = Name2Move
+MapNZ$RegionName = paste(MapNZ$micro_name,MapNZ$country_name, sep=", ")
+MapNZ$Country = MapNZ$country_name
 MapNZ$pInf = MapNZ$CaseDifference/MapNZ$population
 
 NEWZEALAND_DATA = subset(MapNZ,select=c("DateReport","RegionName","Country","pInf","geometry"))

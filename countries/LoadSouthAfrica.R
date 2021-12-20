@@ -8,7 +8,7 @@ geomSA=st_read("countries/data/geom/geomSouthAfrica.geojson")
 PRO = unique(geomSA$PROVINCE)
 
 #covid case data, see: https://github.com/dsfsi/covid19za
-COVID_data_SA<- read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
+COVID_data_SA<- vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
 
 DiffCases = c()
 Date=c()
@@ -22,7 +22,7 @@ geomSA$date = Date
 
 #population data, see: https://github.com/dsfsi/covid19za/blob/master/data/district_data/za_province_pop.csv
 #SA_province_pop <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header=FALSE)
-SA_province_pop <-read.csv("countries/data/SA_province_pop.csv",header=FALSE)
+SA_province_pop <-vroom("countries/data/SA_province_pop.csv", col_names=FALSE)
 
 
 PROVINCECode = c("GP","KZN","WC","EC","LP","MP","NW","FS","NC")
@@ -30,9 +30,9 @@ SA_province_pop=cbind(SA_province_pop,PROVINCECode)
 names(SA_province_pop) = c("Name","Population","ProCode")
 
 #Link together
-SA_Map = inner_join(geomSA,SA_province_pop,by=c("PROVINCE" = "ProCode"))
-SA_Map$RegionName = paste0(SA_Map$Name, ", South Africa")
-SA_Map$Country = "South Africa" 
+SA_Map = inner_join(geomSA,SA_province_pop,by=c("micro_code" = "ProCode"))
+SA_Map$RegionName = paste(SA_Map$Name, SA_Map$country_name, sep = ", ")
+SA_Map$Country = SA_Map$country_name
 SA_Map$DateReport = SA_Map$date
 SA_Map$pInf = SA_Map$DiffCases/SA_Map$Population
 SA_DATA = subset(SA_Map,select=c("DateReport","RegionName","Country","pInf","geometry"))

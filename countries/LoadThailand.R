@@ -33,11 +33,14 @@ Thailanddf = inner_join(caseTable,popul, by = c('provinces'='Name'))
 #geomThai$pro_en[geomThai$pro_en=="Si Sa Ket"] = "Sisaket"
 #geomThai$pro_en[geomThai$pro_en=="Samut Prakarn"] = "Samut Prakan"
 geomThailand = st_read("countries/data/geom/geomThailand.geojson")
+miscThailand <- vroom("countries/data/miscThailand.csv")
 
-ThailandMap = inner_join(geomThailand,Thailanddf, by = c('pro_en' = 'provinces'))
+ThailandMap = inner_join(geomThailand,Thailanddf, by = c('micro_name' = 'provinces'))%>%
+  inner_join(miscThailand, by=c("micro_code"="pro_code"))
+
 ThailandMap$pInf = ThailandMap$CaseDifference/ThailandMap$pop
-ThailandMap$RegionName = paste0(ThailandMap$pro_en,', Thailand')
-ThailandMap$Country = "Thailand"
+ThailandMap$RegionName = paste(paste(ThailandMap$micro_name, ThailandMap$pro_th, sep="/"), ThailandMap$country_name, sep = ", ")
+ThailandMap$Country = ThailandMap$country_name
 THAILAND_DATA = subset(ThailandMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 
 return(THAILAND_DATA)

@@ -1,7 +1,7 @@
 LoadNorway <- function() {
 #Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). https://github.com/thohan88/covid19-nor-data
 
-data <- read.csv('https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv', fileEncoding = "UTF-8")
+data <- vroom('https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv')
 data$date <- as.Date(data$date)
 
 ## THIS SCRIPT ASSUMES ALL COUNTIES UPDATE AT ONCE.
@@ -21,10 +21,11 @@ norwaydf <- norwaydf[,c('date','kommune_no','kommune_name','population','Differe
 geomNorway<- st_read("countries/data/geom/geomNorway.geojson")
 
 #integrate datasets
-norwayMap <- inner_join(geomNorway, norwaydf, by = c("kommunenummer" = "kommune_no"))
+norwayMap <- inner_join(geomNorway, norwaydf, by = c("micro_code" = "kommune_no"))
+
 norwayMap$DateReport =  as.character(norwayMap$date)
-norwayMap$RegionName = paste0(norwayMap$kommune_name, ', Norway')
-norwayMap$Country = "Norway"
+norwayMap$RegionName = paste(norwayMap$micro_name, norwayMap$country_name, sep=", ")
+norwayMap$Country = norwayMap$country_name
 norwayMap$pInf = norwayMap$Difference/norwayMap$population
 
 NORWAY_DATA = subset(norwayMap,select=c("DateReport","RegionName","Country","pInf","geometry"))

@@ -43,10 +43,10 @@ geomTaiwan = st_read("countries/data/geom/geomTaiwan.geojson")
 
 
 #integrate datasets
-MapTaiwan = inner_join(geomTaiwan,TWdf,by = c("COUNTYNAME"="regions"))
+MapTaiwan = inner_join(geomTaiwan,TWdf,by = c("micro_name"="regions"))
 
-MapTaiwan$RegionName = paste0(MapTaiwan$COUNTYNAME,"/",MapTaiwan$English.name,", Taiwan")
-MapTaiwan$Country = "Taiwan"
+MapTaiwan$RegionName = paste(paste(MapTaiwan$micro_name, MapTaiwan$English.name, sep="/"),MapTaiwan$country_name, sep = ", ")
+MapTaiwan$Country = MapTaiwan$country_name
 MapTaiwan$pInf = MapTaiwan$CaseDifference/MapTaiwan$Population.2020
 
 TAIWAN_DATA = subset(MapTaiwan,select=c("DateReport","RegionName","Country","pInf","geometry"))

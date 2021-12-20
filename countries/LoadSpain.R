@@ -35,10 +35,10 @@ for(aa in 1:length(Counties)){
 Spaindata = as.data.frame(DataJoin)
 Spaincode = as.data.frame(Spaincode)
 Spaindf = inner_join(Spaindata,Spaincode,by=c("ProvinceName"="code"))
-SpainMap <- inner_join(geomSPAIN,Spaindf, by = "name")
+SpainMap <- inner_join(geomSPAIN,Spaindf, by = "micro_name")
 
-SpainMap$RegionName = paste0(SpainMap$name,", Spain")
-SpainMap$Country = "Spain"
+SpainMap$RegionName = paste(SpainMap$micro_name, SpainMap$country_name, sep = ", ")
+SpainMap$Country = SpainMap$country_name
 SpainMap$DateReport = as.character(SpainMap$LatestTime) 
 SpainMap$pInf = SpainMap$CaseDiff/SpainMap$population2019
 SPAIN_DATA = subset(SpainMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
