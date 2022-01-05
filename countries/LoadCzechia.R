@@ -29,7 +29,7 @@ czechData = czechData %>%
   names(czech_data_join) <- c('Code','Difference','Date','name','Population')
   CzechMap <- inner_join(geomCzechia,czech_data_join, by = c("micro_name"='name'))
   
-  CzechMap$RegionName = paste0(CzechMap$name,CzechMap$country_name, sep=", ")
+  CzechMap$RegionName = paste0(CzechMap$micro_name,", ",CzechMap$country_name)
   CzechMap$Country = CzechMap$country_name
   CzechMap$DateReport = as.character(CzechMap$Date) 
   CzechMap$pInf = CzechMap$Difference/CzechMap$Population
