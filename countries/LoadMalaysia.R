@@ -33,7 +33,7 @@ geomMalaysia = st_read("countries/data/geom/geomMalaysia.geojson")
 #integrate datasets
 MalaysiaMap <- inner_join(geomMalaysia,dataTable, by = c("micro_name" = "state"))
 MalaysiaMap$Country = MalaysiaMap$country_name
-MalaysiaMap$RegionName = paste0(MalaysiaMap$Name,MalaysiaMap$Country, sep=", ")
+MalaysiaMap$RegionName = paste0(MalaysiaMap$micro_name,", ",MalaysiaMap$Country)
 
 MALAYSIA = subset(MalaysiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 
