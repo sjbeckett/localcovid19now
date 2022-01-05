@@ -64,7 +64,9 @@ geomMEX = st_read("countries/data/geom/geomMexico.geojson")
 
 #integrate datasets
 MexicoMap = inner_join(geomMEX, DATA, by = c("micro_code" = "CVE"))
+
 MexicoMap$RegionName = paste(MexicoMap$micro_name, MexicoMap$macro_name, MexicoMap$country_name, sep=", ")
+
 MexicoMap$Country = MexicoMap$country_name
 MexicoMap$DateReport = as.character(MexicoMap$DateReport)
 MEXICO_DATA = subset(MexicoMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
