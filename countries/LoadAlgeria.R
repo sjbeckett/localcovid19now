@@ -40,7 +40,7 @@ Algeriadf = inner_join(caseTable,pop,by=c("provinces"="Name"))
 
 
 
-AlgeriaMap = inner_join(geomAlgeria,Algeriadf, by = c('micro_name' = 'provinces'))
+AlgeriaMap = inner_join(geomAlgeria, Algeriadf, by = c('micro_name' = 'provinces'))
 AlgeriaMap$pInf = AlgeriaMap$CaseDifference/AlgeriaMap$population
 AlgeriaMap$RegionName = paste(AlgeriaMap$micro_name,AlgeriaMap$country_name, sep=", ")
 AlgeriaMap$Country = AlgeriaMap$country_name

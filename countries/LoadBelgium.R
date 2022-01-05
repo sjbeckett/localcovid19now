@@ -18,7 +18,12 @@ flag=0
 aa=0
 while(flag==0){
 	STRING = paste0('https://epistat.sciensano.be/Data/',getDate(aa,0),'/COVID19BE_CASES_MUNI_CUM_',getDate(aa,0),'.csv')
-	latest_data <- try(vroom(STRING))
+	tryCatch({
+	  latest_data <- vroom(STRING)
+	}, error = function(cond){
+	  warning(paste0("No data for ", getDate(aa, 0)))
+	  latest_data <- NULL
+	})
 	if (is.null(dim(latest_data)) == FALSE){
 		flag=1
 	}else{
@@ -36,7 +41,13 @@ flag=0
 aa=0
 while(flag==0){
 	STRING = paste0('https://epistat.sciensano.be/Data/',getDate(14+aa,0),'/COVID19BE_CASES_MUNI_CUM_',getDate(14+aa,0),'.csv')
-	past_data <- try(vroom(STRING))
+	tryCatch({
+	  past_data <- vroom(STRING)
+	}, error = function(e){
+	  warning(paste0("No data for ", getDate(14+aa, 0)))
+	  past_data <- NULL
+	}
+	)
 	if (is.null(dim(past_data)) == FALSE){
 		flag=1
 	}else{

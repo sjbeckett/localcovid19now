@@ -32,8 +32,9 @@ LoadNetherlands <- function(){
   geomNetherlands <- st_read("countries/data/geom/geomNetherlands.geojson")
   popNetherlands <- vroom("countries/data/miscNetherlands.csv")
 
-  netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code"="Code"))
-  netherlandsMap <- inner_join(netherlandsMap, popNetherlands, by = c("micro_code"="Gemeentecode"))
+  netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code"="Code"))%>%
+    inner_join(popNetherlands, by = c("micro_code"="Gemeentecode"))
+  
   netherlandsMap$RegionName = paste(netherlandsMap$micro_name,netherlandsMap$macro_name, netherlandsMap$country_name, sep=", ")
   netherlandsMap$Country = netherlandsMap$country_name
   netherlandsMap$DateReport = as.character(netherlandsMap$Date)

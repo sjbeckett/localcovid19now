@@ -5,7 +5,7 @@ LoadSouthAfrica<-function(){
 #geomSA$PROVINCE[geomSA$PROVINCE=="GT"]="GP"
 #geomSA$PROVINCE[geomSA$PROVINCE=="LIM"]="LP"
 geomSA=st_read("countries/data/geom/geomSouthAfrica.geojson")
-PRO = unique(geomSA$PROVINCE)
+PRO = unique(geomSA$micro_code)
 
 #covid case data, see: https://github.com/dsfsi/covid19za
 COVID_data_SA<- vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
@@ -31,7 +31,7 @@ names(SA_province_pop) = c("Name","Population","ProCode")
 
 #Link together
 SA_Map = inner_join(geomSA,SA_province_pop,by=c("micro_code" = "ProCode"))
-SA_Map$RegionName = paste(SA_Map$Name, SA_Map$country_name, sep = ", ")
+SA_Map$RegionName = paste(SA_Map$Name, SA_Map$country_name, sep = ", ") # This needs to be 'Name' because the geometry file doesn't have 'micro_name's
 SA_Map$Country = SA_Map$country_name
 SA_Map$DateReport = SA_Map$date
 SA_Map$pInf = SA_Map$DiffCases/SA_Map$Population

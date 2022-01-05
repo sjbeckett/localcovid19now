@@ -3,7 +3,8 @@ LoadNewZealand<-function(){
 #Institute for Environmental Science and Research, New Zealand COVID19 Dashboard. https://nzcoviddashboard.esr.cri.nz/ (2020).
 #Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
 
-
+# New Zealand's dashboard and system is currently down due to a system upgrade, hence why this isn't finding anything.
+  
 #load case data
 #need to try 2 days if it doesn't work!
 flag=0

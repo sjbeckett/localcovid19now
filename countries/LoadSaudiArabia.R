@@ -16,7 +16,7 @@ for(aa in 1:length(Regions)){
 	LastDate = max(DATES)
 	DateReport[aa] = as.character(LastDate)
 	CaseDifference[aa] = (10/14)*sum(subsetdata$Confirmed[which(DATES>(LastDate-14))])
-	RegionName[aa] = paste0(subsetdata$RegionName_AR[1],"/",subsetdata$RegionName_EN[1],", Saudi Arabia")
+	RegionName[aa] = paste(subsetdata$RegionName_AR[1],subsetdata$RegionName_EN[1],sep="/")
 }
 caseTable = data.frame(Regions,DateReport,CaseDifference,RegionName)
 
@@ -32,7 +32,7 @@ geomSaudiArabia = st_read("countries/data/geom/geomSaudiArabia.geojson")
 
 #integrate datasets
 MapSaudiArabia = inner_join(geomSaudiArabia,SAdf,by = c("micro_name" = "Regions"))
-
+MapSaudiArabia$RegionName = paste(MapSaudiArabia$RegionName, MapSaudiArabia$country_name, sep=", ")
 MapSaudiArabia$Country = MapSaudiArabia$country_name
 MapSaudiArabia$pInf = MapSaudiArabia$CaseDifference/MapSaudiArabia$Population
 SAUDI_ARABIA_DATA = subset(MapSaudiArabia,select=c("DateReport","RegionName","Country","pInf","geometry"))
