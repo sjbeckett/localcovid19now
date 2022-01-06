@@ -9,7 +9,7 @@ DateReport=c()
 CaseDifference=c()
 for(aa in 1:length(provinces)){
 subsetcases = cases[which(cases$Location==provinces[aa]),]
-DateReport[aa] = max(subsetcases$Date)
+DateReport[aa] = as.character(max(subsetcases$Date))
 recentcases = subsetcases$KASUS[which(as.Date(subsetcases$Date)>(as.Date(max(subsetcases$Date))-14))]
 CaseDifference[aa] = sum(recentcases)/length(recentcases)*10
 }
@@ -40,7 +40,7 @@ geomIndonesia = st_read("countries/data/geom/geomIndonesia.geojson")%>%
 #integrate datasets
 IndonesiaMap = inner_join(geomIndonesia,Indonesiadf,by=c("NAME_1upper"="provinces"))
 IndonesiaMap$pInf = IndonesiaMap$CaseDifference/IndonesiaMap$pop
-IndonesiaMap$RegionName = paste(IndonesiaMap$NAME_1upper, IndonesiaMap$country_name, sep=", ") 
+IndonesiaMap$RegionName = paste(IndonesiaMap$micro_name, IndonesiaMap$country_name, sep=", ") 
 IndonesiaMap$Country = IndonesiaMap$country_name
 
 INDONESIA_DATA = subset(IndonesiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
