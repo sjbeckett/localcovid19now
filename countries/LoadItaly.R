@@ -8,10 +8,10 @@ LoadItaly <- function() {
   }
   # italy: need to download data_cur and data_past respectively
   cur_date <- ymd(gsub("-", "", Sys.Date())) -1
-  past_date <- ymd(cur_date) - 14
-  
-  data_past <- dataQueryItaly(past_date) %>%
-    select(date, code, cases) # date, abbreviation_canton_and_fl, ncumul_conf
+  # past_date <- ymd(cur_date) - 14
+  # 
+  # data_past <- dataQueryItaly(past_date) %>%
+  #   select(date, code, cases) # date, abbreviation_canton_and_fl, ncumul_conf
   data_cur <- dataQueryItaly(cur_date)
   for (i in c(1:13)) {
     data_cur <- data_cur %>% rbind(dataQueryItaly(cur_date - i))
@@ -19,11 +19,26 @@ LoadItaly <- function() {
   data_cur <- data_cur %>%
     group_by(code) %>%
     dplyr::summarise(date = first(date), cases = first(cases), region = first(region), province = first(province), n = n())
+  
+  # This will actually give results inclusive of missing data
+  past_date <- unique(as_date(data_cur$date))-14 # get all dates 14 days before a most recent current date
+  
+  data_past <- map_df(past_date, ~dataQueryItaly(.x)) %>%
+    select(date, code, cases)%>%
+    inner_join( # only keep the past dates that are 14 days before their corresponding date
+      data_cur%>%select(code, date)%>%mutate(date=date-period(14, "days"))
+    )
+  
+  
+
  
 #population
-  pop <- vroom("countries/data/italy_pop.csv", col_types = cols(code=col_character()))
+  pop <- vroom("countries/data/italyPop.csv", col_types = cols(code=col_character()))%>%
+    mutate(
+      code = str_pad(code, width = 3, side="left", pad="0")
+    )
   
-  data_join <<- data_cur %>%
+  data_join <- data_cur %>%
     inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
     inner_join(pop, by = c("code"))
   data_join <- as.data.frame(data_join)
