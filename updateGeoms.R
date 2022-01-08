@@ -1251,13 +1251,15 @@ geomSmallCountries <- geomSmallCountries%>%
     country_name = NAME_EN
   )
 
-geomFiji <- geomSmallCountries[c(166),]%>% # Fiji
+geomFiji <- geomSmallCountries%>%
+  filter(iso3=="FJI")%>% # Fiji
   st_cast("POLYGON")%>%
+  st_wrap_dateline()%>%
   group_by(m49code, iso3, country_name)%>%
   summarise()%>%
   ungroup()
 
-geomSmallCountries <- geomSmallCountries[which(st_is_valid(geomSmallCountries, reason=T)=="Valid Geometry"),]%>%
+geomSmallCountries <- geomSmallCountries[which(st_is_valid(geomSmallCountries, reason=T)=="Valid Geometry"),]%>% # Russia, USA, and Japan are accounted for in other data sets, so we can afford to loose them
   bind_rows(geomFiji)%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
