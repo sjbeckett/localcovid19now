@@ -5,7 +5,7 @@ LoadMexico <- function(){
 #need to try 2 days if it doesn't work.
 
 flag=0
-aa=1
+aa=0
 while(flag==0){
 	DATE = Sys.Date()-aa
 	formDATE = format(DATE, "%Y%m%d")
@@ -16,7 +16,7 @@ while(flag==0){
 	}else{
 		aa=aa+1
 	}
-	if(aa>5){
+	if(aa>6){
 		warning("no recent data")
 		flag=2
 	}
