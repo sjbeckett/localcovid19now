@@ -30,11 +30,9 @@ LoadSwitzerlandLiechtenstein<-function(){
 	geom <- st_read("countries/data/geom/geomSwitzerlandLiechtenstein.geojson")
 
 #6. integrate datasets
-	SwitzerlandMap <- inner_join(geom,data_join, by = c("id" = 'code'))
-	SwitzerlandMap$RegionName = paste0(SwitzerlandMap$name,", Switzerland")
-	SwitzerlandMap$RegionName[27] = paste0(SwitzerlandMap$name[27],", Liechtenstein")
-	SwitzerlandMap$Country = "Switzerland"
-	SwitzerlandMap$Country[27] = "Liechtenstein"
+	SwitzerlandMap <- inner_join(geom,data_join, by = c("micro_code" = 'code'))
+	SwitzerlandMap$RegionName = paste(SwitzerlandMap$micro_name, SwitzerlandMap$country_name, sep=", ")
+	SwitzerlandMap$Country = SwitzerlandMap$country_name
  
 	SWITZERLAND_DATA = subset(SwitzerlandMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
   

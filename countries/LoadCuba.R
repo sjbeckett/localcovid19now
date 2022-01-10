@@ -33,10 +33,9 @@ cuba=c()
 
 #geomCuba = st_read("https://raw.githubusercontent.com/covid19cubadata/covid19cubadata.github.io/master/data/provincias.geojson")
 geomCuba<-st_read("countries/data/geom/geomCuba.geojson")
-geomCuba$pop = c(NA,2154454,679314,400768,462114,525729,1027683,830645,1053837,84263,768311,424750,783708,506369,585452,487339,371198) #2015 census in Cuba
-geomCuba = geomCuba[-1,] #remove Desconocida
+geomCuba$pop = c(2154454,679314,400768,462114,525729,1027683,830645,1053837,84263,768311,424750,783708,506369,585452,487339,371198) #2015 census in Cuba
 
-PRO  = geomCuba$province
+PRO  = geomCuba$micro_name
 
 for(aa in 1:length(DATES)){
 	subsetdata = dataset[[DATES[aa]]]
@@ -67,10 +66,10 @@ cubaTable = as.data.frame(cubaTable)
 #print(cubaTable)
 
 
-MapCuba = inner_join(geomCuba,cubaTable,by=c("province"="Pro"))
+MapCuba = inner_join(geomCuba,cubaTable,by=c("micro_name"="Pro"))
 
-MapCuba$RegionName = paste0(MapCuba$province,", Cuba")
-MapCuba$Country = "Cuba"
+MapCuba$RegionName = paste(MapCuba$micro_name, MapCuba$country_name, sep=", ")
+MapCuba$Country = MapCuba$country_name
 MapCuba$DateReport = as.character(MapCuba$date) 
 MapCuba$pInf = MapCuba$DiffCases/MapCuba$pop
 CUBA_DATA = subset(MapCuba,select=c("DateReport","RegionName","Country","pInf","geometry"))

@@ -16,7 +16,7 @@ LoadGoogleSourced<-function(){ #takes a long time to process.
  LIST =c("Argentina", "Colombia", "Afghanistan","Mozambique")
 
 #index file
-INDEX = read.csv("https://storage.googleapis.com/covid19-open-data/v3/index.csv",encoding="UTF-8")
+INDEX = vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = cols(aggregation_level = col_double(), .default = col_character()))
 KEYS=c()
 LOCALES = c()
 COUNTRY = c()
@@ -31,11 +31,13 @@ DateReport=c()
 CaseDiff=c()
 Pop=c()
 for(bb in 1:length(KEYS)){
-	DAT = read.csv(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/",KEYS[bb],".csv"))
+  # cat("\n",bb,"\n")
+	DAT = vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/",KEYS[bb],".csv"), guess_max = 1000, show_col_types = FALSE)
+	problems(DAT)
 	naIND = which(is.na(DAT$new_confirmed))
-	DateReport[bb] = max(DAT$date[-naIND])
-	curr = DAT$cumulative_confirmed[which(DAT$date == DateReport[bb])]
-	past = DAT$cumulative_confirmed[which(as.Date(DAT$date) == as.Date(DateReport[bb])-14)]
+	DateReport[bb] = as.character(max(DAT$date[-naIND]))
+	curr = DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]
+	past = DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb])-14)]
 	CaseDiff[bb] = (10/14)*(curr-past)
 	if(length(DAT$population[1])==1){
 	Pop[bb] = DAT$population[1]
@@ -96,47 +98,47 @@ IndexTable$LOCALES[IndexTable$KEYS == "AF_PIA"] = "Paktya"
 
 
 IndexTable$pInf = IndexTable$CaseDiff/IndexTable$Pop
-IndexTable$MATCH = (paste0(IndexTable$LOCALES,", ",IndexTable$Country))
+IndexTable$MATCH = paste(IndexTable$LOCALES,IndexTable$Country, sep=", ")
 
 # geomArgentina = st_read("https://github.com/deldersveld/topojson/raw/master/countries/argentina/argentina-provinces.json")
- geomArgentina = st_read("countries/data/geom/geomArgentina.geojson") %>% select(c(NAME = NAME_1,geometry))
- geomArgentina$NAME[which(geomArgentina$NAME=="Buenos Aires")] = "Buenos Aires Province"
- geomArgentina$NAME[which(geomArgentina$NAME=="Ciudad de Buenos Aires")] = "City of Buenos Aires"
- geomArgentina$MATCH =  (paste0(geomArgentina$NAME,", Argentina"))
+ geomArgentina = st_read("countries/data/geom/geomArgentina.geojson")
+ geomArgentina$micro_name[which(geomArgentina$micro_name=="Buenos Aires")] = "Buenos Aires Province"
+ geomArgentina$micro_name[which(geomArgentina$micro_name=="Ciudad de Buenos Aires")] = "City of Buenos Aires"
+ geomArgentina$RegionName = paste(geomArgentina$micro_name,geomArgentina$country_name, sep=", ")
 
  
 # geomColombia = st_read("https://www.acolgen.org.co/wp-content/uploads/geo-json/colombia.geo.json")
- geomColombia = st_read("countries/data/geom/geomColombia.geojson") %>% select(c(NAME = NOMBRE_DPT,geometry))
- geomColombia$NAME = tools::toTitleCase(tolower(geomColombia$NAME))
- geomColombia$NAME[2] = LOCALES[26]
- geomColombia$NAME[3] = LOCALES[27]
- geomColombia$NAME[4] = LOCALES[28]
- geomColombia$NAME[5] = LOCALES[29]
- geomColombia$NAME[7] = LOCALES[31]
- geomColombia$NAME[10] = LOCALES[34]
- geomColombia$NAME[12] = LOCALES[36]
- geomColombia$NAME[18] = LOCALES[42]
- geomColombia$NAME[19] = LOCALES[43]
- geomColombia$NAME[29] = LOCALES[54]
- geomColombia$NAME[31] = LOCALES[56]
- geomColombia$NAME[33] = LOCALES[52]
- geomColombia$MATCH =  (paste0(geomColombia$NAME,", Colombia"))
+ geomColombia = st_read("countries/data/geom/geomColombia.geojson")# %>% select(c(NAME = NOMBRE_DPT,geometry))
+ geomColombia$micro_name = str_to_title(geomColombia$micro_name)
+ geomColombia$micro_name[2] = LOCALES[26]
+ geomColombia$micro_name[3] = LOCALES[27]
+ geomColombia$micro_name[4] = LOCALES[28]
+ geomColombia$micro_name[5] = LOCALES[29]
+ geomColombia$micro_name[7] = LOCALES[31]
+ geomColombia$micro_name[10] = LOCALES[34]
+ geomColombia$micro_name[12] = LOCALES[36]
+ geomColombia$micro_name[18] = LOCALES[42]
+ geomColombia$micro_name[19] = LOCALES[43]
+ geomColombia$micro_name[29] = LOCALES[54]
+ geomColombia$micro_name[31] = LOCALES[56]
+ geomColombia$micro_name[33] = LOCALES[52]
+ geomColombia$RegionName = paste(geomColombia$micro_name, geomColombia$country_name, sep=", ")
  
   
 # geomAfghanistan = st_read("https://gist.github.com/notacouch/246dcbb684571b8dff41fc3ed325972f/raw/5e1f3c66b4213fb0424743cd1eb036e1c8c7fb23/afghanistan_provinces_geometry--cities-demo.json")
- geomAfghanistan = st_read("countries/data/geom/geomAfghanistan.geojson")%>% select(c(NAME = name,geometry))
- geomAfghanistan$MATCH = (paste0(geomAfghanistan$NAME,", Afghanistan"))
+ geomAfghanistan = st_read("countries/data/geom/geomAfghanistan.geojson")#%>% select(c(NAME = name,geometry))
+ geomAfghanistan$RegionName = paste(geomAfghanistan$micro_name,geomAfghanistan$country_name, sep = ", ")
  
  #geomBangladesh = st_read("https://github.com/mapmeld/mro-map/raw/master/bangladesh-divisions.geojson")
  
 # geomMozambique = st_read("https://geonode.ingc.gov.mz/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode%3Amoz_adm1&outputFormat=json&srs=EPSG%3A4326&srsName=EPSG%3A4326")
- geomMozambique = st_read("countries/data/geom/geomMozambique.geojson") %>% select(c(NAME = NAME_1,geometry))
- geomMozambique$MATCH =  (paste0(geomMozambique$NAME,", Mozambique")) 
+ geomMozambique = st_read("countries/data/geom/geomMozambique.geojson")# %>% select(c(NAME = NAME_1,geometry))
+ geomMozambique$RegionName =  paste(geomMozambique$micro_name,geomMozambique$country_name, sep = ", ")
  
-geo = rbind(geomArgentina,geomColombia,geomAfghanistan,geomMozambique)
+geo = bind_rows(geomArgentina,geomColombia,geomAfghanistan,geomMozambique)
 
-GoogleMap = inner_join(geo,IndexTable, by=c("MATCH" = "MATCH"))
-GoogleMap$RegionName = GoogleMap$MATCH
+GoogleMap = inner_join(geo,IndexTable, by=c("RegionName" = "MATCH"))
+# GoogleMap$RegionName = GoogleMap$MATCH
 
 GOOGLE_DATA = subset(GoogleMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 

@@ -29,16 +29,15 @@ chinadf <- inner_join(latestData,pop, by = c('Province' = 'Name'))
 #geomChina <- st_read('https://raw.githubusercontent.com/stjacob/china_geojson/master/china.geojson')
 geomChina<- st_read("countries/data/geom/geomChina.geojson")
 
-geomChina <- geomChina[,c('NAME_1','geometry')]
 #alter naming to match across datasets
-geomChina$NAME_1[19] = "Inner Mongolia"
-geomChina$NAME_1[20] = "Ningxia"
-geomChina$NAME_1[33] = "Hong Kong"
+geomChina$micro_name[19] = "Inner Mongolia"
+geomChina$micro_name[20] = "Ningxia"
+geomChina$micro_name[33] = "Hong Kong"
 
 #integrate datasets
-ChinaMap <- inner_join(geomChina, chinadf, by = c("NAME_1" = "Province"))
-ChinaMap$RegionName = paste0(ChinaMap$NAME_1,", China")
-ChinaMap$Country = "China"
+ChinaMap <- inner_join(geomChina, chinadf, by = c("micro_name" = "Province"))
+ChinaMap$RegionName = paste0(ChinaMap$micro_name,", China")
+ChinaMap$Country = ChinaMap$country_name
 ChinaMap$DateReport = as.character(date) 
 ChinaMap$pInf = ChinaMap$Difference/ChinaMap$Population
 

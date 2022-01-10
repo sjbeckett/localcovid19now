@@ -1,0 +1,756 @@
+UID,iso3,CountryName,Region
+AL031,ALB,Albania,Berat
+AL011,ALB,Albania,Dibër
+AL012,ALB,Albania,Durrës
+AL021,ALB,Albania,Elbasan
+AL032,ALB,Albania,Fier
+AL033,ALB,Albania,Gjirokastër
+AL034,ALB,Albania,Korçe
+AL013,ALB,Albania,Kukës
+AL014,ALB,Albania,Lezhë
+AL015,ALB,Albania,Shkodër
+AL022,ALB,Albania,Tiranë
+AL035,ALB,Albania,Vlorë
+AD,AND,Andorra,Andorra
+AM,ARM,Armenia,Armenia
+AT11,AUT,Austria,Burgenland
+AT21,AUT,Austria,Kärnten
+AT12,AUT,Austria,Niederösterreich
+AT31,AUT,Austria,Oberösterreich
+AT32,AUT,Austria,Salzburg
+AT22,AUT,Austria,Steiermark
+AT33,AUT,Austria,Tirol
+AT34,AUT,Austria,Vorarlberg
+AT13,AUT,Austria,Wien
+AZ,AZE,Azerbaijan,Azerbaijan
+BE1,BEL,Belgium,Brussels
+BE2,BEL,Belgium,Flanders
+BE3,BEL,Belgium,Wallonia
+BG413,BGR,Bulgaria,Blagoevgrad
+BG341,BGR,Bulgaria,Burgas
+BG332,BGR,Bulgaria,Dobrich
+BG322,BGR,Bulgaria,Gabrovo
+BG422,BGR,Bulgaria,Haskovo
+BG425,BGR,Bulgaria,Kardzhali
+BG415,BGR,Bulgaria,Kyustendil
+BG315,BGR,Bulgaria,Lovech
+BG312,BGR,Bulgaria,Montana
+BG423,BGR,Bulgaria,Pazardzhik
+BG414,BGR,Bulgaria,Pernik
+BG314,BGR,Bulgaria,Pleven
+BG421,BGR,Bulgaria,Plovdiv
+BG324,BGR,Bulgaria,Razgrad
+BG323,BGR,Bulgaria,Ruse
+BG333,BGR,Bulgaria,Shumen
+BG325,BGR,Bulgaria,Silistra
+BG342,BGR,Bulgaria,Sliven
+BG424,BGR,Bulgaria,Smolyan
+BG411,BGR,Bulgaria,Sofia City
+BG412,BGR,Bulgaria,Sofia Region
+BG344,BGR,Bulgaria,Stara Zagora
+BG334,BGR,Bulgaria,Targovishte
+BG331,BGR,Bulgaria,Varna
+BG321,BGR,Bulgaria,Veliko Tarnovo
+BG311,BGR,Bulgaria,Vidin
+BG313,BGR,Bulgaria,Vratsa
+BG343,BGR,Bulgaria,Yambol
+BAx020,BIH,Bosnia and Herzegovina,Banja Luka
+BAx001,BIH,Bosnia and Herzegovina,Bosansko-podrinski
+BAx012,BIH,Bosnia and Herzegovina,Brčko District
+BAx021,BIH,Bosnia and Herzegovina,Doboj-Bijeljina
+BAx002,BIH,Bosnia and Herzegovina,Hercegovačko-neretvanski
+BAx022,BIH,Bosnia and Herzegovina,Istočno Sarajevo-Zvornik
+BAx003,BIH,Bosnia and Herzegovina,Kanton 10
+BAx004,BIH,Bosnia and Herzegovina,Kanton Sarajevo
+BAx005,BIH,Bosnia and Herzegovina,Posavski
+BAx007,BIH,Bosnia and Herzegovina,Srednjobosanski
+BAx023,BIH,Bosnia and Herzegovina,Trebinje-Foča
+BAx008,BIH,Bosnia and Herzegovina,Tuzlanski
+BAx009,BIH,Bosnia and Herzegovina,Unsko-sanski
+BAx010,BIH,Bosnia and Herzegovina,Zapadno-hercegovački
+BAx011,BIH,Bosnia and Herzegovina,Zeničko-dobojski
+BY,BLR,Belarus,Belarus
+CH033,CHE,Switzerland,Aargau
+CH053,CHE,Switzerland,Appenzell Ausserrhoden
+CH054,CHE,Switzerland,Appenzell Innerrhoden
+CH031,CHE,Switzerland,Basel City
+CH032,CHE,Switzerland,Basel Country
+CH021,CHE,Switzerland,Bern
+CH022,CHE,Switzerland,Fribourg
+CH013,CHE,Switzerland,Geneva
+CH051,CHE,Switzerland,Glarus
+CH056,CHE,Switzerland,Graubünden
+CH025,CHE,Switzerland,Jura
+CH061,CHE,Switzerland,Lucerne
+CH024,CHE,Switzerland,Neuchâtel
+CH065,CHE,Switzerland,Nidwalden
+CH064,CHE,Switzerland,Obwalden
+CH052,CHE,Switzerland,Schaffhausen
+CH063,CHE,Switzerland,Schwyz
+CH023,CHE,Switzerland,Solothurn
+CH055,CHE,Switzerland,St. Gallen
+CH057,CHE,Switzerland,Thurgau
+CH070,CHE,Switzerland,Ticino
+CH062,CHE,Switzerland,Uri
+CH012,CHE,Switzerland,Valais
+CH011,CHE,Switzerland,Vaud
+CH066,CHE,Switzerland,Zug
+CH040,CHE,Switzerland,Zurich
+CY,CYP,Cyprus,Cyprus
+CZ031,CZE,Czech Republic,Jihoceský
+CZ064,CZE,Czech Republic,Jihomoravský
+CZ041,CZE,Czech Republic,Karlovarský
+CZ052,CZE,Czech Republic,Královéhradecký
+CZ051,CZE,Czech Republic,Liberecký
+CZ080,CZE,Czech Republic,Moravskoslezský
+CZ071,CZE,Czech Republic,Olomoucký
+CZ053,CZE,Czech Republic,Pardubický
+CZ032,CZE,Czech Republic,Plzenský
+CZ010,CZE,Czech Republic,Prague
+CZ020,CZE,Czech Republic,Stredoceský
+CZ063,CZE,Czech Republic,Vysocina
+CZ072,CZE,Czech Republic,Zlínský
+CZ042,CZE,Czech Republic,Ústecký
+DE1,DEU,Germany,Baden-Württemberg
+DE2,DEU,Germany,Bayern
+DE3,DEU,Germany,Berlin
+DE4,DEU,Germany,Brandenburg
+DE5,DEU,Germany,Bremen
+DE6,DEU,Germany,Hamburg
+DE7,DEU,Germany,Hessen
+DE8,DEU,Germany,Mecklenburg-Vorpommern
+DE9,DEU,Germany,Niedersachsen
+DEA,DEU,Germany,Nordrhein-Westfalen
+DEB,DEU,Germany,Rheinland-Pfalz
+DEC,DEU,Germany,Saarland
+DED,DEU,Germany,Sachsen
+DEE,DEU,Germany,Sachsen-Anhalt
+DEF,DEU,Germany,Schleswig Holstein
+DEG,DEU,Germany,Thüringen
+FO,DNK,Denmark,Faroe
+GL,DNK,Denmark,Greenland
+DK01,DNK,Denmark,Hovedstaden
+DK04,DNK,Denmark,Midtjylland
+DK05,DNK,Denmark,Nordjylland
+DK02,DNK,Denmark,Sjælland
+DK03,DNK,Denmark,Syddanmark
+ES61,ESP,Spain,Andalucía
+ES24,ESP,Spain,Aragón
+ES70,ESP,Spain,Canarias
+ES13,ESP,Spain,Cantabria
+ES41,ESP,Spain,Castilla y León
+ES42,ESP,Spain,Castilla-La Mancha
+ES51,ESP,Spain,Cataluña
+ES63,ESP,Spain,Ciudad Autónoma de Ceuta
+ES64,ESP,Spain,Ciudad Autónoma de Melilla
+ES22,ESP,Spain,Comunidad Foral de Navarra
+ES52,ESP,Spain,Comunidad Valenciana
+ES30,ESP,Spain,Comunidad de Madrid
+ES43,ESP,Spain,Extremadura
+ES11,ESP,Spain,Galicia
+ES53,ESP,Spain,Illes Balears
+ES23,ESP,Spain,La Rioja
+ES21,ESP,Spain,País Vasco
+ES12,ESP,Spain,Principado de Asturias
+ES62,ESP,Spain,Región de Murcia
+EE37,EST,Estonia,Harju
+EE39,EST,Estonia,Hiiu
+EE44,EST,Estonia,Ida-Viru
+EE51,EST,Estonia,Järva
+EE49,EST,Estonia,Jõgeva
+EE57,EST,Estonia,Lääne
+EE59,EST,Estonia,Lääne-Viru
+EE67,EST,Estonia,Pärnu
+EE65,EST,Estonia,Põlva
+EE70,EST,Estonia,Rapla
+EE74,EST,Estonia,Saare
+EE78,EST,Estonia,Tartu
+EE82,EST,Estonia,Valga
+EE84,EST,Estonia,Viljandi
+EE86,EST,Estonia,Võru
+FI200,FIN,Finland,Ahvenanmaa
+FI1C5,FIN,Finland,Etelä-Karjala
+FI194,FIN,Finland,Etelä-Pohjanmaa
+FI1D1,FIN,Finland,Etelä-Savo
+FI1B1,FIN,Finland,HUS
+FI1D8,FIN,Finland,Kainuu
+FI1C2,FIN,Finland,Kanta-Häme
+FI1D5,FIN,Finland,Keski-Pohjanmaa
+FI193,FIN,Finland,Keski-Suomi
+FI1C4,FIN,Finland,Kymenlaakso
+FI1D7,FIN,Finland,Lappi
+FI197,FIN,Finland,Pirkanmaa
+FI1D3,FIN,Finland,Pohjois-Karjala
+FI1D9,FIN,Finland,Pohjois-Pohjanmaa
+FI1D2,FIN,Finland,Pohjois-Savo
+FI1C3,FIN,Finland,Päijät-Häme
+FI196,FIN,Finland,Satakunta
+FI195,FIN,Finland,Vaasa
+FI1C1,FIN,Finland,Varsinais-Suomi
+FRK,FRA,France,Auvergne-Rhône-Alpes
+FRC,FRA,France,Bourgogne-Franche-Comté
+FRH,FRA,France,Bretagne
+FRB,FRA,France,Centre-Val de Loire
+FRM,FRA,France,Corse
+FRF,FRA,France,Grand Est
+FRE,FRA,France,Hauts-de-France
+FRD,FRA,France,Normandie
+FRI,FRA,France,Nouvelle-Aquitaine
+FRJ,FRA,France,Occitanie
+FRG,FRA,France,Pays de la Loire
+FRL,FRA,France,Provence-Alpes-Côte d'Azur
+FR1,FRA,France,Île-de-France
+UKM93_UKM94,GBR,United Kingdom,Ayrshire and Arran
+UKM91,GBR,United Kingdom,Borders
+UKM92,GBR,United Kingdom,Dumfries and Galloway
+UKF,GBR,United Kingdom,East Midlands
+UKH,GBR,United Kingdom,East of England
+UKM64,GBR,United Kingdom,Eileanan Siar (Western Isles)
+UKM72,GBR,United Kingdom,Fife
+UKM76_UKM77x,GBR,United Kingdom,Forth Valley
+UKx001,GBR,United Kingdom,Gibraltar
+UKM5,GBR,United Kingdom,Grampian
+UKM81_UKM82_UKM83,GBR,United Kingdom,Greater Glasgow and Clyde
+UKx002,GBR,United Kingdom,Guernsey
+UKM61_UKM62_UKM63,GBR,United Kingdom,Highland
+UKx003,GBR,United Kingdom,Isle of Man
+UKx004,GBR,United Kingdom,Jersey
+UKM84_UKM95,GBR,United Kingdom,Lanarkshire
+UKI,GBR,United Kingdom,London
+UKM73_UKM75_UKM78,GBR,United Kingdom,Lothian
+UKC,GBR,United Kingdom,North East
+UKD,GBR,United Kingdom,North West
+UKN,GBR,United Kingdom,Northern Ireland
+UKM65,GBR,United Kingdom,Orkney
+UKM66,GBR,United Kingdom,Shetland
+UKJ,GBR,United Kingdom,South East
+UKK,GBR,United Kingdom,South West
+UKM71_UKM77x,GBR,United Kingdom,Tayside
+UKL,GBR,United Kingdom,Wales
+UKG,GBR,United Kingdom,West Midlands
+UKE,GBR,United Kingdom,Yorkshire and The Humber
+GE,GEO,Georgia,Georgia
+EL30,GRC,Greece,Attica
+EL64,GRC,Greece,Central Greece
+EL52,GRC,Greece,Central Macedonia
+EL43,GRC,Greece,Crete
+EL51,GRC,Greece,East Macedonia and Thrace
+EL54,GRC,Greece,Epirus
+EL62,GRC,Greece,Ionian Islands
+ELx900,GRC,Greece,Mount Athos
+EL41,GRC,Greece,North Aegean
+EL65,GRC,Greece,Peloponnese
+EL42,GRC,Greece,South Aegean
+EL61,GRC,Greece,Thessaly
+EL63,GRC,Greece,West Greece
+EL53,GRC,Greece,West Macedonia
+HR047,HRV,Croatia,Bjelovarsko-bilogorska
+HR04A,HRV,Croatia,Brodsko-Posavska
+HR037,HRV,Croatia,Dubrovačko-neretvanska
+HR041,HRV,Croatia,Grad Zagreb
+HR036,HRV,Croatia,Istarska
+HR04D,HRV,Croatia,Karlovačka
+HR045,HRV,Croatia,Koprivničko-križevačka
+HR043,HRV,Croatia,Krapinsko-zagorska županija
+HR032,HRV,Croatia,Ličko-senjska
+HR046,HRV,Croatia,Međimurska
+HR04B,HRV,Croatia,Osječko-baranjska
+HR049,HRV,Croatia,Požeško-slavonska
+HR031,HRV,Croatia,Primorsko-Goranska
+HR04E,HRV,Croatia,Sisačko-moslavačka
+HR035,HRV,Croatia,Splitsko-Dalmatinska
+HR044,HRV,Croatia,Varaždinska
+HR048,HRV,Croatia,Virovitičko-podravska
+HR04C,HRV,Croatia,Vukovarsko-srijemska
+HR033,HRV,Croatia,Zadarska
+HR042,HRV,Croatia,Zagrebačka
+HR034,HRV,Croatia,Šibensko-kninska
+HU231,HUN,Hungary,Baranya
+HU311,HUN,Hungary,Borsod-Abaúj-Zemplén
+HU110,HUN,Hungary,Budapest
+HU331,HUN,Hungary,Bács-Kiskun
+HU332,HUN,Hungary,Békés
+HU333,HUN,Hungary,Csongrád
+HU211,HUN,Hungary,Fejér
+HU221,HUN,Hungary,Győr-Moson-Sopron
+HU321,HUN,Hungary,Hajdú-Bihar
+HU312,HUN,Hungary,Heves
+HU322,HUN,Hungary,Jász-Nagykun-Szolnok
+HU212,HUN,Hungary,Komárom-Esztergom
+HU313,HUN,Hungary,Nógrád
+HU120,HUN,Hungary,Pest
+HU232,HUN,Hungary,Somogy
+HU323,HUN,Hungary,Szabolcs-Szatmár-Bereg
+HU233,HUN,Hungary,Tolna
+HU222,HUN,Hungary,Vas
+HU213,HUN,Hungary,Veszprém
+HU223,HUN,Hungary,Zala
+IE041,IRL,Ireland,Border
+IE061,IRL,Ireland,Dublin
+IE062,IRL,Ireland,Mid-East
+IE051,IRL,Ireland,Mid-West
+IE063,IRL,Ireland,Midland
+IE052,IRL,Ireland,South-East
+IE053,IRL,Ireland,South-West
+IE042,IRL,Ireland,West
+IS,ISL,Iceland,Iceland
+IL,ISR,Israel,Israel
+ITF1,ITA,Italy,Abruzzo
+ITF5,ITA,Italy,Basilicata
+ITH1,ITA,Italy,Bolzano
+ITF6,ITA,Italy,Calabria
+ITF3,ITA,Italy,Campania
+ITH5,ITA,Italy,Emilia-Romagna
+ITH4,ITA,Italy,Friuli Venezia Giulia
+ITI4,ITA,Italy,Lazio
+ITC3,ITA,Italy,Liguria
+ITC4,ITA,Italy,Lombardia
+ITI3,ITA,Italy,Marche
+ITF2,ITA,Italy,Molise
+ITC1,ITA,Italy,Piemonte
+ITF4,ITA,Italy,Puglia
+ITG2,ITA,Italy,Sardegna
+ITG1,ITA,Italy,Sicilia
+ITI1,ITA,Italy,Toscana
+ITH2,ITA,Italy,Trento
+ITI2,ITA,Italy,Umbria
+ITC2,ITA,Italy,Valle d'Aosta
+ITH3,ITA,Italy,Veneto
+KZ11,KAZ,Kazakhstan,Akmola
+KZ15,KAZ,Kazakhstan,Aktobe
+KZ19,KAZ,Kazakhstan,Almaty
+KZ75,KAZ,Kazakhstan,Almaty City
+KZ23,KAZ,Kazakhstan,Atyrau
+KZ63,KAZ,Kazakhstan,East Kazakhstan
+KZ31,KAZ,Kazakhstan,Jambyl
+KZ35,KAZ,Kazakhstan,Karagandy
+KZ39,KAZ,Kazakhstan,Kostanay
+KZ43,KAZ,Kazakhstan,Kyzylorda
+KZ47,KAZ,Kazakhstan,Mangystau
+KZ59,KAZ,Kazakhstan,North Kazakhstan
+KZ71,KAZ,Kazakhstan,Nur-Sultan City
+KZ55,KAZ,Kazakhstan,Pavlodar
+KZ79,KAZ,Kazakhstan,Shymkent City
+KZ61,KAZ,Kazakhstan,Turkestan
+KZ27,KAZ,Kazakhstan,West Kazakhstan
+KGx001,KGZ,Kyrgyzstan,Batken
+KGx002,KGZ,Kyrgyzstan,Chui
+KGx007,KGZ,Kyrgyzstan,Issyk-Kul
+KGx003,KGZ,Kyrgyzstan,Jalal-Abad
+KGx004,KGZ,Kyrgyzstan,Naryn
+KGx005,KGZ,Kyrgyzstan,Osh
+KGx006,KGZ,Kyrgyzstan,Talas
+LI,LIE,Liechtenstein,Liechtenstein
+LTx001,LTU,Lithuania,Alytaus
+LTx003,LTU,Lithuania,Kauno
+LTx004,LTU,Lithuania,Klaipėdos
+LTx005,LTU,Lithuania,Marijampolės
+LTx006,LTU,Lithuania,Panevėžio
+LTx007,LTU,Lithuania,Tauragės
+LTx008,LTU,Lithuania,Telšių
+LTx009,LTU,Lithuania,Utenos
+LTx010,LTU,Lithuania,Vilniaus
+LTx002,LTU,Lithuania,Šiaulių
+LU,LUX,Luxembourg,Luxembourg
+LV003,LVA,Latvia,Kurzeme
+LV005,LVA,Latvia,Latgale
+LV007,LVA,Latvia,Pierīga
+LV006,LVA,Latvia,Rīga
+LV008,LVA,Latvia,Vidzeme
+LV009,LVA,Latvia,Zemgale
+MC,MCO,Monaco,Monaco
+MD001,MDA,Moldova,Anenii Noi
+MD003,MDA,Moldova,Basarabeasca
+MD004,MDA,Moldova,Bender
+MD005,MDA,Moldova,Briceni
+MD002,MDA,Moldova,Bălţi
+MD006,MDA,Moldova,Cahul
+MD008,MDA,Moldova,Cantemir
+MD010,MDA,Moldova,Chişinău
+MD011,MDA,Moldova,Cimişlia
+MD012,MDA,Moldova,Criuleni
+MD007,MDA,Moldova,Călăraşi
+MD009,MDA,Moldova,Căuşeni
+MD013,MDA,Moldova,Donduşeni
+MD014,MDA,Moldova,Drochia
+MD015,MDA,Moldova,Dubăsari
+MD016,MDA,Moldova,Edineţ
+MD018,MDA,Moldova,Floreşti
+MD017,MDA,Moldova,Făleşti
+MD019,MDA,Moldova,Glodeni
+MD020,MDA,Moldova,Hînceşti
+MD021,MDA,Moldova,Ialoveni
+MD022,MDA,Moldova,Leova
+MD023,MDA,Moldova,Nisporeni
+MD024,MDA,Moldova,Ocniţa
+MD025,MDA,Moldova,Orhei
+MD026,MDA,Moldova,Rezina
+MD027,MDA,Moldova,Rîşcani
+MD030,MDA,Moldova,Soroca
+MD032,MDA,Moldova,Străşeni
+MD028,MDA,Moldova,Sîngerei
+MD033,MDA,Moldova,Taraclia
+MD034,MDA,Moldova,Teleneşti
+MD035,MDA,Moldova,Transnistria
+MD037,MDA,Moldova,UTA Gagauzia
+MD036,MDA,Moldova,Ungheni
+MD029,MDA,Moldova,Şoldăneşti
+MD031,MDA,Moldova,Ştefan Vodă
+MK002,MKD,North Macedonia,Eastern
+MK007,MKD,North Macedonia,Northeastern
+MK005,MKD,North Macedonia,Pelagonia
+MK006,MKD,North Macedonia,Polog
+MK008,MKD,North Macedonia,Skopje
+MK004,MKD,North Macedonia,Southeastern
+MK003,MKD,North Macedonia,Southwestern
+MK001,MKD,North Macedonia,Vardar
+MT,MLT,Malta,Malta
+ME,MNE,Montenegro,Montenegro
+NL13,NLD,Netherlands,Drenthe
+NL23,NLD,Netherlands,Flevoland
+NL12,NLD,Netherlands,Friesland
+NL22,NLD,Netherlands,Gelderland
+NL11,NLD,Netherlands,Groningen
+NL42,NLD,Netherlands,Limburg
+NL41,NLD,Netherlands,North Brabant
+NL32,NLD,Netherlands,North Holland
+NL21,NLD,Netherlands,Overijssel
+NL33,NLD,Netherlands,South Holland
+NL31,NLD,Netherlands,Utrecht
+NL34,NLD,Netherlands,Zeeland
+NO041_NO042,NOR,Norway,Agder
+NO021_NO022,NOR,Norway,Innlandet
+NO053,NOR,Norway,Møre og Romsdal
+NO071,NOR,Norway,Nordland
+NO011,NOR,Norway,Oslo
+NO043,NOR,Norway,Rogaland
+SJM,NOR,Norway,Svalbard and Jan Mayen Islands
+NO072_NO073,NOR,Norway,Troms og Finnmark
+NO060,NOR,Norway,Trøndelag
+NO033_NO034,NOR,Norway,Vestfold og Telemark
+NO051_NO052,NOR,Norway,Vestland
+NO012_NO031_NO032,NOR,Norway,Viken
+PL51,POL,Poland,Dolnośląskie
+PL61,POL,Poland,Kujawsko-pomorskie
+PL81,POL,Poland,Lubelskie
+PL43,POL,Poland,Lubuskie
+PL91_PL92,POL,Poland,Mazowieckie
+PL21,POL,Poland,Małopolskie
+PL52,POL,Poland,Opolskie
+PL82,POL,Poland,Podkarpackie
+PL84,POL,Poland,Podlaskie
+PL63,POL,Poland,Pomorskie
+PL62,POL,Poland,Warmińsko-mazurskie
+PL41,POL,Poland,Wielkopolskie
+PL42,POL,Poland,Zachodniopomorskie
+PL71,POL,Poland,Łódzkie
+PL22,POL,Poland,Śląskie
+PL72,POL,Poland,Świętokrzyskie
+PT18,PRT,Portugal,Alentejo
+PT15,PRT,Portugal,Algarve
+PT20,PRT,Portugal,Açores
+PT16,PRT,Portugal,Centro
+PT17,PRT,Portugal,Lisbon
+PT30,PRT,Portugal,Madeira
+PT11,PRT,Portugal,Norte
+RO121,ROU,Romania,Alba
+RO421,ROU,Romania,Arad
+RO311,ROU,Romania,Argeș
+RO211,ROU,Romania,Bacău
+RO111,ROU,Romania,Bihor
+RO112,ROU,Romania,Bistrița-Năsăud
+RO212,ROU,Romania,Botoșani
+RO122,ROU,Romania,Brașov
+RO221,ROU,Romania,Brăila
+RO321,ROU,Romania,București
+RO222,ROU,Romania,Buzău
+RO422,ROU,Romania,Caraș-Severin
+RO113,ROU,Romania,Cluj
+RO223,ROU,Romania,Costanza
+RO123,ROU,Romania,Covasna
+RO312,ROU,Romania,Călărași
+RO411,ROU,Romania,Dolj
+RO313,ROU,Romania,Dâmbovița
+RO224,ROU,Romania,Galați
+RO314,ROU,Romania,Giurgiu
+RO412,ROU,Romania,Gorj
+RO124,ROU,Romania,Harghita
+RO423,ROU,Romania,Hunedoara
+RO315,ROU,Romania,Ialomița
+RO213,ROU,Romania,Iași
+RO322,ROU,Romania,Ilfov
+RO114,ROU,Romania,Maramureș
+RO413,ROU,Romania,Mehedinți
+RO125,ROU,Romania,Mureș
+RO214,ROU,Romania,Neamț
+RO414,ROU,Romania,Olt
+RO316,ROU,Romania,Prahova
+RO115,ROU,Romania,Satu Mare
+RO126,ROU,Romania,Sibiu
+RO215,ROU,Romania,Suceava
+RO116,ROU,Romania,Sălaj
+RO317,ROU,Romania,Teleorman
+RO424,ROU,Romania,Timiș
+RO225,ROU,Romania,Tulcea
+RO216,ROU,Romania,Vaslui
+RO226,ROU,Romania,Vrancea
+RO415,ROU,Romania,Vâlcea
+764RUAD,RUS,Russian Fed.,Adygea
+RUALT,RUS,Russian Fed.,Altai
+025RUAL,RUS,Russian Fed.,Altai Republic
+RUAMU,RUS,Russian Fed.,Amur
+RUNEN,RUS,Russian Fed.,Arkhangelsk
+RUAST,RUS,Russian Fed.,Astrakhan
+532RUBA,RUS,Russian Fed.,Bashkortostan
+RUBEL,RUS,Russian Fed.,Belgorod
+RUBRY,RUS,Russian Fed.,Bryansk
+317RUBU,RUS,Russian Fed.,Buryatia
+319RUCE,RUS,Russian Fed.,Chechnya
+564RUCHE,RUS,Russian Fed.,Chelyabinsk
+374RUCHU,RUS,Russian Fed.,Chukotka
+277RUCU,RUS,Russian Fed.,Chuvashia
+846RUDA,RUS,Russian Fed.,Dagestan
+RUIN,RUS,Russian Fed.,Ingushetia
+RUIRK,RUS,Russian Fed.,Irkutsk
+RUIVA,RUS,Russian Fed.,Ivanovo
+525RUYEV,RUS,Russian Fed.,Jewish AO
+144RUKB,RUS,Russian Fed.,Kabardino-Balkaria
+RUKGD,RUS,Russian Fed.,Kaliningrad
+613RUKL,RUS,Russian Fed.,Kalmykia
+RUKLU,RUS,Russian Fed.,Kaluga
+RUKAM,RUS,Russian Fed.,Kamchatka
+809RUKC,RUS,Russian Fed.,Karachay-Cherkessia
+RUKEM,RUS,Russian Fed.,Kemerovo
+RUKHA,RUS,Russian Fed.,Khabarovsk
+238RUKK,RUS,Russian Fed.,Khakassia
+RUKIR,RUS,Russian Fed.,Kirov
+848RUKO,RUS,Russian Fed.,Komi Republic
+RUKOS,RUS,Russian Fed.,Kostroma
+RUKDA,RUS,Russian Fed.,Krasnodar
+RUKYA,RUS,Russian Fed.,Krasnoyarsk
+RUKGN,RUS,Russian Fed.,Kurgan
+RUKRS,RUS,Russian Fed.,Kursk
+9RULEN,RUS,Russian Fed.,Leningrad
+95RULIP,RUS,Russian Fed.,Lipetsk
+98RUMAG,RUS,Russian Fed.,Magadan
+629RUME,RUS,Russian Fed.,Mari El
+382RUMO,RUS,Russian Fed.,Mordovia
+08RUMOW,RUS,Russian Fed.,Moscow
+069RUMUR,RUS,Russian Fed.,Murmansk
+RUNIZ,RUS,Russian Fed.,Nizhny Novgorod
+266RUSE,RUS,Russian Fed.,North Ossetia-Alania
+401RUNGR,RUS,Russian Fed.,Novgorod
+627RUNVS,RUS,Russian Fed.,Novosibirsk
+360RUOMS,RUS,Russian Fed.,Omsk
+725RUORE,RUS,Russian Fed.,Orenburg
+162RUORL,RUS,Russian Fed.,Oryol
+170RUPNZ,RUS,Russian Fed.,Penza
+297RUPER,RUS,Russian Fed.,Perm
+RUPRI,RUS,Russian Fed.,Primorsky
+536RUPSK,RUS,Russian Fed.,Pskov
+946RUKR,RUS,Russian Fed.,Republic of Karelia
+857RUROS,RUS,Russian Fed.,Rostov
+992RURYA,RUS,Russian Fed.,Ryazan
+2RUSPE,RUS,Russian Fed.,Saint Petersburg
+016RUSAK,RUS,Russian Fed.,Sakhalin
+RUSAM,RUS,Russian Fed.,Samara
+726RUSAR,RUS,Russian Fed.,Saratov
+036RUSMO,RUS,Russian Fed.,Smolensk
+RUSTA,RUS,Russian Fed.,Stavropol
+328RUSVE,RUS,Russian Fed.,Sverdlovsk
+257RUTAM,RUS,Russian Fed.,Tambov
+139RUTA,RUS,Russian Fed.,Tatarstan
+091RUTOM,RUS,Russian Fed.,Tomsk
+993RUTUL,RUS,Russian Fed.,Tula
+190RUTY,RUS,Russian Fed.,Tuva
+RUTVE,RUS,Russian Fed.,Tver
+265RUKHM,RUS,Russian Fed.,Tyumen
+153RUUD,RUS,Russian Fed.,Udmurtia
+867RUULY,RUS,Russian Fed.,Ulyanovsk
+RUVLA,RUS,Russian Fed.,Vladimir
+RUVGG,RUS,Russian Fed.,Volgograd
+RUVLG,RUS,Russian Fed.,Vologda
+RUVOR,RUS,Russian Fed.,Voronezh
+156RUSA,RUS,Russian Fed.,Yakutia
+653RUYAR,RUS,Russian Fed.,Yaroslavl
+379RUZAB,RUS,Russian Fed.,Zabaykalsky
+SM,SMR,San Marino,San Marino
+RS001,SRB,Serbia,Central Serbia and Vojvodina
+RS002,SRB,Serbia,Kosovo
+SK032,SVK,Slovakia,Banská Bystrica
+SK010,SVK,Slovakia,Bratislava
+SK042,SVK,Slovakia,Košice
+SK023,SVK,Slovakia,Nitra
+SK041,SVK,Slovakia,Prešov
+SK022,SVK,Slovakia,Trencín
+SK021,SVK,Slovakia,Trnava
+SK031,SVK,Slovakia,Zilina
+SI042,SVN,Slovenia,Gorenjska
+SI043,SVN,Slovenia,Goriška
+SI037,SVN,Slovenia,Jugovzhodna Slovenija
+SI033,SVN,Slovenia,Koroška
+SI044,SVN,Slovenia,Obalno-kraška
+SI041,SVN,Slovenia,Osrednjeslovenska
+SI032,SVN,Slovenia,Podravska
+SI031,SVN,Slovenia,Pomurska
+SI036,SVN,Slovenia,Posavska
+SI038,SVN,Slovenia,Primorsko-notranjska
+SI034,SVN,Slovenia,Savinjska
+SI035,SVN,Slovenia,Zasavska
+SE221,SWE,Sweden,Blekinge
+SE312,SWE,Sweden,Dalarna
+SE214,SWE,Sweden,Gotland
+SE313,SWE,Sweden,Gävleborg
+SE231,SWE,Sweden,Halland
+SE322,SWE,Sweden,Jämtland
+SE211,SWE,Sweden,Jönköping
+SE213,SWE,Sweden,Kalmar
+SE212,SWE,Sweden,Kronoberg
+SE332,SWE,Sweden,Norrbotten
+SE224,SWE,Sweden,Skåne
+SE110,SWE,Sweden,Stockholm
+SE122,SWE,Sweden,Södermanland
+SE121,SWE,Sweden,Uppsala
+SE311,SWE,Sweden,Värmland
+SE331,SWE,Sweden,Västerbotten
+SE321,SWE,Sweden,Västernorrland
+SE125,SWE,Sweden,Västmanland
+SE232,SWE,Sweden,Västra Götaland
+SE124,SWE,Sweden,Örebro
+SE123,SWE,Sweden,Östergötland
+TJ,TJK,Tajikistan,Tajikistan
+TM,TKM,Turkmenistan,Turkmenistan
+TR621,TUR,Turkey,Adana
+TRC12,TUR,Turkey,Adiyaman
+TRx01,TUR,Turkey,Aegean
+TR332,TUR,Turkey,Afyon
+TRA21,TUR,Turkey,Agri
+TR712,TUR,Turkey,Aksaray
+TR834,TUR,Turkey,Amasya
+TR510,TUR,Turkey,Ankara
+TR611,TUR,Turkey,Antalya
+TRA24,TUR,Turkey,Ardahan
+TR905,TUR,Turkey,Artvin
+TR321,TUR,Turkey,Aydin
+TR221,TUR,Turkey,Balikesir
+TR813,TUR,Turkey,Bartin
+TRC32,TUR,Turkey,Batman
+TRA13,TUR,Turkey,Bayburt
+TR413,TUR,Turkey,Bilecik
+TRB13,TUR,Turkey,Bingöl
+TRB23,TUR,Turkey,Bitlis
+TR424,TUR,Turkey,Bolu
+TR613,TUR,Turkey,Burdur
+TR411,TUR,Turkey,Bursa
+TRx02,TUR,Turkey,Central Anatolia
+TR322,TUR,Turkey,Denizli
+TRC22,TUR,Turkey,Diyarbakir
+TR423,TUR,Turkey,Düzce
+TRx03,TUR,Turkey,Eastern Blacksea
+TRx04,TUR,Turkey,Eastern Marmara
+TR212,TUR,Turkey,Edirne
+TRB12,TUR,Turkey,Elazig
+TRA12,TUR,Turkey,Erzincan
+TRA11,TUR,Turkey,Erzurum
+TR412,TUR,Turkey,Eskisehir
+TRC11,TUR,Turkey,Gaziantep
+TR903,TUR,Turkey,Giresun
+TR906,TUR,Turkey,Gümüshane
+TRB24,TUR,Turkey,Hakkari
+TR631,TUR,Turkey,Hatay
+TRA23,TUR,Turkey,Igdir
+TR612,TUR,Turkey,Isparta
+TR100,TUR,Turkey,Istanbul
+TR310,TUR,Turkey,Izmir
+TR622,TUR,Turkey,Içel
+TR632,TUR,Turkey,Kahramanmaras
+TR812,TUR,Turkey,Karabük
+TR522,TUR,Turkey,Karaman
+TRA22,TUR,Turkey,Kars
+TR821,TUR,Turkey,Kastamonu
+TR721,TUR,Turkey,Kayseri
+TRC13,TUR,Turkey,Kilis
+TR711,TUR,Turkey,Kirikkale
+TR213,TUR,Turkey,Kirklareli
+TR715,TUR,Turkey,Kirsehir
+TR421,TUR,Turkey,Kocaeli
+TR521,TUR,Turkey,Konya
+TR333,TUR,Turkey,Kütahya
+TRB11,TUR,Turkey,Malatya
+TR331,TUR,Turkey,Manisa
+TRC31,TUR,Turkey,Mardin
+TRx06,TUR,Turkey,Mediterranean
+TRx07,TUR,Turkey,Mideastern Anatolia
+TR323,TUR,Turkey,Mugla
+TRB22,TUR,Turkey,Mus
+TR714,TUR,Turkey,Nevsehir
+TR713,TUR,Turkey,Nigde
+TRx08,TUR,Turkey,Northeastern Anatolia
+TR902,TUR,Turkey,Ordu
+TR633,TUR,Turkey,Osmaniye
+TR904,TUR,Turkey,Rize
+TR422,TUR,Turkey,Sakarya
+TR831,TUR,Turkey,Samsun
+TRC21,TUR,Turkey,Sanliurfa
+TRC34,TUR,Turkey,Siirt
+TR823,TUR,Turkey,Sinop
+TRC33,TUR,Turkey,Sirnak
+TR722,TUR,Turkey,Sivas
+TRx09,TUR,Turkey,Southeastern Anatolia
+TR211,TUR,Turkey,Tekirdag
+TR832,TUR,Turkey,Tokat
+TR901,TUR,Turkey,Trabzon
+TRB14,TUR,Turkey,Tunceli
+TR,TUR,Turkey,Turkey
+TR334,TUR,Turkey,Usak
+TRB21,TUR,Turkey,Van
+TRx10,TUR,Turkey,Western Anatolia
+TRx11,TUR,Turkey,Western Blacksea
+TRx12,TUR,Turkey,Western Marmara
+TR425,TUR,Turkey,Yalova
+TR723,TUR,Turkey,Yozgat
+TR811,TUR,Turkey,Zonguldak
+TR222,TUR,Turkey,Çanakkale
+TR822,TUR,Turkey,Çankiri
+TR833,TUR,Turkey,Çorum
+UA71,UKR,Ukraine,Cherkasy
+UA74,UKR,Ukraine,Chernihiv
+UA73,UKR,Ukraine,Chernivtsi
+UA01,UKR,Ukraine,Crimea
+UA12,UKR,Ukraine,Dnipropetrovsk
+UA14,UKR,Ukraine,Donetsk
+UA26,UKR,Ukraine,Ivano-Frankivsk
+UA63,UKR,Ukraine,Kharkiv
+UA65,UKR,Ukraine,Kherson
+UA68,UKR,Ukraine,Khmelnytsky
+UA32,UKR,Ukraine,Kiev region
+UA35,UKR,Ukraine,Kirovograd
+UA80,UKR,Ukraine,Kyiv
+UA44,UKR,Ukraine,Lugansk
+UA46,UKR,Ukraine,Lviv
+UA48,UKR,Ukraine,Mykolaiv
+UA51,UKR,Ukraine,Odessa
+UA53,UKR,Ukraine,Poltava
+UA56,UKR,Ukraine,Rivne
+UA59,UKR,Ukraine,Sumy
+UA61,UKR,Ukraine,Ternopil
+UA21,UKR,Ukraine,Transcarpathian
+UA05,UKR,Ukraine,Vinnytsia
+UA07,UKR,Ukraine,Volyn
+UA23,UKR,Ukraine,Zaporizhzhia
+UA18,UKR,Ukraine,Zhytomyr
+UZx001,UZB,Uzbekistan,Andijan
+UZx002,UZB,Uzbekistan,Bukhara
+UZx003,UZB,Uzbekistan,Fergana
+UZx004,UZB,Uzbekistan,Jizzakh
+UZx005,UZB,Uzbekistan,Karakalpakstan
+UZx006,UZB,Uzbekistan,Kashkadarya
+UZx007,UZB,Uzbekistan,Khorezm
+UZx008,UZB,Uzbekistan,Namangan
+UZx009,UZB,Uzbekistan,Navoiy
+UZx010,UZB,Uzbekistan,Samarkand
+UZx012,UZB,Uzbekistan,Surkhandarya
+UZx011,UZB,Uzbekistan,Syrdarya
+UZx013,UZB,Uzbekistan,Tashkent
+UZx014,UZB,Uzbekistan,Tashkent City
+VA,VAT,Holy See,Holy See

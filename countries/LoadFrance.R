@@ -33,9 +33,9 @@ LoadFrance <- function() {
     frenchTable <- rbind(frenchTable,vec)
   }
   frenchdf <- inner_join(frenchTable, pop, by = 'code')
-  FranceMap <- inner_join(geom,frenchdf, by = 'code')
-  FranceMap$RegionName = paste0(FranceMap$nom,", France")
-  FranceMap$Country = "France"
+  FranceMap <- inner_join(geom,frenchdf, by = c('micro_code'='code'))
+  FranceMap$RegionName = paste(FranceMap$micro_name,FranceMap$country_name, sep = ", ")
+  FranceMap$Country = FranceMap$country_name
   FranceMap$DateReport = as.character(FranceMap$date) 
   FranceMap$pInf = FranceMap$n/FranceMap$pop
   

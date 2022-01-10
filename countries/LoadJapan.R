@@ -41,13 +41,13 @@ geomJapan = st_read("countries/data/geom/geomJapan.geojson")
 
 
 ## Population
-pop <- read.csv('countries/data/JapanPopulation.csv')
-japandf <- inner_join(vec,pop, by = 'Prefecture')
+pop <- vroom('countries/data/JapanPopulation.csv')
+japandf <- inner_join(vec, pop, by = 'Prefecture')
 japandf$Difference <- as.numeric(japandf$Difference)
 
-JapanMap <- inner_join(geomJapan, japandf, by = c("NAME_1" = "Prefecture"))
-JapanMap$RegionName = paste0(JapanMap$NAME_1,", Japan")
-JapanMap$Country = "Japan"
+JapanMap <- inner_join(geomJapan, japandf, by = c("micro_name" = "Prefecture"))
+JapanMap$RegionName = paste(JapanMap$micro_name, JapanMap$country_name, sep=", ")
+JapanMap$Country = JapanMap$country_name
 JapanMap$DateReport = as.character(date) 
 JapanMap$pInf = JapanMap$Difference/JapanMap$Population
 

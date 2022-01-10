@@ -9,7 +9,7 @@ EUWHO = vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d9
 
 EUWHO$pInf = EUWHO$Incidence14day/100000*(10/14) #incidence is cases in 14 days per 100,000 people. Convert to prop of pop. in 10 days.
 #Join using UID
-EuroMap = inner_join(geomEUROPE,EUWHO,by = c("UID" = "UID"))
+EuroMap = inner_join(geomEUROPE,EUWHO,by = c("micro_code" = "UID"))
 
 ##Remove countries
 #Turkmenistan - no testing performed. Hence no cases found.

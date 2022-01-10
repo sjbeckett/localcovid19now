@@ -1,0 +1,78 @@
+pro_code,pro_th,pro_en,reg_nesdb,reg_royin,perimeter,area_sqkm
+56,พะเยา,Phayao,UpperNorth,North,442.83883879102,6189.63595036332
+57,เชียงราย,Chiang Rai,UpperNorth,North,668.41672486413,11583.01236533042
+54,แพร่,Phrae,UpperNorth,North,515.74681664387,6484.53249747241
+55,น่าน,Nan,UpperNorth,North,674.01789143001,12165.11409446458
+63,ตาก,Tak,LowwerNorth,West,1350.97540688937,17318.85703133057
+64,สุโขทัย,Sukhothai,LowwerNorth,Central,488.43520716556,6672.34183636511
+61,อุทัยธานี,Uthai Thani,LowwerNorth,Central,491.0300450842,6649.64380504946
+62,กำแพงเพชร,Kamphaeng Phet,LowwerNorth,Central,486.24219960445,8520.49476797851
+60,นครสวรรค์,Nakhon Sawan,LowwerNorth,Central,661.47566583692,9529.875918751
+67,เพชรบูรณ์,Phetchabun,LowwerNorth,Central,721.28178694596,12333.1560788834
+65,พิษณุโลก,Phitsanulok,LowwerNorth,Central,692.43325837148,10598.92285961757
+66,พิจิตร,Phichit,LowwerNorth,Central,383.70807230815,4318.65126180923
+30,นครราชสีมา,Nakhon Ratchasima,Northeast,Northeast,895.77844769407,20688.81885376943
+31,บุรีรัมย์,Buriram,Northeast,Northeast,817.41432042107,10047.11268203788
+74,สมุทรสาคร,Samut Sakhon,West,Central,144.02890572322,866.06545786264
+75,สมุทรสงคราม,Samut Songkhram,West,Central,101.14320395073,412.48672828899
+72,สุพรรณบุรี,Suphan Buri,West,Central,508.30356071006,5409.26108410415
+73,นครปฐม,Nakhon Pathom,West,Central,242.574640858,2141.72859749704
+70,ราชบุรี,Ratchaburi,West,West,396.61398035047,5193.5302239491
+38,บึงกาฬ,Bueng Kan,Northeast,Northeast,423.37052678018,3979.54529298928
+71,กาญจนบุรี,Kanchanaburi,West,West,808.23200765611,19405.04297919269
+39,หนองบัวลำภู,Nong Bua Lamphu,Northeast,Northeast,405.81992287162,4091.19415926986
+16,ลพบุรี,Lopburi,Central,Central,526.46738595742,6501.03118525925
+36,ชัยภูมิ,Chaiyaphum,Northeast,Northeast,617.92133812275,12679.25394167537
+17,สิงห์บุรี,Sing Buri,Central,Central,176.38818105745,818.42840644624
+14,พระนครศรีอยุธยา,Phra Nakhon Si Ayutthaya,Central,Central,297.08565800818,2547.00670486463
+37,อำนาจเจริญ,Amnat Charoen,Northeast,Northeast,355.31276101301,3262.61378799809
+15,อ่างทอง,Ang Thong,Central,Central,160.09146749105,948.98724583937
+34,อุบลราชธานี,Ubon Ratchathani,Northeast,Northeast,836.01457201787,15472.47978609577
+35,ยโสธร,Yasothon,Northeast,Northeast,489.08479724026,4096.15430996103
+12,นนทบุรี,Nonthaburi,Central,Central,133.87332373404,640.29422318966
+32,สุรินทร์,Surin,Northeast,Northeast,723.66334934005,8809.93517776871
+13,ปทุมธานี,Pathum Thani,Central,Central,203.51623734509,1521.51426750265
+10,กรุงเทพมหานคร,Bangkok,Central,Central,250.16777331327,1566.57785515371
+33,ศรีสะเกษ,Sisaket,Northeast,Northeast,591.15879085896,8869.49885872576
+11,สมุทรปราการ,Samut Prakan,Central,Central,174.79504855617,965.96104508808
+76,เพชรบุรี,Phetchaburi,West,West,403.45322701967,6173.00173882862
+77,ประจวบคีรีขันธ์,Prachuap Khiri Khan,West,West,618.60080313078,6427.18463137311
+41,อุดรธานี,Udon Thani,Northeast,Northeast,863.24019825296,11032.27063166398
+42,เลย,Loei,Northeast,Northeast,779.44334394807,10490.07923183725
+20,ชลบุรี,Chonburi,East,East,546.68718367411,4510.47957863486
+40,ขอนแก่น,Khon Kaen,Northeast,Northeast,770.84815746735,10629.00058294659
+85,ระนอง,Ranong,South,South,733.11798223188,3223.65325675301
+86,ชุมพร,Chumphon,South,South,652.35100014248,6010.28780369493
+83,ภูเก็ต,Phuket,South,South,272.10447006442,550.09843869971
+84,สุราษฎร์ธานี,Surat Thani,South,South,966.86338224022,13086.21372902809
+81,กระบี่,Krabi,South,South,777.02456363084,5319.41524737463
+49,มุกดาหาร,Mukdahan,Northeast,Northeast,383.61164149613,4092.96993557997
+82,พังงา,Phang Nga,South,South,624.84610795173,4580.06905945326
+27,สระแก้ว,Sa Kaeo,East,East,483.87700077799,6815.11503498248
+47,สกลนคร,Sakon Nakhon,Northeast,Northeast,674.04022646996,9525.60546877644
+80,นครศรีธรรมราช,Nakhon Si Thammarat,South,South,639.16176545932,9892.39155890953
+48,นครพนม,Nakhon Phanom,Northeast,Northeast,545.56122676469,5591.2248017037
+25,ปราจีนบุรี,Prachinburi,East,East,440.69876649742,5020.33579717407
+45,ร้อยเอ็ด,Roi Et,Northeast,Northeast,615.04465412539,7831.5106648173
+26,นครนายก,Nakhon Nayok,East,Central,253.13236986516,2139.67123307373
+46,กาฬสินธุ์,Kalasin,Northeast,Northeast,565.49154255264,6898.98345578631
+23,ตราด,Trat,East,East,653.52837531461,2852.41686477382
+43,หนองคาย,Nong Khai,Northeast,Northeast,570.48523232284,3264.2368570057
+24,ฉะเชิงเทรา,Chachoengsao,East,East,476.29950774069,5166.90358063618
+44,มหาสารคาม,Maha Sarakham,Northeast,Northeast,465.9858196846,5582.58568113667
+21,ระยอง,Rayong,East,East,354.66880561456,3665.05762206486
+22,จันทบุรี,Chanthaburi,East,East,479.93633473086,6404.21977766077
+18,ชัยนาท,Chai Nat,Central,Central,281.94797980514,2511.79747645949
+19,สระบุรี,Saraburi,Central,Central,427.04356420091,3487.650451485
+52,ลำปาง,Lampang,UpperNorth,North,802.11527908387,12500.43740698581
+53,อุตรดิตถ์,Uttaradit,UpperNorth,North,576.19079887104,7867.48028212876
+50,เชียงใหม่,Chiang Mai,UpperNorth,North,1278.65433527608,22056.88731834835
+51,ลำพูน,Lamphun,UpperNorth,North,499.2809727162,4481.18815811357
+96,นราธิวาส,Narathiwat,South,South,344.49928976173,4487.14355388134
+94,ปัตตานี,Pattani,South,South,287.1857504731,1975.95499697954
+95,ยะลา,Yala,South,South,483.68035913494,4467.26894141248
+92,ตรัง,Trang,South,South,482.96137382084,4733.67163479885
+93,พัทลุง,Phatthalung,South,South,320.75380694757,3858.38806176758
+90,สงขลา,Songkhla,South,South,616.30784254173,7745.41218398206
+58,แม่ฮ่องสอน,Mae Hong Son,UpperNorth,North,962.46584093359,12784.28056691474
+91,สตูล,Satun,South,South,554.35743484884,3011.55865450342

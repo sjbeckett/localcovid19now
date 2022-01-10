@@ -104,21 +104,24 @@ philippinesPop <- vroom("countries/data/philippinesPop2015.csv")
 province <- unique(philippinesData$Province)
 province <- province[is.na(province)==F]
 getData <- function(code){
-  temp <- philippinesData %>% filter(philippinesData$Province == province[code])
+  temp <- philippinesData %>% filter(Province == code)
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
   past_date <- today - 14
   pastData <- temp[temp$Date <= past_date,]
   difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)])/14*10
-  vec <- data.frame(Province = province[code], Date = today, Difference = difference)
+  vec <- data.frame(Province = code, Date = today, Difference = difference)
   return(vec)
 }
 
-philippinesTable <- data.frame()
-for (i in 1:length(province)){
-  vec <- getData(i)
-  philippinesTable <- bind_rows(philippinesTable,vec)
-}
+philippinesTable <- map_df(
+  province, ~getData(.x)
+)
+
+# for (i in 1:length(province)){
+#   vec <- getData(i)
+#   philippinesTable <- bind_rows(philippinesTable,vec)
+# }
 
 ### Geometry:
 # source("philippinesExternal.R")
@@ -128,12 +131,12 @@ geomPhilippines <- st_read("countries/data/geom/geomPhilippines.geojson")
 geomPhilippines <- geomPhilippines%>%
   left_join(
     philippinesPop,
-    by = c("ADM2_EN" = "Location")
+    by = c("micro_name" = "Location")
   )
 
-philippinesMap <- inner_join(geomPhilippines, philippinesTable, by = c("ADM2_EN" = "Province"))
-philippinesMap$RegionName = paste0(philippinesMap$ADM2_EN,", Philippines")
-philippinesMap$Country = "Philippines"
+philippinesMap <- inner_join(geomPhilippines, philippinesTable, by = c("micro_name" = "Province"))
+philippinesMap$RegionName = paste(philippinesMap$micro_name, philippinesMap$country_name, sep=", ")
+philippinesMap$Country = philippinesMap$country_name
 philippinesMap$DateReport = as.character(philippinesMap$Date)
 philippinesMap$pInf = philippinesMap$Difference/philippinesMap$Pop2015
 PHILIPPINES_DATA = subset(philippinesMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
