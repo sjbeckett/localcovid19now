@@ -1,14 +1,14 @@
 LoadMalaysia <- function(){
 #Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
 
-casesbystate <- read.csv("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv") #new cases by state by time
-casesbystate$date = as.Date(casesbystate$date)
+casesbystate <- vroom("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv") #new cases by state by time
+casesbystate$date = as_date(casesbystate$date)
 states = unique(casesbystate$state)
 
 
 #population
 #pop  = read.csv("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/static/population.csv")
-pop = read.csv("countries/data/MalaysiaPop.csv") %>% select(c(state,pop))
+pop = vroom("countries/data/MalaysiaPop.csv") %>% select(state,pop)
 
 DateReport=c()
 pInf=c()
@@ -31,9 +31,10 @@ geomMalaysia = st_read("countries/data/geom/geomMalaysia.geojson")
 
 
 #integrate datasets
-MalaysiaMap <- inner_join(geomMalaysia,dataTable, by = c("Name" = "state"))
-MalaysiaMap$Country = "Malaysia"
-MalaysiaMap$RegionName = paste0(MalaysiaMap$Name,", Malaysia")
+MalaysiaMap <- inner_join(geomMalaysia,dataTable, by = c("micro_name" = "state"))
+MalaysiaMap$Country = MalaysiaMap$country_name
+
+MalaysiaMap$RegionName = paste(MalaysiaMap$micro_name, MalaysiaMap$Country, sep=", ")
 
 MALAYSIA = subset(MalaysiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 

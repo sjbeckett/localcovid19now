@@ -5,36 +5,35 @@ LoadMexico <- function(){
 #need to try 2 days if it doesn't work.
 
 flag=0
-aa=1
+aa=0
 while(flag==0){
 	DATE = Sys.Date()-aa
 	formDATE = format(DATE, "%Y%m%d")
 	STRING = paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_",formDATE)
-	MEX<- try(read.csv(STRING,encoding="UTF-8"))  #note older files are DELETED.
+	MEX<- try(vroom(STRING))  #note older files are DELETED.
 	if (is.null(dim(MEX)) == FALSE){
 		flag=1
 	}else{
 		aa=aa+1
 	}
-	if(aa>5){
+	if(aa>6){
 		warning("no recent data")
 		flag=2
 	}
 }
 
-NUMCHARS = nchar(as.character(MEX$cve_ent))
-IND = which(NUMCHARS==4)
+# NUMCHARS = nchar(as.character(MEX$cve_ent))
+# IND = which(NUMCHARS==4)
 
 DataJoin = c()
 SZ = dim(MEX)
 DataJoin$Name = MEX$nombre
 NAME = strsplit(names(MEX)[SZ[2]],"X")
 DataJoin$pop = MEX$poblacion
-DataJoin$DateReport = as.Date(NAME[[1]][2],"%d.%m.%Y")
+DataJoin$DateReport = dmy(NAME)#as.Date(NAME[[1]][2],"%d.%m.%Y")
 DataJoin$CaseDiff = rowSums(MEX[,(SZ[2]-14):(SZ[2])])/14*10
 DataJoin$pInf = DataJoin$CaseDiff/DataJoin$pop
-DataJoin$CVE = as.character(MEX$cve_ent)
-DataJoin$CVE[IND] =  paste0("0",as.character(MEX$cve_ent[IND]))
+DataJoin$CVE = str_pad(as.character(MEX$cve_ent), pad = "0", side = "left", width = 5)
 
 DATA = as.data.frame(DataJoin)
 
@@ -64,9 +63,11 @@ DATA = as.data.frame(DataJoin)
 geomMEX = st_read("countries/data/geom/geomMexico.geojson")
 
 #integrate datasets
-MexicoMap = inner_join(geomMEX, DATA, by = c("CVEGEO" = "CVE"))
-MexicoMap$RegionName = paste0(MexicoMap$NOMGEO,", ",MexicoMap$estado,", Mexico")
-MexicoMap$Country = "Mexico"
+MexicoMap = inner_join(geomMEX, DATA, by = c("micro_code" = "CVE"))
+
+MexicoMap$RegionName = paste(MexicoMap$micro_name, MexicoMap$macro_name, MexicoMap$country_name, sep=", ")
+
+MexicoMap$Country = MexicoMap$country_name
 MexicoMap$DateReport = as.character(MexicoMap$DateReport)
 MEXICO_DATA = subset(MexicoMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 

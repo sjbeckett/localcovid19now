@@ -16,22 +16,24 @@ for(aa in 1:length(Regions)){
 	LastDate = max(DATES)
 	DateReport[aa] = as.character(LastDate)
 	CaseDifference[aa] = (10/14)*sum(subsetdata$Confirmed[which(DATES>(LastDate-14))])
-	RegionName[aa] = paste0(subsetdata$RegionName_AR[1],"/",subsetdata$RegionName_EN[1],", Saudi Arabia")
+	RegionName[aa] = paste(subsetdata$RegionName_AR[1],subsetdata$RegionName_EN[1],sep="/")
 }
 caseTable = data.frame(Regions,DateReport,CaseDifference,RegionName)
 
 #pop
-SApop = read.csv("countries/data/SaudiArabiaPop.csv") #2017 census
-SAdf = inner_join(caseTable,SApop,by=c("Regions" = "Emirate"))
+SApop = vroom("countries/data/SaudiArabiaPop.csv") #2017 census
+SAmisc = vroom("countries/data/miscSaudiArabia.csv")
+SAdf = inner_join(caseTable,SApop,by=c("Regions" = "Emirate"))%>%
+  inner_join(SAmisc, by=c("Regions"="region_name_en"))
 
 #geom
 #geomSaudiArabia = st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/CasesByRegion_ViewLayer/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
 geomSaudiArabia = st_read("countries/data/geom/geomSaudiArabia.geojson")
 
 #integrate datasets
-MapSaudiArabia = inner_join(geomSaudiArabia,SAdf,by = c("region_name_en" = "Regions"))
-
-MapSaudiArabia$Country = "Saudi Arabia"
+MapSaudiArabia = inner_join(geomSaudiArabia,SAdf,by = c("micro_name" = "Regions"))
+MapSaudiArabia$RegionName = paste(MapSaudiArabia$RegionName, MapSaudiArabia$country_name, sep=", ")
+MapSaudiArabia$Country = MapSaudiArabia$country_name
 MapSaudiArabia$pInf = MapSaudiArabia$CaseDifference/MapSaudiArabia$Population
 SAUDI_ARABIA_DATA = subset(MapSaudiArabia,select=c("DateReport","RegionName","Country","pInf","geometry"))
 

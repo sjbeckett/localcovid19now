@@ -30,9 +30,13 @@ LoadNetherlands <- function(){
 
 # Note that geomNetherlands$Bevolkingsaantal is population size.
   geomNetherlands <- st_read("countries/data/geom/geomNetherlands.geojson")
-  netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("Gemeentecode"="Code"))
-  netherlandsMap$RegionName = paste0(netherlandsMap$Municipality,", Netherlands")
-  netherlandsMap$Country = "Netherlands"
+  popNetherlands <- vroom("countries/data/miscNetherlands.csv")
+
+  netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code"="Code"))%>%
+    inner_join(popNetherlands, by = c("micro_code"="Gemeentecode"))
+  
+  netherlandsMap$RegionName = paste(netherlandsMap$micro_name,netherlandsMap$macro_name, netherlandsMap$country_name, sep=", ")
+  netherlandsMap$Country = netherlandsMap$country_name
   netherlandsMap$DateReport = as.character(netherlandsMap$Date)
   netherlandsMap$pInf = netherlandsMap$Difference/netherlandsMap$Bevolkingsaantal
   NETHERLANDS_DATA = subset(netherlandsMap,select=c("DateReport","RegionName","Country","pInf"))

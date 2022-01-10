@@ -2,14 +2,14 @@ LoadIndonesia<-function(){
 #Live data, interactive charts & maps of Indonesia provincial COVID-19 daily cases and vaccination. Live version: https://erlange.github.io/INACOVID/
 # https://github.com/erlange/INACOVID
 
-cases = read.csv("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv") #cases are KASUS. new cases per day.
+cases = vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv") #cases are KASUS. new cases per day.
 
 provinces = unique(cases$Location)
 DateReport=c()
 CaseDifference=c()
 for(aa in 1:length(provinces)){
 subsetcases = cases[which(cases$Location==provinces[aa]),]
-DateReport[aa] = max(subsetcases$Date)
+DateReport[aa] = as.character(max(subsetcases$Date))
 recentcases = subsetcases$KASUS[which(as.Date(subsetcases$Date)>(as.Date(max(subsetcases$Date))-14))]
 CaseDifference[aa] = sum(recentcases)/length(recentcases)*10
 }
@@ -34,13 +34,14 @@ Indonesiadf = inner_join(caseTable,popul, by =c("provinces" = "NAME"))
 #geomIndonesia$NAME_1[18] =  "Daerah Istimewa Yogyakarta"
 #geomIndonesia$NAME_1upper = toupper(geomIndonesia$NAME_1)
 #geomIndonesia = ms_simplify(geomIndonesia,keep=0.05,keep_shapes=TRUE)
-geomIndonesia = st_read("countries/data/geom/geomIndonesia.geojson")
+geomIndonesia = st_read("countries/data/geom/geomIndonesia.geojson")%>%
+  mutate(NAME_1upper = str_to_upper(micro_name))
 
 #integrate datasets
 IndonesiaMap = inner_join(geomIndonesia,Indonesiadf,by=c("NAME_1upper"="provinces"))
 IndonesiaMap$pInf = IndonesiaMap$CaseDifference/IndonesiaMap$pop
-IndonesiaMap$RegionName = paste0(IndonesiaMap$NAME_1,", Indonesia") 
-IndonesiaMap$Country = "Indonesia"
+IndonesiaMap$RegionName = paste(IndonesiaMap$micro_name, IndonesiaMap$country_name, sep=", ") 
+IndonesiaMap$Country = IndonesiaMap$country_name
 
 INDONESIA_DATA = subset(IndonesiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(INDONESIA_DATA)

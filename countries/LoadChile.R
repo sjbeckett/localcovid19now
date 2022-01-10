@@ -25,10 +25,10 @@ caseTable = data.frame(regions,DateReport,pInf)
 geomChile = st_read("countries/data/geom/geomChile.geojson")
 
 #integrate datasets
-MapChile = inner_join(geomChile,caseTable,by = c("matchName"="regions"))
+MapChile = inner_join(geomChile,caseTable,by = c("micro_name"="regions"))
 
-MapChile$RegionName = paste0(MapChile$Region,", Chile")
-MapChile$Country = "Chile"
+MapChile$RegionName = paste(MapChile$micro_name, MapChile$country_name, sep=", ")
+MapChile$Country = MapChile$country_name
 
 CHILE_DATA = subset(MapChile,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(CHILE_DATA)

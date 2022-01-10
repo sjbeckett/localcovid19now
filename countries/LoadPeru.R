@@ -21,16 +21,16 @@ for(aa in 1:length(regions)){
 }
 
 caseTable = data.frame(regions,DateReport,pInf)
-caseTable$regionUpper = toupper(regions)
+# caseTable$regionUpper = toupper(regions)
 #geography
 #geomPeru = st_read("https://github.com/juaneladio/peru-geojson/raw/master/peru_departamental_simple.geojson")
 geomPeru = st_read("countries/data/geom/geomPeru.geojson")
 
 #integrate datasets
-MapPeru = inner_join(geomPeru,caseTable,by = c("NOMBDEP"="regionUpper"))
+MapPeru = inner_join(geomPeru,caseTable,by = c("micro_name"="regions"))
 
-MapPeru$RegionName = paste0(MapPeru$regions,", Peru")
-MapPeru$Country = "Peru"
+MapPeru$RegionName = paste(MapPeru$micro_name, MapPeru$country_name, sep=", ")
+MapPeru$Country = MapPeru$country_name
 
 PERU_DATA = subset(MapPeru,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(PERU_DATA)

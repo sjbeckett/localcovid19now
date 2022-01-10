@@ -1,11 +1,17 @@
 LoadCanada <- function(){
 # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada
 # Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
+  
+  
+  # tryCatch({
+  #   CANADADATA <- vroom("https://github.com/ishaberry/Covid19Canada/raw/master/timeseries_hr/cases_timeseries_hr.csv")
+  # },warning = function(cond){
+    CANADADATA <- vroom("https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr/cases_timeseries_hr.csv")
+  # })
 
-CANADADATA<- vroom::vroom("https://github.com/ishaberry/Covid19Canada/raw/master/timeseries_hr/cases_timeseries_hr.csv")
 
 #CAN_LINK<- read.csv("https://raw.githubusercontent.com/ishaberry/Covid19Canada/master/other/hr_map.csv",encoding="UTF-8")#contains pop and health region ID codes
-CAN_LINK <- read.csv("countries/data/Canada_pop.csv")
+CAN_LINK <- vroom("countries/data/Canada_pop.csv")
 
 #shrink this data file
 DATES = as.Date(CANADADATA$date_report,format="%d-%m-%Y")
@@ -17,10 +23,12 @@ CANADARISK = c()
 count = 1
 CPro = unique(CAN_LINK$province)
 for( aa in 1:length(CPro) ){
+  # cat("aa:",aa,"\n")
 	subsetCANL = CAN_LINK[CAN_LINK$province==CPro[aa],]
 	subsetCAND = CANDATASMALLER[CANDATASMALLER$province==CPro[aa],]
 	CHR = unique(subsetCANL$health_region)
 	for (bb in 1:length(CHR)) {
+	  # cat("bb:",bb,"\n")
 		subset2CAND = subsetCAND[subsetCAND$health_region==CHR[bb],]
 		subset2CANL = subsetCANL[subsetCANL$health_region==CHR[bb],]
 		CANDATES = as.Date(subset2CAND$date_report,format="%d-%m-%Y")
@@ -81,9 +89,9 @@ geomCAN = st_read("countries/data/geom/geomCanada.geojson")
 
 
 #integrate datasets
-HAM = inner_join(geomCAN,CANADARISK,by = c("HR_UID" = "HR_UID"))
-HAM$RegionName = paste0(HAM$health_region,", ",HAM$province,", Canada")
-HAM$Country = "Canada"
+HAM = inner_join(geomCAN,CANADARISK,by = c("micro_code" = "HR_UID"))
+HAM$RegionName = paste(HAM$health_region, HAM$province, HAM$country_name, sep=", ")
+HAM$Country = HAM$country_name
 
 CANADA_DATA = subset(HAM,select = c("DateReport","RegionName","Country","pInf","geometry"))
 return(CANADA_DATA)
