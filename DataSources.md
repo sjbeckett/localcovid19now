@@ -72,6 +72,11 @@ Note this resource also contains data for overseas departments of France, and fo
 Number of cases in Germany from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: https://npgeo-corona-npgeo-de.hub.arcgis.com/
 https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about
 
+### Ghana
+#### Released: XXX
+Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Health): https://data.humdata.org/dataset/ghana-coronavirus-covid-19-subnational-cases
+Geometry collected by Where Geospatial Media (www.wheregeospatial.com blog.wheregeospatial.com). This Data is not authorized by any government or private institution. It was created from the old authorized Ghana Shapefile using the district boundaries. Any one who uses this for any analysis should note this. Any limitations from the old authorized shapefile are inherited by this shapefile. Created Dec 11, 2019. 
+
 ### India
 #### Released: XXXX
 Data collated by covid19india.org from state bulletins and official reports: https://www.covid19india.org
