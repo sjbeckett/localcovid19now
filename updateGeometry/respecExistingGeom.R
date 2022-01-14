@@ -13,7 +13,7 @@ library(readr)
 ## geometry
 
 ## Load in the m49 codes for countries
-m49 <- readxl::read_xlsx("UNSD_m49.xlsx")
+m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
 m49 <- m49 %>%
   rename_with(
     .fn = \(x) str_replace_all(x, "[\\s/-]", "")

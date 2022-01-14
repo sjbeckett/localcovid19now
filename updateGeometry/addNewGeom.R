@@ -1,7 +1,7 @@
 # Add new countries
 addNewGeoms <- function() {
   # Fields will be as follows:
-  ## GEOID = ISO3m49_micro_macro
+  ## geoid = ISO3m49_micro_macro
   ## m49code
   ## iso3
   ## county_name
@@ -14,7 +14,7 @@ addNewGeoms <- function() {
   necessary_cols <- tibble("macro_code" = NA_character_, "macro_name" = NA_character_, "micro_code" = NA_character_, "micro_name" = NA_character_)
 
   ## Load in the m49 codes for countries
-  m49 <- readxl::read_xlsx("UNSD_m49.xlsx")
+  m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
   m49 <- m49 %>%
     rename_with(
       .fn = \(x) str_replace_all(x, "[\\s/-]", "")

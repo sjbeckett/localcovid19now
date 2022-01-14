@@ -2,6 +2,7 @@
 
 geomGhana <- st_read("countries/data/orig_geom/geomGhana.geojson")
 
+# These are marco regions because there are subdivisions, not sure if we'll find a better data set with micro regions. Load Ghana reflects this
 geomGhana$macro_code = c("SV","BO", "AF", "BE", "AA", "OT", "WP", "WN", "UW", "UE", "EP", "CP", "AH", "NE", "NP", "TV")
 
 geomGhana <- geomGhana%>%

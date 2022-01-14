@@ -5,8 +5,8 @@ geomWorld <- st_read(temp)
 unlink(temp)
 
 ### Instructions
-## Add original *.geojson to countries/data/orig_geom
-## Create new script "updateGeometry/toProcess/processCounty.R" that matches processGhana's format.
+## Add original geomCountry.geojson to countries/data/orig_geom
+## Create new script "updateGeometry/toProcess/processCounty.R" that matches processTemplate's format.
 ## Run updateGlobal.R
 
 source("updateGeometry/addNewGeom.R")
