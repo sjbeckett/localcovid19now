@@ -18,7 +18,7 @@ for(aa in 1:length(regions)){
 caseTable = data.frame(regions,DateReport,CaseDifference)
 
 #population
-Pop = read.csv("countries/data/TaiwanPop.csv",encoding="UTF-8")
+Pop = vroom("countries/data/TaiwanPop.csv", .name_repair = make.names)
 TWdf = inner_join(caseTable,Pop,by=c("regions"="Chinese.name"))
 
 

@@ -37,3 +37,4 @@ LoadSaudiArabia
 LoadVenezuela
 LoadGoogleSourced
 LoadPhilippines
+LoadGhana
