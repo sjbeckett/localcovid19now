@@ -19,6 +19,13 @@ if (!is.null(newWorld)) {
     bind_rows(
       newWorld
     )
+  
+  st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn = T)
+  
+  file.remove("countries/data/WorldPreSimp.zip")
+  zip(zipfile = "countries/data/WorldPreSimp.zip", "geomWorld_presimp.geojson")
+  file.remove("geomWorld_presimp.geojson")
+  rm(newWorld)
 }
 
 
