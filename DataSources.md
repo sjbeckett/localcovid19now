@@ -5,6 +5,10 @@ https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
 
 Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
+### Afghanistan, Argentina, Colombia, Mozambique
+#### Released: XXXX
+Data obtained via Google COVID-19 Open Data: goo.gle/covid-19-open-data. 
+
 ### Algeria
 #### Released: XXXX
 Data obtained via the Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
