@@ -3,7 +3,7 @@ calc_risk <- function(p_I, g) {
   return(round(r * 100, 1))
 }
 
-create_c19r_data <- function(tib,
+create_c19r_data <- function(GLOBALDAT,
                              risk_output = "world_risk_regions.csv",
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
