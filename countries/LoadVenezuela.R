@@ -38,6 +38,6 @@ VenezuelaMap$RegionName = paste(VenezuelaMap$micro_name, VenezuelaMap$country_na
 VenezuelaMap$pInf = VenezuelaMap$CaseDifference/VenezuelaMap$Population_2011
 VenezuelaMap$Country  = VenezuelaMap$country_name
 
-VENEZUELA_DATA = subset(VenezuelaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+VENEZUELA_DATA = subset(VenezuelaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(VENEZUELA_DATA)
 }

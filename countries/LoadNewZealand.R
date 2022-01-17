@@ -64,6 +64,6 @@ MapNZ$RegionName = paste(MapNZ$micro_name,MapNZ$country_name, sep=", ")
 MapNZ$Country = MapNZ$country_name
 MapNZ$pInf = MapNZ$CaseDifference/MapNZ$population
 
-NEWZEALAND_DATA = subset(MapNZ,select=c("DateReport","RegionName","Country","pInf","geometry"))
+NEWZEALAND_DATA = subset(MapNZ,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(NEWZEALAND_DATA)
 }

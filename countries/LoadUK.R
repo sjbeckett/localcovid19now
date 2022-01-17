@@ -108,6 +108,6 @@ LoadUK <- function(){
   UKMap$Country = UKMap$country_name
   UKMap$DateReport = as.character(UKMap$date) 
   UKMap$pInf = UKMap$Difference/UKMap$pop
-  UK_DATA = subset(UKMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  UK_DATA = subset(UKMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   return(UK_DATA)
 }

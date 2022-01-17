@@ -28,7 +28,7 @@ norwayMap$RegionName = paste(norwayMap$micro_name, norwayMap$country_name, sep="
 norwayMap$Country = norwayMap$country_name
 norwayMap$pInf = norwayMap$Difference/norwayMap$population
 
-NORWAY_DATA = subset(norwayMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+NORWAY_DATA = subset(norwayMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(NORWAY_DATA)
 }

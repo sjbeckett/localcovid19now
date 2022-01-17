@@ -39,7 +39,7 @@ LoadNetherlands <- function(){
   netherlandsMap$Country = netherlandsMap$country_name
   netherlandsMap$DateReport = as.character(netherlandsMap$Date)
   netherlandsMap$pInf = netherlandsMap$Difference/netherlandsMap$Bevolkingsaantal
-  NETHERLANDS_DATA = subset(netherlandsMap,select=c("DateReport","RegionName","Country","pInf"))
+  NETHERLANDS_DATA = subset(netherlandsMap,select=c("DateReport","geoid","RegionName","Country","pInf"))
 
   return(NETHERLANDS_DATA)
   }

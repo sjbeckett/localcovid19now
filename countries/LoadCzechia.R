@@ -35,7 +35,7 @@ czechData = czechData %>%
   CzechMap$DateReport = as.character(CzechMap$Date) 
   CzechMap$pInf = CzechMap$Difference/CzechMap$Population
   
-  CZECH_DATA = subset(CzechMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  CZECH_DATA = subset(CzechMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   return(CZECH_DATA)
 }
   

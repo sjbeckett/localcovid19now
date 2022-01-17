@@ -72,7 +72,7 @@ MapCuba$RegionName = paste(MapCuba$micro_name, MapCuba$country_name, sep=", ")
 MapCuba$Country = MapCuba$country_name
 MapCuba$DateReport = as.character(MapCuba$date) 
 MapCuba$pInf = MapCuba$DiffCases/MapCuba$pop
-CUBA_DATA = subset(MapCuba,select=c("DateReport","RegionName","Country","pInf","geometry"))
+CUBA_DATA = subset(MapCuba,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(CUBA_DATA)
 }
 

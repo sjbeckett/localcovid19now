@@ -44,7 +44,7 @@ AlgeriaMap = inner_join(geomAlgeria, Algeriadf, by = c('micro_name' = 'provinces
 AlgeriaMap$pInf = AlgeriaMap$CaseDifference/AlgeriaMap$population
 AlgeriaMap$RegionName = paste(AlgeriaMap$micro_name,AlgeriaMap$country_name, sep=", ")
 AlgeriaMap$Country = AlgeriaMap$country_name
-ALGERIA_DATA = subset(AlgeriaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+ALGERIA_DATA = subset(AlgeriaMap,select=c("DateReport","geoid", "RegionName","Country","pInf","geometry"))
 
 return(ALGERIA_DATA)
 }

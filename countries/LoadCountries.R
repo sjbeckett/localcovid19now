@@ -13,7 +13,7 @@ for(country in countries){
   cat("\n",country,"\n")
 	tryCatch({
 		this_country = get(country)()
-		NEWMAP = rbind(NEWMAP,this_country)
+		NEWMAP = bind_rows(NEWMAP,this_country)
 		               },
 		error = function(cond){
 		  errors <<- bind_rows(errors, tibble(countryn=country,errort = as.character(cond)))

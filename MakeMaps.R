@@ -13,7 +13,13 @@ source("MappingFunctions.R")
 # define 'oauth' as the file path to the oauth json file.
 #COMBINE DATASETS INTO SINGLE OBJECT
 GLOBALMAP <- LoadCountries()
-# GLOBALMAP <- ms_simplify(GLOBALMAP,keep=0.05,keep_shapes=TRUE)
+
+# Create world_risk_regions.csv
+# risk < 1% -> 0 
+source("MakeTable.R")
+create_c19r_data(st_drop_geometry(GLOBALMAP)%>%
+  as_tibble())
+
 ###Append ascertainment bias calculations to each region via country level statistics
 # today's date
 filedate <- paste(day(today()), month(today(), label=T, abbr = F), year(today()), sep = "")

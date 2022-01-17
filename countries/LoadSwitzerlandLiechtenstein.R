@@ -34,7 +34,7 @@ LoadSwitzerlandLiechtenstein<-function(){
 	SwitzerlandMap$RegionName = paste(SwitzerlandMap$micro_name, SwitzerlandMap$country_name, sep=", ")
 	SwitzerlandMap$Country = SwitzerlandMap$country_name
  
-	SWITZERLAND_DATA = subset(SwitzerlandMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+	SWITZERLAND_DATA = subset(SwitzerlandMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   
 return(SWITZERLAND_DATA)
 }

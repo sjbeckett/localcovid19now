@@ -51,6 +51,6 @@ JapanMap$Country = JapanMap$country_name
 JapanMap$DateReport = as.character(date) 
 JapanMap$pInf = JapanMap$Difference/JapanMap$Population
 
-JAPAN_DATA = subset(JapanMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+JAPAN_DATA = subset(JapanMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(JAPAN_DATA)
 }

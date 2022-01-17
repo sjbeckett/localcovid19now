@@ -55,7 +55,7 @@ LoadSweden <- function() {
   SwedenMap$Country = SwedenMap$country_name
   SwedenMap$DateReport = as.character(SwedenMap$date)
   SwedenMap$pInf = SwedenMap$Difference/SwedenMap$Population
-  SWEDEN_DATA = subset(SwedenMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  SWEDEN_DATA = subset(SwedenMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   
   return(SWEDEN_DATA)
 }

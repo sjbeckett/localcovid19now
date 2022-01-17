@@ -32,6 +32,6 @@ MapPeru = inner_join(geomPeru,caseTable,by = c("micro_name"="regions"))
 MapPeru$RegionName = paste(MapPeru$micro_name, MapPeru$country_name, sep=", ")
 MapPeru$Country = MapPeru$country_name
 
-PERU_DATA = subset(MapPeru,select=c("DateReport","RegionName","Country","pInf","geometry"))
+PERU_DATA = subset(MapPeru,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(PERU_DATA)
 }

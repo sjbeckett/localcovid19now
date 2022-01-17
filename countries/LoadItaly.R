@@ -56,6 +56,6 @@ LoadItaly <- function() {
   ItalyMap$Country = ItalyMap$country_name
   ItalyMap$DateReport = as.character(ItalyMap$date) 
   ItalyMap$pInf = ItalyMap$CaseDiff/ItalyMap$pop
-  ITALY_DATA = subset(ItalyMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  ITALY_DATA = subset(ItalyMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   return(ITALY_DATA)
 }

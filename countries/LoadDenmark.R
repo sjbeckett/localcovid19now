@@ -81,7 +81,7 @@ LoadDenmark <- function(){
   DenmarkMap$Country = DenmarkMap$country_name
   DenmarkMap$DateReport = as.character(DenmarkMap$Date) 
   DenmarkMap$pInf = DenmarkMap$Difference/as.numeric(DenmarkMap$Population)
-  DENMARK_DATA = subset(DenmarkMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  DENMARK_DATA = subset(DenmarkMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   
 return(DENMARK_DATA)
 }

@@ -35,6 +35,6 @@ SA_Map$RegionName = paste(SA_Map$Name, SA_Map$country_name, sep = ", ") # This n
 SA_Map$Country = SA_Map$country_name
 SA_Map$DateReport = SA_Map$date
 SA_Map$pInf = SA_Map$DiffCases/SA_Map$Population
-SA_DATA = subset(SA_Map,select=c("DateReport","RegionName","Country","pInf","geometry"))
+SA_DATA = subset(SA_Map,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(SA_DATA)
 }

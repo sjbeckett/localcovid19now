@@ -37,6 +37,6 @@ MapNigeria$RegionName = paste(MapNigeria$micro_name, MapNigeria$country_name, se
 MapNigeria$Country = MapNigeria$country_name
 MapNigeria$pInf = MapNigeria$CaseDifference/MapNigeria$population
 
-NIGERIA_DATA = subset(MapNigeria,select=c("DateReport","RegionName","Country","pInf","geometry"))
+NIGERIA_DATA = subset(MapNigeria,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(NIGERIA_DATA)
 }

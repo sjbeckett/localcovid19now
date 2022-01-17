@@ -139,7 +139,7 @@ philippinesMap$RegionName = paste(philippinesMap$micro_name, philippinesMap$coun
 philippinesMap$Country = philippinesMap$country_name
 philippinesMap$DateReport = as.character(philippinesMap$Date)
 philippinesMap$pInf = philippinesMap$Difference/philippinesMap$Pop2015
-PHILIPPINES_DATA = subset(philippinesMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+PHILIPPINES_DATA = subset(philippinesMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(PHILIPPINES_DATA)
 }

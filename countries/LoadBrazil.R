@@ -31,6 +31,6 @@ BrazilMap$RegionName = paste(BrazilMap$micro_name, BrazilMap$country_name, sep="
 BrazilMap$Country = BrazilMap$country_name
 BrazilMap$DateReport = as.character(BrazilMap$Date)
 BrazilMap$pInf = BrazilMap$Difference/BrazilMap$Population
-Brazil_DATA = subset(BrazilMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+Brazil_DATA = subset(BrazilMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(Brazil_DATA)
 }

@@ -24,7 +24,6 @@ TWdf = inner_join(caseTable,Pop,by=c("regions"="Chinese.name"))
 
 geomTaiwan = st_read("countries/data/geom/geomTaiwan.geojson")
 
-
 #integrate datasets
 MapTaiwan = inner_join(geomTaiwan,TWdf,by = c("micro_name"="regions"))
 
@@ -32,7 +31,7 @@ MapTaiwan$RegionName = paste(paste(MapTaiwan$micro_name, MapTaiwan$English.name,
 MapTaiwan$Country = MapTaiwan$country_name
 MapTaiwan$pInf = MapTaiwan$CaseDifference/MapTaiwan$Population.2020
 
-TAIWAN_DATA = subset(MapTaiwan,select=c("DateReport","RegionName","Country","pInf","geometry"))
+TAIWAN_DATA = subset(MapTaiwan,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(TAIWAN_DATA)
 }
 

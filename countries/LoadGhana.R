@@ -83,7 +83,7 @@ LoadGhana <- function(){
         pInf = case_diff/pop
           )%>%
       select(
-        DateReport, RegionName, Country=country_name, pInf
+        DateReport,geoid, RegionName, Country=country_name, pInf
       )
 
   return(GHANADATA)

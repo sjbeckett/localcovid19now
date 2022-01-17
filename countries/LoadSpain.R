@@ -41,7 +41,7 @@ SpainMap$RegionName = paste(SpainMap$micro_name, SpainMap$country_name, sep = ",
 SpainMap$Country = SpainMap$country_name
 SpainMap$DateReport = as.character(SpainMap$LatestTime) 
 SpainMap$pInf = SpainMap$CaseDiff/SpainMap$population2019
-SPAIN_DATA = subset(SpainMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+SPAIN_DATA = subset(SpainMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(SPAIN_DATA)
 }

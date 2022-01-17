@@ -58,6 +58,6 @@ MapGL$Country = MapGL$country_name
 MapGL$DateReport = as.character(MapGL$DateReport) 
 MapGL$pInf = MapGL$CaseDifference/MapGL$POP_EST
 
-COUNTRIES = subset(MapGL,select=c("DateReport","RegionName","Country","pInf","geometry"))
+COUNTRIES = subset(MapGL,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(COUNTRIES)
 }

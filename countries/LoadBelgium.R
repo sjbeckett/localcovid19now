@@ -138,6 +138,6 @@ belgiumdf$Country = belgiumdf$country_name
 belgiumdf$DateReport = as.character(UpdateDate) 
 belgiumdf$pInf = belgiumdf$Difference/belgiumdf$Population
 
-BELGIUM_DATA = subset(belgiumdf,select=c("DateReport","RegionName","Country","pInf","geometry"))
+BELGIUM_DATA = subset(belgiumdf,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(BELGIUM_DATA)
 }

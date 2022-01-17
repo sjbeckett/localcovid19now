@@ -69,7 +69,7 @@ MexicoMap$RegionName = paste(MexicoMap$micro_name, MexicoMap$macro_name, MexicoM
 
 MexicoMap$Country = MexicoMap$country_name
 MexicoMap$DateReport = as.character(MexicoMap$DateReport)
-MEXICO_DATA = subset(MexicoMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+MEXICO_DATA = subset(MexicoMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(MEXICO_DATA)
 }

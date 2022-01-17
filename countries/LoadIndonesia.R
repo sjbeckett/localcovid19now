@@ -43,6 +43,6 @@ IndonesiaMap$pInf = IndonesiaMap$CaseDifference/IndonesiaMap$pop
 IndonesiaMap$RegionName = paste(IndonesiaMap$micro_name, IndonesiaMap$country_name, sep=", ") 
 IndonesiaMap$Country = IndonesiaMap$country_name
 
-INDONESIA_DATA = subset(IndonesiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+INDONESIA_DATA = subset(IndonesiaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(INDONESIA_DATA)
 }
