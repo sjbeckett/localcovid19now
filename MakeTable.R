@@ -18,9 +18,7 @@ create_c19r_data <- function(GLOBALDAT,
     stop("'asc_bias_list' must be a vector of positive numbers")
   }
 
-  # if (!is.numeric(scale_factor) | scale_factor > 1) {
-  #   stop("Scaling factor is either not numeric or >1")
-  # }
+  
 
   risk_output <- file.path(output_prefix, risk_output)
   if (file.access(dirname(risk_output), mode = 2) != 0) {

@@ -21,8 +21,8 @@ create_c19r_data(st_drop_geometry(GLOBALMAP)%>%
   as_tibble())
 
 ###Append ascertainment bias calculations to each region via country level statistics
-# today's date
-filedate <- paste(day(today()), month(today(), label=T, abbr = F), year(today()), sep = "")
+
+
 #APPEND AB to country.
 GLOBALMAP$AB = 3
 #save map
@@ -38,5 +38,6 @@ MapTogether = EventMap(GLOBALMAP,50)
 if (interactive())
     MapTogether
 
-
+# today's date
+filedate <- paste(day(today()), month(today(), label=T, abbr = F), year(today()), sep = "")
 htmlwidgets::saveWidget(MapTogether,sprintf("GlobalRiskMapping_ABD_100_%s.html", filedate),selfcontained=T) 
