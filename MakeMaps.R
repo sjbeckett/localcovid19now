@@ -10,20 +10,18 @@ sapply(country_source_files, \(x) source(x, encoding = "UTF-8"))
 source("MappingFunctions.R")
 
 ###LOAD IN DATA
-# define 'oauth' as the file path to the oauth json file.
+
 #COMBINE DATASETS INTO SINGLE OBJECT
+## Note: a GoogleDrive oauth is required for the LoadPhilippines() function. It will prompt for the filepath
 GLOBALMAP <- LoadCountries()
 
 # Create world_risk_regions.csv
-# risk < 1% -> 0 
+## risk < 1% -> 0 
 source("MakeTable.R")
 create_c19r_data(st_drop_geometry(GLOBALMAP)%>%
   as_tibble())
 
 ###Append ascertainment bias calculations to each region via country level statistics
-
-
-#APPEND AB to country.
 GLOBALMAP$AB = 3
 #save map
 st_write(GLOBALMAP,sprintf("GlobalRiskMapping_ABD_%s.geojson",filedate), delete_dsn = T)

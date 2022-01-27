@@ -18,8 +18,6 @@ create_c19r_data <- function(GLOBALDAT,
     stop("'asc_bias_list' must be a vector of positive numbers")
   }
 
-  
-
   risk_output <- file.path(output_prefix, risk_output)
   if (file.access(dirname(risk_output), mode = 2) != 0) {
     stop("Directory for risk_output file does not appear to be writeable.")
@@ -37,7 +35,6 @@ create_c19r_data <- function(GLOBALDAT,
 
         riskdt <- data_Nr %>%
           dplyr::mutate(
-            # Need new threshold
             risk = round(calc_risk(
               Nr, size
             ), 0),
@@ -50,8 +47,6 @@ create_c19r_data <- function(GLOBALDAT,
           )
         risk_data[[cn]] <- riskdt %>%
           dplyr::select(geoid, "{cn}" := risk)
-        # riskdt_map <-
-        #   county %>% dplyr::left_join(riskdt, by = c("GEOID" = "fips"))
         id <- paste(asc_bias, size, sep = "_")
       }
     }
@@ -62,7 +57,7 @@ create_c19r_data <- function(GLOBALDAT,
 
   utils::write.csv(risk_data_df,
     risk_output,
-    quote = F,
+    quote = T,
     row.names = F
   )
 }
