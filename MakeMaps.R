@@ -24,6 +24,9 @@ create_c19r_data(GLOBALDAT = GLOBALDAT)
 
 ### Append ascertainment bias calculations to each region via country level statistics
 GLOBALMAP$AB <- 3
+
+# today's date
+filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today()), sep = "")
 # save map
 st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
 
@@ -38,6 +41,10 @@ if (interactive()) {
   MapTogether
 }
 
-# today's date
-filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today()), sep = "")
-htmlwidgets::saveWidget(MapTogether, sprintf("GlobalRiskMapping_ABD_100_%s.html", filedate), selfcontained = T)
+# Provides a csv of missing data for issue identification
+GLOBALMAP%>%
+  filter(is.na(pInf))%>%
+  st_drop_geometry()%>%
+  write.csv(file = sprintf("log_error/pInfNA_%s.csv", filedate), row.names = F)
+
+htmlwidgets::saveWidget(MapTogether, sprintf("GlobalRiskMapping_ABD_50_%s.html", filedate), selfcontained = T)
