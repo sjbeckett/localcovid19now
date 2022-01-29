@@ -1334,7 +1334,7 @@ st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn = T)
 rm(list = geom_list)
 
 nowtime <- round(difftime(now(tzone="UTC"),ymd_hms("1970-01-01 00:00:00"), tz="UTC", units="mins"))
-zip(zipfile = paste0("countries/data/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
+zip(zipfile = paste0("updateGeometry/WorldPreSimplified/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
 file.remove("geomWorld_presimp.geojson")
 rm(m49)
 rm(geom_list)

@@ -1,8 +1,8 @@
 source("librariesMinimal.R")
 library(rmapshaper) # for the ms_simplify function - simplifies polygons.
-
+here::i_am("updateGeometry/updateGlobal.R")
 # Open the most recent WorldPreSimplified geojson. Manually modify if this is not the most up-to-date file.
-zipfiles <- file.info(list.files("updateGeometry/WorldPreSimplified",full.names = T))
+zipfiles <- file.info(list.files(here::here("updateGeometry/WorldPreSimplified"),full.names = T))
 zipfile <- row.names(filter(zipfiles, ctime == max(ctime)))
 temp <- unzip(zipfile = zipfile, exdir = tempdir())
 geomWorld <- st_read(temp)
@@ -28,7 +28,7 @@ if (!is.null(newWorld)) { # If no new geometries are added, newWorld will be NUL
   st_write(geomWorld, "geomWorld_presimp.geojson")
   nowtime <- round(difftime(now(tzone="UTC"),ymd_hms("1970-01-01 00:00:00"), tz="UTC", units="mins"))
   # the presimplified world geometry is too big for github, so put it in a zip file and remove the geojson
-  zip(zipfile = paste0("countries/data/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
+  zip(zipfile = paste0("updateGeometry/WorldPreSimplified/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
   file.remove("geomWorld_presimp.geojson")
   rm(newWorld)
 }
