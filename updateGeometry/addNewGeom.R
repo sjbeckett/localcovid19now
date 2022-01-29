@@ -1,3 +1,13 @@
+here::i_am("updateGeometry/addNewGeom.R")
+
+moveFiles <- function(x) {
+  file.copy(
+    from = here::here("updateGeometry","toProcess",x),
+    to = here::here("updateGeometry","processed",x)
+  )
+  file.remove(here::here("updateGeometry","toProcess",x))
+}
+
 # Add new countries
 addNewGeoms <- function() {
   # Fields will be as follows:
@@ -14,16 +24,16 @@ addNewGeoms <- function() {
   necessary_cols <- tibble("macro_code" = NA_character_, "macro_name" = NA_character_, "micro_code" = NA_character_, "micro_name" = NA_character_)
 
   ## Load in the m49 codes for countries
-  m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
+  m49 <- readxl::read_xlsx(here::here("updateGeometry/UNSD_m49.xlsx"))
   m49 <- m49 %>%
     rename_with(
       .fn = \(x) str_replace_all(x, "[\\s/-]", "")
     )
 
-  file_list <- list.files("updateGeometry/toProcess", full.names = T)
+  file_list <- list.files(here::here("updateGeometry","toProcess"))
 
   if (length(file_list) > 0) {
-    lapply(file_list, source)
+    lapply(file_list, \(x) source(here::here("updateGeometry","toProcess",x)))
     geom_list <- paste0("geom", str_extract(file_list, "(?<=process)[:alpha:]+(?=.R$)"))
 
     worldNew <- purrr::map_df(
@@ -45,14 +55,6 @@ addNewGeoms <- function() {
       st_as_sf() %>%
       tibble::remove_rownames()
 
-    moveFiles <- function(x) {
-      file.copy(
-        from = x,
-        to = str_replace(x, "toProcess", "processed")
-      )
-      file.remove(x)
-    }
-
     lapply(file_list, moveFiles)
 
 
@@ -61,16 +63,16 @@ addNewGeoms <- function() {
 }
 
 resetNewGeoms <- function() {
-  file_list <- list.files("updateGeometry/processed", full.names = T)
+  file_list <- list.files(here::here("updateGeometry","processed"))
 
   lapply(
     file_list,
     \(x){
       file.copy(
-        from = x,
-        to = str_replace(x, "processed", "toProcess")
+        from = here::here("updateGeometry","processed",x),
+        to = here::here("updateGeometry","toProcess",x)
       )
-      file.remove(x)
+      file.remove(here::here("updateGeometry","processed",x))
     }
   )
 }

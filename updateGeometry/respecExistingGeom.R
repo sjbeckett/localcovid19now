@@ -12,6 +12,7 @@ library(readr)
 ## micro_name
 ## geometry
 
+
 ## Load in the m49 codes for countries
 m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
 m49 <- m49 %>%
@@ -1307,8 +1308,8 @@ rm(geomFiji)
 
 # Tidy up and finish
 
+## If writing each to temp_geom, use the following code for geom_list. 
 geom_list <- list.files("countries/data/temp_geom/", full.names = T)
-
 geom_list <- str_extract(geom_list[str_which(geom_list, ".geojson$")], "[:alpha:]*(?=.geojson)")
 
 geomWorld <- purrr::map_df(
@@ -1332,8 +1333,8 @@ st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn = T)
 # file.remove(list.files("countries/data/temp_geom", full.names = T))
 rm(list = geom_list)
 
-file.remove("countries/data/WorldPreSimp.zip")
-zip(zipfile = "countries/data/WorldPreSimp.zip", "geomWorld_presimp.geojson")
+nowtime <- round(difftime(now(tzone="UTC"),ymd_hms("1970-01-01 00:00:00"), tz="UTC", units="mins"))
+zip(zipfile = paste0("countries/data/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
 file.remove("geomWorld_presimp.geojson")
 rm(m49)
 rm(geom_list)

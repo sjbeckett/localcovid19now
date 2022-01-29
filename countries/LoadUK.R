@@ -33,7 +33,7 @@ LoadUK <- function(){
       mutate(date = as_date(date))
     return(data)
   }
-  cur_date <<- today()#ymd(gsub("-", "", Sys.Date()))
+  cur_date <- today()#ymd(gsub("-", "", Sys.Date()))
   
   data_cur <- dataQueryUK(cur_date)
   past_date <- cur_date - 14
@@ -91,7 +91,7 @@ LoadUK <- function(){
   
   #integrate datasets
   
-  data_join <<- data_cur %>%
+  data_join <- data_cur %>%
     inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
     inner_join(pop, by = c("code"))%>%
     inner_join(misc, by = "code")
