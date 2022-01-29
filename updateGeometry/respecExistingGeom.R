@@ -12,6 +12,7 @@ library(readr)
 ## micro_name
 ## geometry
 
+respecEnv <- new.env()
 
 ## Load in the m49 codes for countries
 m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
@@ -22,9 +23,9 @@ m49 <- m49 %>%
 
 # Afghanistan
 
-geomAfghanistan <- st_read("countries/data/orig_geom/geomAfghanistan.geojson")
+respecEnv$geomAfghanistan <- st_read("countries/data/orig_geom/geomAfghanistan.geojson")
 
-geomAfghanistan <- geomAfghanistan %>%
+respecEnv$geomAfghanistan <- respecEnv$geomAfghanistan %>%
   mutate(
     country_name = "Afghanistan",
   ) %>%
@@ -41,14 +42,11 @@ geomAfghanistan <- geomAfghanistan %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomAfghanistan %>%
-  st_write("countries/data/temp_geom/geomAfghanistan.geojson")
-# #rm(geomAfghanistan)
-
 # Algeria
-geomAlgeria <- st_read("countries/data/orig_geom/geomAlgeria.geojson")
 
-geomAlgeria <- geomAlgeria %>%
+respecEnv$geomAlgeria <- st_read("countries/data/orig_geom/geomAlgeria.geojson")
+
+respecEnv$geomAlgeria <- respecEnv$geomAlgeria %>%
   mutate(
     country_name = "Algeria",
   ) %>%
@@ -65,19 +63,20 @@ geomAlgeria <- geomAlgeria %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-
-geomAlgeria %>%
-  st_write("countries/data/temp_geom/geomAlgeria.geojson")
-# #rm(geomAlgeria)
-
 # Argentina
-geomArgentina <- st_read("countries/data/orig_geom/geomArgentina.geojson")
 
-geomArgentina %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscArgentina.csv")
+respecEnv$geomArgentina <- st_read("countries/data/orig_geom/geomArgentina.geojson")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscArgentina.csv")) {
+  respecEnv$geomArgentina %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscArgentina.csv")
+  cat("\nmiscArgentina.csv Created\n")
+}else{
+  cat("\nmiscArgentina.csv Already Exists\n")
+}
 
-geomArgentina <- geomArgentina %>%
+respecEnv$geomArgentina <- respecEnv$geomArgentina %>%
   mutate(
     country_name = "Argentina",
   ) %>%
@@ -94,14 +93,11 @@ geomArgentina <- geomArgentina %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomArgentina %>%
-  st_write("countries/data/temp_geom/geomArgentina.geojson")
-# #rm(geomArgentina)
-
 # Australia
-geomAustralia <- st_read("countries/data/orig_geom/geomAustralia.geojson")
 
-geomAustralia <- geomAustralia %>%
+respecEnv$geomAustralia <- st_read("countries/data/orig_geom/geomAustralia.geojson")
+
+respecEnv$geomAustralia <- respecEnv$geomAustralia %>%
   mutate(
     country_name = "Australia",
   ) %>%
@@ -118,15 +114,11 @@ geomAustralia <- geomAustralia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-
-geomAustralia %>%
-  st_write("countries/data/temp_geom/geomAustralia.geojson")
-# #rm(geomAustralia)
-
 # Austria
-geomAustria <- st_read("countries/data/orig_geom/geomAustria.geojson")
 
-geomAustria <- geomAustria %>%
+respecEnv$geomAustria <- st_read("countries/data/orig_geom/geomAustria.geojson")
+
+respecEnv$geomAustria <- respecEnv$geomAustria %>%
   mutate(
     country_name = "Austria",
   ) %>%
@@ -143,14 +135,11 @@ geomAustria <- geomAustria %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomAustria %>%
-  st_write("countries/data/temp_geom/geomAustria.geojson")
-# rm(geomAustria)
-
 # Belgium
-geomBelgium <- st_read("countries/data/orig_geom/geomBelgium.geojson")
 
-geomBelgium <- geomBelgium %>%
+respecEnv$geomBelgium <- st_read("countries/data/orig_geom/geomBelgium.geojson")
+
+respecEnv$geomBelgium <- respecEnv$geomBelgium %>%
   mutate(
     country_name = "Belgium",
     micro_code = row_number() # I'm assigning IDs based on row number, but we could go back and do country subdivision ISOs
@@ -168,16 +157,11 @@ geomBelgium <- geomBelgium %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomBelgium %>%
-  st_write("countries/data/temp_geom/geomBelgium.geojson")
-# #rm(geomBelgium)
+# Brazil
 
+respecEnv$geomBrazil <- st_read("countries/data/orig_geom/geomBrazil.geojson")
 
-# Brazil"
-
-geomBrazil <- st_read("countries/data/orig_geom/geomBrazil.geojson")
-
-geomBrazil <- geomBrazil %>%
+respecEnv$geomBrazil <- respecEnv$geomBrazil %>%
   mutate(
     country_name = "Brazil"
   ) %>%
@@ -196,20 +180,21 @@ geomBrazil <- geomBrazil %>%
   st_make_valid() %>% # Brazil has some invalidity
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomBrazil %>%
-  st_write("countries/data/temp_geom/geomBrazil.geojson")
-# #rm(geomBrazil)
-#
+# Canada
 
-# Canada"
+respecEnv$geomCanada <- st_read("countries/data/orig_geom/geomCanada.geojson")
 
-geomCanada <- st_read("countries/data/orig_geom/geomCanada.geojson")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscCanada.csv")) {
+  respecEnv$geomCanada %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscCanada.csv")
+  cat("\nmiscCanada.csv Created\n")
+}else{
+  cat("\nmiscCanada.csv Already Exists\n")
+}
 
-geomCanada %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscCanada.csv")
-
-geomCanada <- geomCanada %>%
+respecEnv$geomCanada <- respecEnv$geomCanada %>%
   mutate(
     country_name = "Canada"
   ) %>%
@@ -227,25 +212,25 @@ geomCanada <- geomCanada %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 # Make canada valid
-geomCanada <- geomCanada %>%
+respecEnv$geomCanada <- respecEnv$geomCanada %>%
   st_transform(3347) %>%
   st_make_valid() %>%
   st_transform(4326)
 
+# Chile
 
-geomCanada %>%
-  st_write("countries/data/temp_geom/geomCanada.geojson")
-# #rm(geomCanada)
+respecEnv$geomChile <- st_read("countries/data/orig_geom/geomChile.geojson")
 
-# Chile"
+if (!file.exists("countries/data/miscChile.csv")) {
+  respecEnv$geomChile %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscChile.csv")
+  cat("\nmiscChile.csv Created\n")
+}else{
+  cat("\nmiscChile.csv Already Exists\n")
+}
 
-geomChile <- st_read("countries/data/orig_geom/geomChile.geojson")
-
-geomChile %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscChile.csv")
-
-geomChile <- geomChile %>%
+respecEnv$geomChile <- respecEnv$geomChile %>%
   mutate(
     country_name = "Chile"
   ) %>%
@@ -262,24 +247,26 @@ geomChile <- geomChile %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 # Make Chile valid
-geomChile <- geomChile %>%
+respecEnv$geomChile <- respecEnv$geomChile %>%
   st_transform("+proj=utm +zone=23 +south +ellps=aust_SA +units=m +no_defs") %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomChile %>%
-  st_write("countries/data/temp_geom/geomChile.geojson")
-# #rm(geomChile)
+# China
 
-# China"
+respecEnv$geomChina <- st_read("countries/data/orig_geom/geomChina.geojson")
 
-geomChina <- st_read("countries/data/orig_geom/geomChina.geojson")
+## Only create csv if it doesn't exist.
+if (!file.exists("countries/data/miscChina.csv")) {
+  respecEnv$geomChina %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscChina.csv")
+  cat("\nmiscChina.csv Created\n")
+}else{
+  cat("\nmiscChina.csv Already Exists\n")
+}
 
-geomChina %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscChina.csv")
-
-geomChina <- geomChina %>%
+respecEnv$geomChina <- respecEnv$geomChina %>%
   mutate(
     country_name = "China"
   ) %>%
@@ -297,15 +284,11 @@ geomChina <- geomChina %>%
   filter(micro_code != "CN-71") %>% # Remove Taiwan because we have higher resolution in geomTaiwan
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomChina %>%
-  st_write("countries/data/temp_geom/geomChina.geojson")
-# #rm(geomChina)
+# Colombia
 
-# Colombia"
+respecEnv$geomColombia <- st_read("countries/data/orig_geom/geomColombia.geojson")
 
-geomColombia <- st_read("countries/data/orig_geom/geomColombia.geojson")
-
-geomColombia <- geomColombia %>%
+respecEnv$geomColombia <- respecEnv$geomColombia %>%
   mutate(
     country_name = "Colombia",
     NOMBRE_DPT = str_to_title(NOMBRE_DPT)
@@ -323,15 +306,11 @@ geomColombia <- geomColombia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomColombia %>%
-  st_write("countries/data/temp_geom/geomColombia.geojson")
-# #rm(geomColombia)
+# Cuba
 
-# Cuba"
+respecEnv$geomCuba <- st_read("countries/data/orig_geom/geomCuba.geojson")
 
-geomCuba <- st_read("countries/data/orig_geom/geomCuba.geojson")
-
-geomCuba <- geomCuba %>%
+respecEnv$geomCuba <- respecEnv$geomCuba %>%
   mutate(
     country_name = "Cuba",
   ) %>%
@@ -348,25 +327,22 @@ geomCuba <- geomCuba %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character)) %>%
   filter(micro_code != "unk")
-# Make Cuba valid
-geomCuba <- geomCuba %>%
+
+## Make Cuba valid
+respecEnv$geomCuba <- respecEnv$geomCuba %>%
   st_transform(32617) %>%
   st_make_valid() %>%
   st_transform(4326) %>%
   st_make_valid()
 
-geomCuba %>%
-  st_write("countries/data/temp_geom/geomCuba.geojson")
-# #rm(geomCuba)
+# Czechia
 
-# Czechia"
-
-geomCzechia <- st_read("countries/data/orig_geom/geomCzechia.geojson")
+respecEnv$geomCzechia <- st_read("countries/data/orig_geom/geomCzechia.geojson")
 
 namesCzechia <- vroom("countries/data/czech_pop.csv") %>%
   select(-Population)
-# Load codes for Local Admin Units (LAU)
-geomCzechia <- geomCzechia %>%
+## Load codes for Local Admin Units (LAU)
+respecEnv$geomCzechia <- respecEnv$geomCzechia %>%
   full_join(namesCzechia, by = c("name" = "District")) %>%
   mutate(
     country_name = "Czechia",
@@ -386,16 +362,13 @@ geomCzechia <- geomCzechia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomCzechia %>%
-  st_write("countries/data/temp_geom/geomCzechia.geojson")
-# rm(geomCzechia)
 rm(namesCzechia)
 
-# Denmark"
+# Denmark
 
-geomDenmark <- st_read("countries/data/orig_geom/geomDenmark.geojson")
+respecEnv$geomDenmark <- st_read("countries/data/orig_geom/geomDenmark.geojson")
 
-geomDenmark <- geomDenmark %>%
+respecEnv$geomDenmark <- respecEnv$geomDenmark %>%
   st_zm() %>%
   group_by(name) %>%
   summarise() %>%
@@ -417,21 +390,12 @@ geomDenmark <- geomDenmark %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomDenmark %>%
-  st_write("countries/data/temp_geom/geomDenmark.geojson")
-# rm(geomDenmark)
+# Europe
 
-# Europe"
-
-geomEurope <- st_read("countries/data/orig_geom/geomEurope.geojson")
+respecEnv$geomEurope <- st_read("countries/data/orig_geom/geomEurope.geojson")
 namesEurope <- vroom::vroom("countries/data/namesEurope.csv")
 
-## Remove countries
-# Turkmenistan - no testing performed. Hence no cases found.
-# Countries which we have higher resolution maps
-# CountriesCovered = c("Italy","Switzerland","Ireland","United Kingdom","Austria","France","Czech Republic","Spain","Denmark","Sweden","Netherlands","Germany","Norway","Belgium","Liechtenstein")
-
-geomEurope <- geomEurope %>%
+respecEnv$geomEurope <- respecEnv$geomEurope %>%
   inner_join(namesEurope, by = "UID") %>%
   mutate(CountryName = case_when(
     CountryName == "Moldova" ~ "Republic of Moldova",
@@ -449,15 +413,8 @@ geomEurope <- geomEurope %>%
       CountryName == "United Kingdom of Great Britain and Northern Ireland" ~ "United Kingdom",
       CountryName == "Russian Federation" ~ "Russia",
       TRUE ~ CountryName
-      ## Removing the code that filters out countries in favor of relegating that process to LoadEurope()
-      # ),
-      # rem = case_when(
-      #   Region %in% c("Isle of Man","Guernsey","Jersey","Gibraltar", "Faroe", "Greenland","Svalbard and Jan Mayen Islands") ~ 0,
-      #   CountryName %in% c(CountriesCovered, "Turkmenistan") ~ 1,
-      #   TRUE ~ 0
-    )
+      )
   ) %>%
-  # filter(rem == 0)%>%
   select(
     m49code = M49Code,
     iso3 = ISOalpha3Code,
@@ -466,23 +423,19 @@ geomEurope <- geomEurope %>%
     micro_name = Region
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
-# Make Europe valid
-geomEurope <- geomEurope %>%
+## Make Europe valid
+respecEnv$geomEurope <- respecEnv$geomEurope %>%
   st_transform("+proj=lcc +lat_1=43 +lat_2=62 +lat_0=30 +lon_0=10 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs") %>% # ESRI 102014: Europe Lambert Conformal Conic
   st_make_valid() %>%
   st_transform(4326)
 
-geomEurope %>%
-  st_write("countries/data/temp_geom/geomEurope.geojson")
-# rm(geomEurope)
 rm(namesEurope)
-# rm(CountriesCovered)
 
-# France"
+# France
 
-geomFrance <- st_read("countries/data/orig_geom/geomFrance.geojson")
+respecEnv$geomFrance <- st_read("countries/data/orig_geom/geomFrance.geojson")
 
-geomFrance <- geomFrance %>%
+respecEnv$geomFrance <- respecEnv$geomFrance %>%
   mutate(
     country_name = "France"
   ) %>%
@@ -499,15 +452,11 @@ geomFrance <- geomFrance %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomFrance %>%
-  st_write("countries/data/temp_geom/geomFrance.geojson")
-# rm(geomFrance)
+# Germany
 
-# Germany"
+respecEnv$geomGermany <- st_read("countries/data/orig_geom/geomGermany.geojson")
 
-geomGermany <- st_read("countries/data/orig_geom/geomGermany.geojson")
-
-geomGermany <- geomGermany %>%
+respecEnv$geomGermany <- respecEnv$geomGermany %>%
   mutate(
     country_name = "Germany",
     micro_code = row_number()
@@ -525,15 +474,11 @@ geomGermany <- geomGermany %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomGermany %>%
-  st_write("countries/data/temp_geom/geomGermany.geojson")
-# rm(geomGermany)
+# India
 
-# India"
+respecEnv$geomIndia <- st_read("countries/data/orig_geom/geomIndia.geojson")
 
-geomIndia <- st_read("countries/data/orig_geom/geomIndia.geojson")
-
-geomIndia <- geomIndia %>%
+respecEnv$geomIndia <- respecEnv$geomIndia %>%
   group_by(NAME_1) %>% # Merge the two Dadra... so they only take up one entry
   summarise() %>%
   st_cast("MULTIPOLYGON") %>%
@@ -554,15 +499,11 @@ geomIndia <- geomIndia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomIndia %>%
-  st_write("countries/data/temp_geom/geomIndia.geojson")
-# rm(geomIndia)
+# Indonesia
 
-# Indonesia"
+respecEnv$geomIndonesia <- st_read("countries/data/orig_geom/geomIndonesia.geojson")
 
-geomIndonesia <- st_read("countries/data/orig_geom/geomIndonesia.geojson")
-
-geomIndonesia <- geomIndonesia %>%
+respecEnv$geomIndonesia <- respecEnv$geomIndonesia %>%
   mutate(
     country_name = "Indonesia",
     micro_code = row_number()
@@ -580,24 +521,26 @@ geomIndonesia <- geomIndonesia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomIndonesia %>%
-  st_write("countries/data/temp_geom/geomIndonesia.geojson")
-# rm(geomIndonesia)
+# Ireland
 
-# Ireland"
+respecEnv$geomIreland <- st_read("countries/data/orig_geom/geomIreland.geojson")
 
-geomIreland <- st_read("countries/data/orig_geom/geomIreland.geojson")
-
-provIreland <- geomIreland %>%
+provIreland <- respecEnv$geomIreland %>%
   group_by(PROVINCE) %>%
   group_keys() %>%
   tibble::rowid_to_column("macro_code")
 
-geomIreland %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscIreland.csv")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscIreland.csv")) {
+  respecEnv$geomIreland %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscIreland.csv")
+  cat("\nmiscIreland.csv Created\n")
+}else{
+  cat("\nmiscIreland.csv Already Exists\n")
+}
 
-geomIreland <- geomIreland %>%
+respecEnv$geomIreland <- respecEnv$geomIreland %>%
   mutate(
     country_name = "Ireland"
   ) %>%
@@ -616,21 +559,19 @@ geomIreland <- geomIreland %>%
     micro_name = id
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
-# Make Ireland valid
-geomIreland <- geomIreland %>%
+## Make Ireland valid
+respecEnv$geomIreland <- respecEnv$geomIreland %>%
   st_transform(23029) %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomIreland %>%
-  st_write("countries/data/temp_geom/geomIreland.geojson")
-# rm(geomIreland)
 rm(provIreland)
-# Italy"
 
-geomItaly <- st_read("countries/data/orig_geom/geomItaly.geojson")
+# Italy
 
-geomItaly <- geomItaly %>%
+respecEnv$geomItaly <- st_read("countries/data/orig_geom/geomItaly.geojson")
+
+respecEnv$geomItaly <- respecEnv$geomItaly %>%
   mutate(
     country_name = "Italy"
   ) %>%
@@ -649,15 +590,11 @@ geomItaly <- geomItaly %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomItaly %>%
-  st_write("countries/data/temp_geom/geomItaly.geojson")
-# rm(geomItaly)
+# Japan
 
-# Japan"
+respecEnv$geomJapan <- st_read("countries/data/orig_geom/geomJapan.geojson")
 
-geomJapan <- st_read("countries/data/orig_geom/geomJapan.geojson")
-
-geomJapan <- geomJapan %>%
+respecEnv$geomJapan <- respecEnv$geomJapan %>%
   mutate(
     country_name = "Japan",
     micro_code = row_number()
@@ -675,21 +612,17 @@ geomJapan <- geomJapan %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-# Make Japan valid
-geomJapan <- geomJapan %>%
+## Make Japan valid
+respecEnv$geomJapan <- respecEnv$geomJapan %>%
   st_transform(3100) %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomJapan %>%
-  st_write("countries/data/temp_geom/geomJapan.geojson")
-# rm(geomJapan)
+# Malaysia
 
-# Malaysia"
+respecEnv$geomMalaysia <- st_read("countries/data/orig_geom/geomMalaysia.geojson")
 
-geomMalaysia <- st_read("countries/data/orig_geom/geomMalaysia.geojson")
-
-geomMalaysia <- geomMalaysia %>%
+respecEnv$geomMalaysia <- respecEnv$geomMalaysia %>%
   mutate(
     country_name = "Malaysia"
   ) %>%
@@ -706,15 +639,11 @@ geomMalaysia <- geomMalaysia %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomMalaysia %>%
-  st_write("countries/data/temp_geom/geomMalaysia.geojson")
-# rm(geomMalaysia)
+# Mexico
 
-# Mexico"
+respecEnv$geomMexico <- st_read("countries/data/orig_geom/geomMexico.geojson")
 
-geomMexico <- st_read("countries/data/orig_geom/geomMexico.geojson")
-
-geomMexico <- geomMexico %>%
+respecEnv$geomMexico <- respecEnv$geomMexico %>%
   mutate(
     country_name = "Mexico",
     macro_code = str_sub(CVEGEO, 1, 2)
@@ -734,21 +663,17 @@ geomMexico <- geomMexico %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-# Make Mexico valid
-geomMexico <- geomMexico %>%
+## Make Mexico valid
+respecEnv$geomMexico <- respecEnv$geomMexico %>%
   st_transform(6372) %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomMexico %>%
-  st_write("countries/data/temp_geom/geomMexico.geojson")
-# rm(geomMexico)
+# Mozambique
 
-# Mozambique"
+respecEnv$geomMozambique <- st_read("countries/data/orig_geom/geomMozambique.geojson")
 
-geomMozambique <- st_read("countries/data/orig_geom/geomMozambique.geojson")
-
-geomMozambique <- geomMozambique %>%
+respecEnv$geomMozambique <- respecEnv$geomMozambique %>%
   mutate(
     country_name = "Mozambique"
   ) %>%
@@ -765,19 +690,21 @@ geomMozambique <- geomMozambique %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomMozambique %>%
-  st_write("countries/data/temp_geom/geomMozambique.geojson")
-# rm(geomMozambique)
+# Netherlands
 
-# Netherlands"
+respecEnv$geomNetherlands <- st_read("countries/data/orig_geom/geomNetherlands.geojson")
 
-geomNetherlands <- st_read("countries/data/orig_geom/geomNetherlands.geojson")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscNetherlands.csv")) {
+  respecEnv$geomNetherlands %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscNetherlands.csv")
+  cat("\nmiscNetherlands.csv Created\n")
+}else{
+  cat("\nmiscNetherlands.csv Already Exists\n")
+}
 
-geomNetherlands %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscNetherlands.csv")
-
-geomNetherlands <- geomNetherlands %>%
+respecEnv$geomNetherlands <- respecEnv$geomNetherlands %>%
   mutate(
     country_name = "Netherlands"
   ) %>%
@@ -796,15 +723,11 @@ geomNetherlands <- geomNetherlands %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomNetherlands %>%
-  st_write("countries/data/temp_geom/geomNetherlands.geojson")
-# rm(geomNetherlands)
+# Nigeria
 
-# Nigeria"
+respecEnv$geomNigeria <- st_read("countries/data/orig_geom/geomNigeria.geojson")
 
-geomNigeria <- st_read("countries/data/orig_geom/geomNigeria.geojson")
-
-geomNigeria <- geomNigeria %>%
+respecEnv$geomNigeria <- respecEnv$geomNigeria %>%
   mutate(
     country_name = "Nigeria"
   ) %>%
@@ -821,19 +744,15 @@ geomNigeria <- geomNigeria %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomNigeria %>%
-  st_write("countries/data/temp_geom/geomNigeria.geojson")
-# rm(geomNigeria)
+# Norway
 
-# Norway"
-
-geomNorway <- st_read("countries/data/orig_geom/geomNorway.geojson")
-## this geometry is missing Svalbard and Ukjent
+respecEnv$geomNorway <- st_read("countries/data/orig_geom/geomNorway.geojson")
+## this geometry is missing Svalbard and Ukjent, but they also don't have population in the dataset
 norw_kommune <- vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv") %>%
   select(kommune_no, kommune_name, fylke_no, fylke_name) %>%
   distinct()
 
-geomNorway <- geomNorway %>%
+respecEnv$geomNorway <- respecEnv$geomNorway %>%
   group_by(kommunenummer) %>%
   summarise() %>%
   st_cast("MULTIPOLYGON") %>%
@@ -859,16 +778,13 @@ geomNorway <- geomNorway %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomNorway %>%
-  st_write("countries/data/temp_geom/geomNorway.geojson")
-# rm(geomNorway)
 rm(norw_kommune)
 
-# NZ"
+# NZ
 
-geomNZ <- st_read("countries/data/orig_geom/geomNZ.geojson")
+respecEnv$geomNZ <- st_read("countries/data/orig_geom/geomNZ.geojson")
 
-geomNZ <- geomNZ %>%
+respecEnv$geomNZ <- respecEnv$geomNZ %>%
   mutate(
     country_name = "New Zealand"
   ) %>%
@@ -885,15 +801,11 @@ geomNZ <- geomNZ %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomNZ %>%
-  st_write("countries/data/temp_geom/geomNZ.geojson")
-# rm(geomNZ)
+# Peru
 
-# Peru"
+respecEnv$geomPeru <- st_read("countries/data/orig_geom/geomPeru.geojson")
 
-geomPeru <- st_read("countries/data/orig_geom/geomPeru.geojson")
-
-geomPeru <- geomPeru %>%
+respecEnv$geomPeru <- respecEnv$geomPeru %>%
   mutate(
     country_name = "Peru",
     NOMBDEP = str_replace_all(
@@ -915,18 +827,14 @@ geomPeru <- geomPeru %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomPeru %>%
-  st_write("countries/data/temp_geom/geomPeru.geojson")
-# rm(geomPeru)
+# Philippines
 
-# Philippines"
-
-geomPhilippines <- st_read("countries/data/orig_geom/geomPhilippines.geojson")
+respecEnv$geomPhilippines <- st_read("countries/data/orig_geom/geomPhilippines.geojson")
 namesPhilippines <- vroom("countries/data/namesPhilippines.csv") %>%
   select(starts_with("ADM2"), starts_with("ADM1")) %>%
   distinct()
 
-geomPhilippines <- geomPhilippines %>%
+respecEnv$geomPhilippines <- respecEnv$geomPhilippines %>%
   mutate(
     country_name = "Philippines"
   ) %>%
@@ -946,20 +854,23 @@ geomPhilippines <- geomPhilippines %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomPhilippines %>%
-  st_write("countries/data/temp_geom/geomPhilippines.geojson")
-# rm(geomPhilippines)
 rm(namesPhilippines)
 
-# SaudiArabia"
+# SaudiArabia
 
-geomSaudiArabia <- st_read("countries/data/orig_geom/geomSaudiArabia.geojson")
+respecEnv$geomSaudiArabia <- st_read("countries/data/orig_geom/geomSaudiArabia.geojson")
 
-geomSaudiArabia %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscSaudiArabia.csv")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscSaudiArabia.csv")) {
+  geomSaudiArabia %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscSaudiArabia.csv")
+  cat("\nmiscSaudiArabia.csv Created\n")
+}else{
+  cat("\nmiscSaudiArabia.csv Already Exists\n")
+}
 
-geomSaudiArabia <- geomSaudiArabia %>%
+respecEnv$geomSaudiArabia <- respecEnv$geomSaudiArabia %>%
   mutate(
     country_name = "Saudi Arabia"
   ) %>%
@@ -977,15 +888,11 @@ geomSaudiArabia <- geomSaudiArabia %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character)) %>%
   st_make_valid() # Make Saudi Arabia valid
 
-geomSaudiArabia %>%
-  st_write("countries/data/temp_geom/geomSaudiArabia.geojson")
-# rm(geomSaudiArabia)
+# SouthAfrica
 
-# SouthAfrica"
+respecEnv$geomSouthAfrica <- st_read("countries/data/orig_geom/geomSouthAfrica.geojson")
 
-geomSouthAfrica <- st_read("countries/data/orig_geom/geomSouthAfrica.geojson")
-
-geomSouthAfrica <- geomSouthAfrica %>%
+respecEnv$geomSouthAfrica <- respecEnv$geomSouthAfrica %>%
   mutate(
     country_name = "South Africa"
   ) %>%
@@ -1001,17 +908,13 @@ geomSouthAfrica <- geomSouthAfrica %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomSouthAfrica %>%
-  st_write("countries/data/temp_geom/geomSouthAfrica.geojson")
-# rm(geomSouthAfrica)
+# Spain
 
-# Spain"
-
-geomSpain <- st_read("countries/data/orig_geom/geomSpain.geojson")
+respecEnv$geomSpain <- st_read("countries/data/orig_geom/geomSpain.geojson")
 namesSpain <- vroom::vroom("countries/data/namesSpain.csv") %>%
   mutate(cod_ccaa = str_pad(Code, width = 2, side = "left", pad = "0"))
 
-geomSpain <- geomSpain %>%
+respecEnv$geomSpain <- respecEnv$geomSpain %>%
   mutate(
     country_name = "Spain"
   ) %>%
@@ -1032,16 +935,13 @@ geomSpain <- geomSpain %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character)) %>%
   st_make_valid() # Make Spain valid
 
-geomSpain %>%
-  st_write("countries/data/temp_geom/geomSpain.geojson")
-# rm(geomSpain)
 rm(namesSpain)
 
-# Sweden"
+# Sweden
 
-geomSweden <- st_read("countries/data/orig_geom/geomSweden.geojson")
+respecEnv$geomSweden <- st_read("countries/data/orig_geom/geomSweden.geojson")
 
-geomSweden <- geomSweden %>%
+respecEnv$geomSweden <- respecEnv$geomSweden %>%
   mutate(
     country_name = "Sweden"
   ) %>%
@@ -1058,15 +958,11 @@ geomSweden <- geomSweden %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomSweden %>%
-  st_write("countries/data/temp_geom/geomSweden.geojson")
-# rm(geomSweden)
+# SwitzerlandLiechtenstein
 
-# SwitzerlandLiechtenstein"
+respecEnv$geomSwitzerlandLiechtenstein <- st_read("countries/data/orig_geom/geomSwitzerlandLiechtenstein.geojson")
 
-geomSwitzerlandLiechtenstein <- st_read("countries/data/orig_geom/geomSwitzerlandLiechtenstein.geojson")
-
-geomSwitzerlandLiechtenstein <- geomSwitzerlandLiechtenstein %>%
+respecEnv$geomSwitzerlandLiechtenstein <- respecEnv$geomSwitzerlandLiechtenstein %>%
   mutate(
     country_name = case_when(
       name == "Liechtenstein" ~ "Liechtenstein",
@@ -1086,21 +982,17 @@ geomSwitzerlandLiechtenstein <- geomSwitzerlandLiechtenstein %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-# Make Switzerland and Liechtenstein valid
-geomSwitzerlandLiechtenstein <- geomSwitzerlandLiechtenstein %>%
+## Make Switzerland and Liechtenstein valid
+respecEnv$geomSwitzerlandLiechtenstein <- respecEnv$geomSwitzerlandLiechtenstein %>%
   st_transform(21781) %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomSwitzerlandLiechtenstein %>%
-  st_write("countries/data/temp_geom/geomSwitzerlandLiechtenstein.geojson")
-# rm(geomSwitzerlandLiechtenstein)
-
 # Taiwan"
 
-geomTaiwan <- st_read("countries/data/orig_geom/geomTaiwan.geojson")
+respecEnv$geomTaiwan <- st_read("countries/data/orig_geom/geomTaiwan.geojson")
 
-geomTaiwan <- geomTaiwan %>%
+respecEnv$geomTaiwan <- respecEnv$geomTaiwan %>%
   mutate(
     country_name = "Taiwan",
     m49code = 158, # Using ISO3166 code bc Taiwan is not in the M49 list
@@ -1116,19 +1008,21 @@ geomTaiwan <- geomTaiwan %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character)) %>%
   filter(!micro_code %in% c("10011001", "10006003"))
 
-geomTaiwan %>%
-  st_write("countries/data/temp_geom/geomTaiwan.geojson")
-# rm(geomTaiwan)
-
 # Thailand"
 
-geomThailand <- st_read("countries/data/orig_geom/geomThailand.geojson")
+respecEnv$geomThailand <- st_read("countries/data/orig_geom/geomThailand.geojson")
 
-geomThailand %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscThailand.csv")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscThailand.csv")) {
+  respecEnv$geomThailand %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscThailand.csv")
+  cat("\nmiscThailand.csv Created\n")
+}else{
+  cat("\nmiscThailand.csv Already Exists\n")
+}
 
-geomThailand <- geomThailand %>%
+respecEnv$geomThailand <- respecEnv$geomThailand %>%
   mutate(
     country_name = "Thailand"
   ) %>%
@@ -1146,19 +1040,21 @@ geomThailand <- geomThailand %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomThailand %>%
-  st_write("countries/data/temp_geom/geomThailand.geojson")
-# rm(geomThailand)
-
 # UnitedKingdom"
 
-geomUnitedKingdom <- st_read("countries/data/orig_geom/geomUnitedKingdom.geojson")
+respecEnv$geomUnitedKingdom <- st_read("countries/data/orig_geom/geomUnitedKingdom.geojson")
 
-geomUnitedKingdom %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/miscUK.csv")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/miscUK.csv")) {
+  respecEnv$geomUnitedKingdom %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/miscUK.csv")
+  cat("\nmiscUK.csv Created\n")
+}else{
+  cat("\nmiscUK.csv Already Exists\n")
+}
 
-geomUnitedKingdom <- geomUnitedKingdom %>%
+respecEnv$geomUnitedKingdom <- respecEnv$geomUnitedKingdom %>%
   mutate(
     country_name = "United Kingdom",
     m49code = m49$M49Code[which(m49$CountryorArea == "United Kingdom of Great Britain and Northern Ireland")],
@@ -1173,21 +1069,16 @@ geomUnitedKingdom <- geomUnitedKingdom %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomUnitedKingdom %>%
-  st_write("countries/data/temp_geom/geomUnitedKingdom.geojson")
-# rm(geomUnitedKingdom)
-
 # UnitedStates"
 
-geomUnitedStates <- st_read("countries/data/orig_geom/geomUnitedStates.geojson")
+respecEnv$geomUnitedStates <- st_read("countries/data/orig_geom/geomUnitedStates.geojson")
 
 usStatelines <- st_read("countries/data/orig_geom/US_stateLines.geojson") %>%
   st_drop_geometry()
 
-geomUnitedStates <- geomUnitedStates %>%
+respecEnv$geomUnitedStates <- respecEnv$geomUnitedStates %>%
   mutate(
     country_name = "United States",
-    # macro_code = str_sub(GEOID, 1, 2),
     m49code = m49$M49Code[which(m49$CountryorArea == "United States of America")],
     iso3 = m49$ISOalpha3Code[which(m49$CountryorArea == "United States of America")]
   ) %>%
@@ -1203,7 +1094,7 @@ geomUnitedStates <- geomUnitedStates %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomAK <- geomUnitedStates %>%
+respecEnv$geomAK <- respecEnv$geomUnitedStates %>%
   filter(macro_code == "AK") %>%
   st_transform(3467) %>%
   group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name) %>%
@@ -1211,7 +1102,7 @@ geomAK <- geomUnitedStates %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomCO <- geomUnitedStates %>%
+respecEnv$geomCO <- respecEnv$geomUnitedStates %>%
   filter(macro_code == "CO") %>%
   st_transform(2773) %>%
   group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name) %>%
@@ -1219,7 +1110,7 @@ geomCO <- geomUnitedStates %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomID <- geomUnitedStates %>%
+respecEnv$geomID <- respecEnv$geomUnitedStates %>%
   filter(macro_code == "ID") %>%
   st_transform(2788) %>%
   group_by(m49code, iso3, country_name, macro_code, macro_name, micro_code, micro_name) %>%
@@ -1227,30 +1118,21 @@ geomID <- geomUnitedStates %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomKS <- geomUnitedStates %>%
+respecEnv$geomKS <- respecEnv$geomUnitedStates %>%
   filter(macro_code == "KS") %>%
   st_make_valid()
 
-# geomNew <- bind_rows(geomAK, geomCO, geomID, geomKS)
-
-# for(x in geomNew$micro_code){
-#   st_geometry(geomUnitedStates)[geomUnitedStates$micro_code==x] = st_geometry(geomNew)[geomNew$micro_code==x]
-# }
-# rm(x)
-geomUnitedStates <- geomUnitedStates %>%
+respecEnv$geomUnitedStates <- respecEnv$geomUnitedStates %>%
   filter(!macro_code %in% c("AK", "CO", "ID", "KS")) %>%
-  bind_rows(geomAK, geomCO, geomID, geomKS)
+  bind_rows(respecEnv$geomAK, respecEnv$geomCO, respecEnv$geomID, respecEnv$geomKS)
 
-geomUnitedStates %>%
-  st_write("countries/data/temp_geom/geomUnitedStates.geojson")
-# rm(geomUnitedStates)
-rm(list = c("geomAK", "geomCO", "geomID", "geomKS", "geomNew"))
+rm(list = c("geomAK", "geomCO", "geomID", "geomKS"), envir = respecEnv)
 rm(usStatelines)
 # Venezuela"
 
-geomVenezuela <- st_read("countries/data/orig_geom/geomVenezuela.geojson")
+respecEnv$geomVenezuela <- st_read("countries/data/orig_geom/geomVenezuela.geojson")
 
-geomVenezuela <- geomVenezuela %>%
+respecEnv$geomVenezuela <- respecEnv$geomVenezuela %>%
   mutate(
     country_name = "Venezuela",
     m49code = m49$M49Code[which(m49$CountryorArea == "Venezuela (Bolivarian Republic of)")],
@@ -1265,24 +1147,26 @@ geomVenezuela <- geomVenezuela %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-# Make Venezuela valid
-geomVenezuela <- geomVenezuela %>%
+## Make Venezuela valid
+respecEnv$geomVenezuela <- respecEnv$geomVenezuela %>%
   st_transform(2201) %>%
   st_make_valid() %>%
   st_transform(4326)
 
-geomVenezuela %>%
-  st_write("countries/data/temp_geom/geomVenezuela.geojson")
-# rm(geomVenezuela)
-
 # Small Countries
-geomSmallCountries <- st_read("countries/data/orig_geom/WB_countries_Admin0_lowres.geojson")
+respecEnv$geomSmallCountries <- st_read("countries/data/orig_geom/WB_countries_Admin0_lowres.geojson")
 
-geomSmallCountries %>%
-  st_drop_geometry() %>%
-  write_csv("countries/data/popSmallCountries.csv")
+## Only create csv if it doesn't exist. 
+if (!file.exists("countries/data/popSmallCountries.csv")) {
+  respecEnv$geomSmallCountries %>%
+    st_drop_geometry() %>%
+    write_csv("countries/data/popSmallCountries.csv")
+  cat("\npopSmallCountries.csv Created\n")
+}else{
+  cat("\npopSmallCountries.csv Already Exists\n")
+}
 
-geomSmallCountries <- geomSmallCountries %>%
+respecEnv$geomSmallCountries <- respecEnv$geomSmallCountries %>%
   left_join(m49, by = c("ISO_A3" = "ISOalpha3Code")) %>%
   select(
     m49code = M49Code,
@@ -1290,7 +1174,7 @@ geomSmallCountries <- geomSmallCountries %>%
     country_name = NAME_EN
   )
 
-geomFiji <- geomSmallCountries %>%
+respecEnv$geomFiji <- respecEnv$geomSmallCountries %>%
   filter(iso3 == "FJI") %>% # Fiji
   st_cast("POLYGON") %>%
   st_wrap_dateline() %>%
@@ -1298,43 +1182,44 @@ geomFiji <- geomSmallCountries %>%
   summarise() %>%
   ungroup()
 
-geomSmallCountries <- geomSmallCountries[which(st_is_valid(geomSmallCountries, reason = T) == "Valid Geometry"), ] %>% # Russia, USA, and Japan are accounted for in other data sets, so we can afford to loose them
-  bind_rows(geomFiji) %>%
+respecEnv$geomSmallCountries <- respecEnv$geomSmallCountries[which(st_is_valid(respecEnv$geomSmallCountries, reason = T) == "Valid Geometry"), ] %>% # Russia, USA, and Japan are accounted for in other data sets, so we can afford to loose them
+  bind_rows(respecEnv$geomFiji) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
-geomSmallCountries %>%
-  st_write("countries/data/temp_geom/geomSmallCountries.geojson")
-rm(geomFiji)
+rm(geomFiji, envir = respecEnv)
 
 # Tidy up and finish
 
-## If writing each to temp_geom, use the following code for geom_list. 
-geom_list <- list.files("countries/data/temp_geom/", full.names = T)
-geom_list <- str_extract(geom_list[str_which(geom_list, ".geojson$")], "[:alpha:]*(?=.geojson)")
+## the respecEnv has all the country geoms *and only the country geoms*
+geom_list <- ls(respecEnv)
 
 geomWorld <- purrr::map_df(
-  geom_list,
-  ~ get(.x) %>%
+  geom_list, # For each geometry file...
+  ~ get(.x, envir = respecEnv) %>%
     mutate(
-      filename = .x
+      filename = .x # Add a column with the filename...
     ) %>%
-    st_collection_extract() %>%
-    st_cast("MULTIPOLYGON")
+    { if(st_geometry_type(., FALSE) %in% c("GEOMETRY", "GEOMETRYCOLLECTION")){
+      st_collection_extract(.) # If geometry type "geometry" or "geometrycollection," cast back to polygon...
+      }else{.}
+      } %>%
+    st_cast("MULTIPOLYGON") # Cast everything to Multipolygon so they are all the same type
 ) %>%
-  replace_na(list("macro_code" = "00")) %>%
-  mutate(
+  replace_na(list("macro_code" = "00")) %>% # Replace NAs in macro_code with "00" 
+  mutate( # Create GEOIDs
     geoid = paste(paste0(iso3, m49code), macro_code, micro_code, sep = "_")
   ) %>%
   select(geoid, m49code, iso3, country_name, macro_code, macro_name, everything()) %>%
   st_as_sf() %>%
   tibble::remove_rownames()
 
+## Write presimplified geometry
 st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn = T)
-# file.remove(list.files("countries/data/temp_geom", full.names = T))
-rm(list = geom_list)
+rm(respecEnv) ## delete environment with individual geometries
 
-nowtime <- round(difftime(now(tzone="UTC"),ymd_hms("1970-01-01 00:00:00"), tz="UTC", units="mins"))
-zip(zipfile = paste0("updateGeometry/WorldPreSimplified/WorldPreSimp",nowtime,".zip"), "geomWorld_presimp.geojson")
+## Zip presimplified geometry
+nowtime <- round(difftime(now(tzone = "UTC"), ymd_hms("1970-01-01 00:00:00"), tz = "UTC", units = "mins"))
+zip(zipfile = paste0("updateGeometry/WorldPreSimplified/WorldPreSimp", nowtime, ".zip"), "geomWorld_presimp.geojson")
 file.remove("geomWorld_presimp.geojson")
 rm(m49)
 rm(geom_list)

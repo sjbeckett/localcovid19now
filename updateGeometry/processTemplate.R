@@ -10,10 +10,11 @@ geomCountry <- st_read("countries/data/orig_geom/geomCountry.geojson")
 ### micro_code, micro_name: data granularity code/name (e.g., US County, the case-aggregate level)
 
 ## Use the following if *.geojson includes population data, alternate names, or something else useful
+if(!file.exists("countries/data/miscCountry.csv")){
 ## Make sure LoadCountry.R references this new file.
 geomCountry%>%
   st_drop_geometry()%>%
-  readr::write_csv("countries/data/miscCountry.csv")
+  readr::write_csv("countries/data/miscCountry.csv")}
 
 geomCountry <- geomCountry%>%
   mutate(country_name = "Country")%>%
