@@ -1,4 +1,4 @@
-# Template
+# Taiwan
 
 geomTaiwan <- st_read("countries/data/orig_geom/geomTaiwan.geojson")
 
@@ -24,6 +24,7 @@ geomTaiwan <- geomTaiwan  %>%
   ) %>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
+## Unused when run with updateGlobal 
 # geomTaiwan %>%
 #   st_write("countries/data/temp_geom/geomTaiwan.geojson")
 ## UNSD_m49 called by addNewGeom.R

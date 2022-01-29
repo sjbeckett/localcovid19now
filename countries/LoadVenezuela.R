@@ -34,6 +34,7 @@ VZdf$regions[which(VZdf$regions=="Los.Roques")] =  "Dependencias Federales"
 VZdf$regions[which(VZdf$regions=="La.Guaira")] =  "La Guaira"
 
 VenezuelaMap = inner_join(geomVenezuela,VZdf, by = c("micro_name"="regions"))
+VenezuelaMap$DateReport = as.character(DateReport)
 VenezuelaMap$RegionName = paste(VenezuelaMap$micro_name, VenezuelaMap$country_name, sep = ", ")
 VenezuelaMap$pInf = VenezuelaMap$CaseDifference/VenezuelaMap$Population_2011
 VenezuelaMap$Country  = VenezuelaMap$country_name

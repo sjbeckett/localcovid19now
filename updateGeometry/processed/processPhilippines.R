@@ -1,10 +1,4 @@
-# Template
-# ## Load in the m49 codes for countries
-# m49 <- readxl::read_xlsx("updateGeometry/UNSD_m49.xlsx")
-# m49 <- m49 %>%
-#   rename_with(
-#     .fn = \(x) str_replace_all(x, "[\\s/-]", "")
-#   )
+# Philippines
 
 geomPhilippines <- st_read("countries/data/orig_geom/geomPhilippines.geojson")
 namesPhilippines <- vroom("countries/data/namesPhilippines.csv") %>%
@@ -40,6 +34,7 @@ geomPhilippines <- geomPhilippines %>%
   ungroup()%>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 
+## Unused when run with updateGlobal 
 # geomPhilippines %>%
   # st_write("countries/data/temp_geom/geomPhilippines.geojson")
 # rm(geomPhilippines)

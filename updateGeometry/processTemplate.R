@@ -37,4 +37,4 @@ geomCountry <- geomCountry%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
 
 ## store copy of data in /temp_geom/. This isn't necessary if running updateGlobal.R
-# st_write(geomGhana, "countries/data/temp_geom/geomCountry.geojson")
+# st_write(geomCountry, "countries/data/temp_geom/geomCountry.geojson")

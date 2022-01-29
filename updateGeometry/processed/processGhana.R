@@ -17,5 +17,6 @@ geomGhana <- geomGhana%>%
   )%>%
   st_make_valid()%>%
   mutate(across(.cols=ends_with("code"),.fns=as.character))
-# 
+
+## Unused when run with updateGlobal 
 # st_write(geomGhana, "countries/data/temp_geom/geomGhana.geojson")
