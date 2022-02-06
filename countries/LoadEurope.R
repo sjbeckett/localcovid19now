@@ -38,7 +38,7 @@ EuroMap = EuroMap[-RM_REGIONS,]
 EuroMap$RegionName = paste0(EuroMap$Region,", ",EuroMap$CountryName)
 EuroMap$Country  = EuroMap$CountryName
 
-EUROPE_DATA = subset(EuroMap, select = c("DateRpt","RegionName","Country","pInf","geometry"))
+EUROPE_DATA = subset(EuroMap, select = c("DateRpt","geoid","RegionName","Country","pInf","geometry"))
 colnames(EUROPE_DATA)[1] = "DateReport"
 
 return(EUROPE_DATA)

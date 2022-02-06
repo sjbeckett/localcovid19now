@@ -36,7 +36,7 @@ MalaysiaMap$Country = MalaysiaMap$country_name
 
 MalaysiaMap$RegionName = paste(MalaysiaMap$micro_name, MalaysiaMap$Country, sep=", ")
 
-MALAYSIA = subset(MalaysiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+MALAYSIA = subset(MalaysiaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(MALAYSIA)
 }

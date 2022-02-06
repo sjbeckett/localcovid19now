@@ -39,6 +39,6 @@ LoadFrance <- function() {
   FranceMap$DateReport = as.character(FranceMap$date) 
   FranceMap$pInf = FranceMap$n/FranceMap$pop
   
-  FRANCE_DATA = subset(FranceMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  FRANCE_DATA = subset(FranceMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   return(FRANCE_DATA)
 }

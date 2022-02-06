@@ -40,7 +40,7 @@ AustriaMap$RegionName = paste(AustriaMap$micro_name, AustriaMap$country_name, se
 AustriaMap$Country = AustriaMap$country_name
 AustriaMap$DateReport = as.character(AustriaMap$date) 
 AustriaMap$pInf = AustriaMap$Difference/AustriaMap$pop
-AUSTRIA_DATA = subset(AustriaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+AUSTRIA_DATA = subset(AustriaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(AUSTRIA_DATA)  
 }

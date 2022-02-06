@@ -140,7 +140,7 @@ geo = bind_rows(geomArgentina,geomColombia,geomAfghanistan,geomMozambique)
 GoogleMap = inner_join(geo,IndexTable, by=c("RegionName" = "MATCH"))
 # GoogleMap$RegionName = GoogleMap$MATCH
 
-GOOGLE_DATA = subset(GoogleMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+GOOGLE_DATA = subset(GoogleMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(GOOGLE_DATA)
 }

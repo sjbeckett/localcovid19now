@@ -4,7 +4,6 @@ LoadGhana <- function(){
   
   temp <- tempfile()
   download.file(url="https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
-  "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1"
   casesGhana <- vroom(temp)
   # 
   # cur_cases <- casesGhana%>%
@@ -83,7 +82,7 @@ LoadGhana <- function(){
         pInf = case_diff/pop
           )%>%
       select(
-        DateReport, RegionName, Country=country_name, pInf
+        DateReport,geoid, RegionName, Country=country_name, pInf
       )
 
   return(GHANADATA)

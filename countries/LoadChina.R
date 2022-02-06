@@ -41,6 +41,6 @@ ChinaMap$Country = ChinaMap$country_name
 ChinaMap$DateReport = as.character(date) 
 ChinaMap$pInf = ChinaMap$Difference/ChinaMap$Population
 
-CHINA_DATA = subset(ChinaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+CHINA_DATA = subset(ChinaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(CHINA_DATA)
 }

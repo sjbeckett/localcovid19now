@@ -93,6 +93,6 @@ HAM = inner_join(geomCAN,CANADARISK,by = c("micro_code" = "HR_UID"))
 HAM$RegionName = paste(HAM$health_region, HAM$province, HAM$country_name, sep=", ")
 HAM$Country = HAM$country_name
 
-CANADA_DATA = subset(HAM,select = c("DateReport","RegionName","Country","pInf","geometry"))
+CANADA_DATA = subset(HAM,select = c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(CANADA_DATA)
 }

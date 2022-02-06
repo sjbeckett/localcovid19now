@@ -73,6 +73,6 @@ germanyMap$DateReport =  as.character(germanyMap$Date)
 germanyMap$RegionName = paste(germanyMap$micro_name,germanyMap$country_name, sep=", ")
 germanyMap$Country = germanyMap$country_name
 germanyMap$pInf = germanyMap$Difference/germanyMap$Population
-GERMANY_DATA = subset(germanyMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+GERMANY_DATA = subset(germanyMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(GERMANY_DATA)
 }

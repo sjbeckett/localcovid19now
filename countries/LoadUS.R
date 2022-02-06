@@ -57,7 +57,7 @@ LoadUS <- function(){
       TRUE ~ as.numeric(fips)
     )) %>%
     select(date_past = date, fips = fips, cases_past = cases)
-  data_join <<- data_cur %>%
+  data_join <- data_cur %>%
     inner_join(data_past, by = "fips") %>%
     inner_join(pop, by = "fips") %>%  mutate(n = date - date_past)
   data_join$n <- as.numeric(data_join$n)
@@ -70,7 +70,7 @@ LoadUS <- function(){
   USMap$Country = USMap$country_name
   USMap$DateReport = as.character(USMap$date) 
   USMap$pInf = USMap$CaseDiff/USMap$pop
-  US_DATA = subset(USMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+  US_DATA = subset(USMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
   US_DATA <- st_as_sf(US_DATA)
   return(US_DATA)
 }

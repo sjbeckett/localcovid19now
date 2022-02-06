@@ -35,7 +35,7 @@ MapSaudiArabia = inner_join(geomSaudiArabia,SAdf,by = c("micro_name" = "Regions"
 MapSaudiArabia$RegionName = paste(MapSaudiArabia$RegionName, MapSaudiArabia$country_name, sep=", ")
 MapSaudiArabia$Country = MapSaudiArabia$country_name
 MapSaudiArabia$pInf = MapSaudiArabia$CaseDifference/MapSaudiArabia$Population
-SAUDI_ARABIA_DATA = subset(MapSaudiArabia,select=c("DateReport","RegionName","Country","pInf","geometry"))
+SAUDI_ARABIA_DATA = subset(MapSaudiArabia,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(SAUDI_ARABIA_DATA)
 }

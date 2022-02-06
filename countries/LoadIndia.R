@@ -59,6 +59,6 @@ indiaMap$DateReport =  as.character(indiaMap$Date)
 indiaMap$RegionName = paste(indiaMap$micro_name, indiaMap$country_name, sep=", ")
 indiaMap$Country = indiaMap$country_name
 indiaMap$pInf = as.numeric(indiaMap$Difference)/as.numeric(indiaMap$Population)
-india_DATA = subset(indiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+india_DATA = subset(indiaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(india_DATA)
 }

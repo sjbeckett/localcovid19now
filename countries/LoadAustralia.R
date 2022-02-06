@@ -28,7 +28,7 @@ AustraliaMap$RegionName = paste(AustraliaMap$micro_name, AustraliaMap$country_na
 AustraliaMap$Country = AustraliaMap$country_name
 AustraliaMap$DateReport = as.character(AustraliaMap$Date)
 AustraliaMap$pInf = AustraliaMap$Difference/AustraliaMap$Population
-Australia_DATA = subset(AustraliaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+Australia_DATA = subset(AustraliaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(Australia_DATA)
 }
