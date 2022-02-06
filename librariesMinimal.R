@@ -14,6 +14,7 @@ library(purrr)
 library(shiny)
 library(RColorBrewer)
 library(rgdal)
+library(readxl)
 
 library(COVID19) #for Chile, Peru,..
 # removed data.table, fread replaced with vroom
