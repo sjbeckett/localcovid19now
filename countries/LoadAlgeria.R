@@ -8,11 +8,15 @@ LoadAlgeria <- function() {
   # geomAlgeria = st_read("https://github.com/Amine27/covid-19-dz/raw/master/static/map/algeria.json")
   geomAlgeria <- st_read("countries/data/geom/geomAlgeria.geojson")
 
+  # Change names in data set (ALG) to match names in geometry
+  
+  ## Avoid encoding issues with characters/diacriticals
   name2save1 <- geomAlgeria$micro_name[15] # "Sidi Bel Abbès"
   name2save2 <- geomAlgeria$micro_name[39] # "Aïn Defla"
   name2save3 <- geomAlgeria$micro_name[41] # "Aïn Témouchent"
 
   # regions
+  ## Add diacritical marks lost in json
   provinces <- ALG$name
   provinces[provinces == "Ain Defla"] <- name2save2
   provinces[provinces == "Ain Temouchent"] <- name2save3
