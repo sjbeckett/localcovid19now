@@ -31,7 +31,7 @@ CaseDifference = c()
 
 for(aa in 1:length(Regions)){
 	subsetdata = NZ[which(NZ$DHBName == Regions[aa]),]
-	DateReport[aa] = max(subsetdata$ReportDate)
+	DateReport[aa] = as.character(max(subsetdata$ReportDate))
 	eligibleC = subsetdata$Confirmed[which(as_date(subsetdata$ReportDate)>as_date(DateReport[aa])-14)]
 	CaseDifference[aa] = (10/14)*sum(eligibleC)
 
@@ -59,6 +59,7 @@ geomNZ$micro_name[8] = "Tairawhiti"
 
 #integrate datasets
 MapNZ = inner_join(geomNZ,NZdf, by = c("micro_name" = "Regions"))
+MapNZ$DateReport = as.character(MapNZ$DateReport)
 MapNZ$micro_name[8] = Name2Move
 MapNZ$RegionName = paste(MapNZ$micro_name,MapNZ$country_name, sep=", ")
 MapNZ$Country = MapNZ$country_name
