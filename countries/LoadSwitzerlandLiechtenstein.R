@@ -17,7 +17,7 @@ LoadSwitzerlandLiechtenstein<-function(){
 	for(aa in 1:length(code)){
 		subsetdata = CHdata[which(CHdata$geoRegion==code[aa]),]
 		LL = nrow(subsetdata)-1
-		pInf[aa] = 10/14*subsetdata$sum14d[LL]/subsetdata$pop[LL]  
+		pInf[aa] = 10/14*(subsetdata$sumTotal[LL] - subsetdata$sumTotal[LL-14])/subsetdata$pop[LL]  
 		DateReport[aa] = as.character(subsetdata$datum[LL])
 	}
 	data_join = data.frame(code,DateReport,pInf)
