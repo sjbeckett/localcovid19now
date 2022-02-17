@@ -29,7 +29,7 @@ create_c19r_data <- function(GLOBALDAT,
     data_Nr <- GLOBALDAT %>%
       dplyr::mutate(Nr = pInf * asc_bias)
 
-    if (dim(data_Nr)[1] > 2000) {
+    # if (dim(data_Nr)[1] > 2000) {
       for (size in event_size) {
         cn <- glue::glue("{asc_bias}_{size}")
 
@@ -49,7 +49,7 @@ create_c19r_data <- function(GLOBALDAT,
           dplyr::select(geoid, "{cn}" := risk)
         id <- paste(asc_bias, size, sep = "_")
       }
-    }
+    # }
   }
 
   risk_data_df <- purrr::reduce(.x = append(list(GLOBALDAT), risk_data), .f = left_join) %>%
