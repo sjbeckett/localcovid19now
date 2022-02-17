@@ -60,6 +60,7 @@ geomNZ$micro_name[8] = "Tairawhiti"
 
 #integrate datasets
 MapNZ = inner_join(geomNZ,NZdf, by = c("micro_name" = "Regions"))
+MapNZ$DateReport = as.character(MapNZ$DateReport)
 MapNZ$micro_name[8] = Name2Move
 MapNZ$RegionName = paste(MapNZ$micro_name,MapNZ$country_name, sep=", ")
 MapNZ$Country = MapNZ$country_name
