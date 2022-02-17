@@ -71,7 +71,7 @@ names(globalList) <- pull(group_keys(groupedGlobal))
 for (y in seq_along(globalList)) {
   cat("\n")
   # Bring in the existing geometry if it exists
-  if (file.exists(paste0("countries/data/geom/", names(globalList[y]), ".geojson"))) {
+  if (file.exists(paste0("countries/data/geom/", names(globalList[y]), ".geojson")) & !names(globalList[y]) %in% updatedFiles) {
     existing <- st_read(paste0("countries/data/geom/", names(globalList[y]), ".geojson"), quiet = T)
     # Isolate at the new one
     newgeom <- globalList[y][[1]]
