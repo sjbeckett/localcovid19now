@@ -27,14 +27,15 @@ while(flag==0){
 
 Regions = unique(NZ$DHBName)
 DateReport = c()
+DateRecent = c()
 CaseDifference = c()
 
 for(aa in 1:length(Regions)){
 	subsetdata = NZ[which(NZ$DHBName == Regions[aa]),]
-	DateReport[aa] = as.character(max(subsetdata$ReportDate))
-	eligibleC = subsetdata$Confirmed[which(as_date(subsetdata$ReportDate)>as_date(DateReport[aa])-14)]
+	DateRecent[aa] = max(subsetdata$ReportDate)
+	eligibleC = subsetdata$Confirmed[which(as_date(subsetdata$ReportDate)>as_date(DateRecent[aa])-14)]
 	CaseDifference[aa] = (10/14)*sum(eligibleC)
-
+	DateReport[aa] = as.character(as_date(DateRecent[aa]))
 }
 
 CaseTable = data.frame(Regions,DateReport,CaseDifference)
