@@ -31,7 +31,7 @@ OmanMap <- inner_join(geomOman, omandf, by = c("micro_name" = "Name"))
 OmanMap$Country = "Oman"
 OmanMap$RegionName = paste(OmanMap$micro_name, OmanMap$country_name, sep=", ")
 OmanMap$pInf = as.numeric(OmanMap$Difference)/as.numeric(OmanMap$Population)
-Oman_DATA = subset(OmanMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+Oman_DATA = subset(OmanMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 
 return(Oman_DATA)
 }
