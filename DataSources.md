@@ -18,7 +18,7 @@ Data obtained via the Algeria Coronavirus Tracker API https://corona-dz.live/ ht
 COVID-19 data was obtained from https://github.com/M3IT/COVID-19_Data and aggregated by www.covid19data.com.au from local health resources.
 
 ### Austria 
-#### Released: October 19, 2020
+
 Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/
 
 ### Belgium
@@ -61,6 +61,10 @@ Komenda M., Karolyi M., Bulhart V., Žofka J., Brauner T., Hak J., Jarkovský J.
 COVID-19 data from the Statens Serum Institut (SSI):
   - https://covid19.ssi.dk/overvagningsdata  
   - https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d  
+
+### Ecuador
+
+Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: https://github.com/andrab/ecuacovid
 
 ### Europe
 

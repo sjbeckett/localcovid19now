@@ -40,3 +40,4 @@ LoadPhilippines
 LoadGhana
 LoadOman
 LoadVietnam
+LoadEcuador
