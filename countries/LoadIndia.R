@@ -1,8 +1,9 @@
 LoadIndia <- function(){
-#Data collated by covid19india.org from state bulletins and official reports: https://www.covid19india.org
+#Data collated by https://covid19tracker.in/, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports
+#with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
 
-data <- read_json('https://api.covid19india.org/v4/timeseries.json')
-#consider switching with https://api.covid19india.org/v4/min/timeseries.min.json
+data <- read_json("https://api.covid19tracker.in/data/static/timeseries.min.json")
+#UN - unknown; TT - total for India
 
 stateList <- names(data)
 dataTable <- data.frame(Date = as.character(), Code = as.character(),Difference = as.numeric())
@@ -22,43 +23,52 @@ for (i in 1:length(stateList)){
   vec <- data.frame(Date = date, Code = state, Difference = difference)
   dataTable <- rbind(dataTable,vec)
 }
+
+
 ## population file
-pop <- read_json('https://api.covid19india.org/misc.json')
-populationTable <- data.frame(Code = as.character(), State = as.character(), Population = as.numeric())
-for (i in 1:length(pop$state_meta_data)){
-  code <- pop$state_meta_data[[i]]$abbreviation # take the state code
-  population <- pop$state_meta_data[[i]]$population # extract the corresponding population
-  state <- pop$state_meta_data[[i]]$stateut
-  vec <- data.frame(Code = code, State = state, Population = population)
-  populationTable <- rbind(populationTable,vec)
-}
+#pop <- read_json('https://api.covid19india.org/misc.json')
+#populationTable <- data.frame(Code = as.character(), State = as.character(), Population = as.numeric())
+#for (i in 1:length(pop$state_meta_data)){
+#  code <- pop$state_meta_data[[i]]$abbreviation # take the state code
+#  population <- pop$state_meta_data[[i]]$population # extract the corresponding population
+#  state <- pop$state_meta_data[[i]]$stateut
+#  vec <- data.frame(Code = code, State = state, Population = population)
+#  populationTable <- rbind(populationTable,vec)
+#}
+#write.csv(populationTable,"popIndia.csv",row.names=FALSE)
+populationTable <- read.csv("countries/data/popIndia.csv")
+
 
 indiadf <- inner_join(dataTable,populationTable, by = c("Code"))
 
 
+
 # GEOGRAPHIC GEOJSON FILE
-#geomIndia <- st_read('https://raw.githubusercontent.com/divya-akula/GeoJson-Data-India/master/India_State.geojson')
-#geomIndia <- geomIndia[,c("NAME_1","geometry")]
-#geomIndia[geomIndia$NAME_1 == "Andaman and Nicobar",'NAME_1'] <- 'Andaman and Nicobar Islands'
-#geomIndia[geomIndia$NAME_1 == "NCT of Delhi",'NAME_1'] <- 'Delhi'
-#geomIndia[geomIndia$NAME_1 == "Dadra and Nagar Haveli",'NAME_1'] <- "Dadra and Nagar Haveli and Daman and Diu"
-#geomIndia[geomIndia$NAME_1 == "Daman and Diu",'NAME_1'] <- "Dadra and Nagar Haveli and Daman and Diu"
-geomIndia<-st_read("countries/data/geom/geomIndia.geojson")
+#geomIndia <- st_read("https://github.com/india-in-data/india-states-2019/raw/master/india_states.geojson")
+#sptemp = geomIndia
+#sptemp = st_make_valid(sptemp)
+#sptemp$ST_NM[which(sptemp$ID=="AN")] = "Andaman and Nicobar Islands"
+#sptemp$ST_NM[which(sptemp$ID=="DL")] = "Delhi"
+#sptemp$ST_NM[which(sptemp$ID=="JK")] ="Jammu and Kashmir"
+#sptemp$ST_NM[which(sptemp$ID=="DN")] = "Dadra and Nagar Haveli and Daman and Diu"
+#sptemp$ST_NM[which(sptemp$ID=="DD")] = "Dadra and Nagar Haveli and Daman and Diu"
+#sptemp$ID[which(sptemp$ID=="DN")] = "DNDD"
+#sptemp$ID[which(sptemp$ID=="DD")] = "DNDD"
+#sptemp = sptemp %>% 
+#    group_by(ST_NM,ID) %>%
+#    summarise(geometry = sf::st_union(geometry)) %>%
+#	ungroup()
+#sptemp = st_cast(sptemp,"MULTIPOLYGON")
+#st_write(sptemp,"geomIndia.geojson")
+geomIndia = st_read("countries/data/geom/geomIndia.geojson")
 
 
-## Citation
-#' @misc{covid19indiaorg2020tracker,
-#'   author = {COVID-19 India Org Data Operations Group},
-#'   title = ,
-#'   howpublished = {Accessed on yyyy-mm-dd from \url{https://api.covid19india.org/}},
-#'   year = 2020
-#' }
 
 indiaMap <- inner_join(geomIndia,indiadf,by = c('micro_name' = 'State'))
 indiaMap$DateReport =  as.character(indiaMap$Date)
 indiaMap$RegionName = paste(indiaMap$micro_name, indiaMap$country_name, sep=", ")
 indiaMap$Country = indiaMap$country_name
 indiaMap$pInf = as.numeric(indiaMap$Difference)/as.numeric(indiaMap$Population)
-india_DATA = subset(indiaMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
+india_DATA = subset(indiaMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 return(india_DATA)
 }

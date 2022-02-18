@@ -25,7 +25,7 @@ geomSA$date = Date
 SA_province_pop <-vroom("countries/data/SA_province_pop.csv", col_names=FALSE)
 
 
-PROVINCECode = c("GP","KZN","WC","EC","LP","MP","NW","FS","NC")
+PROVINCECode = c("GP","KZN","WC","EC","LM","MP","NW","FS","NC")
 SA_province_pop=cbind(SA_province_pop,PROVINCECode)
 names(SA_province_pop) = c("Name","Population","ProCode")
 
