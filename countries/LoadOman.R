@@ -24,14 +24,14 @@ omandf = inner_join(omandt,pop,by=c("Name"="Name"))
 #geometry
 #https://data.humdata.org/dataset/cod-ab-omn?
 geomOman = st_read("countries/data/geom/geomOman.geojson")
-geomOman$ADM1_EN[5] =  "Al Dhahirah"
-geomOman$ADM1_EN[1] = "Ad Dakhiliyah"
+geomOman$micro_name[5] =  "Ad Dhahirah"
+geomOman$micro_name[1] = "Ad Dakhiliyah"
 
-OmanMap <- inner_join(geomOman, omandf, by = c("ADM1_EN" = "Name"))
-OmanMap$country_name = "Oman"
-OmanMap$RegionName = paste(OmanMap$ADM1_EN, OmanMap$country_name, sep=", ")
+OmanMap <- inner_join(geomOman, omandf, by = c("micro_name" = "Name"))
+OmanMap$Country = "Oman"
+OmanMap$RegionName = paste(OmanMap$micro_name, OmanMap$country_name, sep=", ")
 OmanMap$pInf = as.numeric(OmanMap$Difference)/as.numeric(OmanMap$Population)
-Oman_DATA = subset(OmanMap,select=c("DateReport","RegionName","country_name","pInf","geometry"))
+Oman_DATA = subset(OmanMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
 
 return(Oman_DATA)
 }

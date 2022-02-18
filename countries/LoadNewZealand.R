@@ -19,7 +19,7 @@ while(flag==0){
 	}else{
 		aa=aa+1
 	}
-	if(aa>5){
+	if(aa>14){
 		warning("no recent data")
 		flag=2
 	}
