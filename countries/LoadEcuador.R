@@ -29,7 +29,7 @@ EcuadorMap$Country = "Ecuador"
 EcuadorMap$RegionName = paste(EcuadorMap$micro_name, EcuadorMap$macro_name, EcuadorMap$country_name, sep=", ")
 EcuadorMap$pInf = as.numeric(EcuadorMap$CaseDiff)/as.numeric(EcuadorMap$Population)
 Ecuador_DATA = subset(EcuadorMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
-return(EcuadorMap)
+return(Ecuador_DATA)
 }
 
 
