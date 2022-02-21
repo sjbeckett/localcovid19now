@@ -1,5 +1,5 @@
 source("librariesMinimal.R")
-library(rmapshaper) # for the ms_simplify function - simplifies polygons.
+# Requires rmapshaper for the ms_simplify function - simplifies polygons.
 here::i_am("updateGeometry/updateGlobal.R")
 
 # Open the most recent WorldPreSimplified geojson. Manually modify if this is not the most up-to-date file.
@@ -40,7 +40,7 @@ if (!is.null(newWorld)) { # If no new geometries are added, newWorld will be NUL
 }
 
 # Simplify the world
-geomGlobal <- ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRUE) %>%
+geomGlobal <- rmapshaper::ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRUE) %>%
   group_by(geoid) %>%
   st_make_valid() %>%
   # There are some duplicated geoids due to geomSmallCountries, but these are filtered out in the LoadCountry stage
