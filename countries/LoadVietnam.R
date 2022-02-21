@@ -49,7 +49,7 @@ datadf = inner_join(dataTable,ProvinceInfo, by = c("Code" = "id"))
 
 VietnamMap <-inner_join(geomVietnam, datadf, by = c("micro_name" = "NameUse"))
 VietnamMap$Country = "Vietnam"
-VietnamMap$RegionName = paste(VietnamMap$name, VietnamMap$country_name, sep=", ")
+VietnamMap$RegionName = paste(VietnamMap$micro_name, VietnamMap$country_name, sep=", ")
 VietnamMap$pInf = as.numeric(VietnamMap$Difference)/as.numeric(VietnamMap$Population)
 Vietnam_DATA = subset(VietnamMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(Vietnam_DATA)

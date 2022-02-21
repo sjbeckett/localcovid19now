@@ -1,7 +1,3 @@
 "","countryn","errort","datetime"
-"1","LoadIndia","Error in file(file, ""rt""): cannot open the connection
-",2022-02-18 01:23:22
-"2","LoadNewZealand","Error: $ operator is invalid for atomic vectors
-",2022-02-18 01:25:14
-"3","LoadOman","Error in `[[<-.data.frame`(`*tmp*`, i, value = c(NA, NA, NA, NA, ""Al Dhahirah"": replacement has 5 rows, data has 11
-",2022-02-18 01:34:27
+"1","LoadEcuador","Error: Cannot open ""geomEcuador.geojson""; The file doesn't seem to exist.
+",2022-02-21 16:16:18

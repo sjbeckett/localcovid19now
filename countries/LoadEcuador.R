@@ -21,14 +21,14 @@ for(aa in 1:length(Cantons)){
 ecu_df = data.frame(DateReport,CaseDiff,Population,Cantons)
 
 #geometry: https://data.humdata.org/dataset/cod-ab-ecu
-geomEcuador = st_read("geomEcuador.geojson")
+geomEcuador = st_read("countries/data/geom/geomEcuador.geojson")
 
-geomEcuador$can_pro = paste0(geomEcuador$ADM2_ES,",",geomEcuador$ADM1_ES)
+geomEcuador$can_pro = paste0(geomEcuador$micro_name,",",geomEcuador$macro_name)
 EcuadorMap <-inner_join(geomEcuador, ecu_df, by = c("can_pro" = "Cantons"))
 EcuadorMap$Country = "Ecuador"
-EcuadorMap$RegionName = paste(EcuadorMap$ADM2_ES, EcuadorMap$ADM1_ES, EcuadorMap$country_name, sep=", ")
+EcuadorMap$RegionName = paste(EcuadorMap$micro_name, EcuadorMap$macro_name, EcuadorMap$country_name, sep=", ")
 EcuadorMap$pInf = as.numeric(EcuadorMap$CaseDiff)/as.numeric(EcuadorMap$Population)
-Ecuador_DATA = subset(EcuadorMap,select=c("DateReport","RegionName","Country","pInf","geometry"))
+Ecuador_DATA = subset(EcuadorMap,select=c("DateReport","geoid","RegionName","Country","pInf","geometry"))
 return(EcuadorMap)
 }
 
