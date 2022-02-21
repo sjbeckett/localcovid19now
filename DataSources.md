@@ -139,9 +139,17 @@ Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exch
 
 Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
+### Saudi Arabia
+
+Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
+
 ### South Africa
 
 Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: https://github.com/dsfsi/covid19za
+
+### South Korea
+
+Data collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
 
 ### Spain
 
@@ -154,10 +162,6 @@ Swedish COVID-19 National Statistics from Folkhälsomyndigheten: https://experie
 ### Switzerland and Liechenstein
 
 Federal Office of Public Health FOPH: https://www.covid19.admin.ch/en/overview
-
-### Saudi Arabia
-
-Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
 
 ### Taiwan
 
