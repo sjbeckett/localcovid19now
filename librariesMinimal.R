@@ -22,3 +22,6 @@ library(COVID19) #for Chile, Peru,..
 #for Philippines
 library(googledrive)
 library(pdftools)
+
+#for static maps
+library(tmap)

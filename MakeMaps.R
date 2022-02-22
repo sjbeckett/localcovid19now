@@ -30,16 +30,23 @@ filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today(
 # save map
 st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
 
-# No data if pInf = 0
-GLOBALMAP$pInf[GLOBALMAP$pInf == 0] <- NA
+# No data if pInf <= 0
+GLOBALMAP$pInf[which(GLOBALMAP$pInf <= 0)] <- NA
 # Subset to only include recent data
 GLOBALMAP$pInf[which(GLOBALMAP$DateReport < (Sys.Date() - 30))] <- NA
 
 # Map with 50 people
-MapTogether <- EventMap(GLOBALMAP, 50)
+MapTogether <- EventMap_leaflet(GLOBALMAP, 50)
 if (interactive()) {
   MapTogether
 }
+
+#static maps via tmap
+PCM = PerCapitaMap_tmap(GLOBALMAP,100000) #active cases per 100,000
+tmap_save(Can_perCmap,sprintf("Global_pcm_per100000_%s.png", filedate))
+EM = EventMap_tmap(GLOBALMAP,100) #risk for event of 100 people
+tmap_save(Can_perCmap,sprintf("Global_RiskMap_Ev100_%s.png", filedate))
+
 
 # Provides a csv of missing data for issue identification
 GLOBALMAP%>%
