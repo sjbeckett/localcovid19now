@@ -120,8 +120,7 @@ EventMap_tmap <- function(DATA,G, boundaryweights = 0.05, projectionCRS = "+proj
 		tm_polygons(col="risk", id = "RegionName", title=paste("Risk (%) of exposure to\nCOVID-19 in a group of",G), border.col = "lightgrey", border.alpha=0.2,lwd=boundaryweights,palette = pal(bins),breaks=bins) +
 		tm_shape(World) +
 		tm_layout(legend.outside=TRUE,legend.outside.position="right",title = maptitle)+
-		tm_borders("grey", lwd = .5) +
-		tm_text("iso_a3", size = "AREA")
+		tm_borders("grey", lwd = .5)
 }
 
 
@@ -140,6 +139,5 @@ PerCapitaMap_tmap <- function(DATA,people, boundaryweights = 0.05, projectionCRS
 		tm_polygons(col="percapcases", id = "geoid", title=paste("Active cases per",prettyNum(people,big.mark=",",scientific=FALSE),"people"), border.col = "lightgrey", border.alpha=0.2,lwd=boundaryweights) +
 		tm_shape(World)+
 		tm_layout(legend.outside=TRUE,legend.outside.position="right",title = maptitle)+
-		tm_borders("grey", lwd = .5) +
-		tm_text("iso_a3", size = "AREA")
+		tm_borders("grey", lwd = .5)
 }
