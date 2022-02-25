@@ -136,7 +136,7 @@ PerCapitaMap_tmap <- function(DATA,people, boundaryweights = 0.05, projectionCRS
 		bbox_new = st_bbox(DATA)
 	}
 
-	tm_shape(DATA, bbox = bbox_new) + 
+	tm_shape(DATA) + 
 		tm_polygons(col="percapcases", id = "geoid", title=paste("Active cases per",prettyNum(people,big.mark=",",scientific=FALSE),"people"), border.col = "lightgrey", border.alpha=0.2,lwd=boundaryweights) +
 		tm_shape(World)+
 		tm_layout(legend.outside=TRUE,legend.outside.position="right",title = maptitle)+
