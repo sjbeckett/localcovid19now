@@ -41,12 +41,6 @@ if (interactive()) {
   MapTogether
 }
 
-#static maps via tmap
-PCM = PerCapitaMap_tmap(GLOBALMAP,100000) #active cases per 100,000
-tmap_save(Can_perCmap,sprintf("Global_pcm_per100000_%s.png", filedate))
-EM = EventMap_tmap(GLOBALMAP,100) #risk for event of 100 people
-tmap_save(Can_perCmap,sprintf("Global_RiskMap_Ev100_%s.png", filedate))
-
 
 # Provides a csv of missing data for issue identification
 GLOBALMAP%>%
@@ -55,3 +49,10 @@ GLOBALMAP%>%
   write.csv(file = sprintf("log_error/pInfNA_%s.csv", filedate), row.names = F)
 
 htmlwidgets::saveWidget(MapTogether, sprintf("GlobalRiskMapping_ABD_50_%s.html", filedate), selfcontained = T)
+
+
+#Example static maps via tmap
+PCM = PerCapitaMap_tmap(GLOBALMAP,100000) #active cases per 100,000
+tmap_save(PCM,sprintf("Global_pcm_per100000_%s.png", filedate))
+EM = EventMap_tmap(GLOBALMAP,100) #risk for event of 100 people
+tmap_save(EM,sprintf("Global_RiskMap_Ev100_%s.png", filedate))
