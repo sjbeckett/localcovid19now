@@ -131,9 +131,10 @@ PerCapitaMap_tmap <- function(DATA,people, boundaryweights = 0.05, projectionCRS
 
 	DATA$percapcases <- DATA$pInf*people
 
-	if(is.na(bbox_new)){ #if no bbox set, use that in the data
-		bbox_new = st_bbox(DATA)
-	}
+	## this doesn't have any bearing currently, so I'm commenting it out
+	# if(is.na(bbox_new)){ #if no bbox set, use that in the data
+	# 	bbox_new = st_bbox(DATA)
+	# }
 
 	tm_shape(DATA) + 
 		tm_polygons(col="percapcases", id = "geoid", title=paste("Active cases per",prettyNum(people,big.mark=",",scientific=FALSE),"people"), border.col = "lightgrey", border.alpha=0.2,lwd=boundaryweights) +

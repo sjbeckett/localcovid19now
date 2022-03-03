@@ -8,21 +8,32 @@ namesEurope <- vroom::vroom("countries/data/namesEurope.csv")
 temp <- unzip(zipfile = here::here("updateGeometry/ne_10m_admin_0_countries_lakes.zip"), exdir = tempdir())
 
 worldBorders <- st_read(temp[which(str_detect(temp, ".shp$"))])%>%
-  st_drop_geometry()
+  st_drop_geometry()%>%
+  mutate(
+    ISO_A3 = case_when(
+      ISO_A3 == -99 & ISO_A3_EH == -99 ~ ADM0_A3,
+      ISO_A3 == -99 ~ ISO_A3_EH,
+      TRUE ~ ISO_A3
+    ),
+    ISO_N3 = case_when(
+      ISO_N3 == -99 ~ ISO_N3_EH,
+      TRUE ~ ISO_A3
+    )
+  )
 unlink(temp)
 
 geomEurope <- geomEurope %>%
   inner_join(namesEurope, by = "UID") %>%
   mutate(
     Region = case_when(
-      Region == "Faroe" ~ "Faeroe Is.",
+      Region == "Faroe" ~ "Faeroe Islands",
       TRUE ~ Region
     ),
     CountryName = case_when(
       CountryName == "Russian Fed." ~ "Russian Federation",
       CountryName == "Holy See" ~ "Vatican",
       # CountryName == "United Kingdom" ~ "United Kingdom of Great Britain and Northern Ireland",
-      Region %in% worldBorders$NAME_SORT ~ Region,
+      Region %in% worldBorders$NAME_LONG ~ Region,
       TRUE ~ CountryName
     )
   ) %>%
@@ -41,6 +52,9 @@ geomEurope <- geomEurope %>%
     micro_code = UID,
     micro_name = Region
   ) %>%
+  mutate(
+    iso3 = if_else(micro_name == "Svalbard and Jan Mayen Islands", "SJM", iso3)
+  )%>%
   mutate(across(.cols = ends_with("code"), .fns = as.character))
 ## Make Europe valid
 geomEurope <- geomEurope %>%
