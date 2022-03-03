@@ -4,7 +4,7 @@ calc_risk <- function(p_I, g) {
 }
 
 create_c19r_data <- function(GLOBALDAT,
-                             risk_output = "world_risk_regions.csv",
+                             risk_output = sprintf("world_risk_regions/world_risk_regions_%s.csv",str_replace_all(lubridate::today(), "-", "")),
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
                              asc_bias_list = c(3, 4, 5)) {
@@ -29,7 +29,7 @@ create_c19r_data <- function(GLOBALDAT,
     data_Nr <- GLOBALDAT %>%
       dplyr::mutate(Nr = pInf * asc_bias)
 
-    if (dim(data_Nr)[1] > 2000) {
+    # if (dim(data_Nr)[1] > 2000) {
       for (size in event_size) {
         cn <- glue::glue("{asc_bias}_{size}")
 
@@ -49,7 +49,7 @@ create_c19r_data <- function(GLOBALDAT,
           dplyr::select(geoid, "{cn}" := risk)
         id <- paste(asc_bias, size, sep = "_")
       }
-    }
+    # }
   }
 
   risk_data_df <- purrr::reduce(.x = append(list(GLOBALDAT), risk_data), .f = left_join) %>%

@@ -30,9 +30,12 @@ chinadf <- inner_join(latestData,pop, by = c('Province' = 'Name'))
 geomChina<- st_read("countries/data/geom/geomChina.geojson")
 
 #alter naming to match across datasets
-geomChina$micro_name[19] = "Inner Mongolia"
-geomChina$micro_name[20] = "Ningxia"
-geomChina$micro_name[33] = "Hong Kong"
+geomChina$micro_name[which(geomChina$micro_name == "Nei Mongol")] = "Inner Mongolia"
+geomChina$micro_name[which(geomChina$micro_name == "Ningxia Hui")] = "Ningxia"
+geomChina$micro_name[which(geomChina$micro_name == "HongKong")] = "Hong Kong"
+geomChina$micro_name[which(geomChina$micro_name == "Xinjiang Uygur")] = "Xinjiang"
+geomChina$micro_name[which(geomChina$micro_name == "Xizang")] = "Tibet"
+
 
 #integrate datasets
 ChinaMap <- inner_join(geomChina, chinadf, by = c("micro_name" = "Province"))
