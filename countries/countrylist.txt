@@ -38,3 +38,8 @@ LoadVenezuela
 LoadGoogleSourced
 LoadPhilippines
 LoadGhana
+LoadOman
+LoadVietnam
+LoadEcuador
+LoadZimbabwe
+LoadSouthKorea
