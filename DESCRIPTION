@@ -1,12 +1,42 @@
 Package: subregionalcovid19
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Authors@R: c(
+    person("Aroon", "Chande", , "achande@ihrc.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
+    person("Stephen", "Beckett", , "stephen.beckett@biology.gatech.edu", role = "aut",
+           comment = c(ORCID = "0000-0002-4410-2960")),
+    person("Freyja", "Brandel-Tanis", , "freyja.alice@gatech.edu", role = "aut",
+           comment = c(ORCID = "0000-0003-2870-6980"))
+  )
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr,
+    jsonlite,
+    lubridate,
+    purrr,
+    readxl,
+    rgdal,
+    sf,
+    stringr,
+    tidyr,
+    vroom
+Suggests:
+    COVID19,
+    googledrive,
+    htmlwidgets,
+    httr,
+    leaflet,
+    pdftools,
+    RColorBrewer,
+    rmapshaper,
+    rvest,
+    shiny,
+    tmap
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
