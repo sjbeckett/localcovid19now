@@ -26,7 +26,7 @@ create_c19r_data(GLOBALDAT = GLOBALDAT)
 GLOBALMAP$AB <- 3
 
 # today's date
-filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today()), sep = "")
+filedate <- paste(str_pad(day(today()),width = 2, side="left", pad="0"), month(today(), label = T, abbr = F), year(today()), sep = "")
 # save map
 st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
 
