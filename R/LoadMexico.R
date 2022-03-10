@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadMexico <- function() {
   # COVID-19 Covid-19 México hub page: https://datos.covid-19.conacyt.mx/
 

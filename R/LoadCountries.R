@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param countries 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadCountries <- function(countries = NULL) {
 
   # COMBINE DATASETS INTO SINGLE OBJECT
@@ -7,17 +15,17 @@ LoadCountries <- function(countries = NULL) {
     countries <- countrylist
   }
 
-  errors <<- tibble(countryn = c(), errort = c(), datetime = c())
+  errors <<- data.frame(countryn = c(), errort = c(), datetime = c())
   for (country in countries) {
     # Load in data for this country
     cat("\n", country, "\n")
     tryCatch(
       {
         this_country <- get(country)()
-        NEWMAP <- bind_rows(NEWMAP, this_country)
+        NEWMAP <- dplyr::bind_rows(NEWMAP, this_country)
       },
       error = function(cond) {
-        errors <<- bind_rows(errors, tibble(countryn = country, errort = as.character(cond), datetime = now(tzone = "UTC")))
+        errors <<- dplyr::bind_rows(errors, data.frame(countryn = country, errort = as.character(cond), datetime = lubridate::now(tzone = "UTC")))
       }
     )
   }

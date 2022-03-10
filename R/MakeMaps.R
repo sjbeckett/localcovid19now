@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 makeMaps <- function() {
 
   # source local files
@@ -14,7 +20,7 @@ makeMaps <- function() {
 
   # Create world_risk_regions.csv
   ## risk < 1% -> 0
-  GLOBALDAT <- st_drop_geometry(GLOBALMAP) %>%
+  GLOBALDAT <- sf::st_drop_geometry(GLOBALMAP) %>%
     as_tibble()
   create_c19r_data(df_in = GLOBALDAT)
 

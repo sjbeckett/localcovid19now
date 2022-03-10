@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadDenmark <- function() {
   # COVID-19 data from the Statens Serum Institut (SSI):
   #- https://covid19.ssi.dk/overvagningsdata
@@ -35,37 +41,37 @@ LoadDenmark <- function() {
   temp2 <- tempdir() # temporary file for extraction
   download.file(DOWNLOADLINK, destfile = temp)
   unzip(zipfile = temp, exdir = temp2)
-  DenmarkData <- vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";")
+  DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";")
   unlink(temp)
   unlink(temp2)
 
   curdate <- DenmarkData$SampleDate %>%
     sort() %>%
-    last()
+    dplyr::last()
 
   dataTable <- DenmarkData %>%
-    pivot_longer(
+    tidyr::pivot_longer(
       cols = -SampleDate,
       names_to = "Municipality",
       values_to = "Cases"
     ) %>%
-    group_by(Municipality) %>%
-    mutate(
+    dplyr::group_by(Municipality) %>%
+    dplyr::mutate(
       CumCases = cumsum(Cases)
     ) %>%
-    ungroup() %>%
-    filter(SampleDate %in% c(curdate, curdate - 14)) %>%
-    pivot_wider(
+    dplyr::ungroup() %>%
+    dplyr::filter(SampleDate %in% c(curdate, curdate - 14)) %>%
+    tidyr::pivot_wider(
       id_cols = Municipality,
       names_from = SampleDate,
       values_from = CumCases,
       names_prefix = "d"
     ) %>%
-    mutate(
+    dplyr::mutate(
       Difference = (.data[[paste0("d", curdate)]] - .data[[paste0("d", (curdate - 14))]]) * 10 / 14,
       Date = curdate
     ) %>%
-    select(Date, everything(), -starts_with("d", ignore.case = F))
+    dplyr::select(Date, dplyr::everything(), -starts_with("d", ignore.case = F))
 
   # population
   ## get from Statistics Denmark: https://www.statbank.dk/statbank5a/SelectVarVal/saveselections.asp
@@ -74,11 +80,11 @@ LoadDenmark <- function() {
   pop_denmark$Population <- as.numeric(gsub(" ", "", pop_denmark$Population))
 
   # integrate datasets
-  Denmarkdf <- inner_join(dataTable, pop_denmark, by = "Municipality")
+  Denmarkdf <- dplyr::inner_join(dataTable, pop_denmark, by = "Municipality")
   Denmarkdf$Municipality[which(Denmarkdf$Municipality == "Nordfyns")] <- "Nordfyn"
   Denmarkdf$Municipality[which(Denmarkdf$Municipality == "Vesthimmerlands")] <- "Vesthimmerland"
 
-  DenmarkMap <- inner_join(geomDenmark, Denmarkdf, by = c("micro_name" = "Municipality"))
+  DenmarkMap <- dplyr::inner_join(geomDenmark, Denmarkdf, by = c("micro_name" = "Municipality"))
 
   DenmarkMap$RegionName <- paste(DenmarkMap$micro_name, DenmarkMap$country_name, sep = ", ")
   DenmarkMap$Country <- DenmarkMap$country_name

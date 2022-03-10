@@ -1,3 +1,28 @@
+#' Title
+#'
+#' @param code 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+getDataND <- function(code) {
+  temp <- netherlandsData %>% filter(Municipality == municipality[code])
+  temp$CumSum <- cumsum(temp$Cases)
+  today <- temp$Date[length(temp$Date)]
+  past_date <- today - 14
+  pastData <- temp[temp$Date <= past_date, ]
+  ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
+  difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
+  vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
+  return(vec)
+}
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadNetherlands <- function() {
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
@@ -8,29 +33,17 @@ LoadNetherlands <- function() {
   ### Municipalities:
   municipality <- unique(netherlandsData$Municipality)
   municipality <- municipality[1:(length(municipality) - 1)]
-  getData <- function(code) {
-    temp <- netherlandsData %>% filter(Municipality == municipality[code])
-    temp$CumSum <- cumsum(temp$Cases)
-    today <- temp$Date[length(temp$Date)]
-    past_date <- today - 14
-    pastData <- temp[temp$Date <= past_date, ]
-    ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
-    difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
-    vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
-    return(vec)
-  }
+
 
   netherlandsTable <- data.frame()
   for (i in 1:length(municipality)) {
-    vec <- getData(i)
+    vec <- getDataND(i)
     netherlandsTable <- rbind(netherlandsTable, vec)
   }
 
   netherlandsTable$Municipality[netherlandsTable$Municipality == "'s-Gravenhage"] <- "Des Gravenhage"
 
   # Note that geomNetherlands$Bevolkingsaantal is population size.
-  data("geomNetherlands")
-  data("pop_netherlands")
 
   netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code" = "Code")) %>%
     inner_join(pop_netherlands, by = c("micro_code" = "Gemeentecode"))

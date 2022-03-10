@@ -1,13 +1,13 @@
-LoadPhilippines <- function(type = c("path", "email"), auth = NULL) {
+
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+LoadPhilippines <- function() {
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
-  # if(is.null(auth)){
-  #   if ("oauth" %in% ls()) {
-  #     drive_auth(path = oauthpath)
-  #   }else{
-  #
-  #   }
-  # }
 
   if ("oauth" %in% ls()) {
     oauthpath <- oauth

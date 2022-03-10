@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadGoogleSourced <- function() { # takes a long time to process.
   # @article{Wahltinez2020,
   #  author = "O. Wahltinez and others",

@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
 

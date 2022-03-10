@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadIndia <- function() {
   # Data collated by https://covid19tracker.in/, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports
   # with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.

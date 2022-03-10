@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadSweden <- function() {
   # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
 
@@ -8,9 +14,9 @@ LoadSweden <- function() {
   names(swedenResource)[1] <- "date"
   swedenResource$date <- as.Date(swedenResource$date)
   SwedenCounty <- names(swedenResource)[3:length(names(swedenResource))]
-  SwedenCounty[SwedenCounty == "J\uE4mtland_H\uE4rjedalen"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_19",], "micro_name") # Jämtland
-  SwedenCounty[SwedenCounty == "S\uF6rmland"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_3",], "micro_name") # Södermanland
-  SwedenCounty[SwedenCounty == "V\uE4stra_G\uF6taland"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_12",], "micro_name") # Västra Götaland
+  SwedenCounty[SwedenCounty == "J\uE4mtland_H\uE4rjedalen"] <- dplyr::pull(geomSweden[geomSweden$geoid == "SWE752_00_19", ], "micro_name") # Jämtland
+  SwedenCounty[SwedenCounty == "S\uF6rmland"] <- dplyr::pull(geomSweden[geomSweden$geoid == "SWE752_00_3", ], "micro_name") # Södermanland
+  SwedenCounty[SwedenCounty == "V\uE4stra_G\uF6taland"] <- dplyr::pull(geomSweden[geomSweden$geoid == "SWE752_00_12", ], "micro_name") # Västra Götaland
   names(swedenResource) <- c(names(swedenResource)[1:2], SwedenCounty)
 
   data <- swedenResource %>%

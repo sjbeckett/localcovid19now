@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
   # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a

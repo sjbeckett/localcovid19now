@@ -1,10 +1,16 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadSmallCountries <- function() {
   # Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University
   # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
   # Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
   data("geomSmallCountries")
-  
+
   CountryList <- c("Singapore", "Brunei", "Djibouti", "Qatar", "Marshall Islands", "Saint Kitts and Nevis", "Timor-Leste", "Maldives", "Grenada", "Saint Vincent and the Grenadines", "Saint Lucia", "Barbados", "Antigua and Barbuda", "Seychelles", "Palau", "Micronesia", "Dominica", "Bahrain", "Kiribati", "Sao Tome and Principe", "Comoros", "Mauritius", "Samoa", "Trinidad and Tobago", "Lebanon", "Jamaica", "Gambia", "Vanuatu", "Bahamas", "Eswatini", "Kuwait", "Fiji", "El Salvador", "Belize", "Cabo Verde", "West Bank and Gaza")
 
   ProvinceList <- c("Falkland Islands (Malvinas)", "New Caledonia", "Turks and Caicos Islands", "Anguilla", "British Virgin Islands", "Bermuda", "Sint Maarten", "Aruba", "Curacao", "Cook Islands")
@@ -33,13 +39,13 @@ LoadSmallCountries <- function() {
   }
 
   caseTable <- data.frame(CountryList = c(CountryList, ProvinceList), DateReport, CaseDifference)
-  caseTable$CountryList[which(caseTable$CountryList == "Sao Tome and Principe")] <- dplyr::pull(geomSmallCountries[geomSmallCountries$geoid=="STP678_00_00",],"country_name") # São Tomé and Príncipe
-  caseTable$CountryList[which(caseTable$CountryList == "Curacao")] <- dplyr::pull(geomSmallCountries[geomSmallCountries$geoid=="CUW531_00_00",],"country_name") # Curaçao
+  caseTable$CountryList[which(caseTable$CountryList == "Sao Tome and Principe")] <- dplyr::pull(geomSmallCountries[geomSmallCountries$geoid == "STP678_00_00", ], "country_name") # São Tomé and Príncipe
+  caseTable$CountryList[which(caseTable$CountryList == "Curacao")] <- dplyr::pull(geomSmallCountries[geomSmallCountries$geoid == "CUW531_00_00", ], "country_name") # Curaçao
   caseTable$CountryList[which(caseTable$CountryList == "Falkland Islands (Malvinas)")] <- "Falkland Islands"
 
   # Geography # from world bank https://datacatalog.worldbank.org/dataset/world-bank-official-boundaries
   data("pop_smallcountries")
-  
+
   geomSmallCountries <- dplyr::inner_join(geomSmallCountries, pop_smallcountries, by = c("country_name" = "NAME_EN"))
 
   geomSmallCountries$country_name[which(geomSmallCountries$country_name == "Federated States of Micronesia")] <- "Micronesia"

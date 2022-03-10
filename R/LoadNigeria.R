@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadNigeria <- function() {
 
   # Humanitarian Emergency Response Africa  https://data.humdata.org/dataset/nigeria_covid19_subnational

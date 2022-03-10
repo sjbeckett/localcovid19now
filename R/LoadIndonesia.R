@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadIndonesia <- function() {
   # Live data, interactive charts & maps of Indonesia provincial COVID-19 daily cases and vaccination. Live version: https://erlange.github.io/INACOVID/
   # https://github.com/erlange/INACOVID

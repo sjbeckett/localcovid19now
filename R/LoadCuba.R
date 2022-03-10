@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadCuba <- function() {
   # Data aggregated from local health resources by Covid19CubaData http://covid19cubadata.github.io/
 

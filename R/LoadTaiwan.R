@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadTaiwan <- function() {
   # sourced from Taiwan Centers for Disease Control https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov
 

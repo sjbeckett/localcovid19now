@@ -1,6 +1,11 @@
-LoadUK <- function() {
-  # The Coronavirus (COVID-19) in the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
-
+#' Title
+#'
+#' @param date 
+#'
+#' @return
+#' @keywords internal
+#'
+#' @examples
   dataQueryUK <- function(date) {
     dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
     response <- httr::GET(
@@ -32,6 +37,16 @@ LoadUK <- function() {
       mutate(date = as_date(date))
     return(data)
   }
+  #' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+LoadUK <- function() {
+  # The Coronavirus (COVID-19) in the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
+
+
   cur_date <- today() # ymd(gsub("-", "", Sys.Date()))
 
   data_cur <- dataQueryUK(cur_date)

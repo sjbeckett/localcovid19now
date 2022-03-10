@@ -1,11 +1,27 @@
-LoadItaly <- function() {
-  # Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc/COVID-19/
 
+#' Title
+#'
+#' @param date 
+#'
+#' @return
+#' @keywords internal
+#'
+#' @examples
   dataQueryItaly <- function(date) {
     data <- vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", str_replace_all(as.character(date), "-", ""), ".csv"), col_types = cols(note = col_character())) %>%
       select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
     return(data)
   }
+  
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+LoadItaly <- function() {
+  # Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc/COVID-19/
+
   # italy: need to download data_cur and data_past respectively
   cur_date <- ymd(gsub("-", "", Sys.Date())) - 1
   # past_date <- ymd(cur_date) - 14

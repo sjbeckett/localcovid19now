@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadVietnam <- function() {
   # Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. https://covid19.ncsc.gov.vn/dulieu
 

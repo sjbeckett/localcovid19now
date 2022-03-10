@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadNewZealand <- function() {
   # COVID-19 Data Repository by the Institute of Environmental Science and Research: https://github.com/ESR-NZ/NZ_COVID19_Data/
   # Institute for Environmental Science and Research, New Zealand COVID19 Dashboard. https://nzcoviddashboard.esr.cri.nz/ (2020).

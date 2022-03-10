@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadNorway <- function() {
   # Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). https://github.com/thohan88/covid19-nor-data
 

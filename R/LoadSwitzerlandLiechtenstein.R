@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadSwitzerlandLiechtenstein <- function() {
   # Federal Office of Public Health FOPH https://www.covid19.admin.ch/en/overview
 

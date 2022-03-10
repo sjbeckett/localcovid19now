@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadCzechia <- function() {
   # COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: https://onemocneni-aktualne.mzcr.cz/covid-19
 
@@ -9,21 +15,21 @@ LoadCzechia <- function() {
   # population
 
   # case data
-  czechData <- vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv")
+  czechData <- vroom::vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv")
 
   names(czechData) <- c("id", "Date", "Code", "District", "Confirmed", "Cure", "Death")
 
   czechData$Date <- as.Date(czechData$Date)
   czechData <- czechData %>%
-    group_by(District) %>%
-    slice(c(n(), n() - 14)) %>%
-    summarize(cases = (Confirmed[1] - Confirmed[2]) * 10 / 14, Date = first(Date)) %>%
-    ungroup()
+    dplyr::group_by(District) %>%
+    dplyr::slice(c(n(), n() - 14)) %>%
+    dplyr::summarize(cases = (Confirmed[1] - Confirmed[2]) * 10 / 14, Date = first(Date)) %>%
+    dplyr::ungroup()
 
   # integrate datasets
-  czech_data_join <- inner_join(as.data.frame(czechData), pop_czechia, by = c("District" = "Code"))
+  czech_data_join <- dplyr::inner_join(as.data.frame(czechData), pop_czechia, by = c("District" = "Code"))
   names(czech_data_join) <- c("Code", "Difference", "Date", "name", "Population")
-  CzechMap <- inner_join(geomCzechia, czech_data_join, by = c("micro_name" = "name"))
+  CzechMap <- dplyr::inner_join(geomCzechia, czech_data_join, by = c("micro_name" = "name"))
 
   CzechMap$RegionName <- paste(CzechMap$micro_name, CzechMap$country_name, sep = ", ")
 

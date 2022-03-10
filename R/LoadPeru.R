@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadPeru <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
   # sourced from https://github.com/jmcastagnetto/covid-19-peru-data

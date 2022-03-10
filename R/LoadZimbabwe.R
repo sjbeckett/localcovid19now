@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadZimbabwe <- function() {
   # COVID-19 Data Repository by African Surveyors Connect https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/
   # Dashboard: https://surveyor-jr.maps.arcgis.com/apps/dashboards/8ef907d2658c44c6a143819aa7979b20
@@ -27,9 +33,6 @@ LoadZimbabwe <- function() {
 
   # Pop = read.csv("https://github.com/zimgeospatial/census/raw/master/province_population.csv")
   # write.csv(Pop,"countries/data/Zimbabwe_pop.csv",row.names=FALSE)
-  Pop <- read.csv("countries/data/Zimbabwe_pop.csv")
-
-
   zimbabwedf <- data.frame(Province, DateReport, CaseDiff)
 
 
@@ -37,11 +40,10 @@ LoadZimbabwe <- function() {
   # geomZimbabwe = st_read("https://github.com/zimgeospatial/admin_boundaries/raw/master/admin_level1_provinces.geojson") %>%
   # st_cast("MULTIPOLYGON") #NEED TO CAST TO MULTIPOLYGON
   # st_write(geomZimbabwe,"countries/data/geom/geomZimbabwe.geojson")
-  geomZimbabwe <- st_read("countries/data/geom/geomZimbabwe.geojson")
 
-  ZimbabweMap <- inner_join(geomZimbabwe, zimbabwedf, by = c("micro_name" = "Province"))
+  ZimbabweMap <- dplyr::inner_join(geomZimbabwe, zimbabwedf, by = c("micro_name" = "Province"))
   ZimbabweMap$micro_code <- as.numeric(ZimbabweMap$micro_code)
-  ZimbabweMap <- inner_join(ZimbabweMap, Pop, by = c("micro_code" = "provincepc"))
+  ZimbabweMap <- dplyr::inner_join(ZimbabweMap, pop_zimbabwe, by = c("micro_code" = "provincepc"))
   ZimbabweMap$Country <- "Zimbabwe"
   ZimbabweMap$RegionName <- paste(ZimbabweMap$micro_name, ", ", ZimbabweMap$Country)
   ZimbabweMap$pInf <- ZimbabweMap$CaseDiff / ZimbabweMap$pop_2012

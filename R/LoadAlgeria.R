@@ -5,7 +5,6 @@
 #'
 #' @examples
 #' LoadAlgeria()
-#' 
 LoadAlgeria <- function() {
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
 
@@ -46,9 +45,9 @@ LoadAlgeria <- function() {
   # population
   # pop_algeria # 2008 census
 
-  Algeriadf <- inner_join(caseTable, pop_algeria, by = c("provinces" = "Name"))
+  Algeriadf <- dplyr::inner_join(caseTable, pop_algeria, by = c("provinces" = "Name"))
 
-  AlgeriaMap <- inner_join(geomAlgeria, Algeriadf, by = c("micro_name" = "provinces"))
+  AlgeriaMap <- dplyr::inner_join(geomAlgeria, Algeriadf, by = c("micro_name" = "provinces"))
   AlgeriaMap$pInf <- AlgeriaMap$CaseDifference / AlgeriaMap$population
   AlgeriaMap$RegionName <- paste(AlgeriaMap$micro_name, AlgeriaMap$country_name, sep = ", ")
   AlgeriaMap$Country <- AlgeriaMap$country_name

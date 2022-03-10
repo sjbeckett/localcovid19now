@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadGermany <- function() {
   links <- c(
     "https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.csv", # Baden-Württemberg

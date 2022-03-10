@@ -1,3 +1,9 @@
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LoadEcuador <- function() {
   # Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: https://github.com/andrab/ecuacovid
 

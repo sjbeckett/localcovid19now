@@ -1,7 +1,7 @@
 #' Calculate Risk
 #'
-#' @param p_I 
-#' @param g 
+#' @param p_I
+#' @param g
 #'
 #' @return
 #' @export
@@ -12,13 +12,13 @@ calc_risk <- function(p_I, g) {
   return(round(r * 100, 1))
 }
 
-#' Create Table of 
+#' Create Table of
 #'
-#' @param df_in 
-#' @param risk_output 
-#' @param output_prefix 
-#' @param event_size 
-#' @param asc_bias_list 
+#' @param df_in
+#' @param risk_output
+#' @param output_prefix
+#' @param event_size
+#' @param asc_bias_list
 #'
 #' @return
 #' @export
@@ -29,7 +29,7 @@ create_c19r_data <- function(df_in,
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
                              asc_bias_list = c(3, 4, 5)) {
-  library(sf) # needed to make tibble happen for joins
+  # library(sf) # needed to make tibble happen for joins
 
   if (!all(is.numeric(event_size)) & !all(event_size > 0)) {
     stop("'event_size' must be a vector of positive numbers")

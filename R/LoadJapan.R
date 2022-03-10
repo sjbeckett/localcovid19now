@@ -1,16 +1,12 @@
-LoadJapan <- function() {
-  # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
-
-  data <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
-  # get updated date:
-  date <- as.Date(data$updated)
-  ## PREFECTURE = COUNTY
-  # in data, there are 4 layers
-  # take the prefecture layer to get necessary data
-  dataSet <- data$prefectures
-  # List the name of prefectures:
-  vec <- data.frame(Prefecture = as.character(), Difference = as.numeric())
-  getData <- function(i) {
+#' Title
+#'
+#' @param i 
+#'
+#' @return
+#' @keywords internal
+#'
+#' @examples
+  getDataJapan <- function(i) {
     info <- unlist(dataSet[i])
     fields <- names(unlist(dataSet[i])) # get the column names
     daily <- info[startsWith(fields, "dailyConfirmedCount")] # find any column start with dailyConfirmedCount
@@ -24,9 +20,28 @@ LoadJapan <- function() {
     temp <- c(name, difference)
     return(temp)
   }
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+  LoadJapan <- function() {
+  # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
+
+  data <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
+  # get updated date:
+  date <- as.Date(data$updated)
+  ## PREFECTURE = COUNTY
+  # in data, there are 4 layers
+  # take the prefecture layer to get necessary data
+  dataSet <- data$prefectures
+  # List the name of prefectures:
+  vec <- data.frame(Prefecture = as.character(), Difference = as.numeric())
+
   # get data table
   for (i in 1:49) {
-    dataVec <- getData(i)
+    dataVec <- getDataJapan(i)
     vec <- rbind(vec, dataVec)
   }
   names(vec) <- c("Prefecture", "Difference")
@@ -36,10 +51,8 @@ LoadJapan <- function() {
   # geomJapan <- geomJapan[c('NAME_1','geometry')]
   # geomJapan[geomJapan$NAME_1 == 'Naoasaki',1] <- "Nagasaki"
   # geomJapan = st_set_crs(geomJapan,4326)
-  data("geomJapan")
 
   ## Population
-  data("pop_japan")
   japandf <- inner_join(vec, pop_japan, by = "Prefecture")
   japandf$Difference <- as.numeric(japandf$Difference)
 
