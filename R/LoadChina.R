@@ -22,12 +22,10 @@ LoadChina <- function() {
   latestData <- latestData[, c(1, 4)]
   names(latestData) <- c("Province", "Difference")
   ## population file
-  pop <- read.csv("countries/data/chinaPopulation.csv")
-  chinadf <- inner_join(latestData, pop, by = c("Province" = "Name"))
+  chinadf <- inner_join(latestData, pop_china, by = c("Province" = "Name"))
 
   ## geojson file
   # geomChina <- st_read('https://raw.githubusercontent.com/stjacob/china_geojson/master/china.geojson')
-  geomChina <- st_read("countries/data/geom/geomChina.geojson")
 
   # alter naming to match across datasets
   geomChina$micro_name[which(geomChina$micro_name == "Nei Mongol")] <- "Inner Mongolia"

@@ -1,9 +1,11 @@
 #' LoadAlgeria
 #'
-#' @return
+#' @return This function returns a spatial data frame of the current COVID-19 infection rate in Algeria
 #' @export
 #'
 #' @examples
+#' LoadAlgeria()
+#' 
 LoadAlgeria <- function() {
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
 

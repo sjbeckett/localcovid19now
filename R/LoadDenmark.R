@@ -5,7 +5,6 @@ LoadDenmark <- function() {
 
   # geometry
   # geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')
-  data("geomDenmark")
   # #name alteration for matching case data
   # Name2save1 = geomDenmark$micro_name[42] #"Høje-Taastrup"
   # Name2save2 = geomDenmark$micro_name[60] #"Lyngby-Taarbæk"
@@ -69,7 +68,7 @@ LoadDenmark <- function() {
     select(Date, everything(), -starts_with("d", ignore.case = F))
 
   # population
-  data("pop_denmark") ## get from Statistics Denmark: https://www.statbank.dk/statbank5a/SelectVarVal/saveselections.asp
+  ## get from Statistics Denmark: https://www.statbank.dk/statbank5a/SelectVarVal/saveselections.asp
   names(pop_denmark) <- c("Municipality", "Population")
   # make the population column as numeric
   pop_denmark$Population <- as.numeric(gsub(" ", "", pop_denmark$Population))

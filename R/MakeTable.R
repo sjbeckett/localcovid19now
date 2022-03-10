@@ -1,9 +1,30 @@
+#' Calculate Risk
+#'
+#' @param p_I 
+#' @param g 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calc_risk <- function(p_I, g) {
   r <- 1 - (1 - p_I)**g
   return(round(r * 100, 1))
 }
 
-create_c19r_data <- function(GLOBALDAT,
+#' Create Table of 
+#'
+#' @param df_in 
+#' @param risk_output 
+#' @param output_prefix 
+#' @param event_size 
+#' @param asc_bias_list 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+create_c19r_data <- function(df_in,
                              risk_output = sprintf("world_risk_regions/world_risk_regions_%s.csv", str_replace_all(lubridate::today(), "-", "")),
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
@@ -26,7 +47,7 @@ create_c19r_data <- function(GLOBALDAT,
   risk_data <- list()
 
   for (asc_bias in asc_bias_list) {
-    data_Nr <- GLOBALDAT %>%
+    data_Nr <- df_in %>%
       dplyr::mutate(Nr = pInf * asc_bias)
 
     # if (dim(data_Nr)[1] > 2000) {
@@ -52,7 +73,7 @@ create_c19r_data <- function(GLOBALDAT,
     # }
   }
 
-  risk_data_df <- purrr::reduce(.x = append(list(GLOBALDAT), risk_data), .f = left_join) %>%
+  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = left_join) %>%
     dplyr::mutate(updated = lubridate::ymd(gsub("-", "", Sys.Date())))
 
   utils::write.csv(risk_data_df,

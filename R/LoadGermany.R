@@ -19,28 +19,28 @@ LoadGermany <- function() {
   ) # None of these are  spatial data, so it doesn't make sense to use geojsons. You're putting the computer through a lot of unnecessary work.
   germanyData <- purrr::map_df(
     links,
-    ~ vroom(.x) %>%
-      select(Region = Landkreis, Cases = AnzahlFall, Date = Meldedatum, IdLandkreis)
+    ~ vroom::vroom(.x) %>%
+      dplyr::select(Region = Landkreis, Cases = AnzahlFall, Date = Meldedatum, IdLandkreis)
   )
   germanyData <- germanyData %>%
-    mutate(
+    dplyr::mutate(
       Date = as_date(Date),
       # IdLandkreis = as.numeric(IdLandkreis)
     ) %>%
-    arrange(Date) %>%
-    group_by(Region) %>%
-    mutate(
+    dplyr::arrange(Date) %>%
+    dplyr::group_by(Region) %>%
+    dplyr::mutate(
       CumSum = cumsum(Cases)
     )
 
   germanyTable <- germanyData %>%
-    summarise(
-      latestDate = last(Date),
-      pastDate = last(Date[Date <= (latestDate - 14)]), # there are some missing days in the past, so we have to choose the close day
+    dplyr::summarise(
+      latestDate = dplyr::last(Date),
+      pastDate = dplyr::last(Date[Date <= (latestDate - 14)]), # there are some missing days in the past, so we have to choose the close day
       difference = ((max(CumSum) - max(CumSum[Date == pastDate])) * 10 / as.numeric(latestDate - pastDate)), # find the difference based on the real pastDate and the difference of days between latest and past
       IdLandkreis = unique(IdLandkreis)
     ) %>%
-    select(
+    dplyr::select(
       IdLandkreis,
       Region,
       Date = latestDate,
@@ -49,18 +49,16 @@ LoadGermany <- function() {
 
   ## pop_germany: https://www.citypop_germanyulation.de/en/germany/admin/
   # pop_germany <- read.csv('C:/Users/Laptop88/Desktop/COVID-19/New COVID/subregionalcovid19/countries/data/germanypop_germany.csv')
-  data("pop_germany_germany")
 
   # SK Eisenach (16056) is reported with LK Wartburgkreis (16063) (according to RKI)
   pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16063")] <- pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16056")] + pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16063")]
 
   # Geometry
   # geomGermany <- st_read('https://public.opendatasoft.com/explore/dataset/covid-19-germany-landkreise/download/?format=geojson&timezone=Europe/Berlin&lang=en')
-  data("geomGermany")
 
   # integrate datasets
-  germanydf <- inner_join(germanyTable, pop_germany, by = "IdLandkreis") # add pop_germany column into the main germany table
-  germanyMap <- inner_join(geomGermany, germanydf, by = c("micro_name" = "Region")) # link to geometry
+  germanydf <- dplyr::inner_join(germanyTable, pop_germany, by = "IdLandkreis") # add pop_germany column into the main germany table
+  germanyMap <- dplyr::inner_join(geomGermany, germanydf, by = c("micro_name" = "Region")) # link to geometry
 
   germanyMap$DateReport <- as.character(germanyMap$Date)
   germanyMap$RegionName <- paste(germanyMap$micro_name, germanyMap$country_name, sep = ", ")

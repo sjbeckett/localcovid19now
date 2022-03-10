@@ -5,10 +5,8 @@ LoadCzechia <- function() {
 
   # Geometry
   # geomCzechia <<- st_read('https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/distictsCzechiaLow.json')
-  data("geomCzechia")
 
   # population
-  data("pop_czechia")
 
   # case data
   czechData <- vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv")

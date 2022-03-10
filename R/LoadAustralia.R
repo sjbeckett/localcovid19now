@@ -22,12 +22,10 @@ LoadAustralia <- function() {
 
 
   ## population
-  data("pop_australia")
   australiadf <- inner_join(australiaCases, pop_australia, by = "state")
 
   # geom
   # geomAustralia <- st_read('https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson')
-  data("geomAustralia")
 
   AustraliaMap <- inner_join(geomAustralia, australiadf, by = c("micro_name" = "state"))
   AustraliaMap$RegionName <- paste(AustraliaMap$micro_name, AustraliaMap$country_name, sep = ", ")

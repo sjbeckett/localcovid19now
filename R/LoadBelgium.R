@@ -111,12 +111,10 @@ LoadBelgium <- function() {
   # geomBelgium$micro_name[28] <- sort(finalData$Arrondissement)[22] # La Louviere
   # geomBelgium$micro_name[39] <- sort(finalData$Arrondissement)[29] # Neufch?teau
   # geomBelgium <- st_write(geomBelgium,'countries/data/geom/geomBelgium.geojson')
-  data("geomBelgium")
 
   finalData <- inner_join(geomBelgium, finalData, by = c("micro_name" = "Arrondissement"))
 
   # population
-  data("pop_belgium")
 
   # add to dataset
   belgiumdf <- inner_join(finalData, pop, by = c("micro_name" = "Name"))

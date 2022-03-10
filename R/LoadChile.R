@@ -22,7 +22,6 @@ LoadChile <- function() {
   # geography
   # geomChile = st_read("https://github.com/caracena/chile-geojson/raw/master/regiones.json")
   # geomChile$matchName = c("Arica y Parinacota","Tarapacá","Antofagasta","Magallanes" ,"Aysén","Atacama", "Coquimbo","Valparaíso","Metropolitana","Los Lagos","Los Ríos","Araucania","Biobío","Ñuble","Maule","O'Higgins")
-  data("geomChile")
 
   # integrate datasets
   MapChile <- inner_join(geomChile, caseTable, by = c("micro_name" = "regions"))

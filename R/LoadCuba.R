@@ -32,7 +32,6 @@ LoadCuba <- function() {
   # PRO = unique(dataset[[DATES[1]]]$diagnosticados$provincia_detección) #provinces
 
   # geomCuba = st_read("https://raw.githubusercontent.com/covid19cubadata/covid19cubadata.github.io/master/data/provincias.geojson")
-  data("geomCuba")
   geomCuba$pop <- c(2154454, 679314, 400768, 462114, 525729, 1027683, 830645, 1053837, 84263, 768311, 424750, 783708, 506369, 585452, 487339, 371198) # 2015 census in Cuba
 
   PRO <- geomCuba$micro_name

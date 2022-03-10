@@ -9,8 +9,7 @@ LoadFrance <- function() {
     mutate(date = as.Date(date)) %>%
     filter(!is.na(cases))
   # geom <<- st_read('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson')
-  data("geomFrance") # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
-  data("pop_france")
+  # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
   pop_france <- pop_france %>%
     select(code = Code, name = Department, pop = Population)
 

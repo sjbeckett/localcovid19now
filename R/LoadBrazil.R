@@ -30,8 +30,7 @@ LoadBrazil <- function() {
 
   ## geojson
   # geomBrazil <- st_read('https://raw.githubusercontent.com/marcioibm/brazil-states/master/br_states.geojson')
-  data("geomBrazil")
-
+  
   BrazilMap <- inner_join(geomBrazil, brazildf, by = c("micro_code" = "state"))
   BrazilMap$RegionName <- paste(BrazilMap$micro_name, BrazilMap$country_name, sep = ", ")
   BrazilMap$Country <- BrazilMap$country_name

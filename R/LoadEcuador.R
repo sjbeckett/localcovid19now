@@ -21,7 +21,6 @@ LoadEcuador <- function() {
   ecu_df <- data.frame(DateReport, CaseDiff, Population, Cantons)
 
   # geometry: https://data.humdata.org/dataset/cod-ab-ecu
-  data("geomEcuador")
 
   geomEcuador$can_pro <- paste0(geomEcuador$micro_name, ",", geomEcuador$macro_name)
   EcuadorMap <- inner_join(geomEcuador, ecu_df, by = c("can_pro" = "Cantons"))

@@ -43,7 +43,6 @@ LoadAustria <- function() {
 
   # geometry
   # geomAustria <- st_read('https://raw.githubusercontent.com/ginseng666/GeoJSON-TopoJSON-Austria/master/2017/simplified-99.9/bezirke_999_geo.json')
-  data("geomAustria")
 
   # integrate datsets
   AustriaMap <- inner_join(geomAustria, data_join, by = c("micro_code" = "code"))

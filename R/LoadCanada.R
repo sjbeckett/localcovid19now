@@ -17,7 +17,6 @@ LoadCanada <- function() {
 
 
   # pop_canada<- read.csv("https://raw.githubusercontent.com/ishaberry/Covid19Canada/master/other/hr_map.csv",encoding="UTF-8")#contains pop and health region ID codes
-  data("pop_canada")
 
   # shrink this data file
   DATES <- as.Date(CANADADATA$date_report, format = "%d-%m-%Y")
@@ -90,8 +89,6 @@ LoadCanada <- function() {
   # remove uneeded regions
   # geomCAN=geomCAN[-c(88,90,91,93,94,98,99),]
   # st_write(geomCAN,"countries/data/geom/geomCanada.geojson")
-
-  data("geomCanada")
 
 
   # integrate datasets

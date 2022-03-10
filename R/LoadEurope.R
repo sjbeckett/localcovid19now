@@ -1,6 +1,6 @@
 LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
-  data("geomEurope") # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
+  # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
 
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")

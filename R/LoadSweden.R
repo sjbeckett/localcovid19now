@@ -8,15 +8,15 @@ LoadSweden <- function() {
   names(swedenResource)[1] <- "date"
   swedenResource$date <- as.Date(swedenResource$date)
   SwedenCounty <- names(swedenResource)[3:length(names(swedenResource))]
-  SwedenCounty[SwedenCounty == "Jämtland_Härjedalen"] <- "Jämtland"
-  SwedenCounty[SwedenCounty == "Sörmland"] <- "Södermanland"
-  SwedenCounty[SwedenCounty == "Västra_Götaland"] <- "Västra Götaland"
+  SwedenCounty[SwedenCounty == "J\uE4mtland_H\uE4rjedalen"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_19",], "micro_name") # Jämtland
+  SwedenCounty[SwedenCounty == "S\uF6rmland"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_3",], "micro_name") # Södermanland
+  SwedenCounty[SwedenCounty == "V\uE4stra_G\uF6taland"] <- dplyr::pull(geomSweden[geomSweden$geoid=="SWE752_00_12",], "micro_name") # Västra Götaland
   names(swedenResource) <- c(names(swedenResource)[1:2], SwedenCounty)
 
   data <- swedenResource %>%
-    pivot_longer(3:23, names_to = "County", values_to = "cases") %>%
-    select(-Totalt_antal_fall) %>%
-    arrange(desc(date))
+    tidyr::pivot_longer(3:23, names_to = "County", values_to = "cases") %>%
+    dplyr::select(-Totalt_antal_fall) %>%
+    dplyr::arrange(desc(date))
 
   # geometry
   # geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/sweden-counties.geojson")
@@ -28,29 +28,29 @@ LoadSweden <- function() {
 
 
   data_cur <- data %>%
-    group_by(County) %>%
-    summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
+    dplyr::group_by(County) %>%
+    dplyr::summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
   # as.data.frame()
 
   # past_date <- unique(data_cur$date) - 14
 
   data_past <- data %>%
-    group_by(County) %>%
-    filter(date <= first(as_date(date)) - 14) %>%
+    dplyr::group_by(County) %>%
+    dplyr::filter(date <= first(lubridate::as_date(date)) - 14) %>%
     # filter(date <= past_date) %>%
     # group_by(County) %>%
-    summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
+    dplyr::summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
   # as.data.frame()
   data_join <- data_cur %>%
-    inner_join(data_past, by = "County", suffix = c("", "_past")) %>%
-    inner_join(pop_sweden, by = c("County")) %>%
-    mutate(
+    dplyr::inner_join(data_past, by = "County", suffix = c("", "_past")) %>%
+    dplyr::inner_join(pop_sweden, by = c("County")) %>%
+    dplyr::mutate(
       Difference = (cases - cases_past) * 10 / as.numeric(date - date_past)
     )
   # data_join$Difference <- (data_join$cases - data_join$cases_past)*10/(date-date_past)
 
   # integrate datasets
-  SwedenMap <- inner_join(geomSweden, data_join, by = c("micro_name" = "County"))
+  SwedenMap <- dplyr::inner_join(geomSweden, data_join, by = c("micro_name" = "County"))
   SwedenMap$RegionName <- paste(SwedenMap$micro_name, SwedenMap$country_name, sep = ", ")
   SwedenMap$Country <- SwedenMap$country_name
   SwedenMap$DateReport <- as.character(SwedenMap$date)
