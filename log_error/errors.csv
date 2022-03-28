@@ -23,10 +23,10 @@
 ",2022-03-10 18:20:10
 "12","LoadFrance","Error in inner_join(geom, frenchdf, by = c(micro_code = ""code"")): object 'geom' not found
 ",2022-03-10 18:20:15
-"13","LoadGermany","[1m[33mError[39m in [38;5;255m[38;5;251m[48;5;235m`dplyr::mutate()`[49m[38;5;255m[39m:[22m
-[38;5;255m[33m![38;5;255m Problem while computing `Date = as_date(Date)`.[39m
-[1mCaused by error in [38;5;255m[38;5;251m[48;5;235m`as_date()`[49m[38;5;255m[39m:[22m
-[33m![39m could not find function ""as_date""
+"13","LoadGermany","[1m[33mError[39m in [38;5;255m[38;5;251m[48;5;235m`dplyr::mutate()`[49m[38;5;255m[39m:[22m
+[38;5;255m[33m![38;5;255m Problem while computing `Date = as_date(Date)`.[39m
+[1mCaused by error in [38;5;255m[38;5;251m[48;5;235m`as_date()`[49m[38;5;255m[39m:[22m
+[33m![39m could not find function ""as_date""
 ",2022-03-10 18:25:15
 "14","LoadGhana","Error in vroom(temp): could not find function ""vroom""
 ",2022-03-10 18:25:18
@@ -80,3 +80,5 @@
 ",2022-03-10 18:42:11
 "39","LoadZimbabwe","Error in file(file, ""rt""): cannot open the connection
 ",2022-03-10 18:42:11
+"1","LoadNewZealand","Error: $ operator is invalid for atomic vectors
+",2022-03-03 03:55:20
