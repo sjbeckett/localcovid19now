@@ -1,9 +1,20 @@
-#' Title
+#' LoadDenmark
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#'  COVID-19 data from the Statens Serum Institut (SSI):
+#' * \url{https://covid19.ssi.dk/overvagningsdata}
+#' * \url{https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Denmark = LoadDenmark()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadDenmark <- function() {
   # COVID-19 data from the Statens Serum Institut (SSI):
   #- https://covid19.ssi.dk/overvagningsdata

@@ -1,9 +1,18 @@
-#' Title
+#' LoadOman
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Oman to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: \url{https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Oman = LoadOman()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadOman <- function() {
   # Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases
 

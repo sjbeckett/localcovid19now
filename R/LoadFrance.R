@@ -1,9 +1,19 @@
-#' Title
+#' LoadFrance
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for France to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/}.
+#' Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' France = LoadFrance()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadFrance <- function() {
   # Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/
   # Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.

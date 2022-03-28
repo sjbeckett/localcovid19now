@@ -1,10 +1,18 @@
-
-#' Title
+#' LoadPhilippines
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Philippines = LoadPhilippines()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadPhilippines <- function() {
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker

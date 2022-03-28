@@ -1,9 +1,18 @@
-#' Title
+#' LoadNorway
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Norway to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). \url{https://github.com/thohan88/covid19-nor-data}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Norway = LoadNorway()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadNorway <- function() {
   # Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). https://github.com/thohan88/covid19-nor-data
 

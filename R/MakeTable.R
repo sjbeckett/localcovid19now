@@ -1,35 +1,38 @@
 #' Calculate Risk
 #'
-#' @param p_I
-#' @param g
+#' @param p_I Probability one individual in a population is infectious.
+#' @param g Event size.
 #'
-#' @return
+#' @return The risk (%) one or more individuals at an event of size g will be infectious.
 #' @export
-#'
+#' @seealso [estRisk()]
 #' @examples
 calc_risk <- function(p_I, g) {
   r <- 1 - (1 - p_I)**g
   return(round(r * 100, 1))
 }
 
-#' Create Table of
+#' Create Table of Risk Estimates
 #'
-#' @param df_in
-#' @param risk_output
-#' @param output_prefix
-#' @param event_size
-#' @param asc_bias_list
+#' @param df_in Input data.
+#' @param risk_output Name of output file.
+#' @param output_prefix Folder location to store table file.
+#' @param event_size Event size(s) to calculate risk for.
+#' @param asc_bias_list Ascertainment bias(es) to calculate risk for.
 #'
-#' @return
+#' @return Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' Canada = LoadCanada()
+#' create_c19r_data(Canada)
+#' }
 create_c19r_data <- function(df_in,
                              risk_output = sprintf("world_risk_regions/world_risk_regions_%s.csv", str_replace_all(lubridate::today(), "-", "")),
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
                              asc_bias_list = c(3, 4, 5)) {
-  # library(sf) # needed to make tibble happen for joins
 
   if (!all(is.numeric(event_size)) & !all(event_size > 0)) {
     stop("'event_size' must be a vector of positive numbers")
@@ -50,7 +53,6 @@ create_c19r_data <- function(df_in,
     data_Nr <- df_in %>%
       dplyr::mutate(Nr = pInf * asc_bias)
 
-    # if (dim(data_Nr)[1] > 2000) {
     for (size in event_size) {
       cn <- glue::glue("{asc_bias}_{size}")
 
@@ -70,7 +72,7 @@ create_c19r_data <- function(df_in,
         dplyr::select(geoid, "{cn}" := risk)
       id <- paste(asc_bias, size, sep = "_")
     }
-    # }
+
   }
 
   risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = left_join) %>%

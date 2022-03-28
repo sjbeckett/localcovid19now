@@ -1,9 +1,16 @@
 #' LoadAustria
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Austria to calculate most recent estimate of per capita active COVID-19 cases.
+#'
+#' @note
+#' Data is from the Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria \url{https://www.data.gv.at/covid-19/}.
 #'
 #' @examples
+#' \dontrun{
+#' Austria = LoadAustria()
+#' }
+#' @seealso [LoadCountries]
+#' @export
 LoadAustria <- function() {
   # Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/
 

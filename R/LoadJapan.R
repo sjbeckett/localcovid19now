@@ -1,41 +1,49 @@
-#' Title
+#' getDataJapan
 #'
-#' @param i 
+#' @param i prefecture index.
 #'
-#' @return
+#' @return COVID-19 data for Japan for this prefecture index. Used in LoadJapan().
 #' @keywords internal
-#'
-#' @examples
   getDataJapan <- function(i) {
     info <- unlist(dataSet[i])
     fields <- names(unlist(dataSet[i])) # get the column names
     daily <- info[startsWith(fields, "dailyConfirmedCount")] # find any column start with dailyConfirmedCount
     lenOfdaily <- length(daily) # get the index for the latest date
     past_id <- lenOfdaily - 14 # get the index for 14 days ago
-    sum <- sum(as.numeric(daily[past_id:lenOfdaily])) ## get the total cases for 14 days
-    difference <- round(sum * 10 / 14) # remodified
+    summation <- sum(as.numeric(daily[past_id:lenOfdaily])) ## get the total cases for 14 days
+    difference <- round(summation * 10 / 14) # remodified
     # get the name for this prefecture
     len <- length(unlist(unlist(dataSet[i])))
     name <- as.character(unlist(as.data.frame(unlist(dataSet[i])[len])))
     temp <- c(name, difference)
     return(temp)
   }
-#' Title
+
+#' LoadJapan
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Japan = LoadJapan()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
   LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
 
-  data <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
+  dataJapan <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:
-  date <- as.Date(data$updated)
+  dateJapan <- as.Date(dataJapan$updated)
   ## PREFECTURE = COUNTY
   # in data, there are 4 layers
   # take the prefecture layer to get necessary data
-  dataSet <- data$prefectures
+  dataSet <- dataJapan$prefectures
   # List the name of prefectures:
   vec <- data.frame(Prefecture = as.character(), Difference = as.numeric())
 
@@ -51,6 +59,7 @@
   # geomJapan <- geomJapan[c('NAME_1','geometry')]
   # geomJapan[geomJapan$NAME_1 == 'Naoasaki',1] <- "Nagasaki"
   # geomJapan = st_set_crs(geomJapan,4326)
+  data("geomJapan")
 
   ## Population
   japandf <- inner_join(vec, pop_japan, by = "Prefecture")
@@ -59,7 +68,7 @@
   JapanMap <- inner_join(geomJapan, japandf, by = c("micro_name" = "Prefecture"))
   JapanMap$RegionName <- paste(JapanMap$micro_name, JapanMap$country_name, sep = ", ")
   JapanMap$Country <- JapanMap$country_name
-  JapanMap$DateReport <- as.character(date)
+  JapanMap$DateReport <- as.character(dateJapan)
   JapanMap$pInf <- JapanMap$Difference / JapanMap$Population
 
   JAPAN_DATA <- subset(JapanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

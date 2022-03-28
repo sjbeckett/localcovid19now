@@ -1,9 +1,18 @@
-#' Title
+#' LoadGermany
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Germany to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' COVID-19 case data for Germany is from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/} \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Germany = LoadGermany()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadGermany <- function() {
   links <- c(
     "https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.csv", # Baden-Württemberg
@@ -22,7 +31,7 @@ LoadGermany <- function() {
     "https://opendata.arcgis.com/datasets/06a1c943a9b845968b5ad0607f5f48f5_0.csv", # Sachsen-Anhalt
     "https://opendata.arcgis.com/datasets/4a648483aedd49b8a6655290181d4c2a_0.csv", # Schleswig-Holstein
     "https://opendata.arcgis.com/datasets/790f5423e03e49c4baec55a1a232c136_0.csv" # Thüringen
-  ) # None of these are  spatial data, so it doesn't make sense to use geojsons. You're putting the computer through a lot of unnecessary work.
+  ) # None of these are  spatial data, so it doesn't make sense to use geojsons.
   germanyData <- purrr::map_df(
     links,
     ~ vroom::vroom(.x) %>%

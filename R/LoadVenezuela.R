@@ -1,9 +1,18 @@
-#' Title
+#' LoadVenezuela
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Venezuela to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data is aggregated from local resources by OCHA Venezuela:  \url{https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Venezuela = LoadVenezuela()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadVenezuela <- function() {
   # Aggregated from local resources by OCHA Venezuela:  https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela
 

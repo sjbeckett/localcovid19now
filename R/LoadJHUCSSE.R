@@ -1,10 +1,22 @@
-#' Title
+#' LoadJHUCSSE
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University \url{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}.
+#'
+#' @references
+#' Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
+#' 
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
-LoadSmallCountries <- function() {
+#' \dontrun{
+#' JH = LoadJHUCSSE()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
+LoadJHUCSSE <- function() {
   # Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University
   # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
   # Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.

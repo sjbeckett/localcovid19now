@@ -1,11 +1,9 @@
-#' Title
+#' dataQueryUK
 #'
-#' @param date 
+#' @param date Get COVID-19 data for this date.
 #'
-#' @return
+#' @return COVID-19 data for UK on this date. Used in LoadUK().
 #' @keywords internal
-#'
-#' @examples
   dataQueryUK <- function(date) {
     dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
     response <- httr::GET(
@@ -37,30 +35,31 @@
       mutate(date = as_date(date))
     return(data)
   }
-  #' Title
+  
+#' LoadUK
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for the United Kingdom to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' The COVID-19 data is from the UK API from Public Health England and NHSX: \url{https://coronavirus.data.gov.uk}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' UK = LoadUK()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadUK <- function() {
-  # The Coronavirus (COVID-19) in the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
+  # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
 
 
-  cur_date <- today() # ymd(gsub("-", "", Sys.Date()))
+  cur_date <- today() 
 
   data_cur <- dataQueryUK(cur_date)
   past_date <- cur_date - 14
   data_past <- dataQueryUK(past_date)
-
-  ## I think everything is updated at the same time, it's just unclear as to when they'll do it... so i'm not sure we still need this next section. please lmk if I'm wrong and I'll adjust.
-
-  # for (i in c(1:13)) {
-  #   data_cur <- data_cur %>% rbind(dataQueryUK(cur_date - i))
-  # }
-  # data_cur <- data_cur %>%
-  #   group_by(code) %>%
-  #   dplyr::summarise(date = first(date), cases = first(cases), n = n())
 
   # population
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/uk_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
