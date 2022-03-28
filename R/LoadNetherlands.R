@@ -1,11 +1,9 @@
-#' Title
+#' getDataND
 #'
-#' @param code 
+#' @param code Municipality code.
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
+#' @keywords internal
 getDataND <- function(code) {
   temp <- netherlandsData %>% filter(Municipality == municipality[code])
   temp$CumSum <- cumsum(temp$Cases)
@@ -17,12 +15,22 @@ getDataND <- function(code) {
   vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
   return(vec)
 }
-#' Title
+
+#' LoadNetherlands
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Netherlands to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). \url{https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Netherlands = LoadNetherlands()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadNetherlands <- function() {
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 

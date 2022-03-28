@@ -1,9 +1,16 @@
 #' LoadAustralia
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Australia to calculate most recent estimate of per capita active COVID-19 cases.
+#'
+#' @note
+#' Data was obtained from \url{https://github.com/M3IT/COVID-19_Data} and aggregated by www.covid19data.com.au from local health resources.
 #'
 #' @examples
+#' \dontrun{
+#' Australia = LoadAustralia()
+#' }
+#' @seealso [LoadCountries]
+#' @export
 LoadAustralia <- function() {
   # See: https://github.com/M3IT/COVID-19_Data/
   data <- read.csv("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")

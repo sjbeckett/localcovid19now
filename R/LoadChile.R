@@ -1,9 +1,22 @@
-#' Title
+#' LoadChile
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Chile to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io}
+#' sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: \url{https://www.minciencia.gob.cl/COVID19/}.
+#'
+#' @references
+#' Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, \url{https://doi.org/10.21105/joss.02376}.
+#' 
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Chile = LoadChile()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadChile <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
   # sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: https://www.minciencia.gob.cl/COVID19/

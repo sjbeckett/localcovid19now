@@ -1,9 +1,21 @@
-#' Title
+#' LoadGoogleSourced
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data aggregated from local health resources in the Google COVID-19 Open Data datasets \url{https://goo.gle/covid-19-open-data}.
+#'
+#' @references
+#' O. Wahltinez and others. 2020. COVID-19 Open-Data: curating a fine-grained, global-scale data repository for SARS-CoV-2. Work in progress \url{https://goo.gle/covid-19-open-data}.
+#' 
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' GS = LoadGoogleSourced()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadGoogleSourced <- function() { # takes a long time to process.
   # @article{Wahltinez2020,
   #  author = "O. Wahltinez and others",
@@ -13,12 +25,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   #  url = {https://goo.gle/covid-19-open-data},
   # }
 
-
-
-  # full list
-  # LIST =c("Argentina", "South Korea", "Philippines", "Pakistan", "Colombia", "Israel", "Haiti", "Afghanistan" ,"Mozambique", "Sierra Leone", "Democratic Republic of the Congo", "Sudan", "Kenya", "Bangladesh","Libya")
-  # list with recent subnational data as of 8th August 2021.
-  # don't want to incorp Israel yet. Bangladesh looks like data resource is broken.
+  # list with recent subnational data as of 8th August 2021. Note other useable datasets may exist.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
 
   # index file

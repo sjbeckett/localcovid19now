@@ -1,9 +1,18 @@
-#' Title
+#' LoadZimbabwe
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Zimbabwe to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Sourced from the COVID-19 Data Repository by African Surveyors Connect \url{https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Zimbabwe = LoadZimbabwe()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadZimbabwe <- function() {
   # COVID-19 Data Repository by African Surveyors Connect https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/
   # Dashboard: https://surveyor-jr.maps.arcgis.com/apps/dashboards/8ef907d2658c44c6a143819aa7979b20

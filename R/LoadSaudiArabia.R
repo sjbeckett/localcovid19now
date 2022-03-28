@@ -1,9 +1,18 @@
-#' Title
+#' LoadSaudiArabia
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Saudi Arabia to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. \url{https://covid19.moh.gov.sa/}.
+#'
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' SaudiArabia = LoadSaudiArabia()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadSaudiArabia <- function() {
   # Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
 

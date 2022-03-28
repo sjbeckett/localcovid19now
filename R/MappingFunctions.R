@@ -1,32 +1,43 @@
 #' calculate risk
 #'
-#' @param Infected
-#' @param A
-#' @param G
+#' @param ActiveCases Per capita active cases.
+#' @param A Ascertainment bias (ratio of infections to cases)
+#' @param G Event size for risk to be calculated for.
+#' @param rounding Number of decimal places to round to. Default of 0.
 #'
-#' @return
+#' @return Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
 #' @export
 #'
+#' @seealso [calc_risk()]
 #' @examples
-estRisk <- function(Infected, A, G) { # A is ascertainment bias, G is group size
-  Risk <- 100 * (1 - (1 - (A * Infected))^G)
-  return(round(Risk, 0))
+#' \dontrun{
+#' estRisk(50/10000,4,50) #estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
+#' }
+estRisk <- function(ActiveCases, A, G, rounding = 0) { # A is ascertainment bias, G is group size
+  Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
+  return(round(Risk, rounding))
 }
 
 
 ## create risk-maps and active case per capita maps in Leaflet and tmap
 
-## Leaflet
-#' Title
+#' EventMap_leaflet
 #'
-#' @param DATA
-#' @param G
-#' @param boundaryweights
+#' @param DATA Data containing prevalence information to map.
+#' @param G Event size to compute risk for.
+#' @param boundaryweights Weight assigned to the maps boundary edges.
 #'
-#' @return
-#' @export
+#' @return Outputs an interactive leaflet map displaying exposure risk for the input data.
 #'
+#' @note Requires an estimate of ascertainment bias stored as column AB in the DATA object, created through use of a LoadCountry function.
+#' @family mapplots
 #' @examples
+#' \dontrun{
+#' Austria = LoadAustria()
+#' Austria$AB = 4
+#' EventMap_leaflet(Austria, 50)
+#' }
+#' @export
 EventMap_leaflet <- function(DATA, G, boundaryweights = 0.05) { # DATA - map data, G - group size, boundaryweights - polygon edge weights
 
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `EventMap_leaflet()`")
@@ -82,16 +93,16 @@ EventMap_leaflet <- function(DATA, G, boundaryweights = 0.05) { # DATA - map dat
     )
 }
 
-#' Title
+#' PerCapitaMap_leaflet
 #'
-#' @param DATA
-#' @param people
-#' @param boundaryweights
+#' @param DATA Data containing prevalence information to map.
+#' @param people Transform from proportion of population to per 'people'.
+#' @param boundaryweights Weight assigned to the maps boundary edges.
 #'
-#' @return
+#' @return Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
+#'
+#' @family mapplots
 #' @export
-#'
-#' @examples
 PerCapitaMap_leaflet <- function(DATA, people, boundaryweights = 0.05) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `PerCapitaMap_leaflet()`")
 
@@ -139,18 +150,26 @@ PerCapitaMap_leaflet <- function(DATA, people, boundaryweights = 0.05) { # DATA 
 
 
 ## tmap
-#' Title
+
+#' EventMap_tmap
 #'
-#' @param DATA
-#' @param G
-#' @param boundaryweights
-#' @param projectionCRS
-#' @param maptitle
+#' @param DATA Data containing prevalence information to map.
+#' @param G Event size to compute risk for.
+#' @param boundaryweights Weight assigned to the maps boundary edges.
+#' @param projectionCRS Type of geographic projection to use.
+#' @param maptitle Adds title to map.
 #'
-#' @return
+#' @return Outputs a tmap displaying exposure risk for the input data.
+#'
+#' @note Requires an estimate of ascertainment bias stored as column AB in the DATA object, created through use of a LoadCountry function.
+#' @family mapplots
 #' @export
-#'
 #' @examples
+#' \dontrun{
+#' Austria = LoadAustria()
+#' Austria$AB = 4
+#' EventMap_tmap(Austria, 50)
+#' }
 EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
   rlang::check_installed("tmap", reason = "to use `EventMap_tmap()`")
   data("World")
@@ -169,18 +188,18 @@ EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+pro
 }
 
 
-#' Title
+#' PerCapitaMap_leaflet
 #'
-#' @param DATA
-#' @param people
-#' @param boundaryweights
-#' @param projectionCRS
-#' @param maptitle
+#' @param DATA Data containing prevalence information to map.
+#' @param people Transform from proportion of population to per 'people'.
+#' @param boundaryweights Weight assigned to the maps boundary edges.
+#' @param projectionCRS Type of geographic projection to use.
+#' @param maptitle Adds title to map.
 #'
-#' @return
+#' @return Outputs a tmap displaying active cases per 'people' for the input data.
+#'
+#' @family mapplots
 #' @export
-#'
-#' @examples
 PerCapitaMap_tmap <- function(DATA, people, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
   rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
@@ -190,11 +209,6 @@ PerCapitaMap_tmap <- function(DATA, people, boundaryweights = 0.05, projectionCR
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
 
   DATA$percapcases <- DATA$pInf * people
-
-  ## this doesn't have any bearing currently, so I'm commenting it out
-  # if(is.na(bbox_new)){ #if no bbox set, use that in the data
-  # 	bbox_new = st_bbox(DATA)
-  # }
 
   tmap::tm_shape(DATA) +
     tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights) +

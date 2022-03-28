@@ -1,9 +1,18 @@
-#' Title
+#' LoadMalaysia
 #'
-#' @return
-#' @export
+#' @description Reads in subnational data for Malaysia to calculate most recent estimate of per capita active COVID-19 cases.
 #'
+#' @note
+#' Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  \url{https://github.com/MoH-Malaysia/covid19-public}.
+#' 
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
+#' 
 #' @examples
+#' \dontrun{
+#' Malaysia = LoadMalaysia()
+#' }
+#' @seealso [LoadCountries()]
+#' @export
 LoadMalaysia <- function() {
   # Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
 

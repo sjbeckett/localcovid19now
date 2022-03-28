@@ -1,11 +1,14 @@
-#' Title
+#' LoadCountries
 #'
-#' @param countries 
+#' @param countries List of countries to collect data for. Use NULL to attempt to download all available datasets.
 #'
-#' @return
+#' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' AllData = LoadCountries()
+#' }
 LoadCountries <- function(countries = NULL) {
 
   # COMBINE DATASETS INTO SINGLE OBJECT
