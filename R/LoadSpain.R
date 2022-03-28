@@ -6,10 +6,10 @@
 #' COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos III: \url{https://cnecovid.isciii.es/covid19/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Spain = LoadSpain()
+#' Spain <- LoadSpain()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

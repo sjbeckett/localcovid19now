@@ -10,10 +10,10 @@
 #' Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' NewZealand = LoadNewZealand()
+#' NewZealand <- LoadNewZealand()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

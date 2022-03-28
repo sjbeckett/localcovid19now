@@ -4,38 +4,38 @@
 #'
 #' @return COVID-19 data for UK on this date. Used in LoadUK().
 #' @keywords internal
-  dataQueryUK <- function(date) {
-    dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
-    response <- httr::GET(
-      url = dataURL,
-      timeout(10)
-    )
-    if (response$status_code >= 400) {
-      err_msg <- httr::http_status(response)
-      stop(err_msg)
-    } else if (response$status_code >= 204) {
-      dmod <- 1
-      while (response$status_code >= 204) {
-        cur_date <<- date - dmod
-        dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", cur_date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
-        response <- httr::GET(
-          url = dataURL,
-          timeout(10)
-        )
-        dmod <- dmod + 1
-      }
-      if (date != cur_date) {
-        cat("\nnew cur_date:", as.character(cur_date), "\n")
-      }
+dataQueryUK <- function(date) {
+  dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
+  response <- httr::GET(
+    url = dataURL,
+    timeout(10)
+  )
+  if (response$status_code >= 400) {
+    err_msg <- httr::http_status(response)
+    stop(err_msg)
+  } else if (response$status_code >= 204) {
+    dmod <- 1
+    while (response$status_code >= 204) {
+      cur_date <<- date - dmod
+      dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", cur_date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
+      response <- httr::GET(
+        url = dataURL,
+        timeout(10)
+      )
+      dmod <- dmod + 1
     }
-
-    # Convert response from binary to JSON:
-    json_text <- content(response, "text")
-    data <- jsonlite::fromJSON(json_text)$data %>%
-      mutate(date = as_date(date))
-    return(data)
+    if (date != cur_date) {
+      cat("\nnew cur_date:", as.character(cur_date), "\n")
+    }
   }
-  
+
+  # Convert response from binary to JSON:
+  json_text <- content(response, "text")
+  data <- jsonlite::fromJSON(json_text)$data %>%
+    mutate(date = as_date(date))
+  return(data)
+}
+
 #' LoadUK
 #'
 #' @description Reads in subnational data for the United Kingdom to calculate most recent estimate of per capita active COVID-19 cases.
@@ -44,10 +44,10 @@
 #' The COVID-19 data is from the UK API from Public Health England and NHSX: \url{https://coronavirus.data.gov.uk}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' UK = LoadUK()
+#' UK <- LoadUK()
 #' }
 #' @seealso [LoadCountries()]
 #' @export
@@ -55,7 +55,7 @@ LoadUK <- function() {
   # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
 
 
-  cur_date <- today() 
+  cur_date <- today()
 
   data_cur <- dataQueryUK(cur_date)
   past_date <- cur_date - 14

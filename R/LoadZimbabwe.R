@@ -6,10 +6,10 @@
 #' Sourced from the COVID-19 Data Repository by African Surveyors Connect \url{https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Zimbabwe = LoadZimbabwe()
+#' Zimbabwe <- LoadZimbabwe()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

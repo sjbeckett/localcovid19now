@@ -6,10 +6,10 @@
 #' Data sourced from Taiwan Centers for Disease Control \url{https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Taiwan = LoadTaiwan()
+#' Taiwan <- LoadTaiwan()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

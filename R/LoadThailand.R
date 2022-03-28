@@ -6,10 +6,10 @@
 #' Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Thailand = LoadThailand()
+#' Thailand <- LoadThailand()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

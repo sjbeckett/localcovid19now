@@ -6,10 +6,10 @@
 #' COVID-19 data is sourced from the Covid-19 México hub page: \url{https://datos.covid-19.conacyt.mx/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Mexico = LoadMexico()
+#' Mexico <- LoadMexico()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

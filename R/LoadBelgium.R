@@ -6,10 +6,10 @@
 #' Data was obtained from Sciensano, the Belgian institute for health: \url{https://epistat.wiv-isp.be/covid/}
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Belgium = LoadBelgium()
+#' Belgium <- LoadBelgium()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

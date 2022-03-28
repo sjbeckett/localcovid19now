@@ -6,10 +6,10 @@
 #' Data obtained via the Federal Office of Public Health FOPH \url{https://www.covid19.admin.ch/en/overview}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' SwitzerlandLiechtenstein = LoadSwitzerlandLiechtenstein()
+#' SwitzerlandLiechtenstein <- LoadSwitzerlandLiechtenstein()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

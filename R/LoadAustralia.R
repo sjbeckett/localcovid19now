@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' Australia = LoadAustralia()
+#' Australia <- LoadAustralia()
 #' }
 #' @seealso [LoadCountries]
 #' @export

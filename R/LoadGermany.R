@@ -6,10 +6,10 @@
 #' COVID-19 case data for Germany is from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/} \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Germany = LoadGermany()
+#' Germany <- LoadGermany()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

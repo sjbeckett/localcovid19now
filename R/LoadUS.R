@@ -7,10 +7,10 @@
 #' US 2019 population estimate data comes from the US Census: \url{https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' US = LoadUS()
+#' US <- LoadUS()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

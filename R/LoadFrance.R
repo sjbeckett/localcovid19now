@@ -7,10 +7,10 @@
 #' Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' France = LoadFrance()
+#' France <- LoadFrance()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

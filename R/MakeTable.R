@@ -25,7 +25,7 @@ calc_risk <- function(p_I, g) {
 #'
 #' @examples
 #' \dontrun{
-#' Canada = LoadCanada()
+#' Canada <- LoadCanada()
 #' create_c19r_data(Canada)
 #' }
 create_c19r_data <- function(df_in,
@@ -33,7 +33,6 @@ create_c19r_data <- function(df_in,
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
                              asc_bias_list = c(3, 4, 5)) {
-
   if (!all(is.numeric(event_size)) & !all(event_size > 0)) {
     stop("'event_size' must be a vector of positive numbers")
   }
@@ -72,7 +71,6 @@ create_c19r_data <- function(df_in,
         dplyr::select(geoid, "{cn}" := risk)
       id <- paste(asc_bias, size, sep = "_")
     }
-
   }
 
   risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = left_join) %>%

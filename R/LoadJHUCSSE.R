@@ -7,12 +7,12 @@
 #'
 #' @references
 #' Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
-#' 
+#'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' JH = LoadJHUCSSE()
+#' JH <- LoadJHUCSSE()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

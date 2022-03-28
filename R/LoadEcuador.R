@@ -6,10 +6,10 @@
 #' Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: \url{https://github.com/andrab/ecuacovid}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Ecuador = LoadEcuador()
+#' Ecuador <- LoadEcuador()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

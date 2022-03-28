@@ -6,10 +6,10 @@
 #' Data was obtained using the Algeria Coronavirus Tracker API \url{https://corona-dz.live/}, documented at \url{https://github.com/Amine27/covid-19-dz} whcih sources information from the Algerian Ministry of Health, Population and Hospital Reform website.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Algeria = LoadAlgeria()
+#' Algeria <- LoadAlgeria()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

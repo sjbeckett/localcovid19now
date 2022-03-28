@@ -11,7 +11,7 @@
 #' @seealso [calc_risk()]
 #' @examples
 #' \dontrun{
-#' estRisk(50/10000,4,50) #estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
+#' estRisk(50 / 10000, 4, 50) # estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
 #' }
 estRisk <- function(ActiveCases, A, G, rounding = 0) { # A is ascertainment bias, G is group size
   Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
@@ -33,8 +33,8 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) { # A is ascertainment bias
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Austria = LoadAustria()
-#' Austria$AB = 4
+#' Austria <- LoadAustria()
+#' Austria$AB <- 4
 #' EventMap_leaflet(Austria, 50)
 #' }
 #' @export
@@ -166,8 +166,8 @@ PerCapitaMap_leaflet <- function(DATA, people, boundaryweights = 0.05) { # DATA 
 #' @export
 #' @examples
 #' \dontrun{
-#' Austria = LoadAustria()
-#' Austria$AB = 4
+#' Austria <- LoadAustria()
+#' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50)
 #' }
 EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map

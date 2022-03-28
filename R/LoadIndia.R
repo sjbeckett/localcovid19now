@@ -6,10 +6,10 @@
 #' Data collated by \url{https://covid19tracker.in/}, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' India = LoadIndia()
+#' India <- LoadIndia()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

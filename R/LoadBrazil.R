@@ -9,10 +9,10 @@
 #' W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Brazil = LoadBrazil()
+#' Brazil <- LoadBrazil()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

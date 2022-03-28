@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' AllData = LoadCountries()
+#' AllData <- LoadCountries()
 #' }
 LoadCountries <- function(countries = NULL) {
 

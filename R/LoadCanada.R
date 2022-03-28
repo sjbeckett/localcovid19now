@@ -9,10 +9,10 @@
 #' Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi: \url{https://doi.org/10.1503/cmaj.75262}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Canada = LoadCanada()
+#' Canada <- LoadCanada()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

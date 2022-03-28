@@ -6,10 +6,10 @@
 #' Data aggregated from local health resources by Covid19CubaData \url{http://covid19cubadata.github.io/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Cuba = LoadCuba()
+#' Cuba <- LoadCuba()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

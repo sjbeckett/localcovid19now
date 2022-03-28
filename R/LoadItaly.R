@@ -4,12 +4,12 @@
 #'
 #' @return returns data for Italy on specified date. Called by LoadItaly().
 #' @keywords internal
-  dataQueryItaly <- function(date) {
-    data <- vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", str_replace_all(as.character(date), "-", ""), ".csv"), col_types = cols(note = col_character())) %>%
-      select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
-    return(data)
-  }
-  
+dataQueryItaly <- function(date) {
+  data <- vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", str_replace_all(as.character(date), "-", ""), ".csv"), col_types = cols(note = col_character())) %>%
+    select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
+  return(data)
+}
+
 #' LoadItaly
 #'
 #' @description Reads in subnational data for Italy to calculate most recent estimate of per capita active COVID-19 cases.
@@ -18,10 +18,10 @@
 #' Data collated by the Italian Department of Civil Protection COVID-19: \url{https://github.com/pcm-dpc/COVID-19/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Italy = LoadItaly()
+#' Italy <- LoadItaly()
 #' }
 #' @seealso [LoadCountries()]
 #' @export

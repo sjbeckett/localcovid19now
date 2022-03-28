@@ -4,20 +4,20 @@
 #'
 #' @return COVID-19 data for Japan for this prefecture index. Used in LoadJapan().
 #' @keywords internal
-  getDataJapan <- function(i) {
-    info <- unlist(dataSet[i])
-    fields <- names(unlist(dataSet[i])) # get the column names
-    daily <- info[startsWith(fields, "dailyConfirmedCount")] # find any column start with dailyConfirmedCount
-    lenOfdaily <- length(daily) # get the index for the latest date
-    past_id <- lenOfdaily - 14 # get the index for 14 days ago
-    summation <- sum(as.numeric(daily[past_id:lenOfdaily])) ## get the total cases for 14 days
-    difference <- round(summation * 10 / 14) # remodified
-    # get the name for this prefecture
-    len <- length(unlist(unlist(dataSet[i])))
-    name <- as.character(unlist(as.data.frame(unlist(dataSet[i])[len])))
-    temp <- c(name, difference)
-    return(temp)
-  }
+getDataJapan <- function(i) {
+  info <- unlist(dataSet[i])
+  fields <- names(unlist(dataSet[i])) # get the column names
+  daily <- info[startsWith(fields, "dailyConfirmedCount")] # find any column start with dailyConfirmedCount
+  lenOfdaily <- length(daily) # get the index for the latest date
+  past_id <- lenOfdaily - 14 # get the index for 14 days ago
+  summation <- sum(as.numeric(daily[past_id:lenOfdaily])) ## get the total cases for 14 days
+  difference <- round(summation * 10 / 14) # remodified
+  # get the name for this prefecture
+  len <- length(unlist(unlist(dataSet[i])))
+  name <- as.character(unlist(as.data.frame(unlist(dataSet[i])[len])))
+  temp <- c(name, difference)
+  return(temp)
+}
 
 #' LoadJapan
 #'
@@ -27,14 +27,14 @@
 #' Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' Japan = LoadJapan()
+#' Japan <- LoadJapan()
 #' }
 #' @seealso [LoadCountries()]
 #' @export
-  LoadJapan <- function() {
+LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
 
   dataJapan <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
