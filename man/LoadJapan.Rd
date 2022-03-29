@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadJapan.R
 \name{LoadJapan}
 \alias{LoadJapan}
-\title{Title}
+\title{LoadJapan}
 \usage{
 LoadJapan()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
+}
+\examples{
+\dontrun{
+Japan <- LoadJapan()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

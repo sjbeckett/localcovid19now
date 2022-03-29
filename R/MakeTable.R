@@ -7,6 +7,10 @@
 #' @export
 #' @seealso [estRisk()]
 #' @examples
+#' \dontrun{
+#' risk <- calcrisk(.001, 50)
+#' }
+#'
 calc_risk <- function(p_I, g) {
   r <- 1 - (1 - p_I)**g
   return(round(r * 100, 1))

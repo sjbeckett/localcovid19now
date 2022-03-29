@@ -18,7 +18,6 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadChile <- function() {
-
   x <- as.data.frame(covid19("Chile", level = 2))
 
   regions <- unique(x$administrative_area_level_2)

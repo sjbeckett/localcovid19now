@@ -13,7 +13,11 @@
 #' @export
 LoadAustralia <- function() {
   # See: https://github.com/M3IT/COVID-19_Data/
-  data <- read.csv("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")
+
+  utils::data("geomAustralia", envir = environment())
+  utils::data("pop_australia", envir = environment())
+
+  data <- vroom::vroom("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")
 
   data$date <- as.Date(data$date)
   data <- data[rev(order(data$date)), c("date", "state", "confirmed")]
@@ -27,12 +31,7 @@ LoadAustralia <- function() {
     australiaCases <- rbind(australiaCases, vec)
   }
 
-
-  ## population
   australiadf <- dplyr::inner_join(australiaCases, pop_australia, by = "state")
-
-  # geom
-  # geomAustralia <- st_read('https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson')
 
   AustraliaMap <- dplyr::inner_join(geomAustralia, australiadf, by = c("micro_name" = "state"))
   AustraliaMap$RegionName <- paste(AustraliaMap$micro_name, AustraliaMap$country_name, sep = ", ")

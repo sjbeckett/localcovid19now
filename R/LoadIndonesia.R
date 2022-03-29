@@ -15,7 +15,6 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadIndonesia <- function() {
-
   cases <- vroom::vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv") # cases are KASUS. new cases per day.
 
   provinces <- unique(cases$Location)

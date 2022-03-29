@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadVenezuela.R
 \name{LoadVenezuela}
 \alias{LoadVenezuela}
-\title{Title}
+\title{LoadVenezuela}
 \usage{
 LoadVenezuela()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Venezuela to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data is aggregated from local resources by OCHA Venezuela:  \url{https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela}.
+}
+\examples{
+\dontrun{
+Venezuela <- LoadVenezuela()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

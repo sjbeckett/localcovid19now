@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadSouthKorea.R
 \name{LoadSouthKorea}
 \alias{LoadSouthKorea}
-\title{Title}
+\title{LoadSouthKorea}
 \usage{
 LoadSouthKorea()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for South Korea to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data collated by \url{https://github.com/staedi/nCOV-summary/} from the South Korea CDC: \url{http://ncov.mohw.go.kr/}.
+}
+\examples{
+\dontrun{
+SouthKorea <- LoadSouthKorea()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

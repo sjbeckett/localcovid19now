@@ -16,7 +16,10 @@
 LoadAlgeria <- function() {
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
 
-  ALG <- fromJSON("https://api.corona-dz.live/province/all")
+  ALG <- jsonlite::fromJSON("https://api.corona-dz.live/province/all")
+
+  utils::data("geomAlgeria", envir = environment())
+  utils::data("pop_algeria", envir = environment())
 
   # geography
   # https://github.com/Amine27/covid-19-dz/blob/master/static/map/algeria.json

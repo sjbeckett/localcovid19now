@@ -2,23 +2,37 @@
 % Please edit documentation in R/MakeTable.R
 \name{create_c19r_data}
 \alias{create_c19r_data}
-\title{Create Table of}
+\title{Create Table of Risk Estimates}
 \usage{
 create_c19r_data(
   df_in,
   risk_output = sprintf("world_risk_regions/world_risk_regions_\%s.csv",
-    str_replace_all(lubridate::today(), "-", "")),
+    stringr::str_replace_all(lubridate::today(), "-", "")),
   output_prefix = ".",
   event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
   asc_bias_list = c(3, 4, 5)
 )
 }
 \arguments{
-\item{asc_bias_list}{}
+\item{df_in}{Input data.}
+
+\item{risk_output}{Name of output file.}
+
+\item{output_prefix}{Folder location to store table file.}
+
+\item{event_size}{Event size(s) to calculate risk for.}
+
+\item{asc_bias_list}{Ascertainment bias(es) to calculate risk for.}
 }
 \value{
-
+Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 }
 \description{
-Create Table of
+Create Table of Risk Estimates
+}
+\examples{
+\dontrun{
+Canada <- LoadCanada()
+create_c19r_data(Canada)
+}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/MappingFunctions.R
 \name{PerCapitaMap_tmap}
 \alias{PerCapitaMap_tmap}
-\title{Title}
+\title{PerCapitaMap_leaflet}
 \usage{
 PerCapitaMap_tmap(
   DATA,
@@ -13,11 +13,26 @@ PerCapitaMap_tmap(
 )
 }
 \arguments{
-\item{maptitle}{}
+\item{DATA}{Data containing prevalence information to map.}
+
+\item{people}{Transform from proportion of population to per 'people'.}
+
+\item{boundaryweights}{Weight assigned to the maps boundary edges.}
+
+\item{projectionCRS}{Type of geographic projection to use.}
+
+\item{maptitle}{Adds title to map.}
 }
 \value{
-
+Outputs a tmap displaying active cases per 'people' for the input data.
 }
 \description{
-Title
+PerCapitaMap_leaflet
 }
+\seealso{
+Other mapplots: 
+\code{\link{EventMap_leaflet}()},
+\code{\link{EventMap_tmap}()},
+\code{\link{PerCapitaMap_leaflet}()}
+}
+\concept{mapplots}

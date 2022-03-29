@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadEurope.R
 \name{LoadEurope}
 \alias{LoadEurope}
-\title{Title}
+\title{LoadEurope}
 \usage{
 LoadEurope()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
+}
+\examples{
+\dontrun{
+Europe <- LoadEurope()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

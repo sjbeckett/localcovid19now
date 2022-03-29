@@ -4,6 +4,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' makeMaps()
+#' }
+#'
 makeMaps <- function() {
 
   # source local files

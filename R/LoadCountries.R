@@ -18,7 +18,7 @@ LoadCountries <- function(countries = NULL) {
     countries <- countrylist
   }
 
-  errors <<- data.frame(countryn = c(), errort = c(), datetime = c())
+  errors <- data.frame(countryn = c(), errort = c(), datetime = c())
   for (country in countries) {
     # Load in data for this country
     cat("\n", country, "\n")
@@ -28,11 +28,11 @@ LoadCountries <- function(countries = NULL) {
         NEWMAP <- dplyr::bind_rows(NEWMAP, this_country)
       },
       error = function(cond) {
-        errors <<- dplyr::bind_rows(errors, data.frame(countryn = country, errort = as.character(cond), datetime = lubridate::now(tzone = "UTC")))
+        errors <- dplyr::bind_rows(errors, data.frame(countryn = country, errort = as.character(cond), datetime = lubridate::now(tzone = "UTC")))
       }
     )
   }
-  write.csv(errors, "log_error/errors.csv", append = T)
+  utils::write.csv(errors, "log_error/errors.csv", append = T)
 
   return(NEWMAP)
 }

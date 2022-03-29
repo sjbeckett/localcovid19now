@@ -14,7 +14,6 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadNorway <- function() {
-
   data <- vroom::vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv")
   data$date <- as.Date(data$date)
 

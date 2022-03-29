@@ -7,11 +7,22 @@
 calc_risk(p_I, g)
 }
 \arguments{
-\item{g}{}
+\item{p_I}{Probability one individual in a population is infectious.}
+
+\item{g}{Event size.}
 }
 \value{
-
+The risk (\%) one or more individuals at an event of size g will be infectious.
 }
 \description{
 Calculate Risk
+}
+\examples{
+\dontrun{
+risk <- calcrisk(.001, 50)
+}
+
+}
+\seealso{
+\code{\link[=estRisk]{estRisk()}}
 }

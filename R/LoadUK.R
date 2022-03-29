@@ -63,7 +63,7 @@ LoadUK <- function() {
 
   # population
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/uk_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
-  pop <- pop_uk%>%
+  pop <- pop_uk %>%
     dplyr::drop_na() %>%
     dplyr::select(-c("name"))
 

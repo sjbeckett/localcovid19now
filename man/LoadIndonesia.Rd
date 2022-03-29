@@ -2,13 +2,25 @@
 % Please edit documentation in R/LoadIndonesia.R
 \name{LoadIndonesia}
 \alias{LoadIndonesia}
-\title{Title}
+\title{LoadIndonesia}
 \usage{
 LoadIndonesia()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Indonesia to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Live data, interactive charts & maps of Indonesia provincial COVID-19 daily cases and vaccination. Live version: \url{https://erlange.github.io/INACOVID/}
+\url{https://github.com/erlange/INACOVID}.
+}
+\examples{
+\dontrun{
+Indonesia <- LoadIndonesia()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

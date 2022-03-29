@@ -2,17 +2,17 @@
 % Please edit documentation in R/LoadItaly.R
 \name{dataQueryItaly}
 \alias{dataQueryItaly}
-\title{Title}
+\title{dataQueryItaly}
 \usage{
 dataQueryItaly(date)
 }
 \arguments{
-\item{date}{}
+\item{date}{search for Italian COVID-19 data on this date}
 }
 \value{
-
+returns data for Italy on specified date. Called by LoadItaly().
 }
 \description{
-Title
+dataQueryItaly
 }
 \keyword{internal}

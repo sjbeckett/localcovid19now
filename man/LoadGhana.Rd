@@ -2,13 +2,25 @@
 % Please edit documentation in R/LoadGhana.R
 \name{LoadGhana}
 \alias{LoadGhana}
-\title{Title}
+\title{LoadGhana}
 \usage{
 LoadGhana()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Ghana to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Health): \url{https://data.humdata.org/dataset/ghana-coronavirus-covid-19-subnational-cases}.
+Geometry collected by Where Geospatial Media (\url{www.wheregeospatial.com} \url{blog.wheregeospatial.com}). This Data is not authorized by any government or private institution. It was created from the old authorized Ghana Shapefile using the district boundaries. Any one who uses this for any analysis should note this. Any limitations from the old authorized shapefile are inherited by this shapefile. Created Dec 11, 2019.
+}
+\examples{
+\dontrun{
+Ghana <- LoadGhana()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

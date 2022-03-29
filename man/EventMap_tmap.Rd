@@ -2,7 +2,7 @@
 % Please edit documentation in R/MappingFunctions.R
 \name{EventMap_tmap}
 \alias{EventMap_tmap}
-\title{Title}
+\title{EventMap_tmap}
 \usage{
 EventMap_tmap(
   DATA,
@@ -13,11 +13,36 @@ EventMap_tmap(
 )
 }
 \arguments{
-\item{maptitle}{}
+\item{DATA}{Data containing prevalence information to map.}
+
+\item{G}{Event size to compute risk for.}
+
+\item{boundaryweights}{Weight assigned to the maps boundary edges.}
+
+\item{projectionCRS}{Type of geographic projection to use.}
+
+\item{maptitle}{Adds title to map.}
 }
 \value{
-
+Outputs a tmap displaying exposure risk for the input data.
 }
 \description{
-Title
+EventMap_tmap
 }
+\note{
+Requires an estimate of ascertainment bias stored as column AB in the DATA object, created through use of a LoadCountry function.
+}
+\examples{
+\dontrun{
+Austria <- LoadAustria()
+Austria$AB <- 4
+EventMap_tmap(Austria, 50)
+}
+}
+\seealso{
+Other mapplots: 
+\code{\link{EventMap_leaflet}()},
+\code{\link{PerCapitaMap_leaflet}()},
+\code{\link{PerCapitaMap_tmap}()}
+}
+\concept{mapplots}

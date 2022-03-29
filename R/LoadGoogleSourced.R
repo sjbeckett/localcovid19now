@@ -29,7 +29,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
 
   # index file
-  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = cols(aggregation_level = col_double(), .default = col_character()))
+  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()))
   KEYS <- c()
   LOCALES <- c()
   COUNTRY <- c()
@@ -46,7 +46,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   for (bb in 1:length(KEYS)) {
     # cat("\n",bb,"\n")
     DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
-    problems(DAT)
+    # problems(DAT)
     naIND <- which(is.na(DAT$new_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]

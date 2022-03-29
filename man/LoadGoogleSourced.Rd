@@ -2,13 +2,27 @@
 % Please edit documentation in R/LoadGoogleSourced.R
 \name{LoadGoogleSourced}
 \alias{LoadGoogleSourced}
-\title{Title}
+\title{LoadGoogleSourced}
 \usage{
 LoadGoogleSourced()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data aggregated from local health resources in the Google COVID-19 Open Data datasets \url{https://goo.gle/covid-19-open-data}.
+}
+\examples{
+\dontrun{
+GS <- LoadGoogleSourced()
+}
+}
+\references{
+O. Wahltinez and others. 2020. COVID-19 Open-Data: curating a fine-grained, global-scale data repository for SARS-CoV-2. Work in progress \url{https://goo.gle/covid-19-open-data}.
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadThailand.R
 \name{LoadThailand}
 \alias{LoadThailand}
-\title{Title}
+\title{LoadThailand}
 \usage{
 LoadThailand()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
+}
+\examples{
+\dontrun{
+Thailand <- LoadThailand()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

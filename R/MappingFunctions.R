@@ -172,7 +172,7 @@ PerCapitaMap_leaflet <- function(DATA, people, boundaryweights = 0.05) { # DATA 
 #' }
 EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
   rlang::check_installed("tmap", reason = "to use `EventMap_tmap()`")
-  data("World")
+  utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
 
@@ -204,7 +204,7 @@ PerCapitaMap_tmap <- function(DATA, people, boundaryweights = 0.05, projectionCR
 
   rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
 
-  data("World")
+  utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
 

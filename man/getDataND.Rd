@@ -2,16 +2,17 @@
 % Please edit documentation in R/LoadNetherlands.R
 \name{getDataND}
 \alias{getDataND}
-\title{Title}
+\title{getDataND}
 \usage{
 getDataND(code)
 }
 \arguments{
-\item{code}{}
+\item{code}{Municipality code.}
 }
 \value{
-
+COVID-19 data for the Netherlands. Used in LoadNetherlands().
 }
 \description{
-Title
+getDataND
 }
+\keyword{internal}

@@ -2,13 +2,28 @@
 % Please edit documentation in R/LoadNewZealand.R
 \name{LoadNewZealand}
 \alias{LoadNewZealand}
-\title{Title}
+\title{LoadNewZealand}
 \usage{
 LoadNewZealand()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for New Zealand to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+COVID-19 Data Repository by the Institute of Environmental Science and Research: \url{https://github.com/ESR-NZ/NZ_COVID19_Data/}
+Institute for Environmental Science and Research, New Zealand COVID19 Dashboard. \url{https://nzcoviddashboard.esr.cri.nz/} (2020).
+}
+\examples{
+\dontrun{
+NewZealand <- LoadNewZealand()
+}
+}
+\references{
+Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

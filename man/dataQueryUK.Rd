@@ -2,17 +2,17 @@
 % Please edit documentation in R/LoadUK.R
 \name{dataQueryUK}
 \alias{dataQueryUK}
-\title{Title}
+\title{dataQueryUK}
 \usage{
 dataQueryUK(date)
 }
 \arguments{
-\item{date}{}
+\item{date}{Get COVID-19 data for this date.}
 }
 \value{
-
+COVID-19 data for UK on this date. Used in LoadUK().
 }
 \description{
-Title
+dataQueryUK
 }
 \keyword{internal}

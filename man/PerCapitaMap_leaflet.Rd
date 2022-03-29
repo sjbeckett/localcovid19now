@@ -2,16 +2,27 @@
 % Please edit documentation in R/MappingFunctions.R
 \name{PerCapitaMap_leaflet}
 \alias{PerCapitaMap_leaflet}
-\title{Title}
+\title{PerCapitaMap_leaflet}
 \usage{
 PerCapitaMap_leaflet(DATA, people, boundaryweights = 0.05)
 }
 \arguments{
-\item{boundaryweights}{}
+\item{DATA}{Data containing prevalence information to map.}
+
+\item{people}{Transform from proportion of population to per 'people'.}
+
+\item{boundaryweights}{Weight assigned to the maps boundary edges.}
 }
 \value{
-
+Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
 }
 \description{
-Title
+PerCapitaMap_leaflet
 }
+\seealso{
+Other mapplots: 
+\code{\link{EventMap_leaflet}()},
+\code{\link{EventMap_tmap}()},
+\code{\link{PerCapitaMap_tmap}()}
+}
+\concept{mapplots}

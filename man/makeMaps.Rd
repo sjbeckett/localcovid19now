@@ -12,3 +12,9 @@ makeMaps()
 \description{
 Title
 }
+\examples{
+\dontrun{
+makeMaps()
+}
+
+}

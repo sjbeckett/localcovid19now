@@ -94,7 +94,7 @@ LoadBelgium <- function() {
   getData <- function(dataSet) {
     updated_data <- data.frame(Arrondissement = as.character(), Cases = as.numeric())
     for (i in 1:length(Arrondissement)) {
-      data <- dataSet %>% filter(dataSet$TX_ADM_DSTR_DESCR_NL == Arrondissement[i])
+      data <- dataSet %>% dplyr::filter(dataSet$TX_ADM_DSTR_DESCR_NL == Arrondissement[i])
       if (sum(data$CASES == "<5") > 0) {
         data[data$CASES == "<5", "CASES"] <- 0 ## assume there is no case when the box shows <5
       }

@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadPhilippines.R
 \name{LoadPhilippines}
 \alias{LoadPhilippines}
-\title{Title}
+\title{LoadPhilippines}
 \usage{
 LoadPhilippines()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
+}
+\examples{
+\dontrun{
+Philippines <- LoadPhilippines()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }

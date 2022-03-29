@@ -16,6 +16,9 @@ LoadAustria <- function() {
 
   # case data
   # data <- read.csv('https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv',sep = ';',encoding = 'UTF-8', stringsAsFactors = FALSE)
+  utils::data("geomAustria", envir = environment())
+  data()
+
   data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";") %>%
     dplyr::select(date = Time, name = Bezirk, code = GKZ, population = AnzEinwohner, cases = AnzahlFaelleSum)
   # date is in format dd.mm.YYYY HH:MM:SS
@@ -45,7 +48,7 @@ LoadAustria <- function() {
     as.data.frame()
   data_join <- data_cur %>%
     dplyr::inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
-    dplyr::mutate(n = date - date_past)
+    dplyr::mutate(n = date - past_date)
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
 
   # geometry

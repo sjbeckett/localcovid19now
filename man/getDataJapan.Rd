@@ -2,17 +2,17 @@
 % Please edit documentation in R/LoadJapan.R
 \name{getDataJapan}
 \alias{getDataJapan}
-\title{Title}
+\title{getDataJapan}
 \usage{
 getDataJapan(i)
 }
 \arguments{
-\item{i}{}
+\item{i}{prefecture index.}
 }
 \value{
-
+COVID-19 data for Japan for this prefecture index. Used in LoadJapan().
 }
 \description{
-Title
+getDataJapan
 }
 \keyword{internal}

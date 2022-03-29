@@ -5,7 +5,7 @@
 #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
 #' @keywords internal
 getDataND <- function(code) {
-  temp <- netherlandsData %>% 
+  temp <- netherlandsData %>%
     dplyr::filter(Municipality == municipality[code])
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]

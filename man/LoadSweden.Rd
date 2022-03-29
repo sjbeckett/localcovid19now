@@ -2,13 +2,24 @@
 % Please edit documentation in R/LoadSweden.R
 \name{LoadSweden}
 \alias{LoadSweden}
-\title{Title}
+\title{LoadSweden}
 \usage{
 LoadSweden()
 }
 \value{
-
+A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Title
+Reads in subnational data for Sweden to calculate most recent estimate of per capita active COVID-19 cases.
+}
+\note{
+Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: \url{https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/}.
+}
+\examples{
+\dontrun{
+Sweden <- LoadSweden()
+}
+}
+\seealso{
+\code{\link[=LoadCountries]{LoadCountries()}}
 }
