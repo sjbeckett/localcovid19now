@@ -30,11 +30,11 @@ LoadDenmark <- function() {
 
   # case data
   # 1.)  identify file location from webpages
-  webpages <- read_html("https://covid19.ssi.dk/overvagningsdata/download-fil-med-overvaagningdata")
+  webpages <- rvest::read_html("https://covid19.ssi.dk/overvagningsdata/download-fil-med-overvaagningdata")
   # extract the html blocks which are h5 and contain links
   JAM <- webpages %>%
-    html_nodes("h5") %>%
-    html_nodes("a")
+    rvest::html_nodes("h5") %>%
+    rvest::html_nodes("a")
   # subset this list by looking for items which are in the directory of interest
   INDEX <- which(grepl("https://files.ssi.dk/covid19/overvagning/data/", JAM, fixed = TRUE))
 
@@ -43,7 +43,7 @@ LoadDenmark <- function() {
   # Should be able to use """ html_elements(webpages,xpath="/html/body/div[2]/div[2]/section[5]/accordions/div[2]/div/div/ul/li[1]/h5/a")%>%html_attr("href") """ to get the link as well, but I haven't tested it for reliability
 
   # extract the text from href attribute for the link. this is faster than the substring method
-  DOWNLOADLINK <- html_attr(JAM[INDEX[1]], "href")
+  DOWNLOADLINK <- rvest::html_attr(JAM[INDEX[1]], "href")
   DOWNLOADLINK <- paste0(DOWNLOADLINK, ".zip") # need to add .zip extension in order for the download/extraction process to perform correctly in R.
   # Have the download link!
 

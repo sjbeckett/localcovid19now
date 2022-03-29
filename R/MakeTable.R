@@ -29,7 +29,7 @@ calc_risk <- function(p_I, g) {
 #' create_c19r_data(Canada)
 #' }
 create_c19r_data <- function(df_in,
-                             risk_output = sprintf("world_risk_regions/world_risk_regions_%s.csv", str_replace_all(lubridate::today(), "-", "")),
+                             risk_output = sprintf("world_risk_regions/world_risk_regions_%s.csv", stringr::str_replace_all(lubridate::today(), "-", "")),
                              output_prefix = ".",
                              event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
                              asc_bias_list = c(3, 4, 5)) {
@@ -60,7 +60,7 @@ create_c19r_data <- function(df_in,
           risk = round(calc_risk(
             Nr, size
           ), 0),
-          risk = case_when(
+          risk = dplyr::case_when(
             risk < 1 ~ 0,
             TRUE ~ risk
           ),

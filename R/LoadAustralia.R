@@ -29,12 +29,12 @@ LoadAustralia <- function() {
 
 
   ## population
-  australiadf <- inner_join(australiaCases, pop_australia, by = "state")
+  australiadf <- dplyr::inner_join(australiaCases, pop_australia, by = "state")
 
   # geom
   # geomAustralia <- st_read('https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson')
 
-  AustraliaMap <- inner_join(geomAustralia, australiadf, by = c("micro_name" = "state"))
+  AustraliaMap <- dplyr::inner_join(geomAustralia, australiadf, by = c("micro_name" = "state"))
   AustraliaMap$RegionName <- paste(AustraliaMap$micro_name, AustraliaMap$country_name, sep = ", ")
   AustraliaMap$Country <- AustraliaMap$country_name
   AustraliaMap$DateReport <- as.character(AustraliaMap$Date)
@@ -43,6 +43,3 @@ LoadAustralia <- function() {
 
   return(Australia_DATA)
 }
-
-# Australia data
-# COVID-19 data was obtained from https://github.com/M3IT/COVID-19_Data and aggregated by www.covid19data.com.au from local health resources.

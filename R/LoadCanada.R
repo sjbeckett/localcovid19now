@@ -24,7 +24,7 @@ LoadCanada <- function() {
   # tryCatch({
   #   CANADADATA <- vroom("https://github.com/ishaberry/Covid19Canada/raw/master/timeseries_hr/cases_timeseries_hr.csv")
   # },warning = function(cond){
-  CANADADATA <- vroom("https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr/cases_timeseries_hr.csv")
+  CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr/cases_timeseries_hr.csv")
   # })
 
 
@@ -104,7 +104,7 @@ LoadCanada <- function() {
 
 
   # integrate datasets
-  HAM <- inner_join(geomCanada, CANADARISK, by = c("micro_code" = "HR_UID"))
+  HAM <- dplyr::inner_join(geomCanada, CANADARISK, by = c("micro_code" = "HR_UID"))
   HAM$RegionName <- paste(HAM$health_region, HAM$province, HAM$country_name, sep = ", ")
   HAM$Country <- HAM$country_name
 

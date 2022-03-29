@@ -45,7 +45,7 @@ LoadChina <- function() {
   latestData <- latestData[, c(1, 4)]
   names(latestData) <- c("Province", "Difference")
   ## population file
-  chinadf <- inner_join(latestData, pop_china, by = c("Province" = "Name"))
+  chinadf <- dplyr::inner_join(latestData, pop_china, by = c("Province" = "Name"))
 
   ## geojson file
   # geomChina <- st_read('https://raw.githubusercontent.com/stjacob/china_geojson/master/china.geojson')
@@ -59,7 +59,7 @@ LoadChina <- function() {
 
 
   # integrate datasets
-  ChinaMap <- inner_join(geomChina, chinadf, by = c("micro_name" = "Province"))
+  ChinaMap <- dplyr::inner_join(geomChina, chinadf, by = c("micro_name" = "Province"))
   ChinaMap$RegionName <- paste0(ChinaMap$micro_name, ", China")
   ChinaMap$Country <- ChinaMap$country_name
   ChinaMap$DateReport <- as.character(date)

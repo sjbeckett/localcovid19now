@@ -37,7 +37,7 @@ getDataJapan <- function(i) {
 LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
 
-  dataJapan <- read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
+  dataJapan <- lsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:
   dateJapan <- as.Date(dataJapan$updated)
   ## PREFECTURE = COUNTY
@@ -59,13 +59,13 @@ LoadJapan <- function() {
   # geomJapan <- geomJapan[c('NAME_1','geometry')]
   # geomJapan[geomJapan$NAME_1 == 'Naoasaki',1] <- "Nagasaki"
   # geomJapan = st_set_crs(geomJapan,4326)
-  data("geomJapan")
+  # data("geomJapan")
 
   ## Population
-  japandf <- inner_join(vec, pop_japan, by = "Prefecture")
+  japandf <- dplyr::inner_join(vec, pop_japan, by = "Prefecture")
   japandf$Difference <- as.numeric(japandf$Difference)
 
-  JapanMap <- inner_join(geomJapan, japandf, by = c("micro_name" = "Prefecture"))
+  JapanMap <- dplyr::inner_join(geomJapan, japandf, by = c("micro_name" = "Prefecture"))
   JapanMap$RegionName <- paste(JapanMap$micro_name, JapanMap$country_name, sep = ", ")
   JapanMap$Country <- JapanMap$country_name
   JapanMap$DateReport <- as.character(dateJapan)

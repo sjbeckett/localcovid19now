@@ -33,8 +33,8 @@ LoadThailand <- function() {
   # pop
   # popul = read.csv("https://github.com/djay/covidthailand/raw/main/province_mapping.csv")%>%select(c("Name",pop = "Population..2019..1."))
   # write.csv("countries/data/thailand_pop.csv",row.names=FALSE)
-  popul <- read.csv("countries/data/thailand_pop.csv")
-  Thailanddf <- inner_join(caseTable, popul, by = c("provinces" = "Name"))
+  # popul <- read.csv("countries/data/thailand_pop.csv")
+  Thailanddf <- dplyr::inner_join(caseTable, pop_thailand, by = c("provinces" = "Name"))
 
   # geometry
   # geomThai = st_read("https://github.com/chingchai/OpenGISData-Thailand/raw/master/provinces.geojson")
@@ -47,11 +47,11 @@ LoadThailand <- function() {
   # geomThai$pro_en[geomThai$pro_en=="Sa kaeo"] = "Sa Kaeo"
   # geomThai$pro_en[geomThai$pro_en=="Si Sa Ket"] = "Sisaket"
   # geomThai$pro_en[geomThai$pro_en=="Samut Prakarn"] = "Samut Prakan"
-  geomThailand <- st_read("countries/data/geom/geomThailand.geojson")
-  miscThailand <- vroom("countries/data/miscThailand.csv", col_types = cols(pro_code = col_character()))
+  # geomThailand <- st_read("countries/data/geom/geomThailand.geojson")
+  # miscThailand <- vroom("countries/data/miscThailand.csv", col_types = cols(pro_code = col_character()))
 
   ThailandMap <- inner_join(geomThailand, Thailanddf, by = c("micro_name" = "provinces")) %>%
-    inner_join(miscThailand, by = c("micro_code" = "pro_code"))
+    inner_join(misc_thailand, by = c("micro_code" = "pro_code"))
 
   ThailandMap$pInf <- ThailandMap$CaseDifference / ThailandMap$pop
   ThailandMap$RegionName <- paste(paste(ThailandMap$micro_name, ThailandMap$pro_th, sep = "/"), ThailandMap$country_name, sep = ", ")

@@ -21,7 +21,7 @@ makeMaps <- function() {
   # Create world_risk_regions.csv
   ## risk < 1% -> 0
   GLOBALDAT <- sf::st_drop_geometry(GLOBALMAP) %>%
-    as_tibble()
+    dplyr::as_tibble()
   create_c19r_data(df_in = GLOBALDAT)
 
   ### Append ascertainment bias calculations to each region via country level statistics
@@ -30,7 +30,7 @@ makeMaps <- function() {
   # today's date
   filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today()), sep = "")
   # save map
-  st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
+  sf::st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
 
   # No data if pInf <= 0
   GLOBALMAP$pInf[which(GLOBALMAP$pInf <= 0)] <- NA
@@ -46,8 +46,8 @@ makeMaps <- function() {
 
   # Provides a csv of missing data for issue identification
   GLOBALMAP %>%
-    filter(is.na(pInf)) %>%
-    st_drop_geometry() %>%
+    dplyr::filter(is.na(pInf)) %>%
+    sf::st_drop_geometry() %>%
     write.csv(file = sprintf("log_error/pInfNA_%s.csv", filedate), row.names = F)
 
   htmlwidgets::saveWidget(MapTogether, sprintf("GlobalRiskMapping_ABD_50_%s.html", filedate), selfcontained = T)
@@ -55,7 +55,7 @@ makeMaps <- function() {
 
   # Example static maps via tmap
   PCM <- PerCapitaMap_tmap(GLOBALMAP, 100000) # active cases per 100,000
-  tmap_save(PCM, sprintf("Global_pcm_per100000_%s.png", filedate))
+  tmap::tmap_save(PCM, sprintf("Global_pcm_per100000_%s.png", filedate))
   EM <- EventMap_tmap(GLOBALMAP, 100) # risk for event of 100 people
-  tmap_save(EM, sprintf("Global_RiskMap_Ev100_%s.png", filedate))
+  tmap::tmap_save(EM, sprintf("Global_RiskMap_Ev100_%s.png", filedate))
 }

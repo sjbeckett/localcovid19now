@@ -42,10 +42,10 @@ LoadSwitzerlandLiechtenstein <- function() {
   # geom <<- st_read("https://gist.githubusercontent.com/mbostock/4207744/raw/3232c7558742bab53227e242a437f64ae4c58d9e/readme-swiss.json")
   # geom <- st_set_crs(geom, 4326)
   # geom <- st_read("countries/data/geom/geomSwitzerland.geojson")
-  geom <- st_read("countries/data/geom/geomSwitzerlandLiechtenstein.geojson")
+  # geom <- sf::st_read("countries/data/geom/geomSwitzerlandLiechtenstein.geojson")
 
   # 6. integrate datasets
-  SwitzerlandMap <- inner_join(geom, data_join, by = c("micro_code" = "code"))
+  SwitzerlandMap <- dplyr::inner_join(geomSwitzerlandLiechtenstein, data_join, by = c("micro_code" = "code"))
   SwitzerlandMap$RegionName <- paste(SwitzerlandMap$micro_name, SwitzerlandMap$country_name, sep = ", ")
   SwitzerlandMap$Country <- SwitzerlandMap$country_name
 

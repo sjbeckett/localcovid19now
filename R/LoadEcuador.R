@@ -16,12 +16,14 @@
 LoadEcuador <- function() {
   # Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: https://github.com/andrab/ecuacovid
 
-  CaseDate <- vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv") # cantons
+  CaseDate <- vroom::vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv") # cantons
   # CaseDate = read.csv("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/provincias.csv") #provinces
 
   CaseDiff <- c()
   Population <- c()
   DateReport <- c()
+  canton <- c()
+  provincia <- c()
 
   # need to link up Cantons and Provinces as some Cantons share same name
   CaseDate$can_pro <- paste0(CaseDate$canton, ",", CaseDate$provincia)
@@ -31,15 +33,17 @@ LoadEcuador <- function() {
     CaseDiff[aa] <- (10 / 14) * sum(tail(subsetdata$nuevas, 14))
     Population[aa] <- subsetdata$canton_poblacion[1]
     DateReport[aa] <- tail(subsetdata$created_at, 1)
+    canton[aa] <- subsetdata$canton[1]
+    provincia[aa] <- subsetdata$provincia[1]
   }
 
-  ecu_df <- data.frame(DateReport, CaseDiff, Population, Cantons)
+  ecu_df <- data.frame(DateReport, CaseDiff, Population, canton, provincia)
 
   # geometry: https://data.humdata.org/dataset/cod-ab-ecu
 
-  geomEcuador$can_pro <- paste0(geomEcuador$micro_name, ",", geomEcuador$macro_name)
-  EcuadorMap <- inner_join(geomEcuador, ecu_df, by = c("can_pro" = "Cantons"))
-  EcuadorMap$Country <- "Ecuador"
+  # geomEcuador$can_pro <- paste0(geomEcuador$micro_name, ",", geomEcuador$macro_name)
+  EcuadorMap <- dplyr::inner_join(geomEcuador, ecu_df, by = c("micro_name" = "canton", "macro_name" = "provincia"))
+  EcuadorMap$Country <- EcuadorMap$country_name
   EcuadorMap$RegionName <- paste(EcuadorMap$micro_name, EcuadorMap$macro_name, EcuadorMap$country_name, sep = ", ")
   EcuadorMap$pInf <- as.numeric(EcuadorMap$CaseDiff) / as.numeric(EcuadorMap$Population)
   Ecuador_DATA <- subset(EcuadorMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

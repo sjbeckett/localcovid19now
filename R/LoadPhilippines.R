@@ -23,39 +23,39 @@ LoadPhilippines <- function() {
     oauthpath <- readline(prompt = "Enter OAuth filepath:  ")
   }
 
-  drive_auth(path = oauthpath)
+  googledrive::drive_auth(path = oauthpath)
 
   url1 <- "bit.ly/DataDropPH"
-  req1 <- GET(url1)
-  folder_dr <- drive_ls(str_extract(req1$url, "[:graph:]*(?=\\?)"))
+  req1 <- httr::GET(url1)
+  folder_dr <- googledrive::drive_ls(stringr::str_extract(req1$url, "[:graph:]*(?=\\?)"))
 
-  data_link <- drive_read_raw(
-    file = paste("https://drive.google.com/file/d", pull(folder_dr["id"]), sep = "/")
+  data_link <- googledrive::drive_read_raw(
+    file = paste("https://drive.google.com/file/d", dplyr::pull(folder_dr["id"]), sep = "/")
   ) %>%
-    pdf_text() %>%
-    str_extract("(?<=bit.ly)[:graph:]*") %>%
+    pdftools::pdf_text() %>%
+    stringr::str_extract("(?<=bit.ly)[:graph:]*") %>%
     .[!is.na(.)]
 
   url2 <- paste0("https://bit.ly", data_link)
 
-  req2 <- GET(url2)
-  folder_data <- drive_ls(str_extract(req2$url, "[:graph:]*(?=\\?)"))
+  req2 <- httr::GET(url2)
+  folder_data <- googledrive::drive_ls(stringr::str_extract(req2$url, "[:graph:]*(?=\\?)"))
 
   caseinfo_ids <- folder_data %>%
-    filter(str_detect(name, "04 Case Information")) %>%
-    arrange(name) %>%
-    select(id) %>%
-    pull()
+    dplyr::filter(str_detect(name, "04 Case Information")) %>%
+    dplyr::arrange(name) %>%
+    dplyr::select(id) %>%
+    dplyr::pull()
 
   purrr::map_df(
     caseinfo_ids,
     function(x) {
       temp <- tempfile()
-      drive_download(
+      googledrive::drive_download(
         file = paste("https://drive.google.com/file/d", x, sep = "/"),
         path = temp
       )
-      A <- vroom(
+      A <- vroom::vroom(
         temp,
         col_types = cols(
           DateSpecimen = col_date(format = "%Y-%m-%d"),
@@ -72,43 +72,43 @@ LoadPhilippines <- function() {
   ) -> case_details
 
   philippinesData <- case_details %>%
-    mutate(
-      ProvRes = case_when(
-        str_detect(ProvRes, "\\(") == T ~ str_to_title(str_replace(ProvRes, "\\s\\(([:graph:]*[:blank:]?)*\\)", "")),
+    dplyr::mutate(
+      ProvRes = dplyr::case_when(
+        stringr::str_detect(ProvRes, "\\(") == T ~ stringr::str_to_title(stringr::str_replace(ProvRes, "\\s\\(([:graph:]*[:blank:]?)*\\)", "")),
         RegionRes == "NCR" & is.na(ProvRes) ~ "NCR", # the NCR region doesn't have provinces, so I would assume that if the Region is NCR, then the province would also be NCR.
-        TRUE ~ str_to_title(ProvRes)
+        TRUE ~ stringr::str_to_title(ProvRes)
       ),
-      ProvRes = str_replace_all(
+      ProvRes = stringr::str_replace_all(
         ProvRes,
         "\\sDel\\s",
         " del "
       ),
-      ProvRes = str_replace_all(
+      ProvRes = stringr::str_replace_all(
         ProvRes,
         "\\sDe\\s",
         " de "
       ),
-      ProvRes = str_replace_all(
+      ProvRes = stringr::str_replace_all(
         ProvRes,
         "\\sOf\\s",
         " of "
       ),
-      ProvRes = str_replace_all(
+      ProvRes = stringr::str_replace_all(
         ProvRes,
         "^Ncr$",
         "NCR"
       )
     ) %>%
-    group_by(
+    dplyr::group_by(
       DateRepConf,
       RegionRes,
       ProvRes
     ) %>%
-    summarise(
+    dplyr::summarise(
       TotalReported = n()
     ) %>%
-    ungroup() %>%
-    rename(
+    dplyr::ungroup() %>%
+    dplyr::rename(
       Date = DateRepConf,
       Region = RegionRes,
       Province = ProvRes,
@@ -116,7 +116,7 @@ LoadPhilippines <- function() {
     )
 
   ### Population
-  data("pop_philippines")
+  # data("pop_philippines")
 
   ### Municipalities:
   province <- unique(philippinesData$Province)
@@ -132,20 +132,20 @@ LoadPhilippines <- function() {
     return(vec)
   }
 
-  philippinesTable <- map_df(
+  philippinesTable <- purrr::map_df(
     province, ~ getData(.x)
   )
 
   ### Geometry:
-  data("geomPhilippines")
+  # data("geomPhilippines")
 
   geomPhilippines <- geomPhilippines %>%
-    left_join(
+    dplyr::left_join(
       philippinesPop,
       by = c("micro_name" = "Location")
     )
 
-  philippinesMap <- inner_join(geomPhilippines, philippinesTable, by = c("micro_name" = "Province"))
+  philippinesMap <- dplyr::inner_join(geomPhilippines, philippinesTable, by = c("micro_name" = "Province"))
   philippinesMap$RegionName <- paste(philippinesMap$micro_name, philippinesMap$country_name, sep = ", ")
   philippinesMap$Country <- philippinesMap$country_name
   philippinesMap$DateReport <- as.character(philippinesMap$Date)

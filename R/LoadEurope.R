@@ -23,7 +23,7 @@ LoadEurope <- function() {
 
   EUWHO$pInf <- EUWHO$Incidence14day / 100000 * (10 / 14) # incidence is cases in 14 days per 100,000 people. Convert to prop of pop. in 10 days.
   # Join using UID
-  EuroMap <- inner_join(geomEUROPE, EUWHO, by = c("micro_code" = "UID"))
+  EuroMap <- dplyr::inner_join(geomEUROPE, EUWHO, by = c("micro_code" = "UID"))
 
   ## Remove countries
   # Turkmenistan - no testing performed. Hence no cases found.
@@ -53,8 +53,8 @@ LoadEurope <- function() {
     EuroMap <- EuroMap[-RM_REGIONS, ]
   }
   EuroMap <- EuroMap %>%
-    mutate(
-      country_name = case_when(
+    dplyr::mutate(
+      country_name = dplyr::case_when(
         micro_name %in% c("Isle of Man", "Guernsey", "Jersey", "Gibraltar") ~ "United Kingdom",
         micro_name %in% c("Faeroe Islands", "Greenland") ~ "Denmark",
         TRUE ~ country_name

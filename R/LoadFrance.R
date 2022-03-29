@@ -20,14 +20,14 @@ LoadFrance <- function() {
 
   # data <- read.csv('https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675',sep = ';', stringsAsFactors = FALSE)
   data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675") %>%
-    filter(cl_age90 == 0) %>%
-    select(code = dep, date = jour, cases = P) %>%
-    mutate(date = as.Date(date)) %>%
-    filter(!is.na(cases))
+    dplyr::filter(cl_age90 == 0) %>%
+    dplyr::select(code = dep, date = jour, cases = P) %>%
+    dplyr::mutate(date = as.Date(date)) %>%
+    dplyr::filter(!is.na(cases))
   # geom <<- st_read('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson')
   # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
   pop_france <- pop_france %>%
-    select(code = Code, name = Department, pop = Population)
+    dplyr::select(code = Code, name = Department, pop = Population)
 
   depList <- unique(data$code) # get the list of all department codes
 
@@ -36,8 +36,8 @@ LoadFrance <- function() {
   sortFunc <- function(code) {
     deptCode <- depList[code]
     department <- data %>%
-      filter(code == deptCode) %>%
-      distinct(date, .keep_all = TRUE)
+      dplyr::filter(code == deptCode) %>%
+      dplyr::distinct(date, .keep_all = TRUE)
     latestDate <- department$date[length(department$date)]
     pastDate <- latestDate - 14
     difference <- (sum(department[1:which(department$date == latestDate), "cases"]) - sum(department[1:which(department$date == pastDate), "cases"])) / 14 * 10
@@ -51,8 +51,8 @@ LoadFrance <- function() {
     vec <- sortFunc(i)
     frenchTable <- rbind(frenchTable, vec)
   }
-  frenchdf <- inner_join(frenchTable, pop_france, by = "code")
-  FranceMap <- inner_join(geom, frenchdf, by = c("micro_code" = "code"))
+  frenchdf <- dplyr::inner_join(frenchTable, pop_france, by = "code")
+  FranceMap <- dplyr::inner_join(geom, frenchdf, by = c("micro_code" = "code"))
   FranceMap$RegionName <- paste(FranceMap$micro_name, FranceMap$country_name, sep = ", ")
   FranceMap$Country <- FranceMap$country_name
   FranceMap$DateReport <- as.character(FranceMap$date)

@@ -16,7 +16,7 @@
 LoadVenezuela <- function() {
   # Aggregated from local resources by OCHA Venezuela:  https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela
 
-  casedata <- vroom("https://docs.google.com/spreadsheets/d/e/2PACX-1vQI4s0no2TS1dYxbv82nhKD7iz8fbDGwdsOI4kzJ0cg3gjOR51KIw_rNOff97Xic_fRQD41xmsDGUfM/pub?gid=1029482781&single=true&output=csv")
+  casedata <- vroom::vroom("https://docs.google.com/spreadsheets/d/e/2PACX-1vQI4s0no2TS1dYxbv82nhKD7iz8fbDGwdsOI4kzJ0cg3gjOR51KIw_rNOff97Xic_fRQD41xmsDGUfM/pub?gid=1029482781&single=true&output=csv")
 
   regions <- names(casedata)[1:25]
   DateReport <- rep(tail(casedata$date, 1), length(regions))
@@ -33,12 +33,11 @@ LoadVenezuela <- function() {
   caseTable <- data.frame(regions, DateReport, CaseDifference)
 
   # population
-  Vpop <- vroom("countries/data/VenezuelaPop.csv")
-  VZdf <- inner_join(caseTable, Vpop, by = c("regions" = "State"))
+  VZdf <- dplyr::inner_join(caseTable, pop_venezuela, by = c("regions" = "State"))
 
   # geometry
   # geomVenezuela = st_read("https://github.com/deldersveld/topojson/raw/master/countries/venezuela/venezuela-estados.json")
-  geomVenezuela <- st_read("countries/data/geom/geomVenezuela.geojson")
+  # geomVenezuela <- st_read("countries/data/geom/geomVenezuela.geojson")
   geomVenezuela$micro_name[which(geomVenezuela$micro_name == "Vargas")] <- "La Guaira"
 
   # rename VZdf to match map
@@ -48,7 +47,7 @@ LoadVenezuela <- function() {
   VZdf$regions[which(VZdf$regions == "Los.Roques")] <- "Dependencias Federales"
   VZdf$regions[which(VZdf$regions == "La.Guaira")] <- "La Guaira"
 
-  VenezuelaMap <- inner_join(geomVenezuela, VZdf, by = c("micro_name" = "regions"))
+  VenezuelaMap <- dplyr::inner_join(geomVenezuela, VZdf, by = c("micro_name" = "regions"))
   VenezuelaMap$DateReport <- as.character(VenezuelaMap$DateReport)
   VenezuelaMap$RegionName <- paste(VenezuelaMap$micro_name, VenezuelaMap$country_name, sep = ", ")
   VenezuelaMap$pInf <- VenezuelaMap$CaseDifference / VenezuelaMap$Population_2011

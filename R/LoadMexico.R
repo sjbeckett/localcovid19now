@@ -25,7 +25,7 @@ LoadMexico <- function() {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")
     STRING <- paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_", formDATE)
-    MEX <- try(vroom(STRING)) # note older files are DELETED.
+    MEX <- try(vroom::vroom(STRING)) # note older files are DELETED.
     if (is.null(dim(MEX)) == FALSE) {
       flag <- 1
     } else {
@@ -45,10 +45,10 @@ LoadMexico <- function() {
   DataJoin$Name <- MEX$nombre
   NAME <- strsplit(names(MEX)[SZ[2]], "X")
   DataJoin$pop <- MEX$poblacion
-  DataJoin$DateReport <- dmy(NAME) # as.Date(NAME[[1]][2],"%d.%m.%Y")
+  DataJoin$DateReport <- lubridate::dmy(NAME) # as.Date(NAME[[1]][2],"%d.%m.%Y")
   DataJoin$CaseDiff <- rowSums(MEX[, (SZ[2] - 14):(SZ[2])]) / 14 * 10
   DataJoin$pInf <- DataJoin$CaseDiff / DataJoin$pop
-  DataJoin$CVE <- str_pad(as.character(MEX$cve_ent), pad = "0", side = "left", width = 5)
+  DataJoin$CVE <- stringr::str_pad(as.character(MEX$cve_ent), pad = "0", side = "left", width = 5)
 
   DATA <- as.data.frame(DataJoin)
 
@@ -75,9 +75,9 @@ LoadMexico <- function() {
   # geomMEX = geomMEX[c("CVEGEO","NOMGEO","estado","geometry")]
   # st_write(geomMEX,"countries/data/geom/geomMexico.geojson")
   # geomMEX = st_read("countries/data/geom/geomMexico.geojson")
-  data("geomMexico")
+  # data("geomMexico")
   # integrate datasets
-  MexicoMap <- inner_join(geomMexico, DATA, by = c("micro_code" = "CVE"))
+  MexicoMap <- dplyr::inner_join(geomMexico, DATA, by = c("micro_code" = "CVE"))
 
   MexicoMap$RegionName <- paste(MexicoMap$micro_name, MexicoMap$macro_name, MexicoMap$country_name, sep = ", ")
 

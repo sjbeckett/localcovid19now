@@ -29,7 +29,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
 
   # index file
-  INDEX <- vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = cols(aggregation_level = col_double(), .default = col_character()))
+  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = cols(aggregation_level = col_double(), .default = col_character()))
   KEYS <- c()
   LOCALES <- c()
   COUNTRY <- c()
@@ -45,7 +45,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   Pop <- c()
   for (bb in 1:length(KEYS)) {
     # cat("\n",bb,"\n")
-    DAT <- vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
+    DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
     problems(DAT)
     naIND <- which(is.na(DAT$new_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
@@ -114,14 +114,14 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   IndexTable$MATCH <- paste(IndexTable$LOCALES, IndexTable$Country, sep = ", ")
 
   # geomArgentina = st_read("https://github.com/deldersveld/topojson/raw/master/countries/argentina/argentina-provinces.json")
-  data("geomArgentina")
+  # data("geomArgentina")
   geomArgentina$micro_name[which(geomArgentina$micro_name == "Buenos Aires")] <- "Buenos Aires Province"
   geomArgentina$micro_name[which(geomArgentina$micro_name == "Ciudad de Buenos Aires")] <- "City of Buenos Aires"
   geomArgentina$RegionName <- paste(geomArgentina$micro_name, geomArgentina$country_name, sep = ", ")
 
 
   # geomColombia = st_read("https://www.acolgen.org.co/wp-content/uploads/geo-json/colombia.geo.json")
-  data("geomColombia")
+  # data("geomColombia")
 
   geomColombia$micro_name <- str_to_title(geomColombia$micro_name)
   geomColombia$micro_name[2] <- LOCALES[26]
@@ -140,18 +140,18 @@ LoadGoogleSourced <- function() { # takes a long time to process.
 
 
   # geomAfghanistan = st_read("https://gist.github.com/notacouch/246dcbb684571b8dff41fc3ed325972f/raw/5e1f3c66b4213fb0424743cd1eb036e1c8c7fb23/afghanistan_provinces_geometry--cities-demo.json")
-  data("geomAfghanistan")
+  # data("geomAfghanistan")
   geomAfghanistan$RegionName <- paste(geomAfghanistan$micro_name, geomAfghanistan$country_name, sep = ", ")
 
   # geomBangladesh = st_read("https://github.com/mapmeld/mro-map/raw/master/bangladesh-divisions.geojson")
 
   # geomMozambique = st_read("https://geonode.ingc.gov.mz/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode%3Amoz_adm1&outputFormat=json&srs=EPSG%3A4326&srsName=EPSG%3A4326")
-  data("geomMozambique")
+  # data("geomMozambique")
   geomMozambique$RegionName <- paste(geomMozambique$micro_name, geomMozambique$country_name, sep = ", ")
 
-  geo <- bind_rows(geomArgentina, geomColombia, geomAfghanistan, geomMozambique)
+  geo <- dplyr::bind_rows(geomArgentina, geomColombia, geomAfghanistan, geomMozambique)
 
-  GoogleMap <- inner_join(geo, IndexTable, by = c("RegionName" = "MATCH"))
+  GoogleMap <- dplyr::inner_join(geo, IndexTable, by = c("RegionName" = "MATCH"))
   # GoogleMap$RegionName = GoogleMap$MATCH
 
   GOOGLE_DATA <- subset(GoogleMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

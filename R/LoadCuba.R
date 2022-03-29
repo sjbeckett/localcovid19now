@@ -38,7 +38,7 @@ LoadCuba <- function() {
   # }
 
   # data from August 4 2021
-  CUBADATA2 <- fromJSON("https://github.com/covid19cubadata/covid19cubadata.github.io/raw/master/data/covid19-cuba-2.json")
+  CUBADATA2 <- jsonlite::fromJSON("https://github.com/covid19cubadata/covid19cubadata.github.io/raw/master/data/covid19-cuba-2.json")
   dataset <- CUBADATA2$casos$dias
   DATES <- names(dataset)
   TODAY <- c()
@@ -80,7 +80,7 @@ LoadCuba <- function() {
   # print(cubaTable)
 
 
-  MapCuba <- inner_join(geomCuba, cubaTable, by = c("micro_name" = "Pro"))
+  MapCuba <- dplyr::inner_join(geomCuba, cubaTable, by = c("micro_name" = "Pro"))
 
   MapCuba$RegionName <- paste(MapCuba$micro_name, MapCuba$country_name, sep = ", ")
   MapCuba$Country <- MapCuba$country_name

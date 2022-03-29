@@ -63,9 +63,9 @@ LoadUK <- function() {
 
   # population
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/uk_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
-  pop <- vroom("countries/data/UK_pop.csv") %>%
-    drop_na() %>%
-    select(-c("name"))
+  pop <- pop_uk%>%
+    dplyr::drop_na() %>%
+    dplyr::select(-c("name"))
 
   # Join geom and pop of Hackney and City of London
   # Hackney: (E09000012) ; C.o.L. (E09000001)
@@ -100,19 +100,19 @@ LoadUK <- function() {
   # remove C.o.L and I.Scilly from geom
   # geom = geom[-c(which(geom$code=="E09000001"),which(geom$code=="E06000053")),]
   # st_write(geom,"countries/data/geom/geomUnitedKingdom.geojson")
-  geom <- st_read("countries/data/geom/geomUnitedKingdom.geojson")
+  # geom <- st_read("countries/data/geom/geomUnitedKingdom.geojson")
 
-  misc <- vroom("countries/data/miscUK.csv")
+  # misc <- vroom("countries/data/miscUK.csv")
 
   # integrate datasets
 
   data_join <- data_cur %>%
-    inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
-    inner_join(pop, by = c("code")) %>%
-    inner_join(misc, by = "code")
+    dplyr::inner_join(data_past, by = "code", suffix = c("", "_past")) %>%
+    dplyr::inner_join(pop, by = c("code")) %>%
+    dplyr::inner_join(misc_uk, by = "code")
 
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
-  UKMap <- inner_join(geom, data_join, by = c("micro_code" = "code")) # %>% # It's worth asking if we want to get rid of the "city of"'s, but if we do we can do this.
+  UKMap <- dplyr::inner_join(geomUK, data_join, by = c("micro_code" = "code")) # %>% # It's worth asking if we want to get rid of the "city of"'s, but if we do we can do this.
   # mutate(
   #   micro_name = str_replace(micro_name, ", City of$","")
   # )

@@ -26,20 +26,20 @@ LoadVietnam <- function() {
   # }
   # ProvinceInfo=data.frame(ProvinceInfo)
   # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names=FALSE)
-  ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
-
+  # ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
+  ProvinceInfo <- misc_vietnam
   # Geometry
   # geom = st_read("https://github.com/hausuresh/vietnam-geocode/raw/master/vietnam.geojson")
   # geom$name[18] = ProvinceInfo$Name[57]
   # geom$name[53] = ProvinceInfo$Name[2]
   # geom$name[59] = ProvinceInfo$Name[40]
   # st_write(geom,"geomVietnam.geojson")
-  geomVietnam <- st_read("countries/data/geom/geomVietnam.geojson")
+  # geomVietnam <- st_read("countries/data/geom/geomVietnam.geojson")
   # need to do some work to get the naming to match up
   ProvinceInfo$NameUse <- geomVietnam$micro_name[ProvinceInfo$code]
 
   # look at case data
-  data <- read_json("https://covid19.ncsc.gov.vn/api/v3/covid/provinces?filter_type=case_by_time")
+  data <- jsonlite::read_json("https://covid19.ncsc.gov.vn/api/v3/covid/provinces?filter_type=case_by_time")
   provinceID <- names(data)
 
   CaseDiff <- c()
@@ -59,10 +59,10 @@ LoadVietnam <- function() {
   DateReport <- as.character(as.Date(DateReport, format = "%d/%m/%Y"))
   dataTable <- data.frame(DateReport = DateReport, Code = code, Difference = CaseDiff)
 
-  datadf <- inner_join(dataTable, ProvinceInfo, by = c("Code" = "id"))
+  datadf <- dplyr::inner_join(dataTable, ProvinceInfo, by = c("Code" = "id"))
 
 
-  VietnamMap <- inner_join(geomVietnam, datadf, by = c("micro_name" = "NameUse"))
+  VietnamMap <- dplyr::inner_join(geomVietnam, datadf, by = c("micro_name" = "NameUse"))
   VietnamMap$Country <- "Vietnam"
   VietnamMap$RegionName <- paste(VietnamMap$micro_name, VietnamMap$country_name, sep = ", ")
   VietnamMap$pInf <- as.numeric(VietnamMap$Difference) / as.numeric(VietnamMap$Population)

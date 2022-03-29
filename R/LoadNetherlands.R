@@ -5,7 +5,8 @@
 #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
 #' @keywords internal
 getDataND <- function(code) {
-  temp <- netherlandsData %>% filter(Municipality == municipality[code])
+  temp <- netherlandsData %>% 
+    dplyr::filter(Municipality == municipality[code])
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
   past_date <- today - 14
@@ -34,7 +35,7 @@ getDataND <- function(code) {
 LoadNetherlands <- function() {
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
-  data <- vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") # ,fileEncoding = 'UTF-8')
+  data <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") # ,fileEncoding = 'UTF-8')
   netherlandsData <- data[, c("Date_of_publication", "Municipality_code", "Municipality_name", "Province", "Total_reported")]
   names(netherlandsData) <- c("Date", "Code", "Municipality", "Province", "Cases")
   netherlandsData$Date <- as.Date(netherlandsData$Date)
@@ -53,8 +54,8 @@ LoadNetherlands <- function() {
 
   # Note that geomNetherlands$Bevolkingsaantal is population size.
 
-  netherlandsMap <- inner_join(geomNetherlands, netherlandsTable, by = c("micro_code" = "Code")) %>%
-    inner_join(pop_netherlands, by = c("micro_code" = "Gemeentecode"))
+  netherlandsMap <- dplyr::inner_join(geomNetherlands, netherlandsTable, by = c("micro_code" = "Code")) %>%
+    dplyr::inner_join(pop_netherlands, by = c("micro_code" = "Gemeentecode"))
 
   netherlandsMap$RegionName <- paste(netherlandsMap$micro_name, netherlandsMap$macro_name, netherlandsMap$country_name, sep = ", ")
   netherlandsMap$Country <- netherlandsMap$country_name

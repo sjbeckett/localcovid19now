@@ -37,7 +37,7 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(aa, 0), ".csv")
     tryCatch(
       {
-        latest_data <- vroom(STRING)
+        latest_data <- vroom::vroom(STRING)
       },
       error = function(cond) {
         warning(paste0("No data for ", getDate(aa, 0)))
@@ -64,7 +64,7 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(14 + aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(14 + aa, 0), ".csv")
     tryCatch(
       {
-        past_data <- vroom(STRING)
+        past_data <- vroom::vroom(STRING)
       },
       error = function(e) {
         warning(paste0("No data for ", getDate(14 + aa, 0)))
@@ -121,17 +121,17 @@ LoadBelgium <- function() {
   # geomBelgium$micro_name[39] <- sort(finalData$Arrondissement)[29] # Neufch?teau
   # geomBelgium <- st_write(geomBelgium,'countries/data/geom/geomBelgium.geojson')
 
-  finalData <- inner_join(geomBelgium, finalData, by = c("micro_name" = "Arrondissement"))
+  finalData <- dplyr::inner_join(geomBelgium, finalData, by = c("micro_name" = "Arrondissement"))
 
   # population
 
   # add to dataset
-  belgiumdf <- inner_join(finalData, pop, by = c("micro_name" = "Name"))
+  belgiumdf <- dplyr::inner_join(finalData, pop, by = c("micro_name" = "Name"))
 
 
   # Change names to account for NL and FR:
-  nameMuni <- vroom("countries/data/belgiumNames.csv") %>%
-    rename_with(.fn = \(x) str_replace_all(x, "\\s", "\\."))
+  nameMuni <- vroom::vroom("countries/data/belgiumNames.csv") %>%
+    dplyr::rename_with(.fn = \(x) stringr::str_replace_all(x, "\\s", "\\."))
 
   for (i in 1:length(belgiumdf$micro_name)) {
     for (j in 1:length(nameMuni$Dutch.name)) {

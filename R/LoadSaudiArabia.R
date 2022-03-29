@@ -16,7 +16,7 @@
 LoadSaudiArabia <- function() {
   # Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
 
-  Casesdataset <- st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
+  Casesdataset <- sf::st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
   # note need to convert dates from UNIX timestamp
 
   # 13 regions, 146 governates. Let's work with regions.
@@ -36,17 +36,17 @@ LoadSaudiArabia <- function() {
   caseTable <- data.frame(Regions, DateReport, CaseDifference, RegionName)
 
   # pop
-  data("pop_saudiarabia")
-  data("misc_saudiarabia")
-  SAdf <- inner_join(caseTable, pop_saudiarabia, by = c("Regions" = "Emirate")) %>%
-    inner_join(misc_saudiarabia, by = c("Regions" = "region_name_en"))
+  # data("pop_saudiarabia")
+  # data("misc_saudiarabia")
+  SAdf <- dplyr::inner_join(caseTable, pop_saudiarabia, by = c("Regions" = "Emirate")) %>%
+    dplyr::inner_join(misc_saudiarabia, by = c("Regions" = "region_name_en"))
 
   # geom
   # geomSaudiArabia = st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/CasesByRegion_ViewLayer/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
-  data("geomSaudiArabia")
+  # data("geomSaudiArabia")
 
   # integrate datasets
-  MapSaudiArabia <- inner_join(geomSaudiArabia, SAdf, by = c("micro_name" = "Regions"))
+  MapSaudiArabia <- dplyr::inner_join(geomSaudiArabia, SAdf, by = c("micro_name" = "Regions"))
   MapSaudiArabia$RegionName <- paste(MapSaudiArabia$RegionName, MapSaudiArabia$country_name, sep = ", ")
   MapSaudiArabia$Country <- MapSaudiArabia$country_name
   MapSaudiArabia$pInf <- MapSaudiArabia$CaseDifference / MapSaudiArabia$Population

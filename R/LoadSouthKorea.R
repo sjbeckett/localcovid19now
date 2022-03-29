@@ -35,15 +35,15 @@ LoadSouthKorea <- function() {
   # geometry
   # https://maps.princeton.edu/catalog/stanford-dk009rq9138
   # geomSouthKorea = stwrite(SK2,"geomSouthKorea.geojson")
-  data("geomSouthKorea")
+  # data("geomSouthKorea")
   # get data for misc_southkoreaernative label
-  data("misc_southkorea")
+  # data("misc_southkorea")
 
-  SouthKoreaMap <- inner_join(geomSouthKorea, sk_df, by = c("micro_name" = "Provinces"))
-  SouthKoreaMap <- inner_join(SouthKoreaMap, misc_southkorea, by = c("micro_name" = "name_1"))
+  SouthKoreaMap <- dplyr::inner_join(geomSouthKorea, sk_df, by = c("micro_name" = "Provinces"))
+  SouthKoreaMap <- dplyr::inner_join(SouthKoreaMap, misc_southkorea, by = c("micro_name" = "name_1"))
   Regions <- paste0(SouthKoreaMap$nl_name_1, "/", SouthKoreaMap$micro_name)
 
-  SouthKoreaMap$Country <- "South Korea"
+  SouthKoreaMap$Country <- SouthKoreaMap$country_name
   SouthKoreaMap$RegionName <- paste(Regions, SouthKoreaMap$country_name, sep = ", ")
   SouthKoreaMap$pInf <- as.numeric(SouthKoreaMap$CaseDiff) / as.numeric(SouthKoreaMap$Population)
   SouthKorea_DATA <- subset(SouthKoreaMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

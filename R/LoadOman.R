@@ -34,16 +34,16 @@ LoadOman <- function() {
   pop$Population <- c(478501, 121802, 52344, 213043, 465550, 315445, 1302440, 49062, 784681, 271822, 416458) # 2020 census - https://www.citypopulation.de/en/oman/cities/
   pop <- data.frame(pop)
 
-  omandf <- inner_join(omandt, pop, by = c("Name" = "Name"))
+  omandf <- dplyr::inner_join(omandt, pop, by = c("Name" = "Name"))
 
   # geometry
   # https://data.humdata.org/dataset/cod-ab-omn?
-  data("geomOman")
+  # data("geomOman")
   geomOman$micro_name[5] <- "Ad Dhahirah"
   geomOman$micro_name[1] <- "Ad Dakhiliyah"
 
-  OmanMap <- inner_join(geomOman, omandf, by = c("micro_name" = "Name"))
-  OmanMap$Country <- "Oman"
+  OmanMap <- dplyr::inner_join(geomOman, omandf, by = c("micro_name" = "Name"))
+  OmanMap$Country <- OmanMap$country_name
   OmanMap$RegionName <- paste(OmanMap$micro_name, OmanMap$country_name, sep = ", ")
   OmanMap$pInf <- as.numeric(OmanMap$Difference) / as.numeric(OmanMap$Population)
   Oman_DATA <- subset(OmanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

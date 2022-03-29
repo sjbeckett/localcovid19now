@@ -19,12 +19,12 @@ LoadSouthAfrica <- function() {
   # geometry, see: https://dataportal-mdb-sa.opendata.arcgis.com/datasets/23e1b3458c704f65bc764168ae8557b8_0/data?geometry=-17.204%2C-35.168%2C66.424%2C-21.692&selectedAttribute=PROVINCE
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="GT"]="GP"
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="LIM"]="LP"
-  geomSouthAfrica <- st_read("countries/data/geom/geomSouthAfrica.geojson")
-  data("geomSouthAfrica")
+  geomSouthAfrica <- sf::st_read("countries/data/geom/geomSouthAfrica.geojson")
+  # data("geomSouthAfrica")
   PRO <- unique(geomSouthAfrica$micro_code)
 
   # covid case data, see: https://github.com/dsfsi/covid19za
-  COVID_data_SA <- vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
+  COVID_data_SA <- vroom::vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
 
   DiffCases <- c()
   Date <- c()
@@ -38,14 +38,14 @@ LoadSouthAfrica <- function() {
 
   # population data, see: https://github.com/dsfsi/covid19za/blob/master/data/district_data/za_province_pop.csv
   # pop_southafrica <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header=FALSE)
-  data("pop_southafrica")
+  # data("pop_southafrica")
 
   PROVINCECode <- c("GP", "KZN", "WC", "EC", "LP", "MP", "NW", "FS", "NC")
   pop_southafrica <- cbind(pop_southafrica, PROVINCECode)
   names(pop_southafrica) <- c("Name", "Population", "ProCode")
 
   # Link together
-  SA_Map <- inner_join(geomSouthAfrica, pop_southafrica, by = c("micro_code" = "ProCode"))
+  SA_Map <- dplyr::inner_join(geomSouthAfrica, pop_southafrica, by = c("micro_code" = "ProCode"))
   SA_Map$RegionName <- paste(SA_Map$Name, SA_Map$country_name, sep = ", ") # This needs to be 'Name' because the geometry file doesn't have 'micro_name's
   SA_Map$Country <- SA_Map$country_name
   SA_Map$DateReport <- SA_Map$date

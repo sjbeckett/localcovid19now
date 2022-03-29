@@ -33,12 +33,12 @@ LoadUS <- function() {
   # county$geometry[30] = HMM
   # county$GEOID[30] = 2998
   # county$NAME[30] = "Yakutat plus Hoonah-Angoon"
-  county <- st_read("countries/data/geom/geomUnitedStates.geojson") %>%
+  county <- geomUnitedStates %>%
     mutate(micro_code = as.numeric(micro_code))
 
   # county population level data
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/county-population.csv", stringsAsFactors = FALSE)
-  pop <- read.csv("countries/data/county_population.csv")
+  pop <- pop_usa
   # merge population for counties reported together by the NYT
   # bristol bay and Lake Peninsula
   IND <- which(pop$fips == 2164)
@@ -53,35 +53,35 @@ LoadUS <- function() {
 
   # calculate case differences
   cur_date <- data$date[length(data$date)]
-  past_date <- ymd(cur_date) - 14
+  past_date <- lubridate::ymd(cur_date) - 14
 
   data_cur <- data %>%
-    filter(date == cur_date) %>%
-    mutate(fips = case_when(
+    dplyr::filter(date == cur_date) %>%
+    dplyr::mutate(fips = dplyr::case_when(
       county == "New York City" ~ 99999,
       county == "Kansas City" ~ 29991,
       county == "Joplin" ~ 29992,
       TRUE ~ as.numeric(fips)
     )) %>%
-    select(c(date, fips, cases, deaths, ))
+    dplyr::select(c(date, fips, cases, deaths, ))
   data_past <- data %>%
-    filter(date == past_date) %>%
-    mutate(fips = case_when(
+    dplyr::filter(date == past_date) %>%
+    dplyr::mutate(fips = dplyr::case_when(
       county == "New York City" ~ 99999,
       county == "Kansas City" ~ 29991,
       county == "Joplin" ~ 29992,
       TRUE ~ as.numeric(fips)
     )) %>%
-    select(date_past = date, fips = fips, cases_past = cases)
+    dplyr::select(date_past = date, fips = fips, cases_past = cases)
   data_join <- data_cur %>%
-    inner_join(data_past, by = "fips") %>%
-    inner_join(pop, by = "fips") %>%
-    mutate(n = date - date_past)
+    dplyr::inner_join(data_past, by = "fips") %>%
+    dplyr::inner_join(pop, by = "fips") %>%
+    dplyr::mutate(n = date - date_past)
   data_join$n <- as.numeric(data_join$n)
   data_join$CaseDiff <- (data_join$cases - data_join$cases_past) * 10 / data_join$n
 
   # integrate datasets
-  USMap <- data_join %>% inner_join(county, by = c("fips" = "micro_code"))
+  USMap <- data_join %>% dplyr::inner_join(county, by = c("fips" = "micro_code"))
 
   USMap$RegionName <- paste(USMap$micro_name, USMap$macro_name, USMap$iso3, sep = ", ")
   USMap$Country <- USMap$country_name

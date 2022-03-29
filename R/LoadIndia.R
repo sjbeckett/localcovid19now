@@ -17,7 +17,7 @@ LoadIndia <- function() {
   # Data collated by https://covid19tracker.in/, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports
   # with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
 
-  data <- read_json("https://api.covid19tracker.in/data/static/timeseries.min.json")
+  data <- jsonlite::read_json("https://api.covid19tracker.in/data/static/timeseries.min.json")
   # UN - unknown; TT - total for India
 
   stateList <- names(data)
@@ -51,10 +51,10 @@ LoadIndia <- function() {
   #  populationTable <- rbind(populationTable,vec)
   # }
   # write.csv(populationTable,"popIndia.csv",row.names=FALSE)
-  data("pop_india")
+  # data("pop_india")
 
 
-  indiadf <- inner_join(dataTable, pop_india, by = c("Code"))
+  indiadf <- dplyr::inner_join(dataTable, pop_india, by = c("Code"))
 
 
 
@@ -75,11 +75,9 @@ LoadIndia <- function() {
   # 	ungroup()
   # sptemp = st_cast(sptemp,"MULTIPOLYGON")
   # st_write(sptemp,"geomIndia.geojson")
-  data("geomIndia")
+  # data("geomIndia")
 
-
-
-  indiaMap <- inner_join(geomIndia, indiadf, by = c("micro_name" = "State"))
+  indiaMap <- dplyr::inner_join(geomIndia, indiadf, by = c("micro_name" = "State"))
   indiaMap$DateReport <- as.character(indiaMap$Date)
   indiaMap$RegionName <- paste(indiaMap$micro_name, indiaMap$country_name, sep = ", ")
   indiaMap$Country <- indiaMap$country_name

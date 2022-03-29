@@ -6,16 +6,16 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-4410-2960")),
     person("Freyja", "Brandel-Tanis", email = "freyja.alice@gatech.edu", role = "aut",
            comment = c(ORCID = "0000-0003-2870-6980")),
-	person("Quan","Nguyen", email = "qnguyen83@gatech.edu", role = "aut"),
-	person("Aroon", "Chande", "T.", email = "achande@ihrc.com", role = c("aut","cre"),
+    person("Quan","Nguyen", email = "qnguyen83@gatech.edu", role = "aut"),
+    person("Aroon", "Chande", "T.", email = "achande@ihrc.com", role = "aut",
            comment = c(ORCID = "0000-0001-5260-3135")),
-	person("Seolha","Lee", email = "seolha.lee@gatech.edu", role = "aut",
-		   comment = c(ORCID = "0000-0002-7868-9421")),
-	person("Lavanya", "Rishishwar", email = "lrishishwar@ihrc.com", role = "aut",
+    person("Seolha","Lee", email = "seolha.lee@gatech.edu", role = "aut",
+          comment = c(ORCID = "0000-0002-7868-9421")),
+	  person("Lavanya", "Rishishwar", email = "lrishishwar@ihrc.com", role = "aut",
            comment = c(ORCID = "0000-0002-2055-9392 ")),
-	person("Clio","Andris", email = "clio@gatech.edu", role = "aut",
+	  person("Clio","Andris", email = "clio@gatech.edu", role = "aut",
 		   comment = c(ORCID = "0000-0002-8559-5079")),
-	person("Joshua","Weitz", "S.", email = "jsweitz@gatech.edu", role = "aut",
+	  person("Joshua","Weitz", "S.", email = "jsweitz@gatech.edu", role = "aut",
 		   comment = c(ORCID = "0000-0002-3433-8312 "))
   )
 Description: A package to extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries. Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections; or as the risk (%) that one or more individuals in a group of a particular size are infectious.

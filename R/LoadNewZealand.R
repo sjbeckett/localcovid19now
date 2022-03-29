@@ -66,19 +66,19 @@ LoadNewZealand <- function() {
   Pop$population <- c(172100, 575100, 472800, 522500, 393000, 106800, 226100, 48100, 116800, 163600, 64000, 173600, 146700, 302500, 44000, 147400, 32800, 525700, 58800, 316900)
   Pop <- as.data.frame(Pop)
 
-  NZdf <- inner_join(CaseTable, Pop, by = c("Regions" = "Place"))
+  NZdf <- dplyr::inner_join(CaseTable, Pop, by = c("Regions" = "Place"))
 
 
   # geography
   # District health board regions https://datafinder.stats.govt.nz/layer/87883-district-health-board-2015/
   # https://github.com/leon-sleepinglion/NZ-COVID-19-Visualization
   # geomNZ = st_read("https://github.com/leon-sleepinglion/NZ-COVID-19-Visualization/raw/master/dhb.geojson")
-  data("geomNZ")
+  # data("geomNZ")
   Name2Move <- geomNZ$micro_name[8]
   geomNZ$micro_name[8] <- "Tairawhiti"
 
   # integrate datasets
-  MapNZ <- inner_join(geomNZ, NZdf, by = c("micro_name" = "Regions"))
+  MapNZ <- dplyr::inner_join(geomNZ, NZdf, by = c("micro_name" = "Regions"))
   MapNZ$DateReport <- as.character(MapNZ$DateReport)
   MapNZ$micro_name[8] <- Name2Move
   MapNZ$RegionName <- paste(MapNZ$micro_name, MapNZ$country_name, sep = ", ")

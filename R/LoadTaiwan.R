@@ -33,14 +33,14 @@ LoadTaiwan <- function() {
   caseTable <- data.frame(regions, DateReport, CaseDifference)
 
   # population
-  Pop <- vroom("countries/data/TaiwanPop.csv", .name_repair = make.names)
-  TWdf <- inner_join(caseTable, Pop, by = c("regions" = "Chinese.name"))
+  # Pop <- vrvroom("countries/data/TaiwanPop.csv", .name_repair = make.names)
+  TWdf <- dplyr::inner_join(caseTable, pop_taiwan, by = c("regions" = "Chinese.name"))
 
 
-  geomTaiwan <- st_read("countries/data/geom/geomTaiwan.geojson")
+  # geomTaiwan <- st_read("countries/data/geom/geomTaiwan.geojson")
 
   # integrate datasets
-  MapTaiwan <- inner_join(geomTaiwan, TWdf, by = c("micro_name" = "regions"))
+  MapTaiwan <- dplyr::inner_join(geomTaiwan, TWdf, by = c("micro_name" = "regions"))
 
   MapTaiwan$RegionName <- paste(paste(MapTaiwan$micro_name, MapTaiwan$English.name, sep = "/"), MapTaiwan$country_name, sep = ", ")
   MapTaiwan$Country <- MapTaiwan$country_name

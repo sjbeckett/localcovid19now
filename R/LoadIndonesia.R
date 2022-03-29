@@ -15,10 +15,8 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadIndonesia <- function() {
-  # Live data, interactive charts & maps of Indonesia provincial COVID-19 daily cases and vaccination. Live version: https://erlange.github.io/INACOVID/
-  # https://github.com/erlange/INACOVID
 
-  cases <- vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv") # cases are KASUS. new cases per day.
+  cases <- vroom::vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv") # cases are KASUS. new cases per day.
 
   provinces <- unique(cases$Location)
   DateReport <- c()
@@ -45,7 +43,7 @@ LoadIndonesia <- function() {
     5325566, 4303707, 1134068, 6394087, 1419229, 9073509, 2985734, 2624875, 2621923, 5534472, 8467432, 14799361
   )
   popul <- data.frame(NAME, pop)
-  Indonesiadf <- inner_join(caseTable, popul, by = c("provinces" = "NAME"))
+  Indonesiadf <- dplyr::inner_join(caseTable, popul, by = c("provinces" = "NAME"))
 
   # geometry
   # geomIndonesia = st_read("https://github.com/arsofyan7/Indonesia-GeoJSON/raw/master/indonesia-province.geojson") %>% select(NAME_1,geometry)
@@ -54,12 +52,12 @@ LoadIndonesia <- function() {
   # geomIndonesia$NAME_1[18] =  "Daerah Istimewa Yogyakarta"
   # geomIndonesia$NAME_1upper = toupper(geomIndonesia$NAME_1)
   # geomIndonesia = ms_simplify(geomIndonesia,keep=0.05,keep_shapes=TRUE)
-  data("geomIndonesia")
+  # data("geomIndonesia")
   geomIndonesia <- geomIndonesia %>%
-    mutate(NAME_1upper = str_to_upper(micro_name))
+    dplyr::mutate(NAME_1upper = str_to_upper(micro_name))
 
   # integrate datasets
-  IndonesiaMap <- inner_join(geomIndonesia, Indonesiadf, by = c("NAME_1upper" = "provinces"))
+  IndonesiaMap <- dplyr::inner_join(geomIndonesia, Indonesiadf, by = c("NAME_1upper" = "provinces"))
   IndonesiaMap$pInf <- IndonesiaMap$CaseDifference / IndonesiaMap$pop
   IndonesiaMap$RegionName <- paste(IndonesiaMap$micro_name, IndonesiaMap$country_name, sep = ", ")
   IndonesiaMap$Country <- IndonesiaMap$country_name

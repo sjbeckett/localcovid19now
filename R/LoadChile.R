@@ -18,10 +18,6 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadChile <- function() {
-  # Data obtained from COVID-19 Data Hub https://covid19datahub.io
-  # sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: https://www.minciencia.gob.cl/COVID19/
-
-  # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
   x <- as.data.frame(covid19("Chile", level = 2))
 
@@ -43,7 +39,7 @@ LoadChile <- function() {
   # geomChile$matchName = c("Arica y Parinacota","Tarapacá","Antofagasta","Magallanes" ,"Aysén","Atacama", "Coquimbo","Valparaíso","Metropolitana","Los Lagos","Los Ríos","Araucania","Biobío","Ñuble","Maule","O'Higgins")
 
   # integrate datasets
-  MapChile <- inner_join(geomChile, caseTable, by = c("micro_name" = "regions"))
+  MapChile <- dplyr::inner_join(geomChile, caseTable, by = c("micro_name" = "regions"))
 
   MapChile$RegionName <- paste(MapChile$micro_name, MapChile$country_name, sep = ", ")
   MapChile$Country <- MapChile$country_name

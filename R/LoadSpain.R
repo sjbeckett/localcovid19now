@@ -18,12 +18,12 @@ LoadSpain <- function() {
 
   # county geojson data
   # geomSpain <- st_read('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/spain-provinces.geojson')
-  data("geomSpain")
+  # data("geomSpain")
   # Main COVID-19 hub page: https://cnecovid.isciii.es/covid19/#distribuci%C3%B3n-geogr%C3%A1fica
   SPAIN <- read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
 
   # code link file
-  data("misc_spain")
+  # data("misc_spain")
   # Population data comes from  Instituto Nacional de Estadística: https://www.ine.es/jaxiT3/Datos.htm?t=2852#!tabs-tabla
 
   DataJoin <- c()
@@ -48,8 +48,8 @@ LoadSpain <- function() {
   # integrate datasets
   Spaindata <- as.data.frame(DataJoin)
   Spaincode <- as.data.frame(Spaincode)
-  Spaindf <- inner_join(Spaindata, Spaincode, by = c("ProvinceName" = "code"))
-  SpainMap <- inner_join(geomSpain, Spaindf, by = c("micro_name" = "name"))
+  Spaindf <- dplyr::inner_join(Spaindata, Spaincode, by = c("ProvinceName" = "code"))
+  SpainMap <- dplyr::inner_join(geomSpain, Spaindf, by = c("micro_name" = "name"))
 
   SpainMap$RegionName <- paste(SpainMap$micro_name, SpainMap$country_name, sep = ", ")
   SpainMap$Country <- SpainMap$country_name

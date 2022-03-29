@@ -43,10 +43,10 @@ LoadPeru <- function() {
   # caseTable$regionUpper = toupper(regions)
   # geography
   # geomPeru = st_read("https://github.com/juaneladio/peru-geojson/raw/master/peru_departamental_simple.geojson")
-  data("geomPeru")
+  # data("geomPeru")
 
   # integrate datasets
-  MapPeru <- inner_join(geomPeru, caseTable, by = c("micro_name" = "regions"))
+  MapPeru <- dplyr::inner_join(geomPeru, caseTable, by = c("micro_name" = "regions"))
 
   MapPeru$RegionName <- paste(MapPeru$micro_name, MapPeru$country_name, sep = ", ")
   MapPeru$Country <- MapPeru$country_name
