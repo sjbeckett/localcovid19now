@@ -1,5 +1,5 @@
 Package: subregionalcovid19
-Title: Subnational COVID-19 Active Cases. Global processing and mapping infectious cases of COVID-19 at subnational scales.
+Title: Subnational COVID-19 Active Cases. Global processing and mapping infectious cases of COVID-19 at subnational scales
 Version: 0.0.0.9000
 Authors@R: c(
     person(given = "Stephen J.", family = "Beckett", email = "stephen.beckett@biology.gatech.edu", role = c("aut", "cre"),
@@ -33,7 +33,9 @@ Imports:
     sf,
     stringr,
     tidyr,
-    vroom
+    vroom,
+	stats,
+	utils
 Suggests:
     COVID19,
     googledrive,

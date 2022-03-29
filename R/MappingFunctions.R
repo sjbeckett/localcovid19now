@@ -11,7 +11,8 @@
 #' @seealso [calc_risk()]
 #' @examples
 #' \dontrun{
-#' estRisk(50 / 10000, 4, 50) # estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
+#' #estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
+#' estRisk(50 / 10000, 4, 50)
 #' }
 estRisk <- function(ActiveCases, A, G, rounding = 0) { # A is ascertainment bias, G is group size
   Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
