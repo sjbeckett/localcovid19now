@@ -21,21 +21,21 @@ LoadIreland <- function() {
   data <- vroom::vroom("https://opendata.arcgis.com/datasets/d9be85b30d7748b5b7c09450b8aede63_0.csv") %>%
     dplyr::mutate(date = as.Date(TimeStamp)) %>%
     dplyr::select(CountyName, date, cases = ConfirmedCovidCases, pop = PopulationCensus16) %>%
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
   data_cur <- data %>%
     dplyr::group_by(CountyName) %>%
-    dplyr::summarise(CountyName = first(CountyName), cases = first(cases), date = first(date), pop = first(pop)) %>%
+    dplyr::summarise(CountyName = dplyr::first(CountyName), cases = dplyr::first(cases), date = dplyr::first(date), pop = dplyr::first(pop)) %>%
     as.data.frame()
   past_date <- data_cur$date[1] - 14
   data_past <- data %>%
     dplyr::filter(date == past_date) %>%
     dplyr::group_by(CountyName) %>%
-    dplyr::summarise(CountyName = first(CountyName), cases = first(cases), date = first(date)) %>%
+    dplyr::summarise(CountyName = dplyr::first(CountyName), cases = dplyr::first(cases), date = dplyr::first(date)) %>%
     as.data.frame()
   data_join <- dplyr::inner_join(data_cur, data_past, by = "CountyName", suffix = c("", "_past"))
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
 
-  miscIreland <- vroom::vroom("countries/data/miscIreland.csv", col_types = cols(CO_ID = col_character()))
+  miscIreland <- vroom::vroom("countries/data/miscIreland.csv", col_types = vroom::cols(CO_ID = vroom::col_character()))
 
   # integrate datasets
   IrelandMap <- dplyr::inner_join(geomIreland, data_join, by = c("micro_name" = "CountyName")) %>%

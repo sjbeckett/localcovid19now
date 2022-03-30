@@ -48,11 +48,11 @@ LoadVietnam <- function() {
 
   # most recent data has same cumulative entries as the prior day. Suggest not using the most recent day in calculations.
   for (aa in 1:length(provinceID)) {
-    MostRecent <- tail(data[[aa]], 15)
+    MostRecent <- utils::tail(data[[aa]], 15)
     currentCases <- MostRecent[14]
     pastCases <- MostRecent[1]
     CaseDiff[aa] <- (10 / 14) * (currentCases[[1]] - pastCases[[1]])
-    DateReport[aa] <- tail(names(data[[2]]), 2)[1]
+    DateReport[aa] <- utils::tail(names(data[[2]]), 2)[1]
     code[aa] <- as.numeric(provinceID[aa])
   }
   # format date

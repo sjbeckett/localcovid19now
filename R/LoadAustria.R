@@ -13,12 +13,14 @@
 #' @export
 LoadAustria <- function() {
   # Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/
-
-  # case data
-  # data <- read.csv('https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv',sep = ';',encoding = 'UTF-8', stringsAsFactors = FALSE)
+ 
+  Time <- Bezirk <- GKZ <- AnzEinwohner <- AnzahlFaelleSum <- code <- cases <- population <- NULL
+  
   utils::data("geomAustria", envir = environment())
   data()
-
+  
+  
+  # case data
   data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";") %>%
     dplyr::select(date = Time, name = Bezirk, code = GKZ, population = AnzEinwohner, cases = AnzahlFaelleSum)
   # date is in format dd.mm.YYYY HH:MM:SS

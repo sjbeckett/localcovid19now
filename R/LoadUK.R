@@ -4,7 +4,7 @@
 #'
 #' @return COVID-19 data for UK on this date. Used in LoadUK().
 #' @keywords internal
-dataQueryUK <- function(date) {
+dataQueryUK <- function(date){
   dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
   response <- httr::GET(
     url = dataURL,
@@ -20,7 +20,7 @@ dataQueryUK <- function(date) {
       dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", cur_date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
       response <- httr::GET(
         url = dataURL,
-        timeout(10)
+        httr::timeout(10)
       )
       dmod <- dmod + 1
     }
@@ -30,9 +30,9 @@ dataQueryUK <- function(date) {
   }
 
   # Convert response from binary to JSON:
-  json_text <- content(response, "text")
+  json_text <- httr::content(response, "text")
   data <- jsonlite::fromJSON(json_text)$data %>%
-    mutate(date = as_date(date))
+    dplyr::mutate(date = lubridate::as_date(date))
   return(data)
 }
 
@@ -54,8 +54,7 @@ dataQueryUK <- function(date) {
 LoadUK <- function() {
   # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
 
-
-  cur_date <- today()
+  cur_date <- lubridate::today()
 
   data_cur <- dataQueryUK(cur_date)
   past_date <- cur_date - 14
@@ -64,7 +63,7 @@ LoadUK <- function() {
   # population
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/uk_pop.csv", stringsAsFactors = FALSE) %>% select(-c("name"))
   pop <- pop_uk %>%
-    dplyr::drop_na() %>%
+    tidyr::drop_na() %>%
     dplyr::select(-c("name"))
 
   # Join geom and pop of Hackney and City of London

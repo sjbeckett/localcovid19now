@@ -42,7 +42,7 @@ LoadPhilippines <- function() {
   folder_data <- googledrive::drive_ls(stringr::str_extract(req2$url, "[:graph:]*(?=\\?)"))
 
   caseinfo_ids <- folder_data %>%
-    dplyr::filter(str_detect(name, "04 Case Information")) %>%
+    dplyr::filter(stringr::str_detect(name, "04 Case Information")) %>%
     dplyr::arrange(name) %>%
     dplyr::select(id) %>%
     dplyr::pull()
@@ -57,13 +57,13 @@ LoadPhilippines <- function() {
       )
       A <- vroom::vroom(
         temp,
-        col_types = cols(
-          DateSpecimen = col_date(format = "%Y-%m-%d"),
-          DateResultRelease = col_date(format = "%Y-%m-%d"),
-          DateRepConf = col_date(format = "%Y-%m-%d"),
-          DateDied = col_date(format = "%Y-%m-%d"),
-          DateRecover = col_date(format = "%Y-%m-%d"),
-          DateOnset = col_date(format = "%Y-%m-%d")
+        col_types = vroom::cols(
+          DateSpecimen = vroom::col_date(format = "%Y-%m-%d"),
+          DateResultRelease = vroom::col_date(format = "%Y-%m-%d"),
+          DateRepConf = vroom::col_date(format = "%Y-%m-%d"),
+          DateDied = vroom::col_date(format = "%Y-%m-%d"),
+          DateRecover = vroom::col_date(format = "%Y-%m-%d"),
+          DateOnset = vroom::col_date(format = "%Y-%m-%d")
         )
       )
       unlink(temp)
@@ -105,7 +105,7 @@ LoadPhilippines <- function() {
       ProvRes
     ) %>%
     dplyr::summarise(
-      TotalReported = n()
+      TotalReported = dplyr::n()
     ) %>%
     dplyr::ungroup() %>%
     dplyr::rename(

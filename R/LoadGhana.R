@@ -16,12 +16,12 @@
 #' @export
 LoadGhana <- function() {
   temp <- tempfile()
-  download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
+  utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
   casesGhana <- vroom::vroom(temp)
 
   ghanaCases <- casesGhana %>%
     dplyr::group_by(name) %>%
-    dplyr::select(-starts_with("iso"), -cases) %>%
+    dplyr::select(-dplyr::starts_with("iso"), -cases) %>%
     dplyr::mutate(
       latest_date = max(date)
     ) %>%
@@ -36,7 +36,7 @@ LoadGhana <- function() {
     ) %>%
     dplyr::summarise(
       report_date = max(date),
-      case_diff = max(cumulative_cases) - min(cumulative_cases) * 10 / as.numeric(first(latest_date) - first(past_date))
+      case_diff = max(cumulative_cases) - min(cumulative_cases) * 10 / as.numeric(dplyr::first(latest_date) - dplyr::first(past_date))
     ) %>%
     tidyr::separate(
       col = name,

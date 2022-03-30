@@ -47,6 +47,8 @@ Suggests:
     rmapshaper,
     rvest,
     shiny,
+	glue,
+	htmltools,
     tmap
 Encoding: UTF-8
 LazyData: true

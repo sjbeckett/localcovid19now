@@ -50,6 +50,8 @@ create_c19r_data <- function(df_in,
     stop("Directory for risk_output file does not appear to be writeable.")
   }
 
+  pInf <- Nr <- geoid <- risk <- NULL
+  
   risk_data <- list()
 
   for (asc_bias in asc_bias_list) {
@@ -77,7 +79,7 @@ create_c19r_data <- function(df_in,
     }
   }
 
-  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = left_join) %>%
+  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join) %>%
     dplyr::mutate(updated = lubridate::ymd(gsub("-", "", Sys.Date())))
 
   utils::write.csv(risk_data_df,

@@ -16,7 +16,7 @@
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
 
-  data <- read.csv("https://raw.githubusercontent.com/staedi/nCOV-summary/master/time_series_covid19_infections.csv")
+  data <- utils::read.csv("https://raw.githubusercontent.com/staedi/nCOV-summary/master/time_series_covid19_infections.csv")
   SKOR <- data[which(data$adm0_a3 == "KOR"), ]
 
   Provinces <- unique(SKOR$Province.State)
@@ -26,8 +26,8 @@ LoadSouthKorea <- function() {
   for (aa in 1:length(Provinces)) {
     subsetdata <- SKOR[which(SKOR$Province.State == Provinces[aa]), ]
     Population[aa] <- subsetdata$Population[1]
-    CaseDiff[aa] <- (10 / 14) * diff(range(tail(subsetdata$confirmed, 14)))
-    DateReport[aa] <- as.character(as.Date(tail(subsetdata$Date, 1), format = "%m/%d/%y"))
+    CaseDiff[aa] <- (10 / 14) * diff(range(utils::tail(subsetdata$confirmed, 14)))
+    DateReport[aa] <- as.character(as.Date(utils::tail(subsetdata$Date, 1), format = "%m/%d/%y"))
   }
 
   sk_df <- data.frame(DateReport, Provinces, CaseDiff, Population)

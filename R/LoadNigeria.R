@@ -29,7 +29,7 @@ LoadNigeria <- function() {
     subsetdata <- casedata[which(casedata$REGION == regions[aa]), ]
     CaseDates <- as.Date(subsetdata$DATE, format = "%d/%m/%Y")
     DateReport[aa] <- as.character(max(CaseDates))
-    CaseDifference[aa] <- (10 / 14) * sum(tail(subsetdata$CONTAMINES, 14))
+    CaseDifference[aa] <- (10 / 14) * sum(utils::tail(subsetdata$CONTAMINES, 14))
   }
 
   caseTable <- data.frame(regions, DateReport, CaseDifference)

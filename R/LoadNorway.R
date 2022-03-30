@@ -23,7 +23,7 @@ LoadNorway <- function() {
   latest_data <- latest_data[, c("date", "kommune_no", "kommune_name", "population", "cases")]
   past_data <- data %>% dplyr::filter(data$date == (today - 14))
   past_data <- past_data[, c("kommune_name", "cases")]
-  norwaydf <- inner_join(latest_data, past_data, by = "kommune_name")
+  norwaydf <- dplyr::inner_join(latest_data, past_data, by = "kommune_name")
   norwaydf$Difference <- (norwaydf$cases.x - norwaydf$cases.y) * 10 / 14
   norwaydf <- norwaydf[, c("date", "kommune_no", "kommune_name", "population", "Difference")]
 

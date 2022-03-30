@@ -20,6 +20,7 @@ LoadCzechia <- function() {
   # COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: https://onemocneni-aktualne.mzcr.cz/covid-19
 
   # Komenda M., Karolyi M., Bulhart V., Žofka J., Brauner T., Hak J., Jarkovský J., Mužík J., Blaha M., Kubát J., Klimeš D., Langhammer P., Danková Š ., Májek O., Bartunková M., Dušek L. COVID 19: Overview of the current situation in the Czech Republic. Disease currently [online]. Prague: Ministry of Health of the Czech Republic, 2020. Available from: https://onemocneni-aktualne.mzcr.cz/covid-19 . Development: joint workplace of IHIS CR and IBA LF MU. ISSN 2694-9423.
+  District <- Confirmed <- Date <- NULL
 
   # case data
   czechData <- vroom::vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv")
@@ -29,8 +30,8 @@ LoadCzechia <- function() {
   czechData$Date <- as.Date(czechData$Date)
   czechData <- czechData %>%
     dplyr::group_by(District) %>%
-    dplyr::slice(c(n(), n() - 14)) %>%
-    dplyr::summarize(cases = (Confirmed[1] - Confirmed[2]) * 10 / 14, Date = first(Date)) %>%
+    dplyr::slice(c(dplyr::n(), dplyr::n() - 14)) %>%
+    dplyr::summarize(cases = (Confirmed[1] - Confirmed[2]) * 10 / 14, Date = dplyr::first(Date)) %>%
     dplyr::ungroup()
 
   # integrate datasets

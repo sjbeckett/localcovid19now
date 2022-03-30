@@ -29,9 +29,9 @@ LoadSouthAfrica <- function() {
   DiffCases <- c()
   Date <- c()
   for (aa in 1:length(PRO)) {
-    THIS <- select(COVID_data_SA, PRO[aa])
-    DiffCases[aa] <- diff(range(tail(THIS, 14))) * 10 / 14
-    Date[aa] <- as.character(tail(as.Date(COVID_data_SA$date, format = "%d-%m-%Y"), 1))
+    THIS <- dplyr::select(COVID_data_SA, PRO[aa])
+    DiffCases[aa] <- diff(range(utils::tail(THIS, 14))) * 10 / 14
+    Date[aa] <- as.character(utils::tail(as.Date(COVID_data_SA$date, format = "%d-%m-%Y"), 1))
   }
   geomSouthAfrica$DiffCases <- DiffCases
   geomSouthAfrica$date <- Date

@@ -65,7 +65,7 @@ LoadCuba <- function() {
 
   # print(cuba_data)
 
-  LATEST <- tail(cuba_data$date, 1)
+  LATEST <- utils::tail(cuba_data$date, 1)
   DiffCases <- c()
   IND <- which(cuba_data$date > (as.Date(LATEST) - 14))
   CASES <- matrix(as.numeric(as.matrix(cuba_data[, -1])), nrow = nrow(cuba_data[, -1]))

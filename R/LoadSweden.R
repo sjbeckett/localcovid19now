@@ -17,7 +17,7 @@ LoadSweden <- function() {
   # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
 
   temp <- tempfile()
-  download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb")
+  utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb")
   swedenResource <- as.data.frame(readxl::read_excel(temp, col_names = TRUE))
   unlink(temp)
   names(swedenResource)[1] <- "date"
@@ -31,7 +31,7 @@ LoadSweden <- function() {
   data <- swedenResource %>%
     tidyr::pivot_longer(3:23, names_to = "County", values_to = "cases") %>%
     dplyr::select(-Totalt_antal_fall) %>%
-    dplyr::arrange(desc(date))
+    dplyr::arrange(dplyr::desc(date))
 
   # geometry
   # geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/sweden-counties.geojson")
@@ -44,17 +44,17 @@ LoadSweden <- function() {
 
   data_cur <- data %>%
     dplyr::group_by(County) %>%
-    dplyr::summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
+    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date)) # %>%
   # as.data.frame()
 
   # past_date <- unique(data_cur$date) - 14
 
   data_past <- data %>%
     dplyr::group_by(County) %>%
-    dplyr::filter(date <= first(lubridate::as_date(date)) - 14) %>%
+    dplyr::filter(date <= dplyr::first(lubridate::as_date(date)) - 14) %>%
     # filter(date <= past_date) %>%
     # group_by(County) %>%
-    dplyr::summarise(County = first(County), cases = sum(cases), date = first(date)) # %>%
+    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date)) # %>%
   # as.data.frame()
   data_join <- data_cur %>%
     dplyr::inner_join(data_past, by = "County", suffix = c("", "_past")) %>%

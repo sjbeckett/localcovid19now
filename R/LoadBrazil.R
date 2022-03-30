@@ -21,9 +21,9 @@ LoadBrazil <- function() {
   # W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362
 
   data <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
-  data <- data[rev(order(as_date(data$date))), c("date", "state", "totalCasesMS")]
+  data <- data[rev(order(lubridate::as_date(data$date))), c("date", "state", "totalCasesMS")]
   stateList <- unique(data$state)
-  data$date <- as_date(data$date)
+  data$date <- lubridate::as_date(data$date)
   today <- data$date[1]
   past <- today - 14
   brazilCases <- data.frame(Date = as.character(), state = as.character(), Difference = as.numeric())

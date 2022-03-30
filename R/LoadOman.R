@@ -16,15 +16,15 @@
 LoadOman <- function() {
   # Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases
 
-  CaseData <- read.csv("https://www.dropbox.com/s/ylop7xswywi147c/cases_oman.csv?dl=1")
+  CaseData <- utils::read.csv("https://www.dropbox.com/s/ylop7xswywi147c/cases_oman.csv?dl=1")
   Governorates <- sort(unique(CaseData$name))
   CaseDiff <- c()
   DateReport <- c()
 
   for (aa in 1:length(Governorates)) {
     subsetdata <- CaseData[which(CaseData$name == Governorates[aa]), ]
-    CaseDiff[aa] <- (10 / 14) * sum(tail(subsetdata$cases, 14))
-    DateReport[aa] <- tail(subsetdata$date, 1)
+    CaseDiff[aa] <- (10 / 14) * sum(utils::tail(subsetdata$cases, 14))
+    DateReport[aa] <- utils::tail(subsetdata$date, 1)
   }
   omandt <- data.frame(DateReport, Name = Governorates, Difference = CaseDiff)
 

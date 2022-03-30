@@ -123,7 +123,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   # geomColombia = st_read("https://www.acolgen.org.co/wp-content/uploads/geo-json/colombia.geo.json")
   # data("geomColombia")
 
-  geomColombia$micro_name <- str_to_title(geomColombia$micro_name)
+  geomColombia$micro_name <- stringr::str_to_title(geomColombia$micro_name)
   geomColombia$micro_name[2] <- LOCALES[26]
   geomColombia$micro_name[3] <- LOCALES[27]
   geomColombia$micro_name[4] <- LOCALES[28]

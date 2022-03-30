@@ -32,7 +32,7 @@ makeMaps <- function() {
   GLOBALMAP$AB <- 3
 
   # today's date
-  filedate <- paste(day(today()), month(today(), label = T, abbr = F), year(today()), sep = "")
+  filedate <- paste(lubridate::day(lubridate::today()), lubridate::month(lubridate::today(), label = T, abbr = F), lubridate::year(lubridate::today()), sep = "")
   # save map
   sf::st_write(GLOBALMAP, sprintf("GlobalRiskMapping_ABD_%s.geojson", filedate), delete_dsn = T)
 
@@ -52,7 +52,7 @@ makeMaps <- function() {
   GLOBALMAP %>%
     dplyr::filter(is.na(pInf)) %>%
     sf::st_drop_geometry() %>%
-    write.csv(file = sprintf("log_error/pInfNA_%s.csv", filedate), row.names = F)
+    utils::write.csv(file = sprintf("log_error/pInfNA_%s.csv", filedate), row.names = F)
 
   htmlwidgets::saveWidget(MapTogether, sprintf("GlobalRiskMapping_ABD_50_%s.html", filedate), selfcontained = T)
 

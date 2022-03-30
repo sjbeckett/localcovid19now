@@ -339,7 +339,7 @@ respecEnv$geomCuba <- respecEnv$geomCuba %>%
 
 respecEnv$geomCzechia <- st_read("countries/data/orig_geom/geomCzechia.geojson")
 
-namesCzechia <- vroom("countries/data/czech_pop.csv") %>%
+namesCzechia <- vroom::vroom("countries/data/czech_pop.csv") %>%
   select(-Population)
 ## Load codes for Local Admin Units (LAU)
 respecEnv$geomCzechia <- respecEnv$geomCzechia %>%
@@ -748,7 +748,7 @@ respecEnv$geomNigeria <- respecEnv$geomNigeria %>%
 
 respecEnv$geomNorway <- st_read("countries/data/orig_geom/geomNorway.geojson")
 ## this geometry is missing Svalbard and Ukjent, but they also don't have population in the dataset
-norw_kommune <- vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv") %>%
+norw_kommune <- vroom::vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv") %>%
   select(kommune_no, kommune_name, fylke_no, fylke_name) %>%
   distinct()
 
@@ -830,7 +830,7 @@ respecEnv$geomPeru <- respecEnv$geomPeru %>%
 # Philippines
 
 respecEnv$geomPhilippines <- st_read("countries/data/orig_geom/geomPhilippines.geojson")
-namesPhilippines <- vroom("countries/data/namesPhilippines.csv") %>%
+namesPhilippines <- vroom::vroom("countries/data/namesPhilippines.csv") %>%
   select(starts_with("ADM2"), starts_with("ADM1")) %>%
   distinct()
 

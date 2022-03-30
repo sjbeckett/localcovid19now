@@ -50,8 +50,8 @@ LoadDenmark <- function() {
   # 2.) download and extract data:
   temp <- tempfile() # temporary file for download
   temp2 <- tempdir() # temporary file for extraction
-  download.file(DOWNLOADLINK, destfile = temp)
-  unzip(zipfile = temp, exdir = temp2)
+  utils::download.file(DOWNLOADLINK, destfile = temp)
+  utils::unzip(zipfile = temp, exdir = temp2)
   DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";")
   unlink(temp)
   unlink(temp2)
@@ -82,7 +82,7 @@ LoadDenmark <- function() {
       Difference = (.data[[paste0("d", curdate)]] - .data[[paste0("d", (curdate - 14))]]) * 10 / 14,
       Date = curdate
     ) %>%
-    dplyr::select(Date, dplyr::everything(), -starts_with("d", ignore.case = F))
+    dplyr::select(Date, dplyr::everything(), -dplyr::starts_with("d", ignore.case = F))
 
   # population
   ## get from Statistics Denmark: https://www.statbank.dk/statbank5a/SelectVarVal/saveselections.asp

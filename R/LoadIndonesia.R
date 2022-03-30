@@ -53,7 +53,7 @@ LoadIndonesia <- function() {
   # geomIndonesia = ms_simplify(geomIndonesia,keep=0.05,keep_shapes=TRUE)
   # data("geomIndonesia")
   geomIndonesia <- geomIndonesia %>%
-    dplyr::mutate(NAME_1upper = str_to_upper(micro_name))
+    dplyr::mutate(NAME_1upper = stringr::str_to_upper(micro_name))
 
   # integrate datasets
   IndonesiaMap <- dplyr::inner_join(geomIndonesia, Indonesiadf, by = c("NAME_1upper" = "provinces"))

@@ -34,7 +34,7 @@ LoadUS <- function() {
   # county$GEOID[30] = 2998
   # county$NAME[30] = "Yakutat plus Hoonah-Angoon"
   county <- geomUnitedStates %>%
-    mutate(micro_code = as.numeric(micro_code))
+    dplyr::mutate(micro_code = as.numeric(micro_code))
 
   # county population level data
   # pop <- read.csv("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/county-population.csv", stringsAsFactors = FALSE)
@@ -63,7 +63,7 @@ LoadUS <- function() {
       county == "Joplin" ~ 29992,
       TRUE ~ as.numeric(fips)
     )) %>%
-    dplyr::select(c(date, fips, cases, deaths, ))
+    dplyr::select(c(date, fips, cases, deaths))
   data_past <- data %>%
     dplyr::filter(date == past_date) %>%
     dplyr::mutate(fips = dplyr::case_when(
@@ -88,6 +88,6 @@ LoadUS <- function() {
   USMap$DateReport <- as.character(USMap$date)
   USMap$pInf <- USMap$CaseDiff / USMap$pop
   US_DATA <- subset(USMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
-  US_DATA <- st_as_sf(US_DATA)
+  US_DATA <- sf::st_as_sf(US_DATA)
   return(US_DATA)
 }

@@ -17,7 +17,7 @@ LoadSwitzerlandLiechtenstein <- function() {
   # Federal Office of Public Health FOPH https://www.covid19.admin.ch/en/overview
 
   # 1. import API to find code for most recent file version (date and code change for new data)
-  datastructure <- fromJSON("https://www.covid19.admin.ch/api/data/context")
+  datastructure <- jsonlite::fromJSON("https://www.covid19.admin.ch/api/data/context")
   # 2. find URL for case data by region and read in
   chURL <- datastructure$sources$individual$csv$daily$cases
   CHdata <- vroom::vroom(chURL)

@@ -30,9 +30,9 @@ LoadEcuador <- function() {
   Cantons <- unique(CaseDate$can_pro)
   for (aa in 1:length(Cantons)) {
     subsetdata <- CaseDate[which(CaseDate$can_pro == Cantons[aa]), ]
-    CaseDiff[aa] <- (10 / 14) * sum(tail(subsetdata$nuevas, 14))
+    CaseDiff[aa] <- (10 / 14) * sum(utils::tail(subsetdata$nuevas, 14))
     Population[aa] <- subsetdata$canton_poblacion[1]
-    DateReport[aa] <- tail(subsetdata$created_at, 1)
+    DateReport[aa] <- utils::tail(subsetdata$created_at, 1)
     canton[aa] <- subsetdata$canton[1]
     provincia[aa] <- subsetdata$provincia[1]
   }

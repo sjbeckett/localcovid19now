@@ -20,7 +20,7 @@ LoadZimbabwe <- function() {
   # note could be improved by calling data from ESRI, provincial timeseries feature Id: 20703dd3a24f45f08ea37034285d3492
 
 
-  Data <- read.csv("https://raw.githubusercontent.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/master/time_series_data/daily_provincial_records.csv")
+  Data <- utils::read.csv("https://raw.githubusercontent.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/master/time_series_data/daily_provincial_records.csv")
 
   Dates <- as.character(as.Date(Data$reportDate))
   DateReport <- max(Dates)

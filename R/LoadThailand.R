@@ -17,7 +17,7 @@ LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand
 
   # cases
-  cases <- read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
+  cases <- utils::read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
 
   provinces <- unique(cases$Province)
   DateReport <- c()
@@ -50,8 +50,8 @@ LoadThailand <- function() {
   # geomThailand <- st_read("countries/data/geom/geomThailand.geojson")
   # miscThailand <- vroom("countries/data/miscThailand.csv", col_types = cols(pro_code = col_character()))
 
-  ThailandMap <- inner_join(geomThailand, Thailanddf, by = c("micro_name" = "provinces")) %>%
-    inner_join(misc_thailand, by = c("micro_code" = "pro_code"))
+  ThailandMap <- dplyr::inner_join(geomThailand, Thailanddf, by = c("micro_name" = "provinces")) %>%
+    dplyr::inner_join(misc_thailand, by = c("micro_code" = "pro_code"))
 
   ThailandMap$pInf <- ThailandMap$CaseDifference / ThailandMap$pop
   ThailandMap$RegionName <- paste(paste(ThailandMap$micro_name, ThailandMap$pro_th, sep = "/"), ThailandMap$country_name, sep = ", ")

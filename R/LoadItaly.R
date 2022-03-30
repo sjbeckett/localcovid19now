@@ -5,7 +5,8 @@
 #' @return returns data for Italy on specified date. Called by LoadItaly().
 #' @keywords internal
 dataQueryItaly <- function(date) {
-  data <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(date), "-", ""), ".csv"), col_types = cols(note = col_character())) %>%
+denominazione_regione <- denominazione_provincia <- codice_provincia <- totale_casi <- NULL
+  data <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(date), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
     dplyr::select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
   return(data)
 }
@@ -39,18 +40,18 @@ LoadItaly <- function() {
     data_cur <- data_cur %>% rbind(dataQueryItaly(cur_date - i))
   }
   data_cur <- data_cur %>%
-    group_by(code) %>%
-    dplyr::summarise(date = first(date), cases = first(cases), region = first(region), province = first(province), n = n())
+    dplyr::group_by(code) %>%
+    dplyr::summarise(date = dplyr::first(date), cases = dplyr::first(cases), region = dplyr::first(region), province = dplyr::first(province), n = dplyr::n())
 
   # This will actually give results inclusive of missing data
-  past_date <- unique(as_date(data_cur$date)) - 14 # get all dates 14 days before a most recent current date
+  past_date <- unique(lubridate::as_date(data_cur$date)) - 14 # get all dates 14 days before a most recent current date
 
-  data_past <- map_df(past_date, ~ dataQueryItaly(.x)) %>%
+  data_past <- purrr::map_df(past_date, ~ dataQueryItaly(.x)) %>%
     dplyr::select(date, code, cases) %>%
     dplyr::inner_join( # only keep the past dates that are 14 days before their corresponding date
       data_cur %>%
         dplyr::select(code, date) %>%
-        dplyr::mutate(date = date - period(14, "days"))
+        dplyr::mutate(date = date - lubridate::period(14, "days"))
     )
 
 
@@ -66,7 +67,7 @@ LoadItaly <- function() {
     dplyr::inner_join(pop_italy, by = c("code"))
   data_join <- as.data.frame(data_join)
   data_join$CaseDiff <- (data_join$cases - data_join$cases_past) * 10 / 14
-  data_join$date <- as_date(data_join$date)
+  data_join$date <- lubridate::as_date(data_join$date)
 
   # geometry
   # geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/italy_simpler.geojson")

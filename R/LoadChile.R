@@ -18,7 +18,12 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadChile <- function() {
-  x <- as.data.frame(covid19("Chile", level = 2))
+  # Data obtained from COVID-19 Data Hub https://covid19datahub.io
+  # sourced from https://github.com/jmcastagnetto/covid-19-peru-data
+
+  # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
+
+  x <- as.data.frame(COVID19::covid19("Chile", level = 2))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()
@@ -27,7 +32,7 @@ LoadChile <- function() {
   for (aa in 1:length(regions)) {
     subsetdata <- x[which(x$administrative_area_level_2 == regions[aa]), ]
     DateReport[aa] <- as.character(max(subsetdata$date))
-    CaseDifference[aa] <- (10 / 14) * diff(range(tail(subsetdata$confirmed, 14)))
+    CaseDifference[aa] <- (10 / 14) * diff(range(utils::tail(subsetdata$confirmed, 14)))
     pInf[aa] <- CaseDifference[aa] / subsetdata$population[1]
   }
 

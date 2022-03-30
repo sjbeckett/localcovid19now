@@ -32,7 +32,7 @@ LoadNewZealand <- function() {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y-%m-%d")
     STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", formDATE, ".csv")
-    NZ <- try(vroom(STRING))
+    NZ <- try(vroom::vroom(STRING))
     if (is.null(dim(NZ)) == FALSE) {
       flag <- 1
     } else {
@@ -52,9 +52,9 @@ LoadNewZealand <- function() {
   for (aa in 1:length(Regions)) {
     subsetdata <- NZ[which(NZ$DHBName == Regions[aa]), ]
     DateRecent[aa] <- max(subsetdata$ReportDate)
-    eligibleC <- subsetdata$Confirmed[which(as_date(subsetdata$ReportDate) > as_date(DateRecent[aa]) - 14)]
+    eligibleC <- subsetdata$Confirmed[which(lubridate::as_date(subsetdata$ReportDate) > lubridate::as_date(DateRecent[aa]) - 14)]
     CaseDifference[aa] <- (10 / 14) * sum(eligibleC)
-    DateReport[aa] <- as.character(as_date(DateRecent[aa]))
+    DateReport[aa] <- as.character(lubridate::as_date(DateRecent[aa]))
   }
 
   CaseTable <- data.frame(Regions, DateReport, CaseDifference)

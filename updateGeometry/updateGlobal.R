@@ -6,7 +6,7 @@ here::i_am("updateGeometry/updateGlobal.R")
 ## Because zipfile named with seconds post epoch, `max(dir("updateGeometry/WorldPreSimplified"))` gives most recent version. Using ctime property potentially not reliable bc file creation with git.
 zipfiles <- list.files(here::here("updateGeometry/WorldPreSimplified"))
 
-temp <- unzip(zipfile = here::here("updateGeometry/WorldPreSimplified", max(zipfiles)), exdir = tempdir())
+temp <- utils::unzip(zipfile = here::here("updateGeometry/WorldPreSimplified", max(zipfiles)), exdir = tempdir())
 
 geomWorld <- st_read(temp)
 unlink(temp)
