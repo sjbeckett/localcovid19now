@@ -16,6 +16,8 @@
 LoadSaudiArabia <- function() {
   # Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
 
+  utils::data(list = c("misc_saudiarabia", "pop_saudiarabia", "geomSaudiArabia"), envir = environment())
+
   Casesdataset <- sf::st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
   # note need to convert dates from UNIX timestamp
 

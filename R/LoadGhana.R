@@ -15,6 +15,8 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadGhana <- function() {
+  utils::data("geomGhana", envir = environment())
+
   temp <- tempfile()
   utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
   casesGhana <- vroom::vroom(temp)

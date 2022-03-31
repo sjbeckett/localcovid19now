@@ -18,6 +18,9 @@ LoadUS <- function() {
   # Real-time county level COVID19 data comes from the NYTimes COVID19 data project: https://github.com/nytimes/covid-19-data
   # US 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
 
+  utils::data("geomUnitedStates", envir = environment())
+  utils::data("pop_usa", envir = environment())
+
   # cases from NYT
   dataurl <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
   # data <- read.csv(dataurl, stringsAsFactors = FALSE) %>% mutate(date = as_date(date))

@@ -1,3 +1,19 @@
+#' getDataPH
+#'
+#' @param code Province Code
+#'
+#' @return COVID-19 data for the Philippines Used in LoadPhilippines().
+#' @keywords internal
+getDataPH <- function(code) {
+  temp <- philippinesData %>% filter(Province == code)
+  temp$CumSum <- cumsum(temp$Cases)
+  today <- temp$Date[length(temp$Date)]
+  past_date <- today - 14
+  pastData <- temp[temp$Date <= past_date, ]
+  difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
+  vec <- data.frame(Province = code, Date = today, Difference = difference)
+  return(vec)
+}
 #' LoadPhilippines
 #'
 #' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases.
@@ -14,6 +30,8 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
+  utils::data("geomPhilippines", envir = environment())
+  utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
@@ -121,19 +139,9 @@ LoadPhilippines <- function() {
   ### Municipalities:
   province <- unique(philippinesData$Province)
   province <- province[is.na(province) == F]
-  getData <- function(code) {
-    temp <- philippinesData %>% filter(Province == code)
-    temp$CumSum <- cumsum(temp$Cases)
-    today <- temp$Date[length(temp$Date)]
-    past_date <- today - 14
-    pastData <- temp[temp$Date <= past_date, ]
-    difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
-    vec <- data.frame(Province = code, Date = today, Difference = difference)
-    return(vec)
-  }
 
   philippinesTable <- purrr::map_df(
-    province, ~ getData(.x)
+    province, ~ getDataPH(.x)
   )
 
   ### Geometry:
@@ -141,7 +149,7 @@ LoadPhilippines <- function() {
 
   geomPhilippines <- geomPhilippines %>%
     dplyr::left_join(
-      philippinesPop,
+      pop_philippines,
       by = c("micro_name" = "Location")
     )
 

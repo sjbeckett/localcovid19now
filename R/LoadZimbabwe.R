@@ -18,7 +18,8 @@ LoadZimbabwe <- function() {
   # Dashboard: https://surveyor-jr.maps.arcgis.com/apps/dashboards/8ef907d2658c44c6a143819aa7979b20
 
   # note could be improved by calling data from ESRI, provincial timeseries feature Id: 20703dd3a24f45f08ea37034285d3492
-
+  utils::data("geomZimbabwe", envir = environment())
+  utils::data("pop_zimbabwe", envir = environment())
 
   Data <- utils::read.csv("https://raw.githubusercontent.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/master/time_series_data/daily_provincial_records.csv")
 

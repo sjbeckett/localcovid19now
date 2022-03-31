@@ -20,6 +20,8 @@ LoadBrazil <- function() {
   # COVID-19 data are aggregated from Ministério da Saúde and Brasil.IO by https://github.com/wcota/covid19br
   # W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362
 
+  utils::data("geomBrazil", envir = environment())
+
   data <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
   data <- data[rev(order(lubridate::as_date(data$date))), c("date", "state", "totalCasesMS")]
   stateList <- unique(data$state)

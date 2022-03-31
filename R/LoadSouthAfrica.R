@@ -19,7 +19,7 @@ LoadSouthAfrica <- function() {
   # geometry, see: https://dataportal-mdb-sa.opendata.arcgis.com/datasets/23e1b3458c704f65bc764168ae8557b8_0/data?geometry=-17.204%2C-35.168%2C66.424%2C-21.692&selectedAttribute=PROVINCE
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="GT"]="GP"
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="LIM"]="LP"
-  geomSouthAfrica <- sf::st_read("countries/data/geom/geomSouthAfrica.geojson")
+  utils::data(list = c("geomSouthAfrica", "pop_southafrica"), envir = environment())
   # data("geomSouthAfrica")
   PRO <- unique(geomSouthAfrica$micro_code)
 

@@ -36,6 +36,8 @@ getDataJapan <- function(i) {
 #' @export
 LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
+  utils::data("geomJapan", envir = environment())
+  utils::data("pop_japan", envir = environment())
 
   dataJapan <- lsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:

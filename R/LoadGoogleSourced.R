@@ -27,6 +27,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
 
   # list with recent subnational data as of 8th August 2021. Note other useable datasets may exist.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
+  utils::data(list = c("geomArgentina", "geomAfghanistan", "geomColombia", "geomMozambique"), envir = environment())
 
   # index file
   INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()))

@@ -27,6 +27,7 @@ LoadDenmark <- function() {
   # Name2save2 = geomDenmark$micro_name[60] #"Lyngby-Taarbæk"
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
+  data("geomDenmark", envir = environment())
 
   # case data
   # 1.)  identify file location from webpages

@@ -14,8 +14,11 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadGermany <- function() {
- Landkreis <- AnzahlFall <- Meldedatum <- IdLandkreis <- NULL
- 
+  Landkreis <- AnzahlFall <- Meldedatum <- IdLandkreis <- NULL
+  utils::data("geomGermany", envir = environment())
+  utils::data("pop_germany", envir = environment())
+
+
   links <- c(
     "https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.csv", # Baden-Württemberg
     "https://opendata.arcgis.com/datasets/45258e51f57d43efb612f700a876ae8f_0.csv", # bayern

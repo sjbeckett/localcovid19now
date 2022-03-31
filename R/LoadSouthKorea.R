@@ -16,6 +16,9 @@
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
 
+  utils::data("geomSouthKorea", envir = environment())
+  utils::data("misc_southkorea", envir = environment())
+
   data <- utils::read.csv("https://raw.githubusercontent.com/staedi/nCOV-summary/master/time_series_covid19_infections.csv")
   SKOR <- data[which(data$adm0_a3 == "KOR"), ]
 

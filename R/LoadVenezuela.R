@@ -16,6 +16,8 @@
 LoadVenezuela <- function() {
   # Aggregated from local resources by OCHA Venezuela:  https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela
 
+  utils::data("geomVenezuela", envir = environment())
+
   casedata <- vroom::vroom("https://docs.google.com/spreadsheets/d/e/2PACX-1vQI4s0no2TS1dYxbv82nhKD7iz8fbDGwdsOI4kzJ0cg3gjOR51KIw_rNOff97Xic_fRQD41xmsDGUfM/pub?gid=1029482781&single=true&output=csv")
 
   regions <- names(casedata)[1:25]

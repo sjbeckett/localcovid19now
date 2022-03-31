@@ -27,6 +27,9 @@ LoadVietnam <- function() {
   # ProvinceInfo=data.frame(ProvinceInfo)
   # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names=FALSE)
   # ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
+  utils::data("misc_vietnam", envir = environment())
+  utils::data("geomVietnam", envir = environment())
+
   ProvinceInfo <- misc_vietnam
   # Geometry
   # geom = st_read("https://github.com/hausuresh/vietnam-geocode/raw/master/vietnam.geojson")

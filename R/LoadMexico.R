@@ -19,6 +19,8 @@ LoadMexico <- function() {
   # Main COVID-19 hub page: https://datos.covid-19.conacyt.mx/#DownZCSV
   # need to try 2 days if it doesn't work.
 
+  utils::data("geomMexico", envir = environment())
+
   flag <- 0
   aa <- 0
   while (flag == 0) {

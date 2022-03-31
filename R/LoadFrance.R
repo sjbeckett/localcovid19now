@@ -17,6 +17,9 @@
 LoadFrance <- function() {
   # Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/
   # Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
+  utils::data("geomFrance", envir = environment())
+  utils::data("pop_france", envir = environment())
+
   Code <- Department <- Population <- dep <- jour <- P <- cl_age90 <- cases <- NULL
 
   # data <- read.csv('https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675',sep = ';', stringsAsFactors = FALSE)
@@ -53,7 +56,7 @@ LoadFrance <- function() {
     frenchTable <- rbind(frenchTable, vec)
   }
   frenchdf <- dplyr::inner_join(frenchTable, pop_france, by = "code")
-  FranceMap <- dplyr::inner_join(geom, frenchdf, by = c("micro_code" = "code"))
+  FranceMap <- dplyr::inner_join(geomFrance, frenchdf, by = c("micro_code" = "code"))
   FranceMap$RegionName <- paste(FranceMap$micro_name, FranceMap$country_name, sep = ", ")
   FranceMap$Country <- FranceMap$country_name
   FranceMap$DateReport <- as.character(FranceMap$date)

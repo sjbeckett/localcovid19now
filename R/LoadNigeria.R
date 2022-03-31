@@ -19,6 +19,9 @@ LoadNigeria <- function() {
   # Humanitarian Emergency Response Africa  https://data.humdata.org/dataset/nigeria_covid19_subnational
   # sourced from data collected by Nigeria Centre for Disease Control and National Primary Health Care Development Agency.
   # updated ~ weekly.
+
+  utils::data("geomNigeria", envir = environment())
+
   casedata <- vroom::vroom("https://data.humdata.org/dataset/f5c35452-d766-468a-a272-4bd82d0a3be0/resource/15b9978f-422b-4b3d-9513-359b520d8352/download/nga_subnational_covid19_hera.csv", delim = ";")
 
   regions <- unique(casedata$REGION)

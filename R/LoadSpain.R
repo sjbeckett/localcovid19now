@@ -20,6 +20,9 @@ LoadSpain <- function() {
   # geomSpain <- st_read('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/spain-provinces.geojson')
   # data("geomSpain")
   # Main COVID-19 hub page: https://cnecovid.isciii.es/covid19/#distribuci%C3%B3n-geogr%C3%A1fica
+
+  utils::data("geomSpain", envir = environment())
+
   SPAIN <- utils::read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
 
   # code link file

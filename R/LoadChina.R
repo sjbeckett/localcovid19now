@@ -29,6 +29,8 @@ LoadChina <- function() {
   # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
   # Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
+  data("geomChina", envir = environment())
+  data("pop_china", envir = environment())
   # load cases data
   data <- utils::read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
 

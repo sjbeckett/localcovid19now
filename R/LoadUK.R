@@ -4,7 +4,7 @@
 #'
 #' @return COVID-19 data for UK on this date. Used in LoadUK().
 #' @keywords internal
-dataQueryUK <- function(date){
+dataQueryUK <- function(date) {
   dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
   response <- httr::GET(
     url = dataURL,
@@ -53,6 +53,10 @@ dataQueryUK <- function(date){
 #' @export
 LoadUK <- function() {
   # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
+
+  utils::data("geomUnitedKingdom", envir = environment())
+  utils::data("pop_uk", envir = environment())
+  utils::data("misc_uk", envir = environment())
 
   cur_date <- lubridate::today()
 

@@ -11,10 +11,13 @@
 #' @seealso [calc_risk()]
 #' @examples
 #' \dontrun{
-#' #estimated risk one or more infected in a group of 50, when 50 active cases in population of 10000 and cases are underascertained by a factor of 4.
+#' # estimated risk one or more infected in a group of 50,
+#' # when 50 active cases in population of 10000 and cases
+#' # are underascertained by a factor of 4.
 #' estRisk(50 / 10000, 4, 50)
 #' }
-estRisk <- function(ActiveCases, A, G, rounding = 0) { # A is ascertainment bias, G is group size
+estRisk <- function(ActiveCases, A, G, rounding = 0) {
+  # A is ascertainment bias, G is group size
   Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
   return(round(Risk, rounding))
 }
@@ -204,7 +207,7 @@ EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+pro
 #' @family mapplots
 #' @export
 PerCapitaMap_tmap <- function(DATA, people, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
-  
+
   rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
   World <- NULL
   utils::data("World", package = "tmap", envir = environment())

@@ -51,7 +51,7 @@ create_c19r_data <- function(df_in,
   }
 
   pInf <- Nr <- geoid <- risk <- NULL
-  
+
   risk_data <- list()
 
   for (asc_bias in asc_bias_list) {

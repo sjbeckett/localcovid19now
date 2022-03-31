@@ -16,6 +16,9 @@
 LoadMalaysia <- function() {
   # Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
 
+  utils::data("geomMalaysia", envir = environment())
+  utils::data("pop_malaysia", envir = environment())
+
   casesbystate <- vroom::vroom("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv") # new cases by state by time
   casesbystate$date <- lubridate::as_date(casesbystate$date)
   states <- unique(casesbystate$state)

@@ -14,6 +14,7 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadIreland <- function() {
+  utils::data(list = c("geomIreland", "misc_ireland"), envir = environment())
 
   # geom <<- st_read('https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/Ireland_Counties.geojson')
   # data("geomIreland")
@@ -34,12 +35,12 @@ LoadIreland <- function() {
     as.data.frame()
   data_join <- dplyr::inner_join(data_cur, data_past, by = "CountyName", suffix = c("", "_past"))
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
-
-  miscIreland <- vroom::vroom("countries/data/miscIreland.csv", col_types = vroom::cols(CO_ID = vroom::col_character()))
+  #
+  #   miscIreland <- vroom::vroom("countries/data/miscIreland.csv", col_types = vroom::cols(CO_ID = vroom::col_character()))
 
   # integrate datasets
   IrelandMap <- dplyr::inner_join(geomIreland, data_join, by = c("micro_name" = "CountyName")) %>%
-    dplyr::inner_join(miscIreland, by = c("micro_code" = "CO_ID"))
+    dplyr::inner_join(misc_ireland, by = c("micro_code" = "CO_ID"))
   IrelandMap$RegionName <- paste(paste(IrelandMap$micro_name, IrelandMap$CONTAE, sep = "/"), IrelandMap$country_name, sep = ", ")
   IrelandMap$Country <- IrelandMap$country_name
   IrelandMap$DateReport <- as.character(IrelandMap$date)

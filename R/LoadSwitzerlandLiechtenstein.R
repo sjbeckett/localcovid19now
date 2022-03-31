@@ -16,6 +16,8 @@
 LoadSwitzerlandLiechtenstein <- function() {
   # Federal Office of Public Health FOPH https://www.covid19.admin.ch/en/overview
 
+  utils::data("geomSwitzerlandLiechtenstein", envir = environment())
+
   # 1. import API to find code for most recent file version (date and code change for new data)
   datastructure <- jsonlite::fromJSON("https://www.covid19.admin.ch/api/data/context")
   # 2. find URL for case data by region and read in

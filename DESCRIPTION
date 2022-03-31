@@ -33,9 +33,7 @@ Imports:
     sf,
     stringr,
     tidyr,
-    vroom,
-	stats,
-	utils
+    vroom
 Suggests:
     COVID19,
     googledrive,

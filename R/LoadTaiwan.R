@@ -16,6 +16,9 @@
 LoadTaiwan <- function() {
   # sourced from Taiwan Centers for Disease Control https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov
 
+  utils::data("geomTaiwan", envir = environment())
+  utils::data("pop_taiwan", envir = environment())
+
   # x<- read.csv("https://od.cdc.gov.tw/eic/Day_Confirmation_Age_County_Gender_19CoV.csv",encoding = "UTF-8")
   x <- vroom::vroom("https://od.cdc.gov.tw/eic/Day_Confirmation_Age_County_Gender_19CoV.csv")
   names(x) <- c("Disease Name", "Date_Confirmation", "County_living", "Town_living", "Sex", "Imported", "Age_Group", "Number_of_confirmed_cases")

@@ -20,6 +20,7 @@ LoadAlgeria <- function() {
 
   utils::data("geomAlgeria", envir = environment())
   utils::data("pop_algeria", envir = environment())
+  geomAlgeria <- sf::st_as_sf(geomAlgeria)
 
   # geography
   # https://github.com/Amine27/covid-19-dz/blob/master/static/map/algeria.json

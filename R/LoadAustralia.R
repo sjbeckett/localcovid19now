@@ -16,6 +16,7 @@ LoadAustralia <- function() {
 
   utils::data("geomAustralia", envir = environment())
   utils::data("pop_australia", envir = environment())
+  geomAustralia <- sf::st_as_sf(geomAustralia)
 
   data <- vroom::vroom("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")
 
@@ -37,7 +38,7 @@ LoadAustralia <- function() {
   AustraliaMap$RegionName <- paste(AustraliaMap$micro_name, AustraliaMap$country_name, sep = ", ")
   AustraliaMap$Country <- AustraliaMap$country_name
   AustraliaMap$DateReport <- as.character(AustraliaMap$Date)
-  AustraliaMap$pInf <- AustraliaMap$Difference / AustraliaMap$Population
+  AustraliaMap$pInf <- AustraliaMap$confirmed / AustraliaMap$Population
   Australia_DATA <- subset(AustraliaMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
   return(Australia_DATA)

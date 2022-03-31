@@ -16,6 +16,10 @@
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
 
+  utils::data("geomBelgium", envir = environment())
+  utils::data("pop_belgium", envir = environment())
+  geomBelgium <- sf::st_as_sf(geomBelgium)
+
   getDate <- function(x, y) {
     dates <- as.character(Sys.Date() - x)
     if (y == 0) {

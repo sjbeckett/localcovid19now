@@ -17,13 +17,14 @@ LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
   # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
 
+  utils::data("geomEurope", envir = environment())
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")
   EUWHO <- vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data", col_types = c(DateRpt = "c"))
 
   EUWHO$pInf <- EUWHO$Incidence14day / 100000 * (10 / 14) # incidence is cases in 14 days per 100,000 people. Convert to prop of pop. in 10 days.
   # Join using UID
-  EuroMap <- dplyr::inner_join(geomEUROPE, EUWHO, by = c("micro_code" = "UID"))
+  EuroMap <- dplyr::inner_join(geomEurope, EUWHO, by = c("micro_code" = "UID"))
 
   ## Remove countries
   # Turkmenistan - no testing performed. Hence no cases found.
