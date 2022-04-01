@@ -17,10 +17,14 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadCanada <- function() {
+  #Load geometry and population data
+  pop_canada <-NULL
+  utils::data(c("geomCanada", "pop_canada"), envir = environment())
+  geomCanada <- sf::st_as_sf(geomCanada)
+
   # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada
   # Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
 
-  utils::data(c("geomCanada", "pop_canada"), envir = environment())
 
   # tryCatch({
   #   CANADADATA <- vroom("https://github.com/ishaberry/Covid19Canada/raw/master/timeseries_hr/cases_timeseries_hr.csv")

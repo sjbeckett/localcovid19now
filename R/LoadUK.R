@@ -8,7 +8,7 @@ dataQueryUK <- function(date) {
   dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
   response <- httr::GET(
     url = dataURL,
-    timeout(10)
+    httr::timeout(10)
   )
   if (response$status_code >= 400) {
     err_msg <- httr::http_status(response)
@@ -16,7 +16,7 @@ dataQueryUK <- function(date) {
   } else if (response$status_code >= 204) {
     dmod <- 1
     while (response$status_code >= 204) {
-      cur_date <<- date - dmod
+      cur_date <- date - dmod
       dataURL <- paste0("https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=utla;date=", cur_date, '&structure={"date":"date","code":"areaCode","cases":"cumCasesBySpecimenDate"}')
       response <- httr::GET(
         url = dataURL,
@@ -115,7 +115,7 @@ LoadUK <- function() {
     dplyr::inner_join(misc_uk, by = "code")
 
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
-  UKMap <- dplyr::inner_join(geomUK, data_join, by = c("micro_code" = "code")) # %>% # It's worth asking if we want to get rid of the "city of"'s, but if we do we can do this.
+  UKMap <- dplyr::inner_join(geomUnitedKingdom, data_join, by = c("micro_code" = "code")) # %>% # It's worth asking if we want to get rid of the "city of"'s, but if we do we can do this.
   # mutate(
   #   micro_name = str_replace(micro_name, ", City of$","")
   # )

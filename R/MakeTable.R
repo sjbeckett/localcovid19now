@@ -27,6 +27,8 @@ calc_risk <- function(p_I, g) {
 #' @return Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 #' @export
 #'
+#' @importFrom rlang :=
+#'
 #' @examples
 #' \dontrun{
 #' Canada <- LoadCanada()

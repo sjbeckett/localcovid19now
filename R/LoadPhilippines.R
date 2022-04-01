@@ -5,7 +5,7 @@
 #' @return COVID-19 data for the Philippines Used in LoadPhilippines().
 #' @keywords internal
 getDataPH <- function(code) {
-  temp <- philippinesData %>% filter(Province == code)
+  temp <- philippinesData %>% dplyr::filter(Province == code)
   temp$CumSum <- cumsum(temp$Cases)
   today <- temp$Date[length(temp$Date)]
   past_date <- today - 14

@@ -33,6 +33,7 @@ Imports:
     sf,
     stringr,
     tidyr,
+	rlang,
     vroom
 Suggests:
     COVID19,

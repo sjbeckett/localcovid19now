@@ -15,11 +15,15 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadUS <- function() {
-  # Real-time county level COVID19 data comes from the NYTimes COVID19 data project: https://github.com/nytimes/covid-19-data
-  # US 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
+  micro_code <- fips <- cases <- deaths <- date_past <- pop_usa <- NULL
 
+  #Load in geometry and population data 
   utils::data("geomUnitedStates", envir = environment())
   utils::data("pop_usa", envir = environment())
+  geomUnitedStates <- sf::st_as_sf(geomUnitedStates)
+
+  # Real-time county level COVID19 data comes from the NYTimes COVID19 data project: https://github.com/nytimes/covid-19-data
+  # US 2019 population estimate data comes from the US Census: https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
 
   # cases from NYT
   dataurl <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"

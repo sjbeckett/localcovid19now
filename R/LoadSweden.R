@@ -14,11 +14,14 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadSweden <- function() {
-  # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
-
+  Totalt_antal_fall <- County <- cases <- pop_sweden <- cases_past <- date_past <-NULL
+  
+  #Load in geometry and population data
   utils::data("geomSweden", envir = environment())
   utils::data("pop_sweden", envir = environment())
-
+  geomSweden <- sf::st_as_sf(geomSweden)
+  
+  # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
   temp <- tempfile()
   utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb")
   swedenResource <- as.data.frame(readxl::read_excel(temp, col_names = TRUE))

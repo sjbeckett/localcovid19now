@@ -20,6 +20,9 @@ LoadDenmark <- function() {
   #- https://covid19.ssi.dk/overvagningsdata
   #- https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d
 
+
+  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- NULL
+
   # geometry
   # geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')
   # #name alteration for matching case data
@@ -27,7 +30,7 @@ LoadDenmark <- function() {
   # Name2save2 = geomDenmark$micro_name[60] #"Lyngby-Taarbæk"
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
-  data("geomDenmark", envir = environment())
+  utils::data("geomDenmark", envir = environment())
 
   # case data
   # 1.)  identify file location from webpages

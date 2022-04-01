@@ -23,10 +23,10 @@ calculate risk
 }
 \examples{
 \dontrun{
-#estimated risk one or more infected in a group of 50,
- #when 50 active cases in population of 10000 and cases
- # are underascertained by a factor of 4.
-estRisk(50 / 10000, 4, 50)
+# estimated risk that one or more are infectious in a group of 100,
+# when there are 50 active cases in population of 10,000 and cases
+# are underascertained by a factor of 4.
+estRisk(50/10000, 4, 100)
 }
 }
 \seealso{

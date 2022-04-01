@@ -39,7 +39,7 @@ LoadJapan <- function() {
   utils::data("geomJapan", envir = environment())
   utils::data("pop_japan", envir = environment())
 
-  dataJapan <- lsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
+  dataJapan <- jsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:
   dateJapan <- as.Date(dataJapan$updated)
   ## PREFECTURE = COUNTY

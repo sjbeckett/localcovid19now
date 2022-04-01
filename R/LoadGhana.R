@@ -15,7 +15,11 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadGhana <- function() {
+  name <- cases <- latest_date <- past_date <- cumulative_cases <- macro_name <- country_name <- report_date <- case_diff <- DateReport <- geoid <- RegionName <- pInf <- NULL
+
+  #Load in geometry  
   utils::data("geomGhana", envir = environment())
+  geomGhana <- sf::st_as_sf(geomGhana)
 
   temp <- tempfile()
   utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)

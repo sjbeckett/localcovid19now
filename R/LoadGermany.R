@@ -14,11 +14,13 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadGermany <- function() {
-  Landkreis <- AnzahlFall <- Meldedatum <- IdLandkreis <- NULL
+  Landkreis <- AnzahlFall <- Meldedatum <- IdLandkreis <- Date <- Region <- Cases <- latestDate <- CumSum <- pastDate <- difference <- NULL
+  # Load in geometry and population
   utils::data("geomGermany", envir = environment())
+  geomGermany <- sf::st_as_sf(geomGermany)
   utils::data("pop_germany", envir = environment())
 
-
+  # COVID-19 case data for Germany is from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: https://npgeo-corona-npgeo-de.hub.arcgis.com/ https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about .
   links <- c(
     "https://opendata.arcgis.com/datasets/8a0b7d7c9fb442ffaa512221cf11366e_0.csv", # Baden-Württemberg
     "https://opendata.arcgis.com/datasets/45258e51f57d43efb612f700a876ae8f_0.csv", # bayern

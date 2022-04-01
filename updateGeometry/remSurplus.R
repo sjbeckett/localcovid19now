@@ -7,8 +7,8 @@ remSurplus <- function(
     select(iso3, filename)%>%
     distinct()
   
-  coll1Iso <- isoFile%>%filter(filename==collection_files[1])%>%pull(iso3)
-  distIso <- isoFile%>%filter(!filename %in% collection_files)%>%pull(iso3)
+  coll1Iso <- isoFile%>%dplyr::filter(filename==collection_files[1])%>%pull(iso3)
+  distIso <- isoFile%>%dplyr::filter(!filename %in% collection_files)%>%pull(iso3)
   
   input_file <- input_file%>%
     mutate(
@@ -18,7 +18,7 @@ remSurplus <- function(
         TRUE ~ 0
       )
     )%>%
-    filter(isDup == 0)%>%
+    dplyr::filter(isDup == 0)%>%
     select(-isDup)
   
   return(input_file)
