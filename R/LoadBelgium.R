@@ -15,6 +15,7 @@
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
+  geomBelgium <- pop_belgium <- NULL
 
   utils::data("geomBelgium", envir = environment())
   utils::data("pop_belgium", envir = environment())
@@ -130,7 +131,7 @@ LoadBelgium <- function() {
   # population
 
   # add to dataset
-  belgiumdf <- dplyr::inner_join(finalData, pop, by = c("micro_name" = "Name"))
+  belgiumdf <- dplyr::inner_join(finalData, pop_belgium, by = c("micro_name" = "Name"))
 
 
   # Change names to account for NL and FR:

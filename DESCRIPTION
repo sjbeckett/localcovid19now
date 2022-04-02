@@ -33,8 +33,9 @@ Imports:
     sf,
     stringr,
     tidyr,
-	rlang,
-    vroom
+    rlang,
+    vroom,
+    utils
 Suggests:
     COVID19,
     googledrive,
@@ -46,10 +47,11 @@ Suggests:
     rmapshaper,
     rvest,
     shiny,
-	glue,
-	htmltools,
+	  glue,
+	  htmltools,
     tmap
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+LazyDataCompression:xz
