@@ -21,7 +21,7 @@ LoadSpain <- function() {
   # data("geomSpain")
   # Main COVID-19 hub page: https://cnecovid.isciii.es/covid19/#distribuci%C3%B3n-geogr%C3%A1fica
 
-  utils::data("geomSpain", envir = environment())
+  utils::data(list = c("geomSpain", "misc_spain"), envir = environment())
 
   SPAIN <- utils::read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
 
@@ -50,8 +50,7 @@ LoadSpain <- function() {
 
   # integrate datasets
   Spaindata <- as.data.frame(DataJoin)
-  Spaincode <- as.data.frame(Spaincode)
-  Spaindf <- dplyr::inner_join(Spaindata, Spaincode, by = c("ProvinceName" = "code"))
+  Spaindf <- dplyr::inner_join(Spaindata, misc_spain, by = c("ProvinceName" = "code"))
   SpainMap <- dplyr::inner_join(geomSpain, Spaindf, by = c("micro_name" = "name"))
 
   SpainMap$RegionName <- paste(SpainMap$micro_name, SpainMap$country_name, sep = ", ")

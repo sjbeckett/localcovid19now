@@ -30,7 +30,7 @@ LoadVietnam <- function() {
   utils::data("misc_vietnam", envir = environment())
   utils::data("geomVietnam", envir = environment())
 
-  ProvinceInfo <- misc_vietnam
+  # ProvinceInfo <- misc_vietnam
   # Geometry
   # geom = st_read("https://github.com/hausuresh/vietnam-geocode/raw/master/vietnam.geojson")
   # geom$name[18] = ProvinceInfo$Name[57]
@@ -39,7 +39,7 @@ LoadVietnam <- function() {
   # st_write(geom,"geomVietnam.geojson")
   # geomVietnam <- st_read("countries/data/geom/geomVietnam.geojson")
   # need to do some work to get the naming to match up
-  ProvinceInfo$NameUse <- geomVietnam$micro_name[ProvinceInfo$code]
+  misc_vietnam$NameUse <- geomVietnam$micro_name[misc_vietnam$code]
 
   # look at case data
   data <- jsonlite::read_json("https://covid19.ncsc.gov.vn/api/v3/covid/provinces?filter_type=case_by_time")
@@ -62,7 +62,7 @@ LoadVietnam <- function() {
   DateReport <- as.character(as.Date(DateReport, format = "%d/%m/%Y"))
   dataTable <- data.frame(DateReport = DateReport, Code = code, Difference = CaseDiff)
 
-  datadf <- dplyr::inner_join(dataTable, ProvinceInfo, by = c("Code" = "id"))
+  datadf <- dplyr::inner_join(dataTable, misc_vietnam, by = c("Code" = "id"))
 
 
   VietnamMap <- dplyr::inner_join(geomVietnam, datadf, by = c("micro_name" = "NameUse"))

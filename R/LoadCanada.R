@@ -19,7 +19,7 @@
 LoadCanada <- function() {
   #Load geometry and population data
   pop_canada <-NULL
-  utils::data(c("geomCanada", "pop_canada"), envir = environment())
+  utils::data("geomCanada", "pop_canada", envir = environment())
   geomCanada <- sf::st_as_sf(geomCanada)
 
   # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada

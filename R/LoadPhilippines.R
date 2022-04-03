@@ -30,8 +30,7 @@ getDataPH <- function(code) {
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  utils::data("geomPhilippines", envir = environment())
-  utils::data("pop_philippines", envir = environment())
+  utils::data("geomPhilippines", "pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 

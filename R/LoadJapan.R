@@ -4,7 +4,7 @@
 #'
 #' @return COVID-19 data for Japan for this prefecture index. Used in LoadJapan().
 #' @keywords internal
-getDataJapan <- function(i) {
+getDataJapan <- function(dataSet, i) {
   info <- unlist(dataSet[i])
   fields <- names(unlist(dataSet[i])) # get the column names
   daily <- info[startsWith(fields, "dailyConfirmedCount")] # find any column start with dailyConfirmedCount
@@ -51,7 +51,7 @@ LoadJapan <- function() {
 
   # get data table
   for (i in 1:49) {
-    dataVec <- getDataJapan(i)
+    dataVec <- getDataJapan(dataSet=dataSet, i)
     vec <- rbind(vec, dataVec)
   }
   names(vec) <- c("Prefecture", "Difference")

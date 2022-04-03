@@ -4,7 +4,7 @@
 \alias{getDataJapan}
 \title{getDataJapan}
 \usage{
-getDataJapan(i)
+getDataJapan(dataSet, i)
 }
 \arguments{
 \item{i}{prefecture index.}

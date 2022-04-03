@@ -34,7 +34,7 @@ LoadMalaysia <- function() {
     subset <- casesbystate[casesbystate$state == states[aa], ]
     DateReport[aa] <- as.character(max(subset$date))
     CaseDifference <- sum(subset$cases_new[which(subset$date > max(subset$date) - 14)]) / 14 * 10
-    pInf[aa] <- CaseDifference / pop$pop[pop$state == states[aa]]
+    pInf[aa] <- CaseDifference / pop_malaysia$pop[pop_malaysia$state == states[aa]]
   }
   dataTable <- data.frame(state = states, DateReport, pInf)
 

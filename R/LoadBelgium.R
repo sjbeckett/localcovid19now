@@ -17,8 +17,7 @@ LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
   geomBelgium <- pop_belgium <- NULL
 
-  utils::data("geomBelgium", envir = environment())
-  utils::data("pop_belgium", envir = environment())
+  utils::data("geomBelgium", "names_belgium", "pop_belgium", envir = environment())
   geomBelgium <- sf::st_as_sf(geomBelgium)
 
   getDate <- function(x, y) {
@@ -135,7 +134,7 @@ LoadBelgium <- function() {
 
 
   # Change names to account for NL and FR:
-  nameMuni <- vroom::vroom("countries/data/belgiumNames.csv") %>%
+  nameMuni <- names_belgium%>%
     dplyr::rename_with(.fn = \(x) stringr::str_replace_all(x, "\\s", "\\."))
 
   for (i in 1:length(belgiumdf$micro_name)) {

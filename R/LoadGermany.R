@@ -73,7 +73,7 @@ LoadGermany <- function() {
   # pop_germany <- read.csv('C:/Users/Laptop88/Desktop/COVID-19/New COVID/subregionalcovid19/countries/data/germanypop_germany.csv')
 
   # SK Eisenach (16056) is reported with LK Wartburgkreis (16063) (according to RKI)
-  pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16063")] <- pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16056")] + pop_germany$pop_germanyulation[which(pop_germany$IdLandkreis == "16063")]
+  pop_germany$Population[which(pop_germany$IdLandkreis == "16063")] <- pop_germany$Population[which(pop_germany$IdLandkreis == "16056")] + pop_germany$Population[which(pop_germany$IdLandkreis == "16063")]
 
   # Geometry
   # geomGermany <- st_read('https://public.opendatasoft.com/explore/dataset/covid-19-germany-landkreise/download/?format=geojson&timezone=Europe/Berlin&lang=en')
@@ -85,7 +85,7 @@ LoadGermany <- function() {
   germanyMap$DateReport <- as.character(germanyMap$Date)
   germanyMap$RegionName <- paste(germanyMap$micro_name, germanyMap$country_name, sep = ", ")
   germanyMap$Country <- germanyMap$country_name
-  germanyMap$pInf <- germanyMap$Difference / germanyMap$pop_germanyulation
+  germanyMap$pInf <- germanyMap$Difference / germanyMap$Population
   GERMANY_DATA <- subset(germanyMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
   return(GERMANY_DATA)
 }

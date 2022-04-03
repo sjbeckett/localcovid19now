@@ -55,7 +55,7 @@ LoadZimbabwe <- function() {
   ZimbabweMap$micro_code <- as.numeric(ZimbabweMap$micro_code)
   ZimbabweMap <- dplyr::inner_join(ZimbabweMap, pop_zimbabwe, by = c("micro_code" = "provincepc"))
   ZimbabweMap$Country <- ZimbabweMap$country_name
-  ZimbabweMap$RegionName <- paste(ZimbabweMap$micro_name, ", ", ZimbabweMap$Country)
+  ZimbabweMap$RegionName <- paste(ZimbabweMap$micro_name, ZimbabweMap$Country, sep = ", ")
   ZimbabweMap$pInf <- ZimbabweMap$CaseDiff / ZimbabweMap$pop_2012
   Zimbabwe_DATA <- subset(ZimbabweMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
   return(Zimbabwe_DATA)
