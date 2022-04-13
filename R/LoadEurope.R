@@ -62,7 +62,7 @@ LoadEurope <- function() {
       )
     )
 
-  EuroMap$RegionName <- paste(EuroMap$country_name, EuroMap$country_name, sep = ", ")
+  EuroMap$RegionName <- paste(EuroMap$micro_name, EuroMap$country_name, sep = ", ")
   EuroMap$Country <- EuroMap$country_name
 
   EUROPE_DATA <- subset(EuroMap, select = c("DateRpt", "geoid", "RegionName", "Country", "pInf", "geometry"))
