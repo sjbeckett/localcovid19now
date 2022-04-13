@@ -1,21 +1,21 @@
-#' #' getDataND
-#' #'
-#' #' @param code Municipality code.
-#' #'
-#' #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
-#' #' @keywords internal
-#' getDataND <- function(code) {
-#'   temp <- netherlandsData %>%
-#'     dplyr::filter(Municipality == municipality[code])
-#'   temp$CumSum <- cumsum(temp$Cases)
-#'   today <- temp$Date[length(temp$Date)]
-#'   past_date <- today - 14
-#'   pastData <- temp[temp$Date <= past_date, ]
-#'   ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
-#'   difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
-#'   vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
-#'   return(vec)
-#' }
+#' getDataND
+#'
+#' @param code Municipality code.
+#'
+#' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
+#' @keywords internal
+getDataND <- function(Mcode,netherlandsData) {
+  temp <- netherlandsData %>%
+    dplyr::filter(Code == Mcode)
+  temp$CumSum <- cumsum(temp$Cases)
+  today <- temp$Date[length(temp$Date)]
+  past_date <- today - 14
+  pastData <- temp[temp$Date <= past_date, ]
+  ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
+  difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
+  vec <- data.frame(Municipality = temp$Municipality[1], Code = Mcode, Date = today, Difference = difference)
+  return(vec)
+}
 
 #' LoadNetherlands
 #'
@@ -34,33 +34,18 @@
 #' @export
 LoadNetherlands <- function() {
   utils::data("geomNetherlands", envir = environment())
-  utils::data("misc_netherlands", envir = environment())
+  utils::data("pop_netherlands", envir = environment())
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
-  data <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") # ,fileEncoding = 'UTF-8')
-  netherlandsData <- data[, c("Date_of_publication", "Municipality_code", "Municipality_name", "Province", "Total_reported")]
-  names(netherlandsData) <- c("Date", "Code", "Municipality", "Province", "Cases")
-  netherlandsData$Date <- as.Date(netherlandsData$Date)
-  ### Municipalities:
-  municipality <- unique(netherlandsData$Municipality)
-  municipality <- municipality[1:(length(municipality) - 1)]
-  
-  getDataND <- function(code) {
-    temp <- netherlandsData %>%
-      dplyr::filter(Municipality == municipality[code])
-    temp$CumSum <- cumsum(temp$Cases)
-    today <- temp$Date[length(temp$Date)]
-    past_date <- today - 14
-    pastData <- temp[temp$Date <= past_date, ]
-    ### SOME ROWS DO NOT REPORT MUNICIPALITY NAME
-    difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
-    vec <- data.frame(Municipality = municipality[code], Code = temp$Code[1], Date = today, Difference = difference)
-    return(vec)
-  }
-
+  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") %>% 
+    dplyr::select(Date = "Date_of_publication", Code = "Municipality_code", Municipality = "Municipality_name", Province = "Province", Cases = "Total_reported")
+    
+  municipalities <- unique(NLdata$Code)
+  municipalities = municipalities[-which(is.na(municipalities))] #remove NA values.  
+    
   netherlandsTable <- data.frame()
-  for (i in 1:length(municipality)) {
-    vec <- getDataND(i)
+  for (ii in 1:length(municipalities)) {
+    vec <- getDataND(municipalities[ii],NLdata)
     netherlandsTable <- rbind(netherlandsTable, vec)
   }
 
@@ -69,12 +54,12 @@ LoadNetherlands <- function() {
   # Note that geomNetherlands$Bevolkingsaantal is population size.
 
   netherlandsMap <- dplyr::inner_join(geomNetherlands, netherlandsTable, by = c("micro_code" = "Code")) %>%
-    dplyr::inner_join(misc_netherlands, by = c("micro_code" = "Gemeentecode"))
+    dplyr::inner_join(pop_netherlands, by = c("micro_name" = "Name"))
 
   netherlandsMap$RegionName <- paste(netherlandsMap$micro_name, netherlandsMap$macro_name, netherlandsMap$country_name, sep = ", ")
   netherlandsMap$Country <- netherlandsMap$country_name
   netherlandsMap$DateReport <- as.character(netherlandsMap$Date)
-  netherlandsMap$pInf <- netherlandsMap$Difference / netherlandsMap$Bevolkingsaantal
+  netherlandsMap$pInf <- netherlandsMap$Difference / netherlandsMap$Population
   NETHERLANDS_DATA <- subset(netherlandsMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf"))
 
   return(NETHERLANDS_DATA)

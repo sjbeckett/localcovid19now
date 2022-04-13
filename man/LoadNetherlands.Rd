@@ -2,27 +2,7 @@
 % Please edit documentation in R/LoadNetherlands.R
 \name{LoadNetherlands}
 \alias{LoadNetherlands}
-\title{#' getDataND
-#'
-#' @param code Municipality code.
-#'
-#' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
-#' @keywords internal
-getDataND <- function(code) {
-temp <- netherlandsData \%>\%
-dplyr::filter(Municipality == municipality\link{code})
-temp$CumSum <- cumsum(temp$Cases)
-today <- temp$Date\link{length(temp$Date)}
-past_date <- today - 14
-pastData <- temp\link{temp$Date <= past_date, }
-\subsection{SOME ROWS DO NOT REPORT MUNICIPALITY NAME}{
-
-difference <- (temp$CumSum\link{length(temp$CumSum)} - pastData$CumSum\link{length(pastData$CumSum)}) / 14 * 10
-vec <- data.frame(Municipality = municipality\link{code}, Code = temp$Code\link{1}, Date = today, Difference = difference)
-return(vec)
-}
-LoadNetherlands
-}}
+\title{LoadNetherlands}
 \usage{
 LoadNetherlands()
 }

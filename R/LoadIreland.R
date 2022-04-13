@@ -18,6 +18,9 @@ LoadIreland <- function(){
   #load in geometry and other data
   utils::data(list = c("geomIreland", "misc_ireland"), envir = environment())
   geomIreland <- sf::st_as_sf(geomIreland)
+  #set codes in double to avoid "2e+05" vs 250000 errors
+  geomIreland$micro_code <- as.double(geomIreland$micro_code)
+  misc_ireland$CO_ID <- as.double(misc_ireland$CO_ID)
 
   # geom <<- st_read('https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/Ireland_Counties.geojson')
   # data("geomIreland")
