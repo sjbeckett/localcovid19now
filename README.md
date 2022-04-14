@@ -4,6 +4,13 @@ This repository serves as a framework to assemble and visualize recent case data
 
 We compile data from a variety of [sources](https://github.com/sjbeckett/subregionalcovid19/blob/main/DataSources.md).
 
+A description of the package can be found [here](https://github.com/sjbeckett/subregionalcovid19/tree/main/Paper/Paper.pdf).
+
+## Citation
+
+Please cite our work as:
+> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Lee S., Rishishwar L., Andris C., Weitz J.S. subregionalcovid19: global processing and mapping infectious cases of COVID-19 at subnational scales ...
+
 ## Installation
 
 The subregionalcovid19 library is available in R. It can be installed by running:
@@ -19,6 +26,7 @@ library("subregionalcovid19")
 Functionality is provided to load in data for a particular country (e.g. `US <- LoadUS()`) , or to load all available datasets as:
 ```R
 GLOBALMAP <- LoadCountries()
+GLOBALMAP <- tidy_Data(GLOBALMAP) #sets data older than 30 days, or with negative or zero differences in active cases to NA.
 ```
 
 Once loaded, the per capita active case data can be mapped with built in helper functions: 
@@ -41,4 +49,15 @@ EventMap_leaflet(GLOBALMAP,50)
 
 #show risk that one or more people are infectious in a group of 100 using tmap
 EventMap_tmap(GLOBALMAP,100)
+
+#maps can be saved using tmap commands:
+MAP = EventMap_tmap(GLOBALMAP,100)
+tmap_save(MAP,"GlobalRiskMap.png")
+
+#we can also create a table of event risk by location (first dropping geometry) as:
+GLOBALDAT <- sf::st_drop_geometry(GLOBALMAP) %>%
+    dplyr::as_tibble()
+create_c19r_data(df_in = GLOBALDAT)
 ```
+
+

@@ -40,7 +40,7 @@ LoadNewZealand <- function() {
     } else {
       aa <- aa + 1
     }
-    if (aa > 14) {
+    if (aa > 30) {
       warning("no recent data")
       flag <- 2
     }

@@ -1,19 +1,3 @@
-#' getDataPH
-#'
-#' @param code Province Code
-#'
-#' @return COVID-19 data for the Philippines Used in LoadPhilippines().
-#' @keywords internal
-getDataPH <- function(code) {
-  temp <- philippinesData %>% dplyr::filter(Province == code)
-  temp$CumSum <- cumsum(temp$Cases)
-  today <- temp$Date[length(temp$Date)]
-  past_date <- today - 14
-  pastData <- temp[temp$Date <= past_date, ]
-  difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
-  vec <- data.frame(Province = code, Date = today, Difference = difference)
-  return(vec)
-}
 #' LoadPhilippines
 #'
 #' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases.
@@ -30,7 +14,8 @@ getDataPH <- function(code) {
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  utils::data("geomPhilippines", "pop_philippines", envir = environment())
+  utils::data("geomPhilippines", envir = environment())
+  utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
@@ -137,11 +122,25 @@ LoadPhilippines <- function() {
 
   ### Municipalities:
   province <- unique(philippinesData$Province)
-  province <- province[is.na(province) == F]
+  province <- province[is.na(province) == F] # remove NA values
+  
+  getDataPH <- function(pro_codes){
+    Table <- c()
+    for(aa in 1:length(pro_codes)){
+      code <- pro_codes[aa]
+      temp <- philippinesData %>% dplyr::filter(Province == code)
+      temp$CumSum <- cumsum(temp$Cases)
+      today <- temp$Date[length(temp$Date)]
+      past_date <- today - 14
+      pastData <- temp[temp$Date <= past_date, ]
+      difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
+      vec <- data.frame(Province = code, Date = today, Difference = difference)
+	  Table = rbind(Table,vec)
+    }
+	return(Table)
+  }
 
-  philippinesTable <- purrr::map_df(
-    province, ~ getDataPH(.x)
-  )
+  philippinesTable <- getDataPH(province)
 
   ### Geometry:
   # data("geomPhilippines")
