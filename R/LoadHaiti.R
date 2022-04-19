@@ -16,7 +16,7 @@
 LoadHaiti <- function() {
 # Released by the Ministry of Public Health and Population of Haiti to the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
 
-AA <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTqVOxCSrhEiZ_CRME3Xqhu_DWZv74FvrvOr77rIXOlorClEi0huwVKxXXcVr2hn8pml82tlwmf59UX/pub?output=csv",skip=1)
+AA <- utils::read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTqVOxCSrhEiZ_CRME3Xqhu_DWZv74FvrvOr77rIXOlorClEi0huwVKxXXcVr2hn8pml82tlwmf59UX/pub?output=csv",skip=1)
 names(AA) <- c("Date","Name","TotalCases","NewCases","TotalDeaths","NewDeaths","CFR","Source")
 
 #format dates

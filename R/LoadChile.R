@@ -19,7 +19,7 @@
 #' @export
 LoadChile <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
-  # sourced from https://github.com/jmcastagnetto/covid-19-peru-data
+  # sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: https://www.minciencia.gob.cl/COVID19/.
   
   geomChile <- NULL
 
