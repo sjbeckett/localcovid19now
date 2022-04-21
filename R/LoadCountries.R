@@ -15,7 +15,7 @@ LoadCountries <- function(countries = NULL) {
   NEWMAP <- c()
 
   if (is.null(countries)) {
-    countries <- countrylist
+    countries <- utils::data(countrylist, envir = environment())
   }
 
   errors <- data.frame(countryn = c(), errort = c(), datetime = c())
