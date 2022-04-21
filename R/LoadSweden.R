@@ -50,25 +50,20 @@ LoadSweden <- function() {
 
   data_cur <- data %>%
     dplyr::group_by(County) %>%
-    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date)) # %>%
-  # as.data.frame()
-
-  # past_date <- unique(data_cur$date) - 14
+    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date))
 
   data_past <- data %>%
     dplyr::group_by(County) %>%
     dplyr::filter(date <= dplyr::first(lubridate::as_date(date)) - 14) %>%
-    # filter(date <= past_date) %>%
-    # group_by(County) %>%
-    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date)) # %>%
-  # as.data.frame()
+    dplyr::summarise(County = dplyr::first(County), cases = sum(cases), date = dplyr::first(date))
+	
   data_join <- data_cur %>%
     dplyr::inner_join(data_past, by = "County", suffix = c("", "_past")) %>%
     dplyr::inner_join(pop_sweden, by = c("County")) %>%
     dplyr::mutate(
       Difference = (cases - cases_past) * 10 / as.numeric(date - date_past)
     )
-  # data_join$Difference <- (data_join$cases - data_join$cases_past)*10/(date-date_past)
+
 
   # integrate datasets
   SwedenMap <- dplyr::inner_join(geomSweden, data_join, by = c("micro_name" = "County"))

@@ -41,7 +41,6 @@ LoadIreland <- function(){
     as.data.frame()
   data_join <- dplyr::inner_join(data_cur, data_past, by = "CountyName", suffix = c("", "_past"))
   data_join$Difference <- (data_join$cases - data_join$cases_past) * 10 / 14
-  #
   #   miscIreland <- vroom::vroom("countries/data/miscIreland.csv", col_types = vroom::cols(CO_ID = vroom::col_character()))
 
   # integrate datasets

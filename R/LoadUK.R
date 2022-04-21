@@ -121,7 +121,7 @@ LoadUK <- function() {
   # )
 
   UKMap$RegionName <- paste(UKMap$micro_name, UKMap$country_name, sep = ", ")
-  # If the wlesh names aren't already present, then:
+  # If the Welsh names aren't already present, then:
   # sprintf(paste("%s",UKMap$country_name, sep=", "), if_else(is.na(UKMap$welshname)==F & UKMap$welshname != UKMap$micro_name, paste(UKMap$micro_name,UKMap$welshname, sep="/"), UKMap$micro_name))
   UKMap$Country <- UKMap$country_name
   UKMap$DateReport <- as.character(UKMap$date)

@@ -45,9 +45,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   CaseDiff <- c()
   Pop <- c()
   for (bb in 1:length(KEYS)) {
-    # cat("\n",bb,"\n")
     DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
-    # problems(DAT)
     naIND <- which(is.na(DAT$new_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]

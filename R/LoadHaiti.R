@@ -14,52 +14,52 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadHaiti <- function() {
-# Released by the Ministry of Public Health and Population of Haiti to the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
+  # Released by the Ministry of Public Health and Population of Haiti to the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
 
-AA <- utils::read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTqVOxCSrhEiZ_CRME3Xqhu_DWZv74FvrvOr77rIXOlorClEi0huwVKxXXcVr2hn8pml82tlwmf59UX/pub?output=csv",skip=1)
-names(AA) <- c("Date","Name","TotalCases","NewCases","TotalDeaths","NewDeaths","CFR","Source")
+  AA <- utils::read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTqVOxCSrhEiZ_CRME3Xqhu_DWZv74FvrvOr77rIXOlorClEi0huwVKxXXcVr2hn8pml82tlwmf59UX/pub?output=csv",skip=1)
+  names(AA) <- c("Date","Name","TotalCases","NewCases","TotalDeaths","NewDeaths","CFR","Source")
 
-#format dates
-AA$Date = as.character(as.Date(AA$Date,format = "%d-%m-%Y"))
+  #format dates
+  AA$Date = as.character(as.Date(AA$Date,format = "%d-%m-%Y"))
 
-#format numerics 
-AA$TotalCases = as.numeric(gsub(",", "", AA$TotalCases))
-AA$NewCases = as.numeric(gsub(",", "", AA$NewCases))
-AA$TotalDeaths = as.numeric(gsub(",", "", AA$TotalDeaths))
-AA$NewDeaths = as.numeric(gsub(",", "", AA$NewDeaths))
+  #format numerics 
+  AA$TotalCases = as.numeric(gsub(",", "", AA$TotalCases))
+  AA$NewCases = as.numeric(gsub(",", "", AA$NewCases))
+  AA$TotalDeaths = as.numeric(gsub(",", "", AA$TotalDeaths))
+  AA$NewDeaths = as.numeric(gsub(",", "", AA$NewDeaths))
 
-#manual edits to correct duplicate locations
-AA$Name[which(AA$Name=="sud")] = "Sud"
-AA$Name[which(AA$Name=="GrandAnse")] = "Grand Anse"
-AA$Name[which(AA$Name=="Quest")] = "Ouest"
-#align names with geomHaiti
-AA$Name[which(AA$Name=="Grand Anse")] = "Grand'Anse"
-AA$Name[which(AA$Name=="Artibonite")] = "L'Artibonite"
+  #manual edits to correct duplicate locations
+  AA$Name[which(AA$Name=="sud")] = "Sud"
+  AA$Name[which(AA$Name=="GrandAnse")] = "Grand Anse"
+  AA$Name[which(AA$Name=="Quest")] = "Ouest"
+  #align names with geomHaiti
+  AA$Name[which(AA$Name=="Grand Anse")] = "Grand'Anse"
+  AA$Name[which(AA$Name=="Artibonite")] = "L'Artibonite"
 
-LOCS <- unique(AA$Name)
-DateReport <- c()
-CaseDiff <- c()
-for(aa in 1:length(LOCS)){
-	subsetdata <- AA[which(AA$Name == LOCS[aa]),]
-	DateReport[aa] <- as.character(max(as.Date(subsetdata$Date)))
-	CaseDiff[aa] <- (10/14)*(subsetdata$TotalCases[which(subsetdata$Date == DateReport[aa])] - subsetdata$TotalCases[which(as.Date(subsetdata$Date) == (as.Date(DateReport[aa]))-14)])
-}
+  LOCS <- unique(AA$Name)
+  DateReport <- c()
+  CaseDiff <- c()
+  for(aa in 1:length(LOCS)){
+	  subsetdata <- AA[which(AA$Name == LOCS[aa]),]
+	  DateReport[aa] <- as.character(max(as.Date(subsetdata$Date)))
+	  CaseDiff[aa] <- (10/14)*(subsetdata$TotalCases[which(subsetdata$Date == DateReport[aa])] - subsetdata$TotalCases[which(as.Date(subsetdata$Date) == (as.Date(DateReport[aa]))-14)])
+  }
 
-Haitidf = data.frame(DateReport,Location = LOCS,CaseDiff)
+  Haitidf = data.frame(DateReport,Location = LOCS,CaseDiff)
 
-#geometry
-geomHaiti <- sf::st_read("https://github.com/samateja/D3topoJson/raw/master/haiti.json")
-geomHaiti <- sf::st_set_crs(geomHaiti,"EPSG:4326")
-#population
-#from 2015 Haiti census https://web.archive.org/web/20151106110552/http://www.ihsi.ht/pdf/projection/Estimat_PopTotal_18ans_Menag2015.pdf https://en.wikipedia.org/wiki/Departments_of_Haiti
-Pop = c()
-Pop$location = c("L'Artibonite","Centre","Grand'Anse","Nippes","Nord","Nord-Est","Nord-Ouest","Ouest","Sud-Est","Sud")
-Pop$population = c(1727524,746236,468301,342525,1067177,393967,728807,4029705,632601,774976)
-Pop = data.frame(Pop)
+  #geometry
+  geomHaiti <- sf::st_read("https://github.com/samateja/D3topoJson/raw/master/haiti.json")
+  geomHaiti <- sf::st_set_crs(geomHaiti,"EPSG:4326")
+  #population
+  #from 2015 Haiti census https://web.archive.org/web/20151106110552/http://www.ihsi.ht/pdf/projection/Estimat_PopTotal_18ans_Menag2015.pdf https://en.wikipedia.org/wiki/Departments_of_Haiti
+  Pop = c()
+  Pop$location = c("L'Artibonite","Centre","Grand'Anse","Nippes","Nord","Nord-Est","Nord-Ouest","Ouest","Sud-Est","Sud")
+  Pop$population = c(1727524,746236,468301,342525,1067177,393967,728807,4029705,632601,774976)
+  Pop = data.frame(Pop)
 
-#join
-Haitidf2 = dplyr::inner_join(Haitidf,Pop, by = c("Location" = "location"))
-HaitiMap = dplyr::inner_join(geomHaiti,Haitidf2, by = c("name" = "Location"))
+  #join
+  Haitidf2 = dplyr::inner_join(Haitidf,Pop, by = c("Location" = "location"))
+  HaitiMap = dplyr::inner_join(geomHaiti,Haitidf2, by = c("name" = "Location"))
 
   HaitiMap$geoid = paste0("HT-",1:10)
   HaitiMap$RegionName <- paste(HaitiMap$name, "Haiti", sep = ", ")
@@ -67,5 +67,5 @@ HaitiMap = dplyr::inner_join(geomHaiti,Haitidf2, by = c("name" = "Location"))
   HaitiMap$pInf <- HaitiMap$CaseDiff / HaitiMap$population
   HAITI_DATA <- subset(HaitiMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
-return(HAITI_DATA)
+  return(HAITI_DATA)
 }

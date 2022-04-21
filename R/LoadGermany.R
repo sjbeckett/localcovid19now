@@ -47,7 +47,6 @@ LoadGermany <- function() {
   germanyData <- germanyData %>%
     dplyr::mutate(
       Date = lubridate::as_date(Date),
-      # IdLandkreis = as.numeric(IdLandkreis)
     ) %>%
     dplyr::arrange(Date) %>%
     dplyr::group_by(Region) %>%

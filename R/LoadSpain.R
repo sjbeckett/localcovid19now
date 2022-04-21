@@ -37,7 +37,6 @@ LoadSpain <- function() {
     Dates <- as.Date(Subset$fecha)
     LL <- length(Dates)
     ConfirmedCovidCases <- cumsum(Subset$num_casos)
-    # CaseDiff = 10*( Subset$ConfirmedCovidCases[LL] - Subset$ConfirmedCovidCases[LL - 14])/ 14
     CaseDiff <- (ConfirmedCovidCases[LL] - ConfirmedCovidCases[LL - 14]) / 14 * 10
     # Make sure difference in cases is positive. If not set to NA.
     if (CaseDiff < 0) {
