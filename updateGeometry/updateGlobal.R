@@ -1,12 +1,12 @@
 source("librariesMinimal.R")
-library(rmapshaper) # for the ms_simplify function - simplifies polygons.
+# Requires rmapshaper for the ms_simplify function - simplifies polygons.
 here::i_am("updateGeometry/updateGlobal.R")
 
 # Open the most recent WorldPreSimplified geojson. Manually modify if this is not the most up-to-date file.
 ## Because zipfile named with seconds post epoch, `max(dir("updateGeometry/WorldPreSimplified"))` gives most recent version. Using ctime property potentially not reliable bc file creation with git.
 zipfiles <- list.files(here::here("updateGeometry/WorldPreSimplified"))
 
-temp <- unzip(zipfile = here::here("updateGeometry/WorldPreSimplified", max(zipfiles)), exdir = tempdir())
+temp <- utils::unzip(zipfile = here::here("updateGeometry/WorldPreSimplified", max(zipfiles)), exdir = tempdir())
 
 geomWorld <- st_read(temp)
 unlink(temp)
@@ -27,10 +27,13 @@ if (!is.null(newWorld)) { # If no new geometries are added, newWorld will be NUL
     bind_rows(
       newWorld
     )
+  
+  # Remove geomSmallCountries and geomEurope entries that are supplied by other data sets
+source("updateGeometry/remSurplus.R")
+  geomWorld <- remSurplus(geomWorld, c("geomEurope","geomSmallCountries"))
 
   # Write a new geomWorld_presimp that includes the updated geometry
   st_write(geomWorld, "geomWorld_presimp.geojson")
-
 
   nowtime <- round(difftime(now(tzone = "UTC"), ymd_hms("1970-01-01 00:00:00"), tz = "UTC", units = "mins"))
   # the presimplified world geometry is too big for github, so put it in a zip file and remove the geojson
@@ -40,7 +43,7 @@ if (!is.null(newWorld)) { # If no new geometries are added, newWorld will be NUL
 }
 
 # Simplify the world
-geomGlobal <- ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRUE) %>%
+geomGlobal <- rmapshaper::ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRUE) %>%
   group_by(geoid) %>%
   st_make_valid() %>%
   # There are some duplicated geoids due to geomSmallCountries, but these are filtered out in the LoadCountry stage
@@ -58,6 +61,25 @@ geomGlobal <- ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRU
   st_wrap_dateline() # removes horizontal bar when Fiji crosses the dateline
 
 st_write(geomGlobal, "countries/data/geom/geomGlobal_simplified.geojson", delete_dsn = T)
+
+# ## Use mapshaper.org to fix geomGlobal_simplified.geojson at this stage
+# 
+# # geomGlobalsc <- st_read("countries/data/geom/geomGlobal_sc220302.json") #"sc" = "simplified/clean"
+# # ggdiff <- anti_join(geomGlobal,st_drop_geometry(geomGlobalsc))
+# # geomGlobal_mod <- geomGlobalsc%>%
+# #   bind_rows(ggdiff)
+# # # rm(list = c("geomGlobalsc","ggdiff"))
+# # 
+# # fixCanada <- geomGlobal_mod%>%
+# #   filter(iso3=="CAN")%>%
+# #   st_transform(3347)%>%
+# #   st_make_valid()%>%
+# #   st_transform(4326)
+# # 
+# # geomGlobal <- geomGlobal_mod%>%
+# #   filter(iso3!="CAN")%>%
+# #   bind_rows(fixCanada)
+
 
 # group geomGlobal by filename
 groupedGlobal <- geomGlobal %>%

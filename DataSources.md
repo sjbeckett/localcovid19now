@@ -37,6 +37,12 @@ Data aggregated by the COVID-19 Canada Open Data Working Group from local health
 
 Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
 
+### Chile
+
+Data obtained from COVID-19 Data Hub https://covid19datahub.io and sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: https://www.minciencia.gob.cl/COVID19/.
+
+Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, \url{https://doi.org/10.21105/joss.02376}.
+
 ### China
 
 COVID-19 data for first-level administrative divisions in China is aggregated from:
@@ -84,6 +90,10 @@ https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b
 
 Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Health): https://data.humdata.org/dataset/ghana-coronavirus-covid-19-subnational-cases
 Geometry collected by Where Geospatial Media (www.wheregeospatial.com blog.wheregeospatial.com). This Data is not authorized by any government or private institution. It was created from the old authorized Ghana Shapefile using the district boundaries. Any one who uses this for any analysis should note this. Any limitations from the old authorized shapefile are inherited by this shapefile. Created Dec 11, 2019. 
+
+### Haiti
+
+Data released by the Ministry of Public Health and Population of Haiti and collated by the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
 
 ### India
 
@@ -134,6 +144,13 @@ Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data
 ### Oman
 
 Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases
+
+### Peru
+
+Data obtained from COVID-19 Data Hub https://covid19datahub.io
+and sourced from https://github.com/jmcastagnetto/covid-19-peru-data
+
+Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
 ### Philippines
 

@@ -1,0 +1,57 @@
+Package: subregionalcovid19
+Title: Subnational COVID-19 Active Cases. Global processing and mapping infectious cases of COVID-19 at subnational scales
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "Stephen J.", family = "Beckett", email = "stephen.beckett@biology.gatech.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4410-2960")),
+    person(given = "Freyja A.", family = "Brandel-Tanis", email = "freyja.alice@gatech.edu", role = "aut",
+           comment = c(ORCID = "0000-0003-2870-6980")),
+    person(given = "Quan", family = "Nguyen", email = "qnguyen83@gatech.edu", role = "aut"),
+    person(given = "Aroon T.", family = "Chande", email = "achande@ihrc.com", role = "aut",
+           comment = c(ORCID = "0000-0001-5260-3135")),
+    person(given = "Seolha", family = "Lee", email = "seolha.lee@gatech.edu", role = "aut",
+          comment = c(ORCID = "0000-0002-7868-9421")),
+	  person(given = "Lavanya", family = "Rishishwar", email = "lrishishwar@ihrc.com", role = "aut",
+           comment = c(ORCID = "0000-0002-2055-9392 ")),
+	  person(given = "Clio", family = "Andris", email = "clio@gatech.edu", role = "aut",
+		   comment = c(ORCID = "0000-0002-8559-5079")),
+	  person(given = "Joshua S.", family = "Weitz", email = "jsweitz@gatech.edu", role = "aut",
+		   comment = c(ORCID = "0000-0002-3433-8312 "))
+  )
+Description: A package to extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries. Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections; or as the risk (%) that one or more individuals in a group of a particular size are infectious.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr,
+    jsonlite,
+    magrittr,
+    lubridate,
+    purrr,
+    readxl,
+    rgdal,
+    sf,
+    stringr,
+    tidyr,
+    rlang,
+    vroom,
+    utils
+Suggests:
+    COVID19,
+    googledrive,
+    htmlwidgets,
+    httr,
+    leaflet,
+    pdftools,
+    RColorBrewer,
+    rmapshaper,
+    rvest,
+    shiny,
+	  glue,
+	  htmltools,
+    tmap
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+LazyDataCompression:xz
