@@ -1,6 +1,8 @@
 #' LoadCountries
 #'
 #' @param countries List of countries to collect data for. Use NULL to attempt to download all available datasets.
+#' @param filepath Optionally, provide a filepath to save error file to.
+#' @param oauth Optionally, supply googledrive oauth token, to avoid having to manually assign.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #' @export
@@ -9,8 +11,12 @@
 #' \dontrun{
 #' AllData <- LoadCountries()
 #' }
-LoadCountries <- function(countries = NULL) {
-
+LoadCountries <- function(countries = NULL, filepath = NULL, oauthtoken = NULL) {
+  
+  if(!is.null(oauthtoken)){
+    oauth <<- ouathtoken
+  }
+  
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
 
@@ -32,7 +38,10 @@ LoadCountries <- function(countries = NULL) {
       }
     )
   }
-  utils::write.csv(errors, "log_error/errors.csv", append = T)
+  
+  if(!is.null(filepath)){ ## if filepath provided save errors to file
+    utils::write.csv(errors, paste(filepath,".csv"), append = T)
+  }
 
   return(NEWMAP)
 }
