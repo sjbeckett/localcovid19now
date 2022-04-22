@@ -1,3 +1,6 @@
+#' countrylist
+"countrylist"
+
 #' geomAfghanistan
 "geomAfghanistan"
 

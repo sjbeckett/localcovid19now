@@ -46,10 +46,14 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   Pop <- c()
   for (bb in 1:length(KEYS)) {
     DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
-    naIND <- which(is.na(DAT$new_confirmed))
+    naIND <- which(is.na(DAT$cumulative_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]
     past <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]) - 14)]
+	if(is.na(past)){ #if past is NA try interpolation.
+	  interpolated = 	approx(DAT$date[-naIND],DAT$cumulative_confirmed[-naIND],xout = DAT$date)
+	  past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
+	}	
     CaseDiff[bb] <- (10 / 14) * (curr - past)
     if (length(DAT$population[1]) == 1) {
       Pop[bb] <- DAT$population[1]
