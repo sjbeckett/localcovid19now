@@ -71,7 +71,7 @@ tmap_save(MAP,"US_RiskMap.png")
 #we can also create a table of event risk by location (first dropping geometry) as:
 USDAT <- sf::st_drop_geometry(US) %>%
     dplyr::as_tibble()
-create_c19r_data(df_in = US)
+create_c19r_data(df_in = USDAT)
 ```
 
 
