@@ -1,6 +1,6 @@
 #' LoadPhilippines
 #'
-#' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases. Note that this process requires the use of the googledrive package which requires the users google credentials to be provided.
 #'
 #' @note
 #' Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
@@ -19,13 +19,6 @@ LoadPhilippines <- function() {
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
-  if ("oauth" %in% ls()) {
-    oauthpath <- oauth
-  } else {
-    oauthpath <- readline(prompt = "Enter OAuth filepath:  ")
-  }
-
-  googledrive::drive_auth(path = oauthpath)
 
   url1 <- "bit.ly/DataDropPH"
   req1 <- httr::GET(url1)

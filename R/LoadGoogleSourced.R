@@ -51,7 +51,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]
     past <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]) - 14)]
 	if(is.na(past)){ #if past is NA try interpolation.
-	  interpolated = 	approx(DAT$date[-naIND],DAT$cumulative_confirmed[-naIND],xout = DAT$date)
+	  interpolated = 	stats::approx(DAT$date[-naIND],DAT$cumulative_confirmed[-naIND],xout = DAT$date)
 	  past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
 	}	
     CaseDiff[bb] <- (10 / 14) * (curr - past)

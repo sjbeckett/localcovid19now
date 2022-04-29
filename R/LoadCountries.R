@@ -2,7 +2,7 @@
 #'
 #' @param countries List of countries to collect data for. Use NULL to attempt to download all available datasets.
 #' @param filepath Optionally, provide a filepath to save error file to.
-#' @param oauth Optionally, supply googledrive oauth token, to avoid having to manually assign.
+#' @param interactiveMode Set whether the session is being run interactively. If not and no googledrive oauth token is found, avoid data requiring googledrive auth token.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #' @export
@@ -11,20 +11,32 @@
 #' \dontrun{
 #' AllData <- LoadCountries()
 #' }
-LoadCountries <- function(countries = NULL, filepath = NULL, oauthtoken = NULL) {
-  
-  if(!is.null(oauthtoken)){
-    oauth <<- ouathtoken
-  }
-  
+LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = TRUE) {
+
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
 
+  # assign country list if not provided
   if (is.null(countries)) {
-    countries <- utils::data(countrylist, envir = environment())
+     utils::data(countrylist, envir = environment())
+     countries <- countrylist
   }
-
+  
+  #check whether googledrive credentials are available if in non-interactive mode.  
+  
+  if(interactiveMode == FALSE){
+	TOKEN <- googledrive::drive_has_token()
+	if(TOKEN == FALSE){
+		warning("No googledrive token found. Will avoid loading data requiring token. For more about providing authorization, see: https://gargle.r-lib.org/articles/non-interactive-auth.html")		
+		if("LoadPhilippines" %in% countries){
+			countries = countries[-which(countries=="LoadPhilippines")]
+		}		
+	}
+  }
+  
+  #initialize data frame to store error information
   errors <- data.frame(countryn = c(), errort = c(), datetime = c())
+  
   for (country in countries) {
     # Load in data for this country
     cat("\n", country, "\n")

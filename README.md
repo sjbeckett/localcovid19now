@@ -23,7 +23,21 @@ library("subregionalcovid19")
 
 ## Use
 
-Functionality is provided to load in data for a particular country (e.g. `US <- LoadUS()`) , or to load all available datasets as:
+Functionality is provided to load in data for a particular country, for example:
+```R
+US <- LoadUS()
+
+Malaysia <- LoadMalaysia()
+
+#Note that to load data for the Philippines the googledrive package is used, requiring users google credentials.
+#See more here: https://googledrive.tidyverse.org/reference/drive_auth.html
+#credentials can be set before running the function:
+
+googledrive::drive_auth(email = TRUE)
+Philippines <- LoadPhilippines()
+```
+or to load all available datasets as:
+
 ```R
 GLOBALMAP <- LoadCountries()
 GLOBALMAP <- tidy_Data(GLOBALMAP) #sets data older than 30 days, or with negative or zero differences in active cases to NA.
@@ -42,22 +56,22 @@ Additionally, with a provided assumed ascertainment bias (ratio between true inf
 
 ```R
 #assume an ascertainment bias of 4 infections per recorded case.
-GLOBALMAP$AB <- 4 
+US$AB <- 4 
 
 #show risk that one or more people are infectious in a group of 50 using leaflet
-EventMap_leaflet(GLOBALMAP,50)
+EventMap_leaflet(US,50)
 
 #show risk that one or more people are infectious in a group of 100 using tmap
-EventMap_tmap(GLOBALMAP,100)
+EventMap_tmap(US,100)
 
 #maps can be saved using tmap commands:
-MAP = EventMap_tmap(GLOBALMAP,100)
-tmap_save(MAP,"GlobalRiskMap.png")
+MAP = EventMap_tmap(US,100)
+tmap_save(MAP,"US_RiskMap.png")
 
 #we can also create a table of event risk by location (first dropping geometry) as:
-GLOBALDAT <- sf::st_drop_geometry(GLOBALMAP) %>%
+USDAT <- sf::st_drop_geometry(US) %>%
     dplyr::as_tibble()
-create_c19r_data(df_in = GLOBALDAT)
+create_c19r_data(df_in = US)
 ```
 
 

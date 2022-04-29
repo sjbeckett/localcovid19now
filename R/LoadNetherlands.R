@@ -41,7 +41,7 @@ LoadNetherlands <- function() {
   geomNetherlands = sf::st_transform(geomNetherlands, crs = 4326)
   geomNetherlands$micro_code = geomNetherlands$statcode
   #also need to combine Weesp with Amsterdam (March 2022)
-  HMM<- st_union(geomNetherlands[c(which(geomNetherlands$statnaam=="Weesp"),which(geomNetherlands$statnaam=="Amsterdam")),])%>% st_cast("MULTIPOLYGON")
+  HMM<- sf::st_union(geomNetherlands[c(which(geomNetherlands$statnaam=="Weesp"),which(geomNetherlands$statnaam=="Amsterdam")),])%>% sf::st_cast("MULTIPOLYGON")
   geomNetherlands$geometry[which(geomNetherlands$statnaam=="Amsterdam")] = HMM
   
   #population: https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned/table?dl=5A35F
@@ -61,7 +61,6 @@ LoadNetherlands <- function() {
     vec <- getDataND(municipalities[ii],NLdata)
     netherlandsTable <- rbind(netherlandsTable, vec)
   }
-
 
   # Note that geomNetherlands$Bevolkingsaantal is population size.
 

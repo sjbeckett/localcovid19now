@@ -6,7 +6,15 @@
 \alias{subregionalcovid19-package}
 \title{subregionalcovid19: Subnational COVID-19 Active Cases. Global processing and mapping infectious cases of COVID-19 at subnational scales}
 \description{
-A package to extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries. Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections; or as the risk (%) that one or more individuals in a group of a particular size are infectious.
+Extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries. Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections; or as the risk (%) that one or more individuals in a group of a particular size are infectious.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/sjbeckett/subregionalcovid19/}
+  \item Report bugs at \url{https://github.com/sjbeckett/subregionalcovid19/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Stephen J. Beckett \email{stephen.beckett@biology.gatech.edu} (\href{https://orcid.org/0000-0002-4410-2960}{ORCID})

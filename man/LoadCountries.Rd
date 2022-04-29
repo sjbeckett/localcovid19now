@@ -4,10 +4,14 @@
 \alias{LoadCountries}
 \title{LoadCountries}
 \usage{
-LoadCountries(countries = NULL)
+LoadCountries(countries = NULL, filepath = NULL, interactiveMode = TRUE)
 }
 \arguments{
 \item{countries}{List of countries to collect data for. Use NULL to attempt to download all available datasets.}
+
+\item{filepath}{Optionally, provide a filepath to save error file to.}
+
+\item{interactiveMode}{Set whether the session is being run interactively. If not and no googledrive oauth token is found, avoid data requiring googledrive auth token.}
 }
 \value{
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).

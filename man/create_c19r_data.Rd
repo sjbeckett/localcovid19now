@@ -6,7 +6,7 @@
 \usage{
 create_c19r_data(
   df_in,
-  risk_output = sprintf("world_risk_regions/world_risk_regions_\%s.csv",
+  risk_output = sprintf("world_risk_regions_\%s.csv",
     stringr::str_replace_all(lubridate::today(), "-", "")),
   output_prefix = ".",
   event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),

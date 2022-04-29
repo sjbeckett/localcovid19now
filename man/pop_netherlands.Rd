@@ -5,7 +5,7 @@
 \alias{pop_netherlands}
 \title{pop_netherlands}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 355 rows and 2 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 726 rows and 3 columns.
 }
 \usage{
 pop_netherlands
