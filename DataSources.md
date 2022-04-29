@@ -145,6 +145,11 @@ Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data
 
 Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases
 
+### Pakistan
+
+Data obtained from COVID-19 Data Hub https://covid19datahub.io
+and sourced from Johns Hopkins Center for Systems Science and Engineering Unified Dataset: https://github.com/CSSEGISandData/COVID-19_Unified-Dataset
+
 ### Peru
 
 Data obtained from COVID-19 Data Hub https://covid19datahub.io
