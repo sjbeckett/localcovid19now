@@ -18,10 +18,13 @@ Authors@R: c(
 	  person(given = "Joshua S.", family = "Weitz", email = "jsweitz@gatech.edu", role = "aut",
 		   comment = c(ORCID = "0000-0002-3433-8312 "))
   )
-Description: A package to extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries. Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections; or as the risk (%) that one or more individuals in a group of a particular size are infectious.
+Description: Extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries.
+    Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections;
+    or as the risk (%) that one or more individuals in a group of a particular size are infectious.
 License: MIT + file LICENSE
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+	sf
 Imports: 
     dplyr,
     jsonlite,
@@ -30,7 +33,6 @@ Imports:
     purrr,
     readxl,
     rgdal,
-    sf,
     stringr,
     tidyr,
     rlang,
@@ -55,3 +57,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 LazyDataCompression:xz
+URL: https://github.com/sjbeckett/subregionalcovid19/
+BugReports: https://github.com/sjbeckett/subregionalcovid19/issues
