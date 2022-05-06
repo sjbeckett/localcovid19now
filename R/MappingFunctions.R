@@ -107,7 +107,7 @@ EventMap_leaflet <- function(DATA, G, boundaryweights = 0.05) { # DATA - map dat
 #'
 #' @family mapplots
 #' @export
-PerCapitaMap_leaflet <- function(DATA, people, boundaryweights = 0.05) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights
+PerCapitaMap_leaflet <- function(DATA, people=100000, boundaryweights = 0.05) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `PerCapitaMap_leaflet()`")
 
   DATA$percapcases <- DATA$pInf * people
@@ -206,7 +206,7 @@ EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+pro
 #'
 #' @family mapplots
 #' @export
-PerCapitaMap_tmap <- function(DATA, people, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
+PerCapitaMap_tmap <- function(DATA, people=100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
   rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
   World <- NULL
