@@ -54,6 +54,7 @@ create_c19r_data <- function(df_in,
 
   pInf <- Nr <- geoid <- risk <- NULL
   df_in <- data.frame(df_in)
+  df_in$geometry <- NULL
 
   risk_data <- list()
 
