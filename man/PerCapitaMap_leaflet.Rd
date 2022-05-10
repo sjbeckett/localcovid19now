@@ -4,7 +4,7 @@
 \alias{PerCapitaMap_leaflet}
 \title{PerCapitaMap_leaflet}
 \usage{
-PerCapitaMap_leaflet(DATA, people, boundaryweights = 0.05)
+PerCapitaMap_leaflet(DATA, people = 1e+05, boundaryweights = 0.05)
 }
 \arguments{
 \item{DATA}{Data containing prevalence information to map.}

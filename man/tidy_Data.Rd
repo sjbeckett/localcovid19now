@@ -4,7 +4,14 @@
 \alias{tidy_Data}
 \title{tidy_Data}
 \usage{
-tidy_Data(DATA)
+tidy_Data(
+  DATA,
+  DaysOld = 30,
+  minimumpercapitaactivecases = 0,
+  RiskEval = NULL,
+  dropNACountry = FALSE,
+  dropNAall = FALSE
+)
 }
 \arguments{
 \item{DATA}{Data created using a LoadCountry call.}

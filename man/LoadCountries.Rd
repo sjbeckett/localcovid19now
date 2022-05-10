@@ -4,7 +4,11 @@
 \alias{LoadCountries}
 \title{LoadCountries}
 \usage{
-LoadCountries(countries = NULL, filepath = NULL, interactiveMode = TRUE)
+LoadCountries(
+  countries = NULL,
+  filepath = NULL,
+  interactiveMode = interactive()
+)
 }
 \arguments{
 \item{countries}{List of countries to collect data for. Use NULL to attempt to download all available datasets.}

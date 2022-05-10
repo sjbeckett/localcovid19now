@@ -6,7 +6,7 @@
 \usage{
 PerCapitaMap_tmap(
   DATA,
-  people,
+  people = 1e+05,
   boundaryweights = 0.05,
   projectionCRS = "+proj=eqearth",
   maptitle = NA
