@@ -78,7 +78,7 @@ For countries not listed separately, we use data aggregated from local health re
 
 ### France
 
-Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/  
+Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/  // https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/
 Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
 
 ### Germany
@@ -136,6 +136,10 @@ COVID-19 Data Repository by the Institute of Environmental Science and Research:
 Institute for Environmental Science and Research, New Zealand COVID19 Dashboard. https://nzcoviddashboard.esr.cri.nz/ (2020).
 
 Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
+
+### Nigeria
+
+COVID-19 data collated by Humanitarian Emergency Response Africa https://data.humdata.org/dataset/nigeria_covid19_subnational which is sourced from data collected by Nigeria Centre for Disease Control and National Primary Health Care Development Agency.
 
 ### Norway
 

@@ -21,7 +21,7 @@ LoadSaudiArabia <- function() {
   Casesdataset <- sf::st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json")
   # note need to convert dates from UNIX timestamp
 
-  # 13 regions, 146 governates. Let's work with regions.
+  # 13 regions, 146 governates.
 
   Regions <- unique(Casesdataset$RegionName_EN)
   DateReport <- c()
