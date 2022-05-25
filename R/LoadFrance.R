@@ -21,13 +21,28 @@ LoadFrance <- function() {
   utils::data("pop_france", envir = environment())
 
   Code <- Department <- Population <- dep <- jour <- P <- cl_age90 <- cases <- NULL
-
+  
   # data <- read.csv('https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675',sep = ';', stringsAsFactors = FALSE)
-  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675") %>%
-    dplyr::filter(cl_age90 == 0) %>%
-    dplyr::select(code = dep, date = jour, cases = P) %>%
-    dplyr::mutate(date = as.Date(date)) %>%
-    dplyr::filter(!is.na(cases))
+  
+  
+  #sp-dep-day-2022-05-25-19h01.csv ( I think this is daily data), from here 
+  # https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/#resources)
+  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc") %>% 
+      dplyr::filter(cl_age90 == 0) %>%
+      dplyr::select(code = dep, date = jour, cases = P) %>%
+      dplyr::mutate(date = as.Date(date)) %>%
+      dplyr::filter(!is.na(cases))
+  
+  # replace ',' with . and convert to numeric
+  data$cases<-as.numeric(gsub(",", ".",data$cases))
+  
+  # old link
+  #data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675") %>%
+    #dplyr::filter(cl_age90 == 0) %>%
+    #dplyr::select(code = dep, date = jour, cases = P) %>%
+    #dplyr::mutate(date = as.Date(date),
+                  #cases = gsub(",", ".")) %>%
+    #dplyr::filter(!is.na(cases))
   # geom <<- st_read('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson')
   # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
   pop_france <- pop_france %>%
