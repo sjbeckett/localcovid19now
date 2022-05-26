@@ -24,7 +24,7 @@ LoadFrance <- function() {
 
   #sp-dep-day-2022-05-25-19h01.csv (this is daily data), from here: 
   # https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/#resources 
-  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc") %>% 
+  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc",col_types=c("cDccccccc") %>% 
     dplyr::filter(cl_age90 == 0) %>%
     dplyr::select(code = dep, date = jour, cases = P, Population = pop) %>%
     dplyr::mutate(date = as.Date(date)) %>%
@@ -32,6 +32,7 @@ LoadFrance <- function() {
 	
 	  # replace ',' with . and convert to numeric
   data$cases<-as.numeric(gsub(",", ".",data$cases))
+  data$Population<-as.numeric(gsub(",", ".",data$Population))
 	
   # geom <<- st_read('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson')
   # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
