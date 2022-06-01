@@ -221,9 +221,6 @@
 #' pop_denmark
 "pop_denmark"
 
-#' pop_france
-"pop_france"
-
 #' pop_germany
 "pop_germany"
 

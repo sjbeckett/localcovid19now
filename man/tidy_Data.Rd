@@ -4,16 +4,33 @@
 \alias{tidy_Data}
 \title{tidy_Data}
 \usage{
-tidy_Data(DATA)
+tidy_Data(
+  DATA,
+  DaysOld = 30,
+  minimumpercapitaactivecases = 0,
+  RiskEval = NULL,
+  dropNACountry = FALSE,
+  dropNAall = FALSE
+)
 }
 \arguments{
 \item{DATA}{Data created using a LoadCountry call.}
+
+\item{DaysOld}{Set any pInf data more than this days old to NA.}
+
+\item{minimumpercapitaactivecases}{Set any pInf data less than this to NA.}
+
+\item{RiskEval}{Set pInf to NA when risk is below RiskEval$minimumRisk (\%) using RiskEval$ascertainmentbias and a maximum group size, RiskEval$maximumN (Note: this setting overwrites minimumpercapitaactivecases).}
+
+\item{dropNACountry}{If TRUE, remove rows for countries whose pInf estimates all return NA.}
+
+\item{dropNAall}{If TRUE, remove rows for any region whose pInf estimates all return NA}
 }
 \value{
-Returns input simple feature with NA values for pInf when reports are over 30 days old or suggest that there is no, or negative, change in cumulative cases over the most recent 14 day period.
+Returns input simple feature with NA values for pInf according to input options.
 }
 \description{
-For an object read in with a LoadCountry function, sets the per capita active cases (pInf) to NA when reports are over 30 days old, or if no, or negative, change in cumulative cases over the most recent 14 day period.
+For an object read in with a LoadCountry function, sets the per capita active cases (pInf) to NA or removes them from the dataset based on input conditions. Can be used to remove data that is not recent, or data that produces low or negative estimates of per capita cases, or risk. Can also be used to remove data that is NA by country or by region.
 }
 \examples{
 \dontrun{
