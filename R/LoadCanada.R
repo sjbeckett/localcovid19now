@@ -22,99 +22,62 @@ LoadCanada <- function() {
     utils::data("geomCanada", "pop_canada", envir = environment())
     geomCanada <- sf::st_as_sf(geomCanada)
     
+    geomCan <- sf::st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/health_regions.geojson")
+    sf::st_crs(geomCan) = 3347 # CRS for Canada:  Statistics Canada Lambert
+    geomCanada = sf::st_transform(geomCan, crs = 4326)
+    geomCanada$HR_UID = as.numeric(geomCanada$hruid)
+    
     # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada
     # Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
     
+    # Berry, I., O’Neill, M., Sturrock, S. L., Wright, J. E., Acharya, K., Brankston, G., Harish, V., Kornas, K., Maani, N., Naganathan, T., Obress, L., Rossi, T., Simmons, A. E., Van Camp, M., Xie, X., Tuite, A. R., Greer, A. L., Fisman, D. N., & Soucy, J.-P. R. (2021). A sub-national real-time epidemiological and vaccination database for the COVID-19 pandemic in Canada. Scientific Data, 8(1). doi: https://doi.org/10.1038/s41597-021-00955-2
     
     #CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr/cases_timeseries_hr.csv")
     CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/data/hr/cases_hr.csv")   
-    #pop_canada<- read.csv("https://raw.githubusercontent.com/ishaberry/Covid19Canada/master/other/hr_map.csv",encoding="UTF-8")#contains pop and health region ID codes
+    pop_canada<- vroom::vroom("https://github.com/ccodwg/CovidTimelineCanada/raw/b9cfabfeaf256ca687564ec30d121b438e2f5d2b/geo/health_regions.csv")#contains pop and health region ID codes
     
     # shrink this data file
     DATES <- as.Date(CANADADATA$date, format = "%d-%m-%Y")
-    DatIND <- which(DATES < "2021-10-01")
+    DatIND <- which(DATES < max(DATES)-100)
     CANDATASMALLER <- CANADADATA[-DatIND, ]
     
     # Assemble the data required to calculate risk scores and match health region ID's
     CANADARISK <- c()
-    count <- 1
-    CPro <- unique(pop_canada$province_short) # all the provinces (two letter codes)
-    CPro <- unique(CANDATASMALLER$region)
-    for (aa in 1:length(CPro)) { # loop within a province
-        # cat("aa:",aa,"\n")
-        subsetCANL <- pop_canada[pop_canada$province_short == CPro[aa], ] # all health regions 
-        subsetCAND <- CANDATASMALLER[CANDATASMALLER$region == CPro[aa], ] # all health region-dates in data
-        CHR <- unique(pop_canada$HR_UID[pop_canada$province_short == CPro[aa]]) # unique health region ids
-        # get the name of the province
-        this_province <- pop_canada$province[pop_canada$province_short == CPro[aa]][1]
-        for (bb in 1:length(CHR)) { # loop within a health region
-            # cat("bb:",bb,"\n")
-            # get the name of the health region 
-            this_health_region <- pop_canada$health_region[pop_canada$HR_UID == CHR[bb]][1]
-            if(this_health_region != 'Not Reported'){ # ignore all cases that are in not reported health regions within province
-                subset2CAND <- subsetCAND[subsetCAND$sub_region_1 == CHR[bb], ] #
-                subset2CANL <- subsetCANL[subsetCANL$HR_UID == CHR[bb], ]
-                CANDATES <- as.Date(subset2CAND$date, format = "%Y-%m-%d")
-                
-                MD <- max(CANDATES)
-                MC <- subset2CAND$value[which(CANDATES == MD)]
-                LD <- MD - 14
-                LC <- subset2CAND$value[which(CANDATES == LD)]
-                
-                CANADARISK$province[count] <- this_province
-                CANADARISK$health_region[count] <- this_health_region
-                CANADARISK$HR_UID[count] <- as.character(subset2CANL$HR_UID)
-                CANADARISK$pop[count] <- subset2CANL$pop
-                CANADARISK$province_full[count] <- subset2CANL$province_full
-                CANADARISK$DateReport[count] <- as.character(MD)
-                CANADARISK$CaseDiff[count] <- (MC - LC) / 14 * 10
-                CANADARISK$pInf[count] <- CANADARISK$CaseDiff[count] / CANADARISK$pop[count]
-                count <- count + 1
-            }
-        }
+    C_hr <- unique(CANDATASMALLER$sub_region_1) # list of unique health regions
+    C_hr <- C_hr[-which(C_hr == 9999)] # remove entries not assigned a health region
+    
+    
+    for (aa in 1:length(C_hr)) { # loop over health regions
+        subsetdata<- CANDATASMALLER[which(CANDATASMALLER$sub_region_1==C_hr[aa]),]
+        MD <- max(subsetdata$date)
+        LD = MD - 14
+        MC = subsetdata$value[which(subsetdata$date==MD)]
+        LC = subsetdata$value[which(subsetdata$date==LD)]
+        
+        CANADARISK$DateReport[aa] = as.character(MD)
+        CANADARISK$HR_UID[aa] = C_hr[aa]
+        CANADARISK$CaseDiff[aa] = (MC - LC) / 14 * 10   
     }
     
-    CANADARISK <- as.data.frame(CANADARISK)
-    
-    # geometry
-    
-    # geomCAN= st_read("OpenContent_CoVID19Boundary_2020/OpenContent_COVID19Boundary_2020/data/covidHR.shp")
-    # geomCAN = st_transform(geomCAN, "+proj=longlat +datum=WGS84")
-    # st_write(geomCAN,"countries/data/geom/CanadaRegionalHealthBoundaries.geojson")
-    # geomCAN = st_read("countries/data/geom/CanadaRegionalHealthBoundaries.geojson")
-    # Edit region codes for SK
-    # geomCAN$HR_UID[95:96] = c("475","474")
-    # Merge polygons in SK
-    # Merge Central West and East
-    # HMM<- st_union(geomCAN[c(87,88),])%>% st_cast("MULTIPOLYGON")
-    # geomCAN$geometry[87] = HMM
-    # geomCAN$HR_UID[87] = "473"
-    # geomCAN$ENGNAME[87] = "Central"
-    # Merge Far North Central, West and East
-    # HMM<- st_union(geomCAN[c(89,90,91),])%>% st_cast("MULTIPOLYGON")
-    # geomCAN$geometry[89] = HMM
-    # geomCAN$HR_UID[89] = "471"
-    # geomCAN$ENGNAME[89] = "Far North"
-    # Merge North Central, West and East
-    # HMM<- st_union(geomCAN[c(92,93,94),])%>% st_cast("MULTIPOLYGON")
-    # geomCAN$geometry[92] = HMM
-    # geomCAN$HR_UID[92] = "472"
-    # geomCAN$ENGNAME[92] = "North"
-    # Merge South Central, West and East
-    # HMM<- st_union(geomCAN[c(97,98,99),])%>% st_cast("MULTIPOLYGON")
-    # geomCAN$geometry[97] = HMM
-    # geomCAN$HR_UID[97] = "476"
-    # geomCAN$ENGNAME[97] = "South"
-    # remove uneeded regions
-    # geomCAN=geomCAN[-c(88,90,91,93,94,98,99),]
-    # st_write(geomCAN,"countries/data/geom/geomCanada.geojson")
-    
+    CANDT = data.frame(CANADARISK)  
     
     # integrate datasets
-    HAM <- dplyr::inner_join(geomCanada, CANADARISK, by = c("micro_code" = "HR_UID"))
-    HAM$RegionName <- paste(HAM$health_region, HAM$province, HAM$country_name, sep = ", ")
-    HAM$Country <- HAM$country_name
+    CanJoin = dplyr::inner_join(CANDT,pop_canada, by = c("HR_UID" = "hruid"))
+    CanMap <- dplyr::inner_join(geomCanada, CanJoin, by = c("HR_UID" = "HR_UID"))
+   
+    Regions = c()
+    Regions$abbrev = c("AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT")
+    Regions$longprovince = c("Alberta","British Colombia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunuvut","Ontario","Prince Edward Island","Québec","Saskatchewan","Yukon")
+    Regions  = as.data.frame(Regions)
     
-    CANADA_DATA <- subset(HAM, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
+    CanMap <- dplyr::inner_join(CanMap,Regions,by = c("region.x" = "abbrev"))
+    
+    CanMap$pInf = CanMap$CaseDiff/CanMap$pop
+    CanMap$Country = "Canada"
+    CanMap$RegionName = paste(CanMap$name_ccodwg,CanMap$longprovince,"Canada",sep=", ")
+    CanMap$geoid = paste0("CAN",CanMap$HR_UID)
+    
+    CANADA_DATA <- subset(CanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
+
     return(CANADA_DATA)
 }
