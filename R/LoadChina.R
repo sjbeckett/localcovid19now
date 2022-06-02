@@ -65,7 +65,7 @@ LoadChina <- function() {
   ChinaMap$RegionName <- paste0(ChinaMap$micro_name, ", China")
   ChinaMap$Country <- ChinaMap$country_name
   ChinaMap$DateReport <- as.character(date)
-  ChinaMap$pInf <- ChinaMap$Difference / ChinaMap$Population
+  ChinaMap$pInf <- ChinaMap$Difference / ChinaMap$Population_2020
 
   CHINA_DATA <- subset(ChinaMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
   return(CHINA_DATA)
