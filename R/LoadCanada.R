@@ -67,7 +67,7 @@ LoadCanada <- function() {
    
     Regions = c()
     Regions$abbrev = c("AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT")
-    Regions$longprovince = c("Alberta","British Colombia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunuvut","Ontario","Prince Edward Island","Québec","Saskatchewan","Yukon")
+    Regions$longprovince = c("Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunavut","Ontario","Prince Edward Island","Québec","Saskatchewan","Yukon")
     Regions  = as.data.frame(Regions)
     
     CanMap <- dplyr::inner_join(CanMap,Regions,by = c("region.x" = "abbrev"))
