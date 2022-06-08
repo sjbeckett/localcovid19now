@@ -29,7 +29,7 @@ remSurplus <- function(
         TRUE ~ 0
       )
     )%>%
-    dplyr::filter(isDup == 0)%>%
+    dplyr::filter(isDup == 0, !is.na(iso3))%>%
     dplyr::select(-isDup)
   
   return(input_file)

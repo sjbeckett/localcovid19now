@@ -9,7 +9,7 @@ updateGlobal <- function(){
   
 
 # Requires rmapshaper for the ms_simplify function - simplifies polygons.
-  rlang::check_installed(c("rmapshapper"), reason = "to use `updateGlobal()`")
+  rlang::check_installed(c("rmapshaper"), reason = "to use `updateGlobal()`")
 
 # Open the most recent WorldPreSimplified geojson. Manually modify if this is not the most up-to-date file.
 ## Because zipfile named with seconds post epoch, `max(dir("updateGeometry/WorldPreSimplified"))` gives most recent version. Using ctime property potentially not reliable bc file creation with git.
@@ -42,14 +42,16 @@ if (!is.null(newWorld)) { # If no new geometries are added, newWorld will be NUL
   geomWorld <- remSurplus(geomWorld, c("geomEurope","geomSmallCountries"))
 
   # Write a new geomWorld_presimp that includes the updated geometry
-  sf::st_write(geomWorld, "geomWorld_presimp.geojson")
+  sf::st_write(geomWorld, "geomWorld_presimp.geojson", delete_dsn=T)
 
-  nowtime <- round(difftime(lubridate::now(tzone = "UTC"), hms::ymd_hms("1970-01-01 00:00:00"), tz = "UTC", units = "mins"))
+  nowtime <- round(difftime(lubridate::now(tzone = "UTC"), lubridate::ymd_hms("1970-01-01 00:00:00"), tz = "UTC", units = "mins"))
   # the presimplified world geometry is too big for github, so put it in a zip file and remove the geojson
   zip(zipfile = paste0("tools/WorldPreSimplified/WorldPreSimp", nowtime, ".zip"), "geomWorld_presimp.geojson")
   file.remove("geomWorld_presimp.geojson")
   rm(newWorld)
-}
+}else{
+      updatedFiles <- NULL
+    }
 
 # Simplify the world
 geomGlobal <- rmapshaper::ms_simplify(geomWorld, keep = 0.05, explode = T, keep_shapes = TRUE) %>%
@@ -67,12 +69,14 @@ geomGlobal <- rmapshaper::ms_simplify(geomWorld, keep = 0.05, explode = T, keep_
     filename = dplyr::first(filename)
   ) %>%
   dplyr::ungroup() %>%
-  sf::st_wrap_dateline() # removes horizontal bar when Fiji crosses the dateline
+  sf::st_wrap_dateline() %>% # removes horizontal bar when Fiji crosses the dateline
+  sf::st_collection_extract() %>%
+  sf::st_cast("MULTIPOLYGON")
 
 # ## Add mapshapper clean code here 
 
 # Saving entire clean geometry, not sure which method we want to use. It currently isn't called anywhere in the package, but it could be later if we wanted to only join to geometry once.
-sf::st_write(geomGlobal, "tools/geomGlobal_simplified.geojson", delete_dsn = T)
+# sf::st_write(geomGlobal, "tools/geomGlobal_simplified.geojson", delete_dsn = T)
 usethis::use_data(geomGlobal, overwrite = T)
 
 # group geomGlobal by filename
@@ -96,19 +100,36 @@ for (y in seq_along(globalList)) {
     
     # existing <- sf::st_read(paste0("countries/data/geom/", names(globalList[y]), ".geojson"), quiet = T)
     # Isolate the new geometry
-    newgeom <- globalList[y][[1]]
+    newgeom <- globalList[[y]]
 
     # If all geometry of the new and existing files AND all the dataframe values of new and existing are the same, do not overwrite the existing file
-    if (!all(purrr::map_lgl(
+    if(nrow(newgeom)!=nrow(existing)){
+      # If they aren't the same, overwrite the existing file
+      cat("overwrite existing geometry: ", names(globalList[y]), "\n")
+      # assign(x = names(globalList[y]), value = globalList[y][[1]])
+      # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+      # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+      
+      purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+        assign(name, obj)
+        do.call("use_data", list(as.name(name), overwrite = TRUE))
+      })
+    }else if (!all(purrr::map_lgl(
       1:nrow(newgeom),
       ~ sf::st_geometry(existing)[.x] == sf::st_geometry(newgeom)[.x]
     ), na.rm = T) & !all(sf::st_drop_geometry(existing) == sf::st_drop_geometry(newgeom), na.rm = T)
     ) {
       # If they aren't the same, overwrite the existing file
       cat("overwrite existing geometry: ", names(globalList[y]), "\n")
-      assign(x = names(globalList[y]), value = globalList[y][[1]])
-      usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+      # assign(x = names(globalList[y]), value = globalList[y][[1]])
+      # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
       # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+      
+      purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+        assign(name, obj)
+        do.call("use_data", list(as.name(name), overwrite = TRUE))
+      })
+      
       rm(list = names(globalList[y]))
     } else {
       cat("geometries (", y, ") are the same\n")
@@ -116,9 +137,13 @@ for (y in seq_along(globalList)) {
   } else {
     # If the geometry is part of the newly updated geometries (updatedFiles), over(write) without checking as changes have been made and it may not be the same size as the existing geometry, which would throw an error in the similarity check
     cat("write new geometry: ", names(globalList[y]), "\n")
-    assign(x = names(globalList[y]), value = globalList[y][[1]])
-    usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+    # assign(x = names(globalList[y]), value = globalList[y][[1]])
+    # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
     # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+    purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+      assign(name, obj)
+      do.call("use_data", list(as.name(name), overwrite = TRUE))
+    })
     rm(list = names(globalList[y]))
   }
 }

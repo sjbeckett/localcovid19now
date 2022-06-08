@@ -6,6 +6,7 @@
 #' @export
 #'
 #' @examples
+#' moveFiles()
 moveFiles <- function(x) {
   file.copy(
     from = here::here("tools", "toProcess", x),
@@ -20,6 +21,7 @@ moveFiles <- function(x) {
 #' @export
 #'
 #' @examples
+#' addNewGeoms()
 addNewGeoms <- function() {
   # Fields will be as follows:
   ## geoid = ISO3m49_micro_macro
@@ -75,6 +77,7 @@ addNewGeoms <- function() {
 #' @export
 #'
 #' @examples
+#' resetNewGeoms()
 resetNewGeoms <- function() {
   file_list <- list.files(here::here("tools", "processed"))
 
