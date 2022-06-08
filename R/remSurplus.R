@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-#' exampledf <- data.frame("filename"=sample(letters, 10), "iso2"=sample(LETTERS, 10))
-#' remSurplus(exampledf)
+#' data("geomGlobal")
+#' remSurplus(geomGlobal)
 remSurplus <- function(
   input_file,
   collection_files = c("geomEurope","geomSmallCountries")

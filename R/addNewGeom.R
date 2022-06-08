@@ -1,12 +1,13 @@
 #' Move Processed Files
 #'
-#' @param x 
+#' @param x File name to be moved
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#' moveFiles()
+#' file.create(here::here("tools","toProcess","testFile.R"))
+#' moveFiles("testFile.R")
 moveFiles <- function(x) {
   file.copy(
     from = here::here("tools", "toProcess", x),

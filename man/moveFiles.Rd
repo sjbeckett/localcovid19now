@@ -7,7 +7,7 @@
 moveFiles(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{File name to be moved}
 }
 \value{
 
@@ -16,5 +16,6 @@ moveFiles(x)
 Move Processed Files
 }
 \examples{
-moveFiles()
+file.create(here::here("tools","toProcess","testFile.R"))
+moveFiles("testFile.R")
 }

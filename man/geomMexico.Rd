@@ -5,7 +5,7 @@
 \alias{geomMexico}
 \title{geomMexico}
 \format{
-An object of class \code{sf} (inherits from \code{data.frame}) with 2465 rows and 9 columns.
+An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 2465 rows and 9 columns.
 }
 \usage{
 geomMexico
