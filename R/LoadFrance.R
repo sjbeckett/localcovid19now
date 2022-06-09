@@ -3,7 +3,7 @@
 #' @description Reads in subnational data for France to calculate most recent estimate of per capita active COVID-19 cases.
 #'
 #' @note
-#' Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/}.
+#' Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/} // \url{https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/}.
 #' Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
@@ -15,23 +15,27 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadFrance <- function() {
-  # Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/
+  # Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/ // https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/
   # Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
   utils::data("geomFrance", envir = environment())
-  utils::data("pop_france", envir = environment())
+
 
   Code <- Department <- Population <- dep <- jour <- P <- cl_age90 <- cases <- NULL
 
-  # data <- read.csv('https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675',sep = ';', stringsAsFactors = FALSE)
-  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675") %>%
+  #sp-dep-day-2022-05-25-19h01.csv (this is daily data), from here: 
+  # https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/#resources 
+  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc", col_types=c("cDccccccc")) %>% 
     dplyr::filter(cl_age90 == 0) %>%
-    dplyr::select(code = dep, date = jour, cases = P) %>%
+    dplyr::select(code = dep, date = jour, cases = P, Population = pop) %>%
     dplyr::mutate(date = as.Date(date)) %>%
     dplyr::filter(!is.na(cases))
+	
+  # replace ',' with . and convert to numeric
+  data$cases<-as.numeric(gsub(",", ".",data$cases))
+  data$Population<-as.numeric(gsub(",", ".",data$Population))
+	
   # geom <<- st_read('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-avec-outre-mer.geojson')
   # does not contain Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
-  pop_france <- pop_france %>%
-    dplyr::select(code = Code, name = Department, pop = Population)
 
   depList <- unique(data$code) # get the list of all department codes
 
@@ -45,7 +49,8 @@ LoadFrance <- function() {
     latestDate <- department$date[length(department$date)]
     pastDate <- latestDate - 14
     difference <- (sum(department[1:which(department$date == latestDate), "cases"]) - sum(department[1:which(department$date == pastDate), "cases"])) / 14 * 10
-    vec <- data.frame(code = depList[code], date = latestDate, n = difference)
+	Population <- department$Population[1]
+    vec <- data.frame(code = depList[code], date = latestDate, n = difference, pop = Population)
     return(vec)
   }
 
@@ -55,7 +60,8 @@ LoadFrance <- function() {
     vec <- sortFunc(i)
     frenchTable <- rbind(frenchTable, vec)
   }
-  frenchdf <- dplyr::inner_join(frenchTable, pop_france, by = "code")
+
+  frenchdf <- frenchTable
   FranceMap <- dplyr::inner_join(geomFrance, frenchdf, by = c("micro_code" = "code"))
   FranceMap$RegionName <- paste(FranceMap$micro_name, FranceMap$country_name, sep = ", ")
   FranceMap$Country <- FranceMap$country_name

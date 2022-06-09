@@ -1,10 +1,15 @@
 #' tidy_Data
 #'
-#' @description For an object read in with a LoadCountry function, sets the per capita active cases (pInf) to NA when reports are over 30 days old, or if no, or negative, change in cumulative cases over the most recent 14 day period.
+#' @description For an object read in with a LoadCountry function, sets the per capita active cases (pInf) to NA or removes them from the dataset based on input conditions. Can be used to remove data that is not recent, or data that produces low or negative estimates of per capita cases, or risk. Can also be used to remove data that is NA by country or by region.
 #'
 #' @param DATA Data created using a LoadCountry call.
+#' @param DaysOld  Set any pInf data more than this days old to NA.
+#' @param minimumpercapitaactivecases Set any pInf data less than this to NA.
+#' @param RiskEval Set pInf to NA when risk is below RiskEval$minimumRisk (%) using RiskEval$ascertainmentbias and a maximum group size, RiskEval$maximumN (Note: this setting overwrites minimumpercapitaactivecases).
+#' @param dropNACountry If TRUE, remove rows for countries whose pInf estimates all return NA.
+#' @param dropNAall If TRUE, remove rows for any region whose pInf estimates all return NA
 #'
-#' @return Returns input simple feature with NA values for pInf when reports are over 30 days old or suggest that there is no, or negative, change in cumulative cases over the most recent 14 day period.
+#' @return Returns input simple feature with NA values for pInf according to input options.
 #'
 #' @examples
 #' \dontrun{
@@ -12,20 +17,6 @@
 #' Philippines <- tidy_Data(Philippines)
 #' }
 #' @export
-tidy_Data <- function(DATA){
-#DATA is a dataset created from a LoadX function.
-#Set any data older than a month to Not Available.
-#Set any data where case differences are 0 or negative to Not Available.
-
-DATA$pInf[which(as.Date(DATA$DateReport) < as.Date(Sys.Date()-30))] = NA
-DATA$pInf[which(DATA$pInf<=0)] = NA
-
-return(DATA)
-}
-
-
-
-
 tidy_Data <- function(DATA, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = FALSE, dropNAall = FALSE){
 #DATA is a dataset created from a LoadX function.
 #Set any data older than DaysOld to Not Available.

@@ -68,8 +68,8 @@ LoadGermany <- function() {
       Difference = difference
     )
 
-  ## pop_germany: https://www.citypop_germanyulation.de/en/germany/admin/
-  # pop_germany <- read.csv('C:/Users/Laptop88/Desktop/COVID-19/New COVID/subregionalcovid19/countries/data/germanypop_germany.csv')
+  ## pop_germany: https://www.citypopulation.de/en/germany/admin/
+  
 
   # SK Eisenach (16056) is reported with LK Wartburgkreis (16063) (according to RKI)
   pop_germany$Population[which(pop_germany$IdLandkreis == "16063")] <- pop_germany$Population[which(pop_germany$IdLandkreis == "16056")] + pop_germany$Population[which(pop_germany$IdLandkreis == "16063")]

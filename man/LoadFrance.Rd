@@ -13,7 +13,7 @@ A simple feature returning the date of most recent data (DateReport), a unique r
 Reads in subnational data for France to calculate most recent estimate of per capita active COVID-19 cases.
 }
 \note{
-Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/}.
+Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/} // \url{https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/}.
 Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
 }
 \examples{
