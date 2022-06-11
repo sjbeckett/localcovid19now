@@ -20,7 +20,7 @@ library(subregionalcovid19)
 
 Updating the geometry files for `subregionalcovid19` is important for when a country changes its borders, a better resolution file is available, a new country is being added to the package, and to correct existing errors.
 
-Currently, updating country geometries is only intended to be done in interactive mode. This tutorial assumes use of a "Project" in RStudio, while it may be doable outside this environment.
+Currently, updating country geometries is only intended to be done in interactive mode. This tutorial assumes use of a "Project" in RStudio, while it may be doable outside this environment. The process requires loading `devtools`.
 
 1. Open a Project in RStudio, preferably a git-enabled project connected to the subregionalcovid19 github repo or a fork.
 
@@ -38,7 +38,7 @@ Currently, updating country geometries is only intended to be done in interactiv
 
     d. Save the file as `tools/toProcess/process[CountryName].R` using lower camel case.
 
-3. Run `library(subregionalcovid19)`
+3. Run `library(subregionalcovid19); library(devtools)`.
 
 4. Run `updateGlobal()`. This function will add the new geometries to the existing ones and save all changed geometries to the `data` folder for use in `Load[Country]` functions.
 
