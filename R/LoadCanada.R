@@ -22,11 +22,7 @@ LoadCanada <- function() {
     utils::data("geomCanada", "pop_canada", envir = environment())
     geomCanada <- sf::st_as_sf(geomCanada)
     
-    geomCan <- sf::st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/health_regions.geojson")
-    sf::st_crs(geomCan) = 3347 # CRS for Canada:  Statistics Canada Lambert
-    geomCanada = sf::st_transform(geomCan, crs = 4326)
-    geomCanada$HR_UID = as.numeric(geomCanada$hruid)
-    
+ 
     # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada
     # Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
     
@@ -62,20 +58,24 @@ LoadCanada <- function() {
     CANDT = data.frame(CANADARISK)  
     
     # integrate datasets
-    CanJoin = dplyr::inner_join(CANDT,pop_canada, by = c("HR_UID" = "hruid"))
-    CanMap <- dplyr::inner_join(geomCanada, CanJoin, by = c("HR_UID" = "HR_UID"))
    
-    Regions = c()
-    Regions$abbrev = c("AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT")
-    Regions$longprovince = c("Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunavut","Ontario","Prince Edward Island","Qu\xe9bec","Saskatchewan","Yukon")
-    Regions  = as.data.frame(Regions)
+    CanJoin = dplyr::inner_join(CANDT,pop_canada, by = c("HR_UID" = "hruid"))
+    print(dim(CanJoin))
+    CanJoin$HR_UID <- as.character(CanJoin$HR_UID)
+    #geomCanada$micro_code <- as.character(geomCanada$micro_code)
+    CanMap <- dplyr::inner_join(geomCanada, CanJoin, by = c("micro_code" = "HR_UID"))
+   
+   # Regions = c()
+  #  Regions$abbrev = c("AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT")
+  #  Regions$longprovince = c("Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunavut","Ontario","Prince Edward Island","Qu\xe9bec","Saskatchewan","Yukon")
+  #  Regions  = as.data.frame(Regions)
     
-    CanMap <- dplyr::inner_join(CanMap,Regions,by = c("region.x" = "abbrev"))
+ #   CanMap <- dplyr::inner_join(CanMap,Regions,by = c("region.x" = "abbrev"))
     
     CanMap$pInf = CanMap$CaseDiff/CanMap$pop
     CanMap$Country = "Canada"
-    CanMap$RegionName = paste(CanMap$name_ccodwg,CanMap$longprovince,"Canada",sep=", ")
-    CanMap$geoid = paste0("CAN",CanMap$HR_UID)
+    CanMap$RegionName = paste(CanMap$name_ccodwg,CanMap$macro_name,"Canada",sep=", ")
+  #  CanMap$geoid = paste0("CAN",CanMap$HR_UID)
     
     CANADA_DATA <- subset(CanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
