@@ -19,7 +19,7 @@ snippet geomTemplate
     
   geomCountry <- geomCountry %>%
     dplyr::mutate(country_name = CountryName) %>%
-  `r paste("#", "If country_name doesn't match the format found in updateGeometry/UNSD_m49.xlsx's 'CountryorArea' column, use the following instead:")`()
+  `r paste("#", "If country_name doesn't match the format found in the package dataset m49's (or updateGeometry/UNSD_m49.xlsx's) 'CountryorArea' column, use the following instead:")`
   `r paste("#", '#mutate(match_name = "differentformatname")%>%')`
   `r paste("#", '#inner_join(m49, by=c("match_name" = "CountryorArea"))%>%')`
   dplyr::inner_join(m49, by = c("country_name" = "CountryorArea")) %>%
