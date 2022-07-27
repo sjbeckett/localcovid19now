@@ -48,8 +48,9 @@ LoadHaiti <- function() {
   Haitidf = data.frame(DateReport,Location = LOCS,CaseDiff)
 
   #geometry
-  geomHaiti <- sf::st_read("https://github.com/samateja/D3topoJson/raw/master/haiti.json")
-  geomHaiti <- sf::st_set_crs(geomHaiti,"EPSG:4326")
+  utils::data("geomHaiti", envir = environment())
+  geomHaiti <- sf::st_as_sf(geomHaiti)
+  
   #population
   #from 2015 Haiti census https://web.archive.org/web/20151106110552/http://www.ihsi.ht/pdf/projection/Estimat_PopTotal_18ans_Menag2015.pdf https://en.wikipedia.org/wiki/Departments_of_Haiti
   Pop = c()
@@ -59,10 +60,10 @@ LoadHaiti <- function() {
 
   #join
   Haitidf2 = dplyr::inner_join(Haitidf,Pop, by = c("Location" = "location"))
-  HaitiMap = dplyr::inner_join(geomHaiti,Haitidf2, by = c("name" = "Location"))
+  HaitiMap = dplyr::inner_join(geomHaiti,Haitidf2, by = c("micro_name" = "Location"))
 
-  HaitiMap$geoid = paste0("HT-",1:10)
-  HaitiMap$RegionName <- paste(HaitiMap$name, "Haiti", sep = ", ")
+  
+  HaitiMap$RegionName <- paste(HaitiMap$micro_name, "Haiti", sep = ", ")
   HaitiMap$Country <- "Haiti"
   HaitiMap$pInf <- HaitiMap$CaseDiff / HaitiMap$population
   HAITI_DATA <- subset(HaitiMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))

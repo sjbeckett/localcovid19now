@@ -60,22 +60,15 @@ LoadCanada <- function() {
     # integrate datasets
    
     CanJoin = dplyr::inner_join(CANDT,pop_canada, by = c("HR_UID" = "hruid"))
-    print(dim(CanJoin))
+
     CanJoin$HR_UID <- as.character(CanJoin$HR_UID)
-    #geomCanada$micro_code <- as.character(geomCanada$micro_code)
+
     CanMap <- dplyr::inner_join(geomCanada, CanJoin, by = c("micro_code" = "HR_UID"))
    
-   # Regions = c()
-  #  Regions$abbrev = c("AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT")
-  #  Regions$longprovince = c("Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Northwest Territories","Nunavut","Ontario","Prince Edward Island","Qu\xe9bec","Saskatchewan","Yukon")
-  #  Regions  = as.data.frame(Regions)
-    
- #   CanMap <- dplyr::inner_join(CanMap,Regions,by = c("region.x" = "abbrev"))
     
     CanMap$pInf = CanMap$CaseDiff/CanMap$pop
     CanMap$Country = "Canada"
     CanMap$RegionName = paste(CanMap$name_ccodwg,CanMap$macro_name,"Canada",sep=", ")
-  #  CanMap$geoid = paste0("CAN",CanMap$HR_UID)
     
     CANADA_DATA <- subset(CanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
