@@ -28,7 +28,7 @@ Currently, updating country geometries is only intended to be done in interactiv
 
     a. (Optional) Install the snippet.
     
-        Open `RSnippets.txt` and copy the contents. In RStudio, go to Tools > Global Options > Code > Edit Snippets. Paste the contents of `RSnippets.txt` to the bottom of the "edit snippets" page. Make sure all indents are done using "tab" (they will automatically be highlighted red if not).
+        Open `geomTemplate.snippets` and copy the contents. In RStudio, go to Tools > Global Options > Code > Edit Snippets. Paste the contents of `geomTemplate.snippets` to the bottom of the "edit snippets" page. Make sure all indents are done using "tab" (they will automatically be highlighted red if not).
 
     b. Open a new script and type `geomTemplate` and then "shift+tab" if it did not autocomplete. If you did not install the snippet, use a previous example from `tools/processed`.
 
