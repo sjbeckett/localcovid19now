@@ -1,0 +1,47 @@
+---
+title: "updating-geometry-files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{updating-geometry-files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(subregionalcovid19)
+```
+
+Updating the geometry files for `subregionalcovid19` is important for when a country changes its borders, a better resolution file is available, a new country is being added to the package, and to correct existing errors.
+
+Currently, updating country geometries is only intended to be done in interactive mode. This tutorial assumes use of a "Project" in RStudio, while it may be doable outside this environment. The process requires loading `devtools`.
+
+1. Open a Project in RStudio, preferably a git-enabled project connected to the subregionalcovid19 github repo or a fork.
+
+2. Write a "process script" for the countries you want to update/add to the package. This can be done through either manually writing a new script or using the included "snippet."
+
+    a. (Optional) Install the snippet.
+    
+        Open `geomTemplate.snippets` and copy the contents. In RStudio, go to Tools > Global Options > Code > Edit Snippets. Paste the contents of `geomTemplate.snippets` to the bottom of the "edit snippets" page. Make sure all indents are done using "tab" (they will automatically be highlighted red if not).
+
+    b. Open a new script and type `geomTemplate` and then "shift+tab" if it did not autocomplete. If you did not install the snippet, use a previous example from `tools/processed`.
+
+    c. Fill in the blanks. While you may run the code to make sure it works, you should not save any outputs.
+  
+        i. Use the `m49` data set from the package to check if the country names match in the reference data set.
+
+    d. Save the file as `tools/toProcess/process[CountryName].R` using lower camel case.
+
+3. Run `library(subregionalcovid19); library(devtools)`.
+
+    a. If you have not already installed the package, use the "install and restart" option in RStudio's "Build" menu.
+
+4. Run `updateGlobal()`. This function will add the new geometries to the existing ones and save all changed geometries to the `data` folder for use in `Load[Country]` functions.
+
+Make sure that the `Load[Country]` function for the new countries uses the correct column names in the newly-created geometry files. 

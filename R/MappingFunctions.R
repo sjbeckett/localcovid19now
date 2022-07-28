@@ -29,24 +29,24 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
+#' @param AB Case ascertainment bias to compute risk for.
 #' @param boundaryweights Weight assigned to the maps boundary edges.
 #'
 #' @return Outputs an interactive leaflet map displaying exposure risk for the input data.
 #'
-#' @note Requires an estimate of ascertainment bias stored as column AB in the DATA object, created through use of a LoadCountry function.
 #' @family mapplots
 #' @examples
 #' \dontrun{
 #' Austria <- LoadAustria()
 #' Austria$AB <- 4
-#' EventMap_leaflet(Austria, 50)
+#' EventMap_leaflet(Austria, 50, Austria$AB)
 #' }
 #' @export
-EventMap_leaflet <- function(DATA, G, boundaryweights = 0.05) { # DATA - map data, G - group size, boundaryweights - polygon edge weights
+EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights
 
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `EventMap_leaflet()`")
 
-  DATA$risk <- estRisk(DATA$pInf, DATA$AB, G)
+  DATA$risk <- estRisk(DATA$pInf, AB, G)
   MMap <- DATA
   MMap$riskLabels <- MMap$risk
   MMap <- MMap %>%
@@ -159,13 +159,13 @@ PerCapitaMap_leaflet <- function(DATA, people=100000, boundaryweights = 0.05) { 
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
+#' @param AB Case ascertainment bias to compute risk for.
 #' @param boundaryweights Weight assigned to the maps boundary edges.
 #' @param projectionCRS Type of geographic projection to use.
 #' @param maptitle Adds title to map.
 #'
 #' @return Outputs a tmap displaying exposure risk for the input data.
 #'
-#' @note Requires an estimate of ascertainment bias stored as column AB in the DATA object, created through use of a LoadCountry function.
 #' @family mapplots
 #' @export
 #' @examples
@@ -174,7 +174,7 @@ PerCapitaMap_leaflet <- function(DATA, people=100000, boundaryweights = 0.05) { 
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50)
 #' }
-EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
+EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
   rlang::check_installed("tmap", reason = "to use `EventMap_tmap()`")
   World <- NULL
@@ -182,7 +182,7 @@ EventMap_tmap <- function(DATA, G, boundaryweights = 0.05, projectionCRS = "+pro
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
 
-  DATA$risk <- estRisk(DATA$pInf, DATA$AB, G)
+  DATA$risk <- estRisk(DATA$pInf, AB, G)
   bins <- c(0, 5, 25, 50, 75, 95, 100)
   pal <- leaflet::colorBin("YlOrRd", domain = DATA$risk, bins = bins, na.color = "grey")
 

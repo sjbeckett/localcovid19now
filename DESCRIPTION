@@ -49,13 +49,16 @@ Suggests:
     rmapshaper,
     rvest,
     shiny,
-	  glue,
-	  htmltools,
-    tmap
+    glue,
+    htmltools,
+    tmap,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-LazyDataCompression:xz
+LazyDataCompression: xz
 URL: https://github.com/sjbeckett/subregionalcovid19/
 BugReports: https://github.com/sjbeckett/subregionalcovid19/issues
+VignetteBuilder: knitr
