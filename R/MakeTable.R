@@ -61,11 +61,14 @@ create_c19r_data <- function(df_in,
   
   #bind the ascertainment bias list
   df_in <- cbind(df_in,asc_bias_list)
-  asc_bias_list <- df_in[,(ncol(df_in)-2):ncol(df_in)]
+  CN <- colnames(asc_bias_list)
+  asc_bias_list <- as.matrix(df_in[,(ncol(df_in)-ncol(as.matrix(asc_bias_list))+1):ncol(df_in)])
+  colnames(asc_bias_list)= CN
   
   for(aa in 1:ncol(asc_bias_list)){
+    AB = asc_bias_list[,aa]
     data_Nr <-  df_in %>%
-      dplyr::mutate(Nr = pInf * asc_bias_list[,aa])
+      dplyr::mutate(Nr = pInf * AB)
 
     for (size in event_size) {
       cn <- glue::glue("{colnames(asc_bias_list)[aa]}_{size}")
