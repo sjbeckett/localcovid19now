@@ -113,9 +113,8 @@ PerCapitaMap_leaflet <- function(DATA, people=100000, boundaryweights = 0.05) { 
   DATA$percapcases <- DATA$pInf * people
   MMap <- DATA
 
-  bins <- c(0, 5, 25, 50, 75, 95, 100)
-  legendlabs <- c("< 5", " 1-25", "25-50", "50-75", "75-99", "> 95")
-  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey")
+  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
+  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey", bins=bins)
   JAM <- leaflet::leafletOptions(worldCopyJump = TRUE)
 
   labels <- sprintf(
@@ -174,7 +173,7 @@ PerCapitaMap_leaflet <- function(DATA, people=100000, boundaryweights = 0.05) { 
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50)
 #' }
-EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
+EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
   rlang::check_installed("tmap", reason = "to use `EventMap_tmap()`")
   World <- NULL
@@ -206,18 +205,19 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 #'
 #' @family mapplots
 #' @export
-PerCapitaMap_tmap <- function(DATA, people=100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
+PerCapitaMap_tmap <- function(DATA, people=100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
   rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
   World <- NULL
   utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
-
+  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
+  
   DATA$percapcases <- DATA$pInf * people
 
   tmap::tm_shape(DATA) +
-    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights) +
+    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights,  breaks = bins) +
     tmap::tm_shape(World) +
     tmap::tm_layout(legend.outside = TRUE, legend.outside.position = "right", title = maptitle) +
     tmap::tm_borders("grey", lwd = .5)
