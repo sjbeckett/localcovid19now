@@ -22,7 +22,7 @@ calc_risk <- function(p_I, g) {
 #' @param risk_output Name of output file.
 #' @param output_prefix Folder location to store table file.
 #' @param event_size Event size(s) to calculate risk for.
-#' @param asc_bias_list Ascertainment bias(es) to calculate risk for.
+#' @param asc_bias_list Ascertainment bias(es) to calculate risk for, must be named.
 #'
 #' @return Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 #' @export
