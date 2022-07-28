@@ -48,7 +48,7 @@ Once loaded, the per capita active case data can be mapped with built in helper 
 #show per capita active cases per 100,000 people in leaflet
 PerCapitaMap_leaflet(GLOBALMAP,100000)
 
-#show per capita active cases per 100,000 people in leaflet
+#show per capita active cases per 100,000 people in tmap
 PerCapitaMap_tmap(GLOBALMAP,100000)
 ```
 
@@ -59,19 +59,17 @@ Additionally, with a provided assumed ascertainment bias (ratio between true inf
 US$AB <- 4 
 
 #show risk that one or more people are infectious in a group of 50 using leaflet
-EventMap_leaflet(US,50)
+EventMap_leaflet(US,50,US$AB)
 
 #show risk that one or more people are infectious in a group of 100 using tmap
-EventMap_tmap(US,100)
+EventMap_tmap(US,100,US$AB)
 
 #maps can be saved using tmap commands:
-MAP = EventMap_tmap(US,100)
+MAP = EventMap_tmap(US,100,US$AB)
 tmap_save(MAP,"US_RiskMap.png")
 
-#we can also create a table of event risk by location (first dropping geometry) as:
-USDAT <- sf::st_drop_geometry(US) %>%
-    dplyr::as_tibble()
-create_c19r_data(df_in = USDAT)
+#we can also create a table of event risk by location as:
+create_c19r_data(df_in = US, asc_bias_list = cbind(AB4 = US$AB))
 ```
 
 
