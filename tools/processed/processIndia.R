@@ -1,6 +1,21 @@
 # Template
 
-geomIndia <- st_read("countries/data/orig_geom/geomIndia.geojson")
+sptemp <- st_read("https://github.com/india-in-data/india-states-2019/raw/master/india_states.geojson")
+ sptemp = geomIndia
+ sptemp = st_make_valid(sptemp)
+ sptemp$ST_NM[which(sptemp$ID=="AN")] = "Andaman and Nicobar Islands"
+ sptemp$ST_NM[which(sptemp$ID=="DL")] = "Delhi"
+ sptemp$ST_NM[which(sptemp$ID=="JK")] ="Jammu and Kashmir"
+ sptemp$ST_NM[which(sptemp$ID=="DN")] = "Dadra and Nagar Haveli and Daman and Diu"
+ sptemp$ST_NM[which(sptemp$ID=="DD")] = "Dadra and Nagar Haveli and Daman and Diu"
+ sptemp$ID[which(sptemp$ID=="DN")] = "DNDD"
+ sptemp$ID[which(sptemp$ID=="DD")] = "DNDD"
+ sptemp = sptemp %>%
+    group_by(ST_NM,ID) %>%
+    summarise(geometry = sf::st_union(geometry)) %>%
+ 	ungroup()
+ sptemp = st_cast(sptemp,"MULTIPOLYGON")
+ geomIndia = sptemp
 ## UNSD_m49 called by addNewGeom.R
 
 ### m49code: numeric country code
