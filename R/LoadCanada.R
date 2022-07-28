@@ -22,7 +22,6 @@ LoadCanada <- function() {
     utils::data("geomCanada", "pop_canada", envir = environment())
     geomCanada <- sf::st_as_sf(geomCanada)
     
- 
     # Data aggregated by the COVID-19 Canada Open Data Working Group https://github.com/ccodwg/Covid19Canada
     # Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi:  https://doi.org/10.1503/cmaj.75262.
     
@@ -69,6 +68,7 @@ LoadCanada <- function() {
     CanMap$pInf = CanMap$CaseDiff/CanMap$pop
     CanMap$Country = "Canada"
     CanMap$RegionName = paste(CanMap$name_ccodwg,CanMap$macro_name,"Canada",sep=", ")
+
     
     CANADA_DATA <- subset(CanMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
