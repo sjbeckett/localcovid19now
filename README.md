@@ -74,3 +74,7 @@ create_c19r_data(df_in = US, asc_bias_list = cbind(AB4 = US$AB))
 ```
 We caution that the case ascertainment bias may differ both across different regions and across time (due to differences in testing strategies).
 
+
+## Community guidelines
+
+We welcome contributions from the community. We encourage and recommend that feedback, bug reports, and feature requests should first be documented as an [Issue](https://github.com/sjbeckett/subregionalcovid19/issues/) on GitHub.
