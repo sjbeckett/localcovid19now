@@ -40,7 +40,8 @@ or to load all available datasets as:
 
 ```R
 GLOBALMAP <- LoadCountries()
-GLOBALMAP <- tidy_Data(GLOBALMAP) #sets data older than 30 days, or with negative or zero differences in active cases to NA.
+#can additionally set data older than 30 days, or with negative or zero differences in active cases to NA.
+GLOBALMAP <- tidy_Data(GLOBALMAP) 
 ```
 
 Once loaded, the per capita active case data can be mapped with built in helper functions: 
@@ -71,5 +72,5 @@ tmap_save(MAP,"US_RiskMap.png")
 #we can also create a table of event risk by location as:
 create_c19r_data(df_in = US, asc_bias_list = cbind(AB4 = US$AB))
 ```
-
+We caution that the case ascertainment bias may differ both across different regions and across time (due to differences in testing strategies).
 
