@@ -53,6 +53,8 @@ PerCapitaMap_leaflet(GLOBALMAP,100000)
 PerCapitaMap_tmap(GLOBALMAP,100000)
 ```
 
+![Active cases per capita across the globe](/examples/Global_pc_tmap.png)
+
 Additionally, with a provided assumed ascertainment bias (ratio between true infections and recorded cases), the risk that one or more people in a group of a particular size can be estimated and mapped:
 
 ```R
@@ -74,6 +76,9 @@ tmap_save(MAP,"US_RiskMap.png")
 #we can also create a table of event risk by location as:
 create_c19r_data(df_in = US, asc_bias_list = cbind(AB4 = US$AB))
 ```
+
+![event risk in the US](/examples/US_RiskMap.png)
+
 We caution that the case ascertainment bias may differ both across different regions and across time (due to differences in testing strategies).
 
 

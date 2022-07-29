@@ -49,6 +49,6 @@ MAP = EventMap_tmap(US,100,US$AB,projection="ESPG:5070")
 tmap::tmap_save(MAP,"US_RiskMap.png")
 
 #we can also create a table of event risk by location as:
-create_c19r_data(df_in = US, asc_bias_list = cbind(AB4 = US$AB))
+create_c19r_data(df_in = US, risk_output = "USrisk.csv", asc_bias_list = cbind(AB4 = US$AB))
 
 ## We caution that the case ascertainment bias may differ both across different regions and across time (due to differences in testing strategies).
