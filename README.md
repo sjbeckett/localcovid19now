@@ -58,6 +58,8 @@ Additionally, with a provided assumed ascertainment bias (ratio between true inf
 ```R
 #assume an ascertainment bias of 4 infections per recorded case.
 US$AB <- 4 
+#can additionally set data older than 30 days, or with negative or zero differences in active cases to NA.
+US <- tidy_Data(US)
 
 #show risk that one or more people are infectious in a group of 50 using leaflet
 EventMap_leaflet(US,50,US$AB)
@@ -65,8 +67,8 @@ EventMap_leaflet(US,50,US$AB)
 #show risk that one or more people are infectious in a group of 100 using tmap
 EventMap_tmap(US,100,US$AB)
 
-#maps can be saved using tmap commands:
-MAP = EventMap_tmap(US,100,US$AB)
+#maps can be saved using tmap commands. Here we also use a projection more suited to the US:
+MAP = EventMap_tmap(US,100,US$AB,projection="ESPG:5070")
 tmap_save(MAP,"US_RiskMap.png")
 
 #we can also create a table of event risk by location as:
