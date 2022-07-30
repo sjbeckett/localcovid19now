@@ -65,3 +65,5 @@ LazyDataCompression: xz
 URL: https://github.com/sjbeckett/subregionalcovid19/
 BugReports: https://github.com/sjbeckett/subregionalcovid19/issues
 VignetteBuilder: knitr
+Config/rcmdcheck/ignore-inconsequential-notes: true
+
