@@ -134,7 +134,7 @@ LoadBelgium <- function() {
 
 
   # Change names to account for NL and FR:
-  nameMuni <- names_belgium%>%
+  nameMuni <- names_belgium %>%
     dplyr::rename_with(.fn = \(x) stringr::str_replace_all(x, "\\s", "\\."))
 
   for (i in 1:length(belgiumdf$micro_name)) {

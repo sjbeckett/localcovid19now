@@ -10,7 +10,7 @@ create_c19r_data(
     stringr::str_replace_all(lubridate::today(), "-", "")),
   output_prefix = ".",
   event_size = c(10, 15, 20, 25, 50, 100, 500, 1000, 5000),
-  asc_bias_list = c(3, 4, 5)
+  asc_bias_list = cbind(AB1 = 3, AB2 = 4, AB3 = 5)
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ create_c19r_data(
 
 \item{event_size}{Event size(s) to calculate risk for.}
 
-\item{asc_bias_list}{Ascertainment bias(es) to calculate risk for.}
+\item{asc_bias_list}{Ascertainment bias(es) to calculate risk for, must be named.}
 }
 \value{
 Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.

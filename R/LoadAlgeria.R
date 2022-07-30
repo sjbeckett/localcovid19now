@@ -15,15 +15,15 @@
 #' @export
 LoadAlgeria <- function() {
   pop_algeria <- NULL
-  
+
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
   ALG <- jsonlite::fromJSON("https://api.corona-dz.live/province/all")
 
-  #Load in geometry and population data.
+  # Load in geometry and population data.
   utils::data("geomAlgeria", envir = environment())
   utils::data("pop_algeria", envir = environment())
   geomAlgeria <- sf::st_as_sf(geomAlgeria)
-  
+
 
   # geography
   # https://github.com/Amine27/covid-19-dz/blob/master/static/map/algeria.json

@@ -11,32 +11,32 @@
 #' \dontrun{
 #' AllData <- LoadCountries()
 #' }
-LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = interactive() ) {
+LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = interactive()) {
 
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
 
   # assign country list if not provided
   if (is.null(countries)) {
-     utils::data(countrylist, envir = environment())
-     countries <- countrylist
+    utils::data(countrylist, envir = environment())
+    countries <- countrylist
   }
-  
-  #check whether googledrive credentials are available if in non-interactive mode.  
-  
-  if(interactiveMode == FALSE){
-	TOKEN <- googledrive::drive_has_token()
-	if(TOKEN == FALSE){
-		warning("No googledrive token found. Will avoid loading data requiring token. For more about providing authorization, see: https://gargle.r-lib.org/articles/non-interactive-auth.html")		
-		if("LoadPhilippines" %in% countries){
-			countries = countries[-which(countries=="LoadPhilippines")]
-		}		
-	}
+
+  # check whether googledrive credentials are available if in non-interactive mode.
+
+  if (interactiveMode == FALSE) {
+    TOKEN <- googledrive::drive_has_token()
+    if (TOKEN == FALSE) {
+      warning("No googledrive token found. Will avoid loading data requiring token. For more about providing authorization, see: https://gargle.r-lib.org/articles/non-interactive-auth.html")
+      if ("LoadPhilippines" %in% countries) {
+        countries <- countries[-which(countries == "LoadPhilippines")]
+      }
+    }
   }
-  
-  #initialize data frame to store error information
+
+  # initialize data frame to store error information
   errors <- data.frame(countryn = c(), errort = c(), datetime = c())
-  
+
   for (country in countries) {
     # Load in data for this country
     cat("\n", country, "\n")
@@ -50,9 +50,9 @@ LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = i
       }
     )
   }
-  
-  if(!is.null(filepath)){ ## if filepath provided save errors to file
-    utils::write.csv(errors, paste(filepath,".csv"), append = T)
+
+  if (!is.null(filepath)) { ## if filepath provided save errors to file
+    utils::write.csv(errors, paste(filepath, ".csv"), append = T)
   }
 
   return(NEWMAP)

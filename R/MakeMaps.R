@@ -1,6 +1,8 @@
-#' Title
+#' makeMaps
 #'
-#' @return
+#' @description
+#' Creates a whole world risk map and saves to PNG
+#'
 #' @export
 #'
 #' @examples

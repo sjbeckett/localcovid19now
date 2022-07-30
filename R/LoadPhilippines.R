@@ -116,10 +116,10 @@ LoadPhilippines <- function() {
   ### Municipalities:
   province <- unique(philippinesData$Province)
   province <- province[is.na(province) == F] # remove NA values
-  
-  getDataPH <- function(pro_codes){
+
+  getDataPH <- function(pro_codes) {
     Table <- c()
-    for(aa in 1:length(pro_codes)){
+    for (aa in 1:length(pro_codes)) {
       code <- pro_codes[aa]
       temp <- philippinesData %>% dplyr::filter(Province == code)
       temp$CumSum <- cumsum(temp$Cases)
@@ -128,9 +128,9 @@ LoadPhilippines <- function() {
       pastData <- temp[temp$Date <= past_date, ]
       difference <- (temp$CumSum[length(temp$CumSum)] - pastData$CumSum[length(pastData$CumSum)]) / 14 * 10
       vec <- data.frame(Province = code, Date = today, Difference = difference)
-	  Table = rbind(Table,vec)
+      Table <- rbind(Table, vec)
     }
-	return(Table)
+    return(Table)
   }
 
   philippinesTable <- getDataPH(province)

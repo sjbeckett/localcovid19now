@@ -2,11 +2,10 @@
 #'
 #' @param x File name to be moved
 #'
-#' @return
 #' @export
 #'
 #' @examples
-#' file.create(here::here("tools","toProcess","testFile.R"))
+#' file.create(here::here("tools", "toProcess", "testFile.R"))
 #' moveFiles("testFile.R")
 moveFiles <- function(x) {
   file.copy(
@@ -18,11 +17,14 @@ moveFiles <- function(x) {
 
 #' Add New Country Geometries
 #'
-#' @return
+#' @return world Map with new geoms added
+#'
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' addNewGeoms()
+#' }
 addNewGeoms <- function() {
   # Fields will be as follows:
   ## geoid = ISO3m49_micro_macro
@@ -74,11 +76,12 @@ addNewGeoms <- function() {
 
 #' Reset processed files
 #'
-#' @return
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' resetNewGeoms()
+#' }
 resetNewGeoms <- function() {
   file_list <- list.files(here::here("tools", "processed"))
 

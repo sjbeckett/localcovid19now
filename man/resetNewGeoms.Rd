@@ -6,12 +6,11 @@
 \usage{
 resetNewGeoms()
 }
-\value{
-
-}
 \description{
 Reset processed files
 }
 \examples{
+\dontrun{
 resetNewGeoms()
+}
 }

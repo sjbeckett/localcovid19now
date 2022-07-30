@@ -13,12 +13,12 @@
 #' }
 #' @seealso [LoadCountries()]
 #' @export
-LoadIreland <- function(){
-  TimeStamp <- CountyName <- ConfirmedCovidCases <- PopulationCensus16 <- cases <- pop <- miscIreland <-NULL
-  #load in geometry and other data
+LoadIreland <- function() {
+  TimeStamp <- CountyName <- ConfirmedCovidCases <- PopulationCensus16 <- cases <- pop <- miscIreland <- NULL
+  # load in geometry and other data
   utils::data(list = c("geomIreland", "misc_ireland"), envir = environment())
   geomIreland <- sf::st_as_sf(geomIreland)
-  #set codes in double to avoid "2e+05" vs 250000 errors
+  # set codes in double to avoid "2e+05" vs 250000 errors
   geomIreland$micro_code <- as.double(geomIreland$micro_code)
   misc_ireland$CO_ID <- as.double(misc_ireland$CO_ID)
 

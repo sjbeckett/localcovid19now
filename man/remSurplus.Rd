@@ -10,17 +10,19 @@ remSurplus(
 )
 }
 \arguments{
-\item{input_file}{}
+\item{input_file}{In file}
 
-\item{collection_files}{}
+\item{collection_files}{File(s) with geoms to remove}
 }
 \value{
-
+input_file Updated input file
 }
 \description{
 Remove Surplus Geometries
 }
 \examples{
+\dontrun{
 data("geomGlobal")
 remSurplus(geomGlobal)
+}
 }

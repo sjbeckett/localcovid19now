@@ -51,7 +51,7 @@ LoadJapan <- function() {
 
   # get data table
   for (i in 1:49) {
-    dataVec <- getDataJapan(dataSet=dataSet, i)
+    dataVec <- getDataJapan(dataSet = dataSet, i)
     vec <- rbind(vec, dataVec)
   }
   names(vec) <- c("Prefecture", "Difference")

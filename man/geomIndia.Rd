@@ -5,7 +5,7 @@
 \alias{geomIndia}
 \title{geomIndia}
 \format{
-An object of class \code{sf} (inherits from \code{data.frame}) with 36 rows and 9 columns.
+An object of class \code{sf} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 36 rows and 9 columns.
 }
 \usage{
 geomIndia

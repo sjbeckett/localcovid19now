@@ -69,7 +69,7 @@ LoadGermany <- function() {
     )
 
   ## pop_germany: https://www.citypopulation.de/en/germany/admin/
-  
+
 
   # SK Eisenach (16056) is reported with LK Wartburgkreis (16063) (according to RKI)
   pop_germany$Population[which(pop_germany$IdLandkreis == "16063")] <- pop_germany$Population[which(pop_germany$IdLandkreis == "16056")] + pop_germany$Population[which(pop_germany$IdLandkreis == "16063")]

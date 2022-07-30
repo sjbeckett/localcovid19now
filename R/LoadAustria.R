@@ -12,10 +12,10 @@
 #' @seealso [LoadCountries]
 #' @export
 LoadAustria <- function() {
-  #Load in geometry
+  # Load in geometry
   utils::data("geomAustria", envir = environment())
   geomAustria <- sf::st_as_sf(geomAustria)
-  
+
   Time <- Bezirk <- GKZ <- AnzEinwohner <- AnzahlFaelleSum <- code <- cases <- population <- NULL
 
   # Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/

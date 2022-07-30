@@ -17,7 +17,7 @@
 LoadGhana <- function() {
   name <- cases <- latest_date <- past_date <- cumulative_cases <- macro_name <- country_name <- report_date <- case_diff <- DateReport <- geoid <- RegionName <- pInf <- NULL
 
-  #Load in geometry  
+  # Load in geometry
   utils::data("geomGhana", envir = environment())
   geomGhana <- sf::st_as_sf(geomGhana)
 

@@ -20,7 +20,7 @@
 LoadChile <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
   # sourced from Ministerio de Ciencia, Tecnología, Conocimiento e Innovación: https://www.minciencia.gob.cl/COVID19/.
-  
+
   geomChile <- NULL
 
   utils::data("geomChile", envir = environment())

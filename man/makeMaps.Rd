@@ -2,15 +2,12 @@
 % Please edit documentation in R/MakeMaps.R
 \name{makeMaps}
 \alias{makeMaps}
-\title{Title}
+\title{makeMaps}
 \usage{
 makeMaps()
 }
-\value{
-
-}
 \description{
-Title
+Creates a whole world risk map and saves to PNG
 }
 \examples{
 \dontrun{

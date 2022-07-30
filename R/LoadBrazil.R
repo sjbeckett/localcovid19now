@@ -18,10 +18,10 @@
 #' @export
 LoadBrazil <- function() {
   state <- pop2020 <- NULL
-  #Load geometry  
+  # Load geometry
   utils::data("geomBrazil", envir = environment())
   geomBrazil <- sf::st_as_sf(geomBrazil)
-  
+
   # COVID-19 data are aggregated from Ministério da Saúde and Brasil.IO by https://github.com/wcota/covid19br
   # W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362
 

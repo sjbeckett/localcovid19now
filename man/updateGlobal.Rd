@@ -6,12 +6,11 @@
 \usage{
 updateGlobal()
 }
-\value{
-
-}
 \description{
 Update Global Geometries
 }
 \examples{
+\dontrun{
 updateGlobal()
+}
 }

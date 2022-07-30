@@ -50,10 +50,10 @@ LoadGoogleSourced <- function() { # takes a long time to process.
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]
     past <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]) - 14)]
-	if(is.na(past)){ #if past is NA try interpolation.
-	  interpolated = 	stats::approx(DAT$date[-naIND],DAT$cumulative_confirmed[-naIND],xout = DAT$date)
-	  past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
-	}	
+    if (is.na(past)) { # if past is NA try interpolation.
+      interpolated <- stats::approx(DAT$date[-naIND], DAT$cumulative_confirmed[-naIND], xout = DAT$date)
+      past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
+    }
     CaseDiff[bb] <- (10 / 14) * (curr - past)
     if (length(DAT$population[1]) == 1) {
       Pop[bb] <- DAT$population[1]

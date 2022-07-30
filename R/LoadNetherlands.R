@@ -4,7 +4,7 @@
 #'
 #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
 #' @keywords internal
-getDataND <- function(Mcode,netherlandsData) {
+getDataND <- function(Mcode, netherlandsData) {
   temp <- netherlandsData %>%
     dplyr::filter(Code == Mcode)
   temp$CumSum <- cumsum(temp$Cases)
@@ -34,48 +34,48 @@ getDataND <- function(Mcode,netherlandsData) {
 #' @export
 LoadNetherlands <- function() {
 
-  #note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
+  # note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
 
-  #utils::data("geomNetherlands", envir = environment())
-  geomNetherlands = sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json")
-  geomNetherlands = sf::st_transform(geomNetherlands, crs = 4326)
-  geomNetherlands$micro_code = geomNetherlands$statcode
-  #also need to combine Weesp with Amsterdam (March 2022)
-  HMM<- sf::st_union(geomNetherlands[c(which(geomNetherlands$statnaam=="Weesp"),which(geomNetherlands$statnaam=="Amsterdam")),])%>% sf::st_cast("MULTIPOLYGON")
-  geomNetherlands$geometry[which(geomNetherlands$statnaam=="Amsterdam")] = HMM
-  
-  #population: https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned/table?dl=5A35F
+  # utils::data("geomNetherlands", envir = environment())
+  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json")
+  geomNetherlands <- sf::st_transform(geomNetherlands, crs = 4326)
+  geomNetherlands$micro_code <- geomNetherlands$statcode
+  # also need to combine Weesp with Amsterdam (March 2022)
+  HMM <- sf::st_union(geomNetherlands[c(which(geomNetherlands$statnaam == "Weesp"), which(geomNetherlands$statnaam == "Amsterdam")), ]) %>% sf::st_cast("MULTIPOLYGON")
+  geomNetherlands$geometry[which(geomNetherlands$statnaam == "Amsterdam")] <- HMM
+
+  # population: https://opendata.cbs.nl/statline/#/CBS/nl/dataset/70072ned/table?dl=5A35F
   utils::data("pop_netherlands", envir = environment())
 
-  
+
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
-  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") %>% 
+  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") %>%
     dplyr::select(Date = "Date_of_publication", Code = "Municipality_code", Municipality = "Municipality_name", Province = "Province", Cases = "Total_reported")
-    
+
   municipalities <- unique(NLdata$Code)
-  municipalities = municipalities[-which(is.na(municipalities))] #remove NA values.  
-    
+  municipalities <- municipalities[-which(is.na(municipalities))] # remove NA values.
+
   netherlandsTable <- data.frame()
   for (ii in 1:length(municipalities)) {
-    vec <- getDataND(municipalities[ii],NLdata)
+    vec <- getDataND(municipalities[ii], NLdata)
     netherlandsTable <- rbind(netherlandsTable, vec)
   }
 
   # Note that geomNetherlands$Bevolkingsaantal is population size.
 
   netherlandsMap <- dplyr::inner_join(geomNetherlands, netherlandsTable, by = c("micro_code" = "Code")) %>%
-  dplyr::inner_join(pop_netherlands,by=c("Municipality"="Gemeente"))
-    #dplyr::inner_join(pop_netherlands, by = c("micro_name" = "Name"))
+    dplyr::inner_join(pop_netherlands, by = c("Municipality" = "Gemeente"))
+  # dplyr::inner_join(pop_netherlands, by = c("micro_name" = "Name"))
 
-  #netherlandsMap$RegionName <- paste(netherlandsMap$micro_name, netherlandsMap$macro_name, netherlandsMap$country_name, sep = ", ")
-  #netherlandsMap$Country <- netherlandsMap$country_name
-  netherlandsMap$Country = "Netherlands"
-  netherlandsMap$RegionName = paste(netherlandsMap$Municipality,"Netherlands",sep=", ")
+  # netherlandsMap$RegionName <- paste(netherlandsMap$micro_name, netherlandsMap$macro_name, netherlandsMap$country_name, sep = ", ")
+  # netherlandsMap$Country <- netherlandsMap$country_name
+  netherlandsMap$Country <- "Netherlands"
+  netherlandsMap$RegionName <- paste(netherlandsMap$Municipality, "Netherlands", sep = ", ")
   netherlandsMap$DateReport <- as.character(netherlandsMap$Date)
   netherlandsMap$pInf <- netherlandsMap$Difference / netherlandsMap$Population
-  netherlandsMap$geoid = paste0("NL_",netherlandsMap$micro_code)
-  
+  netherlandsMap$geoid <- paste0("NL_", netherlandsMap$micro_code)
+
   NETHERLANDS_DATA <- subset(netherlandsMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf"))
 
   return(NETHERLANDS_DATA)

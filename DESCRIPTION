@@ -23,8 +23,7 @@ Description: Extract, clean and map recent subnational level data on active COVI
     or as the risk (%) that one or more individuals in a group of a particular size are infectious.
 License: MIT + file LICENSE
 Depends: 
-    R (>= 2.10),
-	sf
+    R (>= 3.50),
 Imports: 
     dplyr,
     jsonlite,
@@ -33,13 +32,18 @@ Imports:
     purrr,
     readxl,
     rgdal,
+    sf,
     stringr,
     tidyr,
     rlang,
     vroom,
-    utils
+    utils,
+    tmap,
+    here,
+    usethis,
+    tibble,
+    COVID19
 Suggests:
-    COVID19,
     googledrive,
     htmlwidgets,
     httr,
@@ -51,13 +55,12 @@ Suggests:
     shiny,
     glue,
     htmltools,
-    tmap,
     knitr,
     rmarkdown
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 LazyDataCompression: xz
 URL: https://github.com/sjbeckett/subregionalcovid19/
 BugReports: https://github.com/sjbeckett/subregionalcovid19/issues

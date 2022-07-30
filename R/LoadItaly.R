@@ -28,12 +28,12 @@ dataQueryItaly <- function(date) {
 #' @export
 LoadItaly <- function() {
   code <- cases <- region <- province <- pop_italy <- NULL
- 
-  #Load geometry and population data
+
+  # Load geometry and population data
   utils::data("geomItaly", envir = environment())
   utils::data("pop_italy", envir = environment())
-  geomItaly <-sf::st_as_sf(geomItaly)
-  
+  geomItaly <- sf::st_as_sf(geomItaly)
+
   # Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc/COVID-19/
   # italy: need to download data_cur and data_past respectively
   cur_date <- lubridate::ymd(gsub("-", "", Sys.Date())) - 1

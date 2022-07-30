@@ -12,13 +12,13 @@
 #' @seealso [LoadCountries]
 #' @export
 LoadAustralia <- function() {
-  #Load in geomtry and population data
+  # Load in geomtry and population data
   pop_australia <- NULL
   utils::data("geomAustralia", envir = environment())
   utils::data("pop_australia", envir = environment())
   geomAustralia <- sf::st_as_sf(geomAustralia)
-  
-  #COVID-19 data was obtained from https://github.com/M3IT/COVID-19_Data and aggregated by www.covid19data.com.au from local health resources.
+
+  # COVID-19 data was obtained from https://github.com/M3IT/COVID-19_Data and aggregated by www.covid19data.com.au from local health resources.
   data <- vroom::vroom("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")
 
   data$date <- as.Date(data$date)

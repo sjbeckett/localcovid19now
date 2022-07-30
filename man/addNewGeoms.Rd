@@ -7,11 +7,13 @@
 addNewGeoms()
 }
 \value{
-
+world Map with new geoms added
 }
 \description{
 Add New Country Geometries
 }
 \examples{
+\dontrun{
 addNewGeoms()
+}
 }
