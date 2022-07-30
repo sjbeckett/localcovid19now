@@ -21,7 +21,7 @@ Authors@R: c(
 Description: Extract, clean and map recent subnational level data on active COVID-19 cases across multiple countries.
     Provides tools to extract and clean data from multiple data sources; and tools to visualize, via mapping, the data in terms of per capita active infections;
     or as the risk (%) that one or more individuals in a group of a particular size are infectious.
-License: MIT + file LICENSE.md
+License: MIT + file LICENSE
 Depends: 
     R (>= 3.50),
 Imports: 
