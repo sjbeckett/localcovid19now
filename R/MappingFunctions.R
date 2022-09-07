@@ -38,8 +38,7 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 #' @examples
 #' \dontrun{
 #' Austria <- LoadAustria()
-#' Austria$AB <- 4
-#' EventMap_leaflet(Austria, 50, Austria$AB)
+#' EventMap_leaflet(Austria, 50, 4)
 #' }
 #' @export
 EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights
@@ -47,6 +46,7 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `EventMap_leaflet()`")
 
   DATA$risk <- estRisk(DATA$pInf, AB, G)
+  DATA$AB <- AB
   MMap <- DATA
   MMap$riskLabels <- MMap$risk
   MMap <- MMap %>%
@@ -170,12 +170,11 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 #' @examples
 #' \dontrun{
 #' Austria <- LoadAustria()
-#' Austria$AB <- 4
-#' EventMap_tmap(Austria, 50)
+#' EventMap_tmap(Austria, 50, 4)
 #' }
 EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
-  rlang::check_installed("tmap", reason = "to use `EventMap_tmap()`")
+  rlang::check_installed("tmap", reason = "to use EventMap_tmap()")
   World <- NULL
   utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
@@ -207,7 +206,7 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 #' @export
 PerCapitaMap_tmap <- function(DATA, people = 100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
-  rlang::check_installed("tmap", reason = "to use `PerCapitaMap_tmap()`")
+  rlang::check_installed("tmap", reason = "to use PerCapitaMap_tmap()")
   World <- NULL
   utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
