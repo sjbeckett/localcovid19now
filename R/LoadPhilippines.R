@@ -18,6 +18,8 @@ LoadPhilippines <- function() {
   utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
+  
+  rlang::check_installed(c("pdftools", "googledrive"), reason = "to use `LoadPhilippines()`")
 
 
   url1 <- "bit.ly/DataDropPH"
