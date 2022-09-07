@@ -36,7 +36,7 @@ EventMap_tmap
 \dontrun{
 Austria <- LoadAustria()
 Austria$AB <- 4
-EventMap_tmap(Austria, 50)
+EventMap_tmap(Austria, 50, Austria$AB)
 }
 }
 \seealso{

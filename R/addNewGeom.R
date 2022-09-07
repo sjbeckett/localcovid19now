@@ -8,6 +8,7 @@
 #' file.create(here::here("tools", "toProcess", "testFile.R"))
 #' moveFiles("testFile.R")
 moveFiles <- function(x) {
+  rlang::check_installed(c("here"), reason = "to use moveFiles()")
   file.copy(
     from = here::here("tools", "toProcess", x),
     to = here::here("tools", "processed", x)
@@ -26,6 +27,7 @@ moveFiles <- function(x) {
 #' addNewGeoms()
 #' }
 addNewGeoms <- function() {
+  rlang::check_installed(c("here"), reason = "to use addNewGeoms()")
   # Fields will be as follows:
   ## geoid = ISO3m49_micro_macro
   ## m49code
@@ -83,6 +85,7 @@ addNewGeoms <- function() {
 #' resetNewGeoms()
 #' }
 resetNewGeoms <- function() {
+  rlang::check_installed(c("here"), reason = "to use resetNewGeoms()")
   file_list <- list.files(here::here("tools", "processed"))
 
   lapply(

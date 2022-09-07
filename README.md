@@ -29,7 +29,7 @@ US <- LoadUS()
 
 Malaysia <- LoadMalaysia()
 
-#Note that to load data for the Philippines the googledrive package is used, requiring users google credentials.
+#Note that to load data for the Philippines the googledrive package is used, requiring users' google credentials.
 #See more here: https://googledrive.tidyverse.org/reference/drive_auth.html
 #credentials can be set before running the function:
 googledrive::drive_auth(email = TRUE)
