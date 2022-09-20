@@ -370,6 +370,9 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/localcovid19now-package.html</loc>
+  </url>
+  <url>
     <loc>/reference/m49.html</loc>
   </url>
   <url>
@@ -512,9 +515,6 @@
   </url>
   <url>
     <loc>/reference/resetNewGeoms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/subregionalcovid19-package.html</loc>
   </url>
   <url>
     <loc>/reference/tidy_Data.html</loc>
