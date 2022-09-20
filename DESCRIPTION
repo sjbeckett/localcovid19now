@@ -9,8 +9,6 @@ Authors@R: c(
     person("Quan", "Nguyen", , "qnguyen83@gatech.edu", role = "aut"),
     person("Aroon T.", "Chande", , "achande@ihrc.com", role = "aut",
            comment = c(ORCID = "0000-0001-5260-3135")),
-    person("Seolha", "Lee", , "seolha.lee@gatech.edu", role = "aut",
-           comment = c(ORCID = "0000-0002-7868-9421")),
     person("Lavanya", "Rishishwar", , "lrishishwar@ihrc.com", role = "aut",
            comment = c(ORCID = "0000-0002-2055-9392 ")),
     person("Clio", "Andris", , "clio@gatech.edu", role = "aut",
