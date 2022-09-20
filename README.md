@@ -1,24 +1,24 @@
-# subregionalcovid19
+# localcovid19now
 
 This repository serves as a framework to assemble and visualize recent case data from regional data sources across the globe. The package was assembled by researchers at the Georgia Institute for Technology and the Applied Bioinformatics Laboratory, and forms a core component of exposure risk calculations used in the [COVID-19 Event Risk Tool](https://covid19risk.biosci.gatech.edu/).
 
-We compile data from a variety of [sources](https://github.com/sjbeckett/subregionalcovid19/blob/main/DataSources.md).
+We compile data from a variety of [sources](https://github.com/sjbeckett/localcovid19now/blob/main/DataSources.md).
 
-A description of the package can be found [here](https://github.com/sjbeckett/subregionalcovid19/tree/main/Paper/Paper.pdf).
+A description of the package can be found [here](https://github.com/sjbeckett/localcovid19now/tree/main/Paper/Paper.pdf).
 
 ## Citation
 
 Please cite our work as:
-> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Lee S., Rishishwar L., Andris C., Weitz J.S. subregionalcovid19: global processing and mapping infectious cases of COVID-19 at subnational scales ...
+> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Rishishwar L., Andris C., Weitz J.S. localcovid19now: processing and mapping infectious cases of COVID-19 at subnational scales.
 
 ## Installation
 
-The subregionalcovid19 library is available in R. It can be installed by running:
+The localcovid19now library is available in R. It can be installed by running:
 
 ```R
 library("devtools")
-install_github("sjbeckett/subregionalcovid19")
-library("subregionalcovid19")
+install_github("sjbeckett/localcovid19now")
+library("localcovid19now")
 ```
 
 ## Use
@@ -84,4 +84,4 @@ We caution that the case ascertainment bias may differ both across different reg
 
 ## Community guidelines
 
-We welcome contributions from the community. We encourage and recommend that feedback, bug reports, and feature requests should first be documented as an [Issue](https://github.com/sjbeckett/subregionalcovid19/issues/) on GitHub.
+We welcome contributions from the community. We encourage and recommend that feedback, bug reports, and feature requests should first be documented as an [Issue](https://github.com/sjbeckett/localcovid19now/issues/) on GitHub.

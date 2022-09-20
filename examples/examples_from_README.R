@@ -1,4 +1,4 @@
-#library("subregionalcovid19") #if not already installed
+#library("localcovid19now") #if not already installed
 
 ## Functionality is provided to load in data for a particular country, for example:
 

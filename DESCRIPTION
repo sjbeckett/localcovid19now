@@ -1,7 +1,6 @@
-Package: subregionalcovid19
-Title: Subnational COVID-19 Active Cases. Global processing and mapping
-    infectious cases of COVID-19 at subnational scales
-Version: 0.0.0.9000
+Package: localcovid19now
+Title: Processing and mapping infectious cases of COVID-19 at subnational scales
+Version: 0.0.0.9900
 Authors@R: c(
     person("Stephen J.", "Beckett", , "stephen.beckett@biology.gatech.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4410-2960")),
@@ -26,8 +25,8 @@ Description: Extract, clean and map recent subnational level data on
     infections; or as the risk (%) that one or more individuals in a group
     of a particular size are infectious.
 License: MIT + file LICENSE
-URL: https://github.com/sjbeckett/subregionalcovid19/
-BugReports: https://github.com/sjbeckett/subregionalcovid19/issues
+URL: https://github.com/sjbeckett/localcovid19now/
+BugReports: https://github.com/sjbeckett/localcovid19now/issues
 Depends: 
     R (>= 3.50)
 Imports: 
