@@ -9,7 +9,7 @@ A description of the package can be found [here](https://github.com/sjbeckett/lo
 ## Citation
 
 Please cite our work as:
-> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Rishishwar L., Andris C., Weitz J.S. localcovid19now: processing and mapping COVID-19 case data at subnational scales. OSF Preprints doi: 10.31219/osf.io/fg6vw.
+> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Rishishwar L., Andris C., Weitz J.S. 2022. localcovid19now: processing and mapping COVID-19 case data at subnational scales. OSF Preprints doi: 10.31219/osf.io/fg6vw.
 
 ## Installation
 
