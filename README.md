@@ -4,12 +4,12 @@ This repository serves as a framework to assemble and visualize recent case data
 
 We compile data from a variety of [sources](https://github.com/sjbeckett/localcovid19now/blob/main/DataSources.md).
 
-A description of the package can be found [here](https://github.com/sjbeckett/localcovid19now/tree/main/Paper/Paper.pdf).
+A description of the package can be found [here](https://github.com/sjbeckett/localcovid19now/tree/main/paper) or in our [preprint](https://doi.org/10.31219/osf.io/fg6vw).
 
 ## Citation
 
 Please cite our work as:
-> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Rishishwar L., Andris C., Weitz J.S. localcovid19now: processing and mapping infectious cases of COVID-19 at subnational scales.
+> Beckett, S.J., Brandel-Tanis F., Nguyen Q., Chande A., Rishishwar L., Andris C., Weitz J.S. localcovid19now: processing and mapping COVID-19 case data at subnational scales. OSF Preprints doi: 10.31219/osf.io/fg6vw.
 
 ## Installation
 

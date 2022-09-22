@@ -1,5 +1,5 @@
 ---
-title: 'localcovid19now: processing and mapping infectious cases of COVID-19 at subnational scales'
+title: 'localcovid19now: processing and mapping COVID-19 case data at subnational scales'
 tags:
   - R
   - epidemiology

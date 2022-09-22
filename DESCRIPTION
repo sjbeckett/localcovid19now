@@ -1,5 +1,5 @@
 Package: localcovid19now
-Title: Processing and mapping infectious cases of COVID-19 at subnational scales
+Title: Processing and mapping COVID-19 case data at subnational scales
 Version: 0.0.0.9900
 Authors@R: c(
     person("Stephen J.", "Beckett", , "stephen.beckett@biology.gatech.edu", role = c("aut", "cre"),
