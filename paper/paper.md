@@ -14,7 +14,7 @@ authors:
     affiliation: "2, 3"
   - name: Quan Nguyen
     affiliation: "1, 4"
-  - name: Aroon Chande
+  - name: Aroon T. Chande
     orcid: 0000-0001-5260-3135
     affiliation: "5"
   - name: Lavanya Rishishwar
