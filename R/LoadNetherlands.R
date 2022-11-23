@@ -50,7 +50,7 @@ LoadNetherlands <- function() {
 
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
-  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") %>%
+  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";", show_col_types=FALSE) %>%
     dplyr::select(Date = "Date_of_publication", Code = "Municipality_code", Municipality = "Municipality_name", Province = "Province", Cases = "Total_reported")
 
   municipalities <- unique(NLdata$Code)

@@ -19,7 +19,7 @@ LoadAustralia <- function() {
   geomAustralia <- sf::st_as_sf(geomAustralia)
 
   # COVID-19 data was obtained from https://github.com/M3IT/COVID-19_Data and aggregated by www.covid19data.com.au from local health resources.
-  data <- vroom::vroom("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv")
+  data <- vroom::vroom("https://raw.githubusercontent.com/M3IT/COVID-19_Data/master/Data/COVID_AU_state_cumulative.csv", show_col_types=FALSE)
 
   data$date <- as.Date(data$date)
   data <- data[rev(order(data$date)), c("date", "state", "confirmed")]

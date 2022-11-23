@@ -32,7 +32,7 @@ LoadNewZealand <- function() {
   AA <- jsonlite::read_json("https://api.github.com/repos/ESR-NZ/NZ_COVID19_Data/git/trees/ceaec305a9bbfef50f7c9e90a029db7c123fa97f")
   lastfile_str <- AA$tree[[length(AA$tree)]]$path
   STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", lastfile_str)
-  NZ <- vroom::vroom(STRING)
+  NZ <- vroom::vroom(STRING, show_col_types=FALSE)
   
 
   Regions <- unique(NZ$DHBName)

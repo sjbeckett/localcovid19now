@@ -28,8 +28,8 @@ LoadCanada <- function() {
   # Berry, I., O’Neill, M., Sturrock, S. L., Wright, J. E., Acharya, K., Brankston, G., Harish, V., Kornas, K., Maani, N., Naganathan, T., Obress, L., Rossi, T., Simmons, A. E., Van Camp, M., Xie, X., Tuite, A. R., Greer, A. L., Fisman, D. N., & Soucy, J.-P. R. (2021). A sub-national real-time epidemiological and vaccination database for the COVID-19 pandemic in Canada. Scientific Data, 8(1). doi: https://doi.org/10.1038/s41597-021-00955-2
 
   # CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr/cases_timeseries_hr.csv")
-  CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/data/hr/cases_hr.csv")
-  pop_canada <- vroom::vroom("https://github.com/ccodwg/CovidTimelineCanada/raw/b9cfabfeaf256ca687564ec30d121b438e2f5d2b/geo/health_regions.csv") # contains pop and health region ID codes
+  CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/data/hr/cases_hr.csv", show_col_types=FALSE)
+  pop_canada <- vroom::vroom("https://github.com/ccodwg/CovidTimelineCanada/raw/b9cfabfeaf256ca687564ec30d121b438e2f5d2b/geo/health_regions.csv", show_col_types=FALSE) # contains pop and health region ID codes
 
   # shrink this data file
   DATES <- as.Date(CANADADATA$date, format = "%d-%m-%Y")

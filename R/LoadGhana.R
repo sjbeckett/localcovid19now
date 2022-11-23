@@ -23,7 +23,7 @@ LoadGhana <- function() {
 
   temp <- tempfile()
   utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
-  casesGhana <- vroom::vroom(temp)
+  casesGhana <- vroom::vroom(temp, show_col_types=FALSE)
 
   ghanaCases <- casesGhana %>%
     dplyr::group_by(name) %>%
