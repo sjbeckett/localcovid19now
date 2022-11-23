@@ -23,7 +23,11 @@ LoadSweden <- function() {
 
   # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
   temp <- tempfile()
+<<<<<<< HEAD
   utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb", quiet = TRUE)
+=======
+  utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb",quiet=TRUE)
+>>>>>>> 9cf4ba0 (fixed warning messages/ and removed other print outs to console.)
   swedenResource <- as.data.frame(readxl::read_excel(temp, col_names = TRUE))
   unlink(temp)
   names(swedenResource)[1] <- "date"

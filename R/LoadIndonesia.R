@@ -15,7 +15,11 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadIndonesia <- function() {
+<<<<<<< HEAD
   cases <- vroom::vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv", show_col_types = FALSE, progress = FALSE) # cases are KASUS. new cases per day.
+=======
+  cases <- vroom::vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv", show_col_types=FALSE) # cases are KASUS. new cases per day.
+>>>>>>> 9cf4ba0 (fixed warning messages/ and removed other print outs to console.)
 
   utils::data("geomIndonesia", envir = environment())
 

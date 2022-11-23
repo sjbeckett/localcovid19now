@@ -5,7 +5,7 @@
 \alias{countrylist}
 \title{countrylist}
 \format{
-An object of class \code{character} of length 45.
+An object of class \code{character} of length 47.
 }
 \usage{
 countrylist

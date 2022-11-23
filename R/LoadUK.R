@@ -24,6 +24,12 @@ dataQueryUK <- function(date) {
       )
       dmod <- dmod + 1
     }
+<<<<<<< HEAD
+=======
+    #if (date != cur_date) {
+    #  cat("\nnew cur_date:", as.character(cur_date), "\n")
+    #}
+>>>>>>> 9cf4ba0 (fixed warning messages/ and removed other print outs to console.)
   }
 
   # Convert response from binary to JSON:

@@ -37,7 +37,11 @@ LoadNetherlands <- function() {
   # note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
 
   # utils::data("geomNetherlands", envir = environment())
+<<<<<<< HEAD
   geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json", quiet=TRUE)
+=======
+  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json",quiet=TRUE)
+>>>>>>> 9cf4ba0 (fixed warning messages/ and removed other print outs to console.)
   geomNetherlands <- sf::st_transform(geomNetherlands, crs = 4326)
   geomNetherlands$micro_code <- geomNetherlands$statcode
   # also need to combine Weesp with Amsterdam (March 2022)
