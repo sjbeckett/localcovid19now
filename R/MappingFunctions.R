@@ -1,5 +1,7 @@
 #' calculate risk
 #'
+#' @description Calculates the percentage probability that one or more persons in a group, with size G, may be infectious given the underlying prevalence of disease.
+#'
 #' @param ActiveCases Per capita active cases.
 #' @param A Ascertainment bias (ratio of infections to cases)
 #' @param G Event size for risk to be calculated for.
@@ -26,6 +28,8 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 ## create risk-maps and active case per capita maps in Leaflet and tmap
 
 #' EventMap_leaflet
+#' 
+#' @description Creates an interactive Leaflet map displaying exposure risk for the input data.
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
@@ -99,6 +103,8 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 
 #' PerCapitaMap_leaflet
 #'
+#' @description Creates an interactive Leaflet map displaying active cases per 'people' for the input data.
+#'
 #' @param DATA Data containing prevalence information to map.
 #' @param people Transform from proportion of population to per 'people'.
 #' @param boundaryweights Weight assigned to the maps boundary edges.
@@ -156,6 +162,8 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 
 #' EventMap_tmap
 #'
+#' @description Creates a tmap map displaying active cases per 'people' for the input data.
+#'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
 #' @param AB Case ascertainment bias to compute risk for.
@@ -193,7 +201,9 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 }
 
 
-#' PerCapitaMap_leaflet
+#' PerCapitaMap_tmap
+#'
+#' @description Creates a tmap map displaying active cases per 'people' for the input data.
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param people Transform from proportion of population to per 'people'.
