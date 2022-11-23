@@ -22,12 +22,12 @@ LoadMexico <- function() {
   utils::data("geomMexico", envir = environment())
 
   flag <- 0
-  aa <- 0
+  aa <- 1
   while (flag == 0) {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")
     STRING <- paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_", formDATE)
-    MEX <- try(vroom::vroom(STRING),show_col_types=FALSE) # note older files are DELETED.
+    MEX <- try(vroom::vroom(STRING,show_col_types=FALSE)) # note older files are DELETED.
     if (is.null(dim(MEX)) == FALSE) {
       flag <- 1
     } else {

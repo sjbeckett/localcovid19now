@@ -39,7 +39,7 @@ LoadBrazil <- function() {
   }
   # data[(data$date == today & data$state == stateList[i]),'totalCasesMS']
   ## population
-  pop <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cities_info.csv")
+  pop <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cities_info.csv", show_col_types=FALSE)
   pop <- pop[, c("state", "pop2020")]
   popState <- as.data.frame(pop %>% dplyr::group_by(state) %>% dplyr::summarise(pop2020 = sum(pop2020)))
   names(popState) <- c("state", "Population")

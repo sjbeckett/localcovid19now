@@ -54,7 +54,7 @@ LoadDenmark <- function() {
   # 2.) download and extract data:
   temp <- tempfile() # temporary file for download
   temp2 <- tempdir() # temporary file for extraction
-  utils::download.file(DOWNLOADLINK, destfile = temp)
+  utils::download.file(DOWNLOADLINK, destfile = temp, quiet=TRUE)
   utils::unzip(zipfile = temp, exdir = temp2)
   DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";", show_col_types=FALSE)
   unlink(temp)
