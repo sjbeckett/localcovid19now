@@ -20,7 +20,9 @@ LoadPhilippines <- function() {
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
   
   rlang::check_installed(c("pdftools", "googledrive"), reason = "to use `LoadPhilippines()`")
-
+  
+  # silence googledrive in this specific scope
+  googledrive::local_drive_quiet() 
 
   url1 <- "bit.ly/DataDropPH"
   req1 <- httr::GET(url1)
