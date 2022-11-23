@@ -5,6 +5,7 @@
 #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
 #' @keywords internal
 getDataND <- function(Mcode, netherlandsData) {
+  Code <- NULL
   temp <- netherlandsData %>%
     dplyr::filter(Code == Mcode)
   temp$CumSum <- cumsum(temp$Cases)
@@ -33,11 +34,12 @@ getDataND <- function(Mcode, netherlandsData) {
 #' @seealso [LoadCountries()]
 #' @export
 LoadNetherlands <- function() {
+  pop_netherlands <- NULL
 
   # note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
 
   # utils::data("geomNetherlands", envir = environment())
-  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json", quiet=TRUE)
+  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json", quiet = TRUE)
   geomNetherlands <- sf::st_transform(geomNetherlands, crs = 4326)
   geomNetherlands$micro_code <- geomNetherlands$statcode
   # also need to combine Weesp with Amsterdam (March 2022)

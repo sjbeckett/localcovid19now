@@ -16,9 +16,7 @@ Reads in subnational data for Zimbabwe to calculate most recent estimate of per 
 Sourced from the COVID-19 Data Repository by African Surveyors Connect \url{https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/}.
 }
 \examples{
-\dontrun{
 Zimbabwe <- LoadZimbabwe()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

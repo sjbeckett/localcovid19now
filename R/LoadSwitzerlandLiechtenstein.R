@@ -8,14 +8,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' SwitzerlandLiechtenstein <- LoadSwitzerlandLiechtenstein()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadSwitzerlandLiechtenstein <- function() {
   # Federal Office of Public Health FOPH https://www.covid19.admin.ch/en/overview
 
+  geomSwitzerlandLiechtenstein <- NULL
   utils::data("geomSwitzerlandLiechtenstein", envir = environment())
 
   # 1. import API to find code for most recent file version (date and code change for new data)

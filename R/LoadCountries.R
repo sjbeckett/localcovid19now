@@ -8,11 +8,11 @@
 #' @export
 #'
 #' @examples
+#' USandMalaysia <- LoadCountries(countries = c("LoadUS","LoadMalaysia"))
 #' \dontrun{
 #' AllData <- LoadCountries()
 #' }
 LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = interactive()) {
-
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
 

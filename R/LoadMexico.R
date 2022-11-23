@@ -19,10 +19,11 @@ LoadMexico <- function() {
   # Main COVID-19 hub page: https://datos.covid-19.conacyt.mx/#DownZCSV
   # need to try 2 days if it doesn't work.
 
+  geomMexico <- NULL
   utils::data("geomMexico", envir = environment())
 
   flag <- 0
-  aa <- 0
+  aa <- 1
   while (flag == 0) {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")
@@ -33,7 +34,7 @@ LoadMexico <- function() {
     } else {
       aa <- aa + 1
     }
-    if (aa > 6) {
+    if (aa > 30) {
       warning("no recent data")
       flag <- 2
     }

@@ -16,9 +16,7 @@ Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset t
 Data Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University \url{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}.
 }
 \examples{
-\dontrun{
 JH <- LoadJHUCSSE()
-}
 }
 \references{
 Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.

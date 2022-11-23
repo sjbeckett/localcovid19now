@@ -17,9 +17,7 @@ Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Heal
 Geometry collected by Where Geospatial Media (\url{www.wheregeospatial.com} \url{blog.wheregeospatial.com}). This Data is not authorized by any government or private institution. It was created from the old authorized Ghana Shapefile using the district boundaries. Any one who uses this for any analysis should note this. Any limitations from the old authorized shapefile are inherited by this shapefile. Created Dec 11, 2019.
 }
 \examples{
-\dontrun{
 Ghana <- LoadGhana()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

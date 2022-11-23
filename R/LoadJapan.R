@@ -29,13 +29,12 @@ getDataJapan <- function(dataSet, i) {
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Japan <- LoadJapan()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
+  pop_japan <- geomJapan <- NULL
   utils::data("geomJapan", envir = environment())
   utils::data("pop_japan", envir = environment())
 

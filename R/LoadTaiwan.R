@@ -16,6 +16,7 @@
 LoadTaiwan <- function() {
   # sourced from Taiwan Centers for Disease Control https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov
 
+  pop_taiwan <- geomTaiwan <- NULL
   utils::data("geomTaiwan", envir = environment())
   utils::data("pop_taiwan", envir = environment())
 

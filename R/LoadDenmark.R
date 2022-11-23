@@ -10,9 +10,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Denmark <- LoadDenmark()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadDenmark <- function() {
@@ -21,7 +19,7 @@ LoadDenmark <- function() {
   #- https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d
 
 
-  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- NULL
+  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- geomDenmark <- NULL
 
   # geometry
   # geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')

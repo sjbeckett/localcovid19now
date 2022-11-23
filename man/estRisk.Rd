@@ -4,10 +4,10 @@
 \alias{estRisk}
 \title{calculate risk}
 \usage{
-estRisk(ActiveCases, A, G, rounding = 0)
+estRisk(pcActiveCases, A, G, rounding = 0)
 }
 \arguments{
-\item{ActiveCases}{Per capita active cases.}
+\item{pcActiveCases}{Per capita active cases.}
 
 \item{A}{Ascertainment bias (ratio of infections to cases)}
 
@@ -19,16 +19,14 @@ estRisk(ActiveCases, A, G, rounding = 0)
 Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
 }
 \description{
-calculate risk
+Calculates the percentage probability that one or more persons in a group, with size G, may be infectious given the underlying prevalence of disease.
 }
 \examples{
-\dontrun{
 # estimated risk that one or more are infectious in a group of 100,
 # when there are 50 active cases in population of 10,000 and cases
 # are underascertained by a factor of 4.
 estRisk(50 / 10000, 4, 100)
 }
-}
 \seealso{
-\code{\link[=calc_risk]{calc_risk()}}
+\code{\link[=calcRisk]{calcRisk()}}
 }

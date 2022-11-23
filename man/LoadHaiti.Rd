@@ -16,9 +16,7 @@ Reads in subnational data for Haiti to calculate most recent estimate of per cap
 Released by the Ministry of Public Health and Population of Haiti to the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
 }
 \examples{
-\dontrun{
 Haiti <- LoadHaiti()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

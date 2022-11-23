@@ -11,15 +11,15 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Czechia <- LoadCzechia()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadCzechia <- function() {
   # COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: https://onemocneni-aktualne.mzcr.cz/covid-19
 
   # Komenda M., Karolyi M., Bulhart V., Žofka J., Brauner T., Hak J., Jarkovský J., Mužík J., Blaha M., Kubát J., Klimeš D., Langhammer P., Danková Š ., Májek O., Bartunková M., Dušek L. COVID 19: Overview of the current situation in the Czech Republic. Disease currently [online]. Prague: Ministry of Health of the Czech Republic, 2020. Available from: https://onemocneni-aktualne.mzcr.cz/covid-19 . Development: joint workplace of IHIS CR and IBA LF MU. ISSN 2694-9423.
+
+  pop_czechia <- geomCzechia <- NULL
   utils::data(list = c("geomCzechia", "pop_czechia"), envir = environment())
 
   District <- Confirmed <- Date <- NULL

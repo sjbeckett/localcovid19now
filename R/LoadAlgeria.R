@@ -14,7 +14,7 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadAlgeria <- function() {
-  pop_algeria <- NULL
+  pop_algeria <- geomAlgeria <- NULL
 
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
   ALG <- jsonlite::fromJSON("https://api.corona-dz.live/province/all")

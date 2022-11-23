@@ -7,7 +7,7 @@
 #' updateGlobal()
 #' }
 updateGlobal <- function() {
-
+  filename <- geoid <- m49code <- iso3 <- country_name <- macro_code <- macro_name <- micro_code <- micro_name <- NULL
 
   # Requires rmapshaper for the ms_simplify function - simplifies polygons.
   rlang::check_installed(c("rmapshaper", "here"), reason = "to use `updateGlobal()`")

@@ -16,9 +16,7 @@ Reads in subnational data for Norway to calculate most recent estimate of per ca
 Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). \url{https://github.com/thohan88/covid19-nor-data}.
 }
 \examples{
-\dontrun{
 Norway <- LoadNorway()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

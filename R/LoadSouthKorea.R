@@ -8,14 +8,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' SouthKorea <- LoadSouthKorea()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
 
+  geomSouthKorea <- misc_southkorea <- NULL
   utils::data("geomSouthKorea", envir = environment())
   utils::data("misc_southkorea", envir = environment())
 

@@ -8,9 +8,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Spain <- LoadSpain()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadSpain <- function() {
@@ -21,6 +19,7 @@ LoadSpain <- function() {
   # data("geomSpain")
   # Main COVID-19 hub page: https://cnecovid.isciii.es/covid19/#distribuci%C3%B3n-geogr%C3%A1fica
 
+  geomSpain <- misc_spain <- NULL
   utils::data(list = c("geomSpain", "misc_spain"), envir = environment())
 
   SPAIN <- utils::read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
