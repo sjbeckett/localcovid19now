@@ -8,14 +8,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' SaudiArabia <- LoadSaudiArabia()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadSaudiArabia <- function() {
   # Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/
 
+  misc_saudiarabia <- pop_saudiarabia <- geomSaudiArabia <- NULL
   utils::data(list = c("misc_saudiarabia", "pop_saudiarabia", "geomSaudiArabia"), envir = environment())
 
   Casesdataset <- sf::st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json", quiet = TRUE)

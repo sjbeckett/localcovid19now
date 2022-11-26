@@ -17,9 +17,7 @@ Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io} and
 sourced from \url{https://github.com/jmcastagnetto/covid-19-peru-data}
 }
 \examples{
-\dontrun{
 Peru <- LoadPeru()
-}
 }
 \references{
 Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, \url{https://doi.org/10.21105/joss.02376}

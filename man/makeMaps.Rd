@@ -10,8 +10,6 @@ makeMaps()
 Creates a whole world risk map and saves to PNG
 }
 \examples{
-\dontrun{
 makeMaps()
-}
 
 }

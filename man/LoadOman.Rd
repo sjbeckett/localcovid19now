@@ -16,9 +16,7 @@ Reads in subnational data for Oman to calculate most recent estimate of per capi
 Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: \url{https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases}.
 }
 \examples{
-\dontrun{
 Oman <- LoadOman()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

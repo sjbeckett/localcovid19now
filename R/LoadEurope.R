@@ -8,15 +8,14 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Europe <- LoadEurope()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
   # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
 
+  geomEurope <- NULL
   utils::data("geomEurope", envir = environment())
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")

@@ -17,9 +17,7 @@ COVID-19 data collated by Humanitarian Emergency Response Africa  \url{https://d
 sourced from data collected by Nigeria Centre for Disease Control and National Primary Health Care Development Agency.
 }
 \examples{
-\dontrun{
 Nigeria <- LoadNigeria()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

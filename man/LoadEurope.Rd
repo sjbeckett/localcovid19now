@@ -16,9 +16,7 @@ Reads in subnational data for Europe to calculate most recent estimate of per ca
 Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
 }
 \examples{
-\dontrun{
 Europe <- LoadEurope()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

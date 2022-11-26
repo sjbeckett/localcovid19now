@@ -11,12 +11,11 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' JH <- LoadJHUCSSE()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadJHUCSSE <- function() {
+  pop_smallcountries <- NULL
   utils::data("geomSmallCountries", envir = environment())
   utils::data("pop_smallcountries", envir = environment())
 

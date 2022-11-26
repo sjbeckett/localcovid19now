@@ -16,9 +16,7 @@ Reads in subnational data for Thailand to calculate most recent estimate of per 
 Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
 }
 \examples{
-\dontrun{
 Thailand <- LoadThailand()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

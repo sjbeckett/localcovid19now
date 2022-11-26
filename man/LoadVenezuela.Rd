@@ -16,9 +16,7 @@ Reads in subnational data for Venezuela to calculate most recent estimate of per
 Data is aggregated from local resources by OCHA Venezuela:  \url{https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela}.
 }
 \examples{
-\dontrun{
 Venezuela <- LoadVenezuela()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

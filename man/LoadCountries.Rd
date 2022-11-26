@@ -24,7 +24,5 @@ A simple feature returning the date of most recent data (DateReport), a unique r
 LoadCountries
 }
 \examples{
-\dontrun{
 AllData <- LoadCountries()
-}
 }

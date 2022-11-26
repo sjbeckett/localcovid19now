@@ -16,9 +16,7 @@ Reads in subnational data for Italy to calculate most recent estimate of per cap
 Data collated by the Italian Department of Civil Protection COVID-19: \url{https://github.com/pcm-dpc/COVID-19/}.
 }
 \examples{
-\dontrun{
 Italy <- LoadItaly()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

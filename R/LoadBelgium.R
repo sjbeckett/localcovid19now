@@ -15,7 +15,7 @@
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
-  geomBelgium <- pop_belgium <- NULL
+  geomBelgium <- pop_belgium <- names_belgium <- NULL
 
   utils::data("geomBelgium", "names_belgium", "pop_belgium", envir = environment())
   geomBelgium <- sf::st_as_sf(geomBelgium)

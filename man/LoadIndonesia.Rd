@@ -17,9 +17,7 @@ Live data, interactive charts & maps of Indonesia provincial COVID-19 daily case
 \url{https://github.com/erlange/INACOVID}.
 }
 \examples{
-\dontrun{
 Indonesia <- LoadIndonesia()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

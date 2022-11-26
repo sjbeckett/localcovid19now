@@ -6,12 +6,10 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' makeMaps()
-#' }
 #'
 makeMaps <- function() {
-
+  pInf <- NULL
   # source local files
   # source country by country files
   country_source_files <- list.files("./countries/", pattern = "*.R", full.names = T)

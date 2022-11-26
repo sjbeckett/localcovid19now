@@ -16,9 +16,7 @@ Reads in subnational data for Philippines to calculate most recent estimate of p
 Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
 }
 \examples{
-\dontrun{
 Philippines <- LoadPhilippines()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

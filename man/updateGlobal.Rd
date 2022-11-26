@@ -10,7 +10,5 @@ updateGlobal()
 Update Global Geometries
 }
 \examples{
-\dontrun{
 updateGlobal()
-}
 }

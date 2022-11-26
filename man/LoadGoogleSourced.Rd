@@ -16,9 +16,7 @@ Reads in subnational data for various regions in the Google COVID-19 dataset to 
 Data aggregated from local health resources in the Google COVID-19 Open Data datasets \url{https://goo.gle/covid-19-open-data}.
 }
 \examples{
-\dontrun{
 GS <- LoadGoogleSourced()
-}
 }
 \references{
 O. Wahltinez and others. 2020. COVID-19 Open-Data: curating a fine-grained, global-scale data repository for SARS-CoV-2. Work in progress \url{https://goo.gle/covid-19-open-data}.
