@@ -19,7 +19,7 @@ estRisk(ActiveCases, A, G, rounding = 0)
 Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
 }
 \description{
-calculate risk
+Calculates the percentage probability that one or more persons in a group, with size G, may be infectious given the underlying prevalence of disease.
 }
 \examples{
 \dontrun{

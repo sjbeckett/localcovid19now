@@ -25,7 +25,7 @@ LoadThailand <- function() {
   for (aa in 1:length(provinces)) {
     subsetdata <- cases[which(cases$Province == provinces[aa]), ]
     DateReport[aa] <- max(subsetdata$Date)
-    CaseDifference[aa] <- 10 / 14 * sum(subsetdata$Cases[which(as.Date(subsetdata$Date) > (as.Date(DateReport) - 14))])
+    CaseDifference[aa] <- 10 / 14 * sum(subsetdata$Cases[which(as.Date(subsetdata$Date) > (as.Date(DateReport[aa]) - 14))])
   }
   caseTable <- data.frame(provinces, DateReport, CaseDifference)
 

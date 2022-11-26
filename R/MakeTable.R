@@ -1,5 +1,7 @@
 #' Calculate Risk
 #'
+#' @description Calculates the percentage probability that one or more persons in a group, of a particular size g, may be infectious given the underlying prevalence of disease.
+#'
 #' @param p_I Probability one individual in a population is infectious.
 #' @param g Event size.
 #'
@@ -17,6 +19,8 @@ calc_risk <- function(p_I, g) {
 }
 
 #' Create Table of Risk Estimates
+#'
+#' @description Creates a table showing the estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 #'
 #' @param df_in Input data.
 #' @param risk_output Name of output file.
@@ -91,7 +95,7 @@ create_c19r_data <- function(df_in,
     }
   }
 
-  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join) %>%
+  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join, by="geoid") %>%
     dplyr::mutate(updated = lubridate::ymd(gsub("-", "", Sys.Date())))
 
   utils::write.csv(risk_data_df,

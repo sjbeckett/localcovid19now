@@ -22,7 +22,7 @@ LoadMexico <- function() {
   utils::data("geomMexico", envir = environment())
 
   flag <- 0
-  aa <- 0
+  aa <- 1
   while (flag == 0) {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")

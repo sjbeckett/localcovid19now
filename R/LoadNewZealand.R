@@ -27,24 +27,13 @@ LoadNewZealand <- function() {
   # New Zealand's dashboard and system is currently down due to a system upgrade, hence why this isn't finding anything.
 
   # load case data
-  # need to try 2 days if it doesn't work!
-  flag <- 0
-  aa <- 0
-  while (flag == 0) {
-    DATE <- Sys.Date() - aa
-    formDATE <- format(DATE, "%Y-%m-%d")
-    STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", formDATE, ".csv")
-    NZ <- try(vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE))
-    if (is.null(dim(NZ)) == FALSE) {
-      flag <- 1
-    } else {
-      aa <- aa + 1
-    }
-    if (aa > 30) {
-      warning("no recent data")
-      flag <- 2
-    }
-  }
+  
+  #find list of files recorded in the github folder NZ_COVID19_Data/overview_case at https://github.com/ESR-NZ/NZ_COVID19_Data/tree/master/overview_case
+  AA <- jsonlite::read_json("https://api.github.com/repos/ESR-NZ/NZ_COVID19_Data/git/trees/ceaec305a9bbfef50f7c9e90a029db7c123fa97f")
+  lastfile_str <- AA$tree[[length(AA$tree)]]$path
+  STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", lastfile_str)
+  NZ <- vroom::vroom(STRING, show_col_types=FALSE, progress = FALSE)
+  
 
   Regions <- unique(NZ$DHBName)
   DateReport <- c()
