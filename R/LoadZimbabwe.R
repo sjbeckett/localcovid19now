@@ -42,7 +42,7 @@ LoadZimbabwe <- function() {
   Province <- c("Harare", "Manicaland", "Mashonaland Central", "Mashonaland East", "Mashonaland West", "Midlands", "Masvingo", "Matabeleland North", "Matabeleland South", "Bulawayo")
 
   # Pop = read.csv("https://github.com/zimgeospatial/census/raw/master/province_population.csv")
-  # write.csv(Pop,"countries/data/Zimbabwe_pop.csv",row.names=FALSE)
+  # write.csv(Pop,"countries/data/Zimbabwe_pop.csv",row.names = FALSE)
   zimbabwedf <- data.frame(Province, DateReport, CaseDiff)
 
 

@@ -22,7 +22,7 @@ LoadSwitzerlandLiechtenstein <- function() {
   datastructure <- jsonlite::fromJSON("https://www.covid19.admin.ch/api/data/context")
   # 2. find URL for case data by region and read in
   chURL <- datastructure$sources$individual$csv$daily$cases
-  CHdata <- vroom::vroom(chURL)
+  CHdata <- vroom::vroom(chURL, show_col_types = FALSE, progress = FALSE)
 
   # 3. only need regional data, not that for whole country (CH) or whole dataset (CHFL)
   CHdata <- CHdata[-c(which(CHdata$geoRegion == "CH"), which(CHdata$geoRegion == "CHFL")), ]

@@ -23,7 +23,7 @@ LoadPakistan <- function() {
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
-  x <- as.data.frame(COVID19::covid19("Pakistan", level = 2))
+  x <- as.data.frame(COVID19::covid19("Pakistan", level = 2, verbose = FALSE))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()

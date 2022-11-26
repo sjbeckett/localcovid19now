@@ -20,7 +20,7 @@ LoadTaiwan <- function() {
   utils::data("pop_taiwan", envir = environment())
 
   # x<- read.csv("https://od.cdc.gov.tw/eic/Day_Confirmation_Age_County_Gender_19CoV.csv",encoding = "UTF-8")
-  x <- vroom::vroom("https://od.cdc.gov.tw/eic/Day_Confirmation_Age_County_Gender_19CoV.csv")
+  x <- vroom::vroom("https://od.cdc.gov.tw/eic/Day_Confirmation_Age_County_Gender_19CoV.csv", show_col_types = FALSE, progress = FALSE)
   names(x) <- c("Disease Name", "Date_Confirmation", "County_living", "Town_living", "Sex", "Imported", "Age_Group", "Number_of_confirmed_cases")
 
   regions <- unique(x$County_living)

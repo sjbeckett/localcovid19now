@@ -37,7 +37,7 @@ LoadNetherlands <- function() {
   # note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
 
   # utils::data("geomNetherlands", envir = environment())
-  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json")
+  geomNetherlands <- sf::st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2022_gegeneraliseerd&outputFormat=json", quiet=TRUE)
   geomNetherlands <- sf::st_transform(geomNetherlands, crs = 4326)
   geomNetherlands$micro_code <- geomNetherlands$statcode
   # also need to combine Weesp with Amsterdam (March 2022)
@@ -50,7 +50,7 @@ LoadNetherlands <- function() {
 
   # Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general
 
-  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";") %>%
+  NLdata <- vroom::vroom("https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_per_dag.csv", delim = ";", show_col_types = FALSE, progress = FALSE) %>%
     dplyr::select(Date = "Date_of_publication", Code = "Municipality_code", Municipality = "Municipality_name", Province = "Province", Cases = "Total_reported")
 
   municipalities <- unique(NLdata$Code)

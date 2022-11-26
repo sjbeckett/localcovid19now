@@ -53,7 +53,7 @@ LoadIndia <- function() {
   #  vec <- data.frame(Code = code, State = state, Population = population)
   #  populationTable <- rbind(populationTable,vec)
   # }
-  # write.csv(populationTable,"popIndia.csv",row.names=FALSE)
+  # write.csv(populationTable,"popIndia.csv",row.names = FALSE)
   # data("pop_india")
 
 
