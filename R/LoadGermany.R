@@ -41,7 +41,7 @@ LoadGermany <- function() {
   ) # None of these are  spatial data, so it doesn't make sense to use geojsons.
   germanyData <- purrr::map_df(
     links,
-    ~ vroom::vroom(.x) %>%
+    ~ vroom::vroom(.x, show_col_types = FALSE, progress = FALSE) %>%
       dplyr::select(Region = Landkreis, Cases = AnzahlFall, Date = Meldedatum, IdLandkreis)
   )
   germanyData <- germanyData %>%

@@ -39,7 +39,7 @@ LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = i
 
   for (country in countries) {
     # Load in data for this country
-    cat("\n", country, "\n")
+    cat(country, "\n")
     tryCatch(
       {
         this_country <- get(country)()

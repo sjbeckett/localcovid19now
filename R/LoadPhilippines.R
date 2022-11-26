@@ -47,6 +47,7 @@ LoadPhilippines <- function() {
   purrr::map_df(
     caseinfo_ids,
     function(x) {
+      googledrive::local_drive_quiet()
       temp <- tempfile()
       googledrive::drive_download(
         file = paste("https://drive.google.com/file/d", x, sep = "/"),
@@ -61,7 +62,8 @@ LoadPhilippines <- function() {
           DateDied = vroom::col_date(format = "%Y-%m-%d"),
           DateRecover = vroom::col_date(format = "%Y-%m-%d"),
           DateOnset = vroom::col_date(format = "%Y-%m-%d")
-        )
+        ), 
+        show_col_types = FALSE
       )
       unlink(temp)
       return(A)

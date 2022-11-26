@@ -25,7 +25,7 @@ LoadCzechia <- function() {
   District <- Confirmed <- Date <- NULL
 
   # case data
-  czechData <- vroom::vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv")
+  czechData <- vroom::vroom("https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/kraj-okres-nakazeni-vyleceni-umrti.csv", show_col_types = FALSE, progress = FALSE)
 
   names(czechData) <- c("id", "Date", "Code", "District", "Confirmed", "Cure", "Death")
 

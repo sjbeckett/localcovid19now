@@ -25,7 +25,7 @@ LoadJHUCSSE <- function() {
   ProvinceList <- c("Falkland Islands (Malvinas)", "New Caledonia", "Turks and Caicos Islands", "Anguilla", "British Virgin Islands", "Bermuda", "Sint Maarten", "Aruba", "Curacao", "Cook Islands")
 
   # load cases data
-  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names)
+  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names, show_col_types = FALSE, progress = FALSE)
 
   # get updated date:
   date <- names(data)[length(names(data))]

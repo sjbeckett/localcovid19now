@@ -18,7 +18,7 @@ LoadEcuador <- function() {
 
   utils::data("geomEcuador", envir = environment())
 
-  CaseDate <- vroom::vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv") # cantons
+  CaseDate <- vroom::vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv", show_col_types = FALSE, progress = FALSE) # cantons
   # CaseDate = read.csv("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/provincias.csv") #provinces
 
   CaseDiff <- c()

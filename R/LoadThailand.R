@@ -32,7 +32,7 @@ LoadThailand <- function() {
 
   # pop
   # popul = read.csv("https://github.com/djay/covidthailand/raw/main/province_mapping.csv")%>%select(c("Name",pop = "Population..2019..1."))
-  # write.csv("countries/data/thailand_pop.csv",row.names=FALSE)
+  # write.csv("countries/data/thailand_pop.csv",row.names = FALSE)
   # popul <- read.csv("countries/data/thailand_pop.csv")
   Thailanddf <- dplyr::inner_join(caseTable, pop_thailand, by = c("provinces" = "Name"))
 
