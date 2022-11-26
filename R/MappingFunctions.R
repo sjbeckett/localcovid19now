@@ -10,7 +10,7 @@
 #' @return Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
 #' @export
 #'
-#' @seealso [calc_risk()]
+#' @seealso [calcRisk()]
 #' @examples
 #' \dontrun{
 #' # estimated risk that one or more are infectious in a group of 100,

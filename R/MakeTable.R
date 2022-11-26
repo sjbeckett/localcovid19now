@@ -13,7 +13,7 @@
 #' risk <- calcrisk(.001, 50)
 #' }
 #'
-calc_risk <- function(p_I, g) {
+calcRisk <- function(p_I, g) {
   r <- 1 - (1 - p_I)**g
   return(r * 100)
 }
@@ -79,7 +79,7 @@ create_c19r_data <- function(df_in,
 
       riskdt <- data_Nr %>%
         dplyr::mutate(
-          risk = round(calc_risk(
+          risk = round(calcRisk(
             Nr, size
           ), 0),
           risk = dplyr::case_when(

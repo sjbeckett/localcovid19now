@@ -30,5 +30,5 @@ estRisk(50 / 10000, 4, 100)
 }
 }
 \seealso{
-\code{\link[=calc_risk]{calc_risk()}}
+\code{\link[=calcRisk]{calcRisk()}}
 }
