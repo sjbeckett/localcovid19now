@@ -16,9 +16,7 @@ Reads in subnational data for Spain to calculate most recent estimate of per cap
 COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos III: \url{https://cnecovid.isciii.es/covid19/}.
 }
 \examples{
-\dontrun{
 Spain <- LoadSpain()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

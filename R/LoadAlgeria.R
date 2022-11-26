@@ -8,13 +8,11 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Algeria <- LoadAlgeria()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadAlgeria <- function() {
-  pop_algeria <- NULL
+  pop_algeria <- geomAlgeria <- NULL
 
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
   ALG <- jsonlite::fromJSON("https://api.corona-dz.live/province/all")

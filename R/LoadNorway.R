@@ -8,12 +8,11 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Norway <- LoadNorway()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadNorway <- function() {
+  geomNorway <- NULL
   utils::data("geomNorway", envir = environment())
 
   data <- vroom::vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv", show_col_types = FALSE, progress = FALSE)

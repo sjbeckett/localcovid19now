@@ -8,13 +8,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Philippines <- LoadPhilippines()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  utils::data("geomPhilippines", envir = environment())
+  
+  . <- geomPeru <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
+  utils::data("geomPeru", envir = environment())
   utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker

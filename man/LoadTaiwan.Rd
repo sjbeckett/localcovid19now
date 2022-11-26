@@ -16,9 +16,7 @@ Reads in subnational data for Taiwan to calculate most recent estimate of per ca
 Data sourced from Taiwan Centers for Disease Control \url{https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov}.
 }
 \examples{
-\dontrun{
 Taiwan <- LoadTaiwan()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

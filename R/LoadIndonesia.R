@@ -9,9 +9,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Indonesia <- LoadIndonesia()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadIndonesia <- function() {
@@ -21,6 +19,7 @@ LoadIndonesia <- function() {
   cases <- vroom::vroom("https://raw.githubusercontent.com/erlange/INACOVID/master/data/csv/ext.prov.csv", show_col_types=FALSE) # cases are KASUS. new cases per day.
 >>>>>>> 9cf4ba0 (fixed warning messages/ and removed other print outs to console.)
 
+  micro_name <- NULL
   utils::data("geomIndonesia", envir = environment())
 
   provinces <- unique(cases$Location)

@@ -16,9 +16,7 @@ Reads in subnational data for Mexico to calculate most recent estimate of per ca
 COVID-19 data is sourced from the Covid-19 México hub page: \url{https://datos.covid-19.conacyt.mx/}.
 }
 \examples{
-\dontrun{
 Mexico <- LoadMexico()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

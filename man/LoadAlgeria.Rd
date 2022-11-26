@@ -16,9 +16,7 @@ Reads in subnational data for Algeria to calculate most recent estimate of per c
 Data was obtained using the Algeria Coronavirus Tracker API \url{https://corona-dz.live/}, documented at \url{https://github.com/Amine27/covid-19-dz} whcih sources information from the Algerian Ministry of Health, Population and Hospital Reform website.
 }
 \examples{
-\dontrun{
 Algeria <- LoadAlgeria()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

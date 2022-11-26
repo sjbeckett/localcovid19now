@@ -8,14 +8,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Taiwan <- LoadTaiwan()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadTaiwan <- function() {
   # sourced from Taiwan Centers for Disease Control https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov
 
+  pop_taiwan <- geomTaiwan <- NULL
   utils::data("geomTaiwan", envir = environment())
   utils::data("pop_taiwan", envir = environment())
 

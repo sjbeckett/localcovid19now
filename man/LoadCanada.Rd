@@ -16,9 +16,7 @@ Reads in subnational data for Canada to calculate most recent estimate of per ca
 Data aggregated by the COVID-19 Canada Open Data Working Group from local health resources at \url{https://github.com/ccodwg/Covid19Canada}.
 }
 \examples{
-\dontrun{
 Canada <- LoadCanada()
-}
 }
 \references{
 Berry I, Soucy J-PR, Tuite A, Fisman D. Open access epidemiologic data and an interactive dashboard to monitor the COVID-19 outbreak in Canada. CMAJ. 2020 Apr 14;192(15):E420. doi: \url{https://doi.org/10.1503/cmaj.75262}.

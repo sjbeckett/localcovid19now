@@ -18,9 +18,7 @@ The risk (\%) one or more individuals at an event of size g will be infectious.
 Calculates the percentage probability that one or more persons in a group, of a particular size g, may be infectious given the underlying prevalence of disease.
 }
 \examples{
-\dontrun{
 risk <- calcrisk(.001, 50)
-}
 
 }
 \seealso{

@@ -16,9 +16,7 @@ Reads in subnational data for Ireland to calculate most recent estimate of per c
 Data is provided by the Health Service Executive (HSE), Health Protection Surveillance Centre (HPSC), The Central Statistics Office (CSO) and Gov.ie and accessed via Ireland's COVID-19 Data Hub: \url{https://covid19ireland-geohive.hub.arcgis.com/}.
 }
 \examples{
-\dontrun{
 Ireland <- LoadIreland()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

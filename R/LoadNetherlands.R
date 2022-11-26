@@ -5,6 +5,7 @@
 #' @return COVID-19 data for the Netherlands. Used in LoadNetherlands().
 #' @keywords internal
 getDataND <- function(Mcode, netherlandsData) {
+  Code <- NULL
   temp <- netherlandsData %>%
     dplyr::filter(Code == Mcode)
   temp$CumSum <- cumsum(temp$Cases)
@@ -27,12 +28,11 @@ getDataND <- function(Mcode, netherlandsData) {
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Netherlands <- LoadNetherlands()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadNetherlands <- function() {
+  pop_netherlands <- NULL
 
   # note that the underlying geometry of reporting has changed multiple times during the pandemic due to changes in municipality boundaries.
 

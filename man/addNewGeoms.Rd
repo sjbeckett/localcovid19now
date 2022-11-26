@@ -13,7 +13,5 @@ world Map with new geoms added
 Add New Country Geometries
 }
 \examples{
-\dontrun{
 addNewGeoms()
-}
 }

@@ -17,9 +17,7 @@ Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr
 Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
 }
 \examples{
-\dontrun{
 France <- LoadFrance()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

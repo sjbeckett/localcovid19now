@@ -11,9 +11,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' GS <- LoadGoogleSourced()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadGoogleSourced <- function() { # takes a long time to process.
