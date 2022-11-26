@@ -6,7 +6,7 @@
 #' @keywords internal
 dataQueryItaly <- function(date) {
   denominazione_regione <- denominazione_provincia <- codice_provincia <- totale_casi <- NULL
-  data <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(date), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
+  data <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(date), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character()), show_col_types = FALSE, progress = FALSE) %>%
     dplyr::select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
   return(data)
 }

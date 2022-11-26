@@ -34,7 +34,7 @@ LoadNewZealand <- function() {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y-%m-%d")
     STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", formDATE, ".csv")
-    NZ <- try(vroom::vroom(STRING))
+    NZ <- try(vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE))
     if (is.null(dim(NZ)) == FALSE) {
       flag <- 1
     } else {

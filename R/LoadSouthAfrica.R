@@ -24,7 +24,7 @@ LoadSouthAfrica <- function() {
   PRO <- unique(geomSouthAfrica$micro_code)
 
   # covid case data, see: https://github.com/dsfsi/covid19za
-  COVID_data_SA <- vroom::vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
+  COVID_data_SA <- vroom::vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv", show_col_types = FALSE, progress = FALSE)
 
   DiffCases <- c()
   Date <- c()
@@ -37,7 +37,7 @@ LoadSouthAfrica <- function() {
   geomSouthAfrica$date <- Date
 
   # population data, see: https://github.com/dsfsi/covid19za/blob/master/data/district_data/za_province_pop.csv
-  # pop_southafrica <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header=FALSE)
+  # pop_southafrica <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header = FALSE)
   # data("pop_southafrica")
 
   PROVINCECode <- c("GP", "KZN", "WC", "EC", "LP", "MP", "NW", "FS", "NC")

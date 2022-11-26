@@ -25,7 +25,7 @@ LoadVietnam <- function() {
   # ProvinceInfo$Population[aa] = provincedata[[aa]]$population
   # }
   # ProvinceInfo=data.frame(ProvinceInfo)
-  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names=FALSE)
+  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names = FALSE)
   # ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
   utils::data("misc_vietnam", envir = environment())
   utils::data("geomVietnam", envir = environment())

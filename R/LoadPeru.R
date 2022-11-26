@@ -25,7 +25,7 @@ LoadPeru <- function() {
 
   utils::data("geomPeru", envir = environment())
 
-  x <- as.data.frame(COVID19::covid19("Peru", level = 2))
+  x <- as.data.frame(COVID19::covid19("Peru", level = 2, verbose = FALSE))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()
