@@ -10,7 +10,5 @@ resetNewGeoms()
 Reset processed files
 }
 \examples{
-\dontrun{
 resetNewGeoms()
-}
 }

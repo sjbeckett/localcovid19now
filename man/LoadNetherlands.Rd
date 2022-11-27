@@ -16,9 +16,7 @@ Reads in subnational data for Netherlands to calculate most recent estimate of p
 Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). \url{https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general}.
 }
 \examples{
-\dontrun{
 Netherlands <- LoadNetherlands()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

@@ -12,9 +12,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Peru <- LoadPeru()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadPeru <- function() {
@@ -23,9 +21,10 @@ LoadPeru <- function() {
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
+  geomPeru <- NULL
   utils::data("geomPeru", envir = environment())
 
-  x <- as.data.frame(COVID19::covid19("Peru", level = 2))
+  x <- as.data.frame(COVID19::covid19("Peru", level = 2, verbose = FALSE))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()

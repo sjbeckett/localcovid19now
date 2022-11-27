@@ -9,9 +9,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Ghana <- LoadGhana()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadGhana <- function() {
@@ -23,7 +21,7 @@ LoadGhana <- function() {
 
   temp <- tempfile()
   utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp, quiet = TRUE)
-  casesGhana <- vroom::vroom(temp, show_col_types=FALSE)
+  casesGhana <- vroom::vroom(temp, show_col_types = FALSE, progress = FALSE)
 
   ghanaCases <- casesGhana %>%
     dplyr::group_by(name) %>%

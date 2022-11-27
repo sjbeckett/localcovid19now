@@ -16,9 +16,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' China <- LoadChina()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadChina <- function() {
@@ -29,6 +27,7 @@ LoadChina <- function() {
   # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
   # Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
+  pop_china <- NULL
   data("geomChina", envir = environment())
   data("pop_china", envir = environment())
   # load cases data

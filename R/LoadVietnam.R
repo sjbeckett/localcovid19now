@@ -8,9 +8,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Vietnam <- LoadVietnam()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadVietnam <- function() {
@@ -25,8 +23,10 @@ LoadVietnam <- function() {
   # ProvinceInfo$Population[aa] = provincedata[[aa]]$population
   # }
   # ProvinceInfo=data.frame(ProvinceInfo)
-  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names=FALSE)
+  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names = FALSE)
   # ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
+
+  misc_vietnam <- geomVietnam <- NULL
   utils::data("misc_vietnam", envir = environment())
   utils::data("geomVietnam", envir = environment())
 

@@ -15,7 +15,7 @@
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
-  geomBelgium <- pop_belgium <- NULL
+  geomBelgium <- pop_belgium <- names_belgium <- NULL
 
   utils::data("geomBelgium", "names_belgium", "pop_belgium", envir = environment())
   geomBelgium <- sf::st_as_sf(geomBelgium)
@@ -41,7 +41,7 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(aa, 0), ".csv")
     tryCatch(
       {
-        latest_data <- vroom::vroom(STRING, show_col_types=FALSE)
+        latest_data <- vroom::vroom(STRING, show_col_types = FALSE)
       },
       error = function(cond) {
         warning(paste0("No data for ", getDate(aa, 0)))
@@ -68,7 +68,7 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(14 + aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(14 + aa, 0), ".csv")
     tryCatch(
       {
-        past_data <- vroom::vroom(STRING, show_col_types=FALSE)
+        past_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE, show_col_types = FALSE)
       },
       error = function(e) {
         warning(paste0("No data for ", getDate(14 + aa, 0)))

@@ -8,18 +8,17 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Malaysia <- LoadMalaysia()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadMalaysia <- function() {
   # Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
 
+  pop_malaysia <- geomMalaysia <- NULL
   utils::data("geomMalaysia", envir = environment())
   utils::data("pop_malaysia", envir = environment())
 
-  casesbystate <- vroom::vroom("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv",show_col_types=FALSE) # new cases by state by time
+  casesbystate <- vroom::vroom("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv", show_col_types = FALSE, progress = FALSE) # new cases by state by time
   casesbystate$date <- lubridate::as_date(casesbystate$date)
   states <- unique(casesbystate$state)
 

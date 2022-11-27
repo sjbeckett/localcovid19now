@@ -8,9 +8,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Sweden <- LoadSweden()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadSweden <- function() {
@@ -23,7 +21,7 @@ LoadSweden <- function() {
 
   # Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/
   temp <- tempfile()
-  utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb",quiet=TRUE)
+  utils::download.file(url = "https://fohm.maps.arcgis.com/sharing/rest/content/items/b5e7488e117749c19881cce45db13f7e/data", destfile = temp, mode = "wb", quiet = TRUE)
   swedenResource <- as.data.frame(readxl::read_excel(temp, col_names = TRUE))
   unlink(temp)
   names(swedenResource)[1] <- "date"

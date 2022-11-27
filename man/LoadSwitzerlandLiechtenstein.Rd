@@ -16,9 +16,7 @@ Reads in subnational data for Switzerland and also data for Liechtenstein to cal
 Data obtained via the Federal Office of Public Health FOPH \url{https://www.covid19.admin.ch/en/overview}.
 }
 \examples{
-\dontrun{
 SwitzerlandLiechtenstein <- LoadSwitzerlandLiechtenstein()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

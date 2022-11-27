@@ -8,11 +8,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' AllData <- LoadCountries()
-#' }
 LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = interactive()) {
-
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
 
@@ -39,7 +36,7 @@ LoadCountries <- function(countries = NULL, filepath = NULL, interactiveMode = i
 
   for (country in countries) {
     # Load in data for this country
-    cat("\n", country, "\n")
+    cat(country, "\n")
     tryCatch(
       {
         this_country <- get(country)()

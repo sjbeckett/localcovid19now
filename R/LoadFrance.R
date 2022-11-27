@@ -9,14 +9,13 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' France <- LoadFrance()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadFrance <- function() {
   # Santé publique France COVID-19 data for France :  https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/ // https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/
   # Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
+  pop <- geomFrance <- NULL
   utils::data("geomFrance", envir = environment())
 
 
@@ -24,7 +23,7 @@ LoadFrance <- function() {
 
   # sp-dep-day-2022-05-25-19h01.csv (this is daily data), from here:
   # https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/#resources
-  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc", col_types = c("cDccccccc")) %>%
+  data <- vroom::vroom("https://www.data.gouv.fr/fr/datasets/r/426bab53-e3f5-4c6a-9d54-dba4442b3dbc", col_types = c("cDccccccc"), show_col_types = FALSE, progress = FALSE) %>%
     dplyr::filter(cl_age90 == 0) %>%
     dplyr::select(code = dep, date = jour, cases = P, Population = pop) %>%
     dplyr::mutate(date = as.Date(date)) %>%

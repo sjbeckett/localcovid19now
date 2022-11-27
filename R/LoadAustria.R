@@ -6,9 +6,7 @@
 #' Data is from the Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria \url{https://www.data.gv.at/covid-19/}.
 #'
 #' @examples
-#' \dontrun{
 #' Austria <- LoadAustria()
-#' }
 #' @seealso [LoadCountries]
 #' @export
 LoadAustria <- function() {
@@ -20,7 +18,7 @@ LoadAustria <- function() {
 
   # Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/
   # case data
-  data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";", show_col_types=FALSE) %>%
+  data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";", show_col_types = FALSE, progress = FALSE) %>%
     dplyr::select(date = Time, name = Bezirk, code = GKZ, population = AnzEinwohner, cases = AnzahlFaelleSum)
   # date is in format dd.mm.YYYY HH:MM:SS
   # reformat the date

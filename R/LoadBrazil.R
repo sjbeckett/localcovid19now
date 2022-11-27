@@ -11,9 +11,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Brazil <- LoadBrazil()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadBrazil <- function() {
@@ -25,7 +23,7 @@ LoadBrazil <- function() {
   # COVID-19 data are aggregated from Ministério da Saúde and Brasil.IO by https://github.com/wcota/covid19br
   # W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362
 
-  data <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv", show_col_types=FALSE)
+  data <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv", show_col_types = FALSE, progress = FALSE)
   data <- data[rev(order(lubridate::as_date(data$date))), c("date", "state", "totalCasesMS")]
   stateList <- unique(data$state)
   data$date <- lubridate::as_date(data$date)
@@ -39,7 +37,7 @@ LoadBrazil <- function() {
   }
   # data[(data$date == today & data$state == stateList[i]),'totalCasesMS']
   ## population
-  pop <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cities_info.csv", show_col_types=FALSE)
+  pop <- vroom::vroom("https://raw.githubusercontent.com/wcota/covid19br/master/cities_info.csv", show_col_types = FALSE, progress = FALSE)
   pop <- pop[, c("state", "pop2020")]
   popState <- as.data.frame(pop %>% dplyr::group_by(state) %>% dplyr::summarise(pop2020 = sum(pop2020)))
   names(popState) <- c("state", "Population")

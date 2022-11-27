@@ -16,9 +16,7 @@ Reads in subnational data for Vietnam to calculate most recent estimate of per c
 Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. \url{https://covid19.ncsc.gov.vn/dulieu}.
 }
 \examples{
-\dontrun{
 Vietnam <- LoadVietnam()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

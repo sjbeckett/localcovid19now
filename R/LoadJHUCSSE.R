@@ -11,12 +11,11 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' JH <- LoadJHUCSSE()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadJHUCSSE <- function() {
+  pop_smallcountries <- NULL
   utils::data("geomSmallCountries", envir = environment())
   utils::data("pop_smallcountries", envir = environment())
 
@@ -25,7 +24,7 @@ LoadJHUCSSE <- function() {
   ProvinceList <- c("Falkland Islands (Malvinas)", "New Caledonia", "Turks and Caicos Islands", "Anguilla", "British Virgin Islands", "Bermuda", "Sint Maarten", "Aruba", "Curacao", "Cook Islands")
 
   # load cases data
-  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names, show_col_types=FALSE)
+  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names, show_col_types = FALSE, progress = FALSE)
 
   # get updated date:
   date <- names(data)[length(names(data))]

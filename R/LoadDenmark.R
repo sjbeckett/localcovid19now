@@ -10,9 +10,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Denmark <- LoadDenmark()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadDenmark <- function() {
@@ -21,7 +19,7 @@ LoadDenmark <- function() {
   #- https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d
 
 
-  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- NULL
+  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- geomDenmark <- NULL
 
   # geometry
   # geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')
@@ -54,9 +52,9 @@ LoadDenmark <- function() {
   # 2.) download and extract data:
   temp <- tempfile() # temporary file for download
   temp2 <- tempdir() # temporary file for extraction
-  utils::download.file(DOWNLOADLINK, destfile = temp, quiet=TRUE)
+  utils::download.file(DOWNLOADLINK, destfile = temp, quiet = TRUE)
   utils::unzip(zipfile = temp, exdir = temp2)
-  DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";", show_col_types=FALSE)
+  DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";", show_col_types = FALSE, progress = FALSE)
   unlink(temp)
   unlink(temp2)
 

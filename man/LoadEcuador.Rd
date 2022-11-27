@@ -16,9 +16,7 @@ Reads in subnational data for Ecuador to calculate most recent estimate of per c
 Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: \url{https://github.com/andrab/ecuacovid}.
 }
 \examples{
-\dontrun{
 Ecuador <- LoadEcuador()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

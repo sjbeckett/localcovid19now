@@ -24,9 +24,6 @@ dataQueryUK <- function(date) {
       )
       dmod <- dmod + 1
     }
-    #if (date != cur_date) {
-    #  cat("\nnew cur_date:", as.character(cur_date), "\n")
-    #}
   }
 
   # Convert response from binary to JSON:
@@ -46,14 +43,12 @@ dataQueryUK <- function(date) {
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' UK <- LoadUK()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadUK <- function() {
   # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
-
+  geomUnitedKingdom <- pop_uk <- misc_uk <- NULL
   utils::data("geomUnitedKingdom", envir = environment())
   utils::data("pop_uk", envir = environment())
   utils::data("misc_uk", envir = environment())

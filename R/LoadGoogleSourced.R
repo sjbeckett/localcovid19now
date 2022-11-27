@@ -11,9 +11,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' GS <- LoadGoogleSourced()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadGoogleSourced <- function() { # takes a long time to process.
@@ -30,7 +28,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   utils::data(list = c("geomArgentina", "geomAfghanistan", "geomColombia", "geomMozambique"), envir = environment())
 
   # index file
-  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()))
+  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()), show_col_types = FALSE, progress = FALSE)
   KEYS <- c()
   LOCALES <- c()
   COUNTRY <- c()
@@ -45,7 +43,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   CaseDiff <- c()
   Pop <- c()
   for (bb in 1:length(KEYS)) {
-    DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
+    DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE, progress = FALSE)
     naIND <- which(is.na(DAT$cumulative_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]

@@ -8,9 +8,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Mexico <- LoadMexico()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadMexico <- function() {
@@ -19,6 +17,7 @@ LoadMexico <- function() {
   # Main COVID-19 hub page: https://datos.covid-19.conacyt.mx/#DownZCSV
   # need to try 2 days if it doesn't work.
 
+  geomMexico <- NULL
   utils::data("geomMexico", envir = environment())
 
   flag <- 0
@@ -27,7 +26,7 @@ LoadMexico <- function() {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")
     STRING <- paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_", formDATE)
-    MEX <- try(vroom::vroom(STRING,show_col_types=FALSE)) # note older files are DELETED.
+    MEX <- try(vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE), silent = TRUE) # note older files are DELETED.
     if (is.null(dim(MEX)) == FALSE) {
       flag <- 1
     } else {

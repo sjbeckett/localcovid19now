@@ -8,21 +8,20 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Philippines <- LoadPhilippines()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  utils::data("geomPhilippines", envir = environment())
+  . <- geomPeru <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
+  utils::data("geomPeru", envir = environment())
   utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
-  
+
   rlang::check_installed(c("pdftools", "googledrive"), reason = "to use `LoadPhilippines()`")
-  
+
   # silence googledrive in this specific scope
-  googledrive::local_drive_quiet() 
+  googledrive::local_drive_quiet()
 
   url1 <- "bit.ly/DataDropPH"
   req1 <- httr::GET(url1)
@@ -49,6 +48,7 @@ LoadPhilippines <- function() {
   purrr::map_df(
     caseinfo_ids,
     function(x) {
+      googledrive::local_drive_quiet()
       temp <- tempfile()
       googledrive::drive_download(
         file = paste("https://drive.google.com/file/d", x, sep = "/"),
@@ -63,7 +63,8 @@ LoadPhilippines <- function() {
           DateDied = vroom::col_date(format = "%Y-%m-%d"),
           DateRecover = vroom::col_date(format = "%Y-%m-%d"),
           DateOnset = vroom::col_date(format = "%Y-%m-%d")
-        )
+        ),
+        show_col_types = FALSE
       )
       unlink(temp)
       return(A)

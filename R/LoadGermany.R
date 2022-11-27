@@ -8,9 +8,7 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Germany <- LoadGermany()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadGermany <- function() {
@@ -41,7 +39,7 @@ LoadGermany <- function() {
   ) # None of these are  spatial data, so it doesn't make sense to use geojsons.
   germanyData <- purrr::map_df(
     links,
-    ~ vroom::vroom(.x,show_col_types=FALSE) %>%
+    ~ vroom::vroom(.x, show_col_types = FALSE, progress = FALSE) %>%
       dplyr::select(Region = Landkreis, Cases = AnzahlFall, Date = Meldedatum, IdLandkreis)
   )
   germanyData <- germanyData %>%

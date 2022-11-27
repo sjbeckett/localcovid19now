@@ -13,6 +13,7 @@
 #' }
 remSurplus <- function(input_file,
                        collection_files = c("geomEurope", "geomSmallCountries")) {
+  iso3 <- filename <- isDup <- NULL
   isoFile <- input_file %>%
     sf::st_drop_geometry() %>%
     dplyr::select(iso3, filename) %>%

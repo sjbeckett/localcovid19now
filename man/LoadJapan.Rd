@@ -16,9 +16,7 @@ Reads in subnational data for Japan to calculate most recent estimate of per cap
 Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
 }
 \examples{
-\dontrun{
 Japan <- LoadJapan()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

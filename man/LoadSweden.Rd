@@ -16,9 +16,7 @@ Reads in subnational data for Sweden to calculate most recent estimate of per ca
 Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: \url{https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/}.
 }
 \examples{
-\dontrun{
 Sweden <- LoadSweden()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

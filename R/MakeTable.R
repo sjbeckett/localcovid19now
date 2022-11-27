@@ -9,11 +9,9 @@
 #' @export
 #' @seealso [estRisk()]
 #' @examples
-#' \dontrun{
 #' risk <- calcrisk(.001, 50)
-#' }
 #'
-calc_risk <- function(p_I, g) {
+calcRisk <- function(p_I, g) {
   r <- 1 - (1 - p_I)**g
   return(r * 100)
 }
@@ -79,7 +77,7 @@ create_c19r_data <- function(df_in,
 
       riskdt <- data_Nr %>%
         dplyr::mutate(
-          risk = round(calc_risk(
+          risk = round(calcRisk(
             Nr, size
           ), 0),
           risk = dplyr::case_when(
@@ -95,7 +93,7 @@ create_c19r_data <- function(df_in,
     }
   }
 
-  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join, by="geoid") %>%
+  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join, by = "geoid") %>%
     dplyr::mutate(updated = lubridate::ymd(gsub("-", "", Sys.Date())))
 
   utils::write.csv(risk_data_df,

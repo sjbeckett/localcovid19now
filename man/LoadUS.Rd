@@ -17,9 +17,7 @@ Real-time county level COVID19 data comes from the NYTimes COVID19 data project:
 US 2019 population estimate data comes from the US Census: \url{https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html}.
 }
 \examples{
-\dontrun{
 US <- LoadUS()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

@@ -16,9 +16,7 @@ Reads in subnational data for Cuba to calculate most recent estimate of per capi
 Data aggregated from local health resources by Covid19CubaData \url{http://covid19cubadata.github.io/}.
 }
 \examples{
-\dontrun{
 Cuba <- LoadCuba()
-}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

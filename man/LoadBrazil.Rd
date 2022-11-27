@@ -16,9 +16,7 @@ Reads in subnational data for Brazil to calculate most recent estimate of per ca
 COVID-19 data are aggregated from Ministério da Saúde and Brasil.IO by \url{https://github.com/wcota/covid19br}
 }
 \examples{
-\dontrun{
 Brazil <- LoadBrazil()
-}
 }
 \references{
 W. Cota, “Monitoring the number of COVID-19 cases and deaths in brazil at municipal and federative units level”, SciELOPreprints:362 (2020), 10.1590/scielopreprints.362

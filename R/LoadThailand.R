@@ -8,13 +8,12 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Thailand <- LoadThailand()
-#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand
+  geomThailand <- pop_thailand <- misc_thailand <- micro_code <- NULL
   utils::data(list = c("geomThailand", "pop_thailand"), envir = environment())
   # cases
   cases <- utils::read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
@@ -32,7 +31,7 @@ LoadThailand <- function() {
 
   # pop
   # popul = read.csv("https://github.com/djay/covidthailand/raw/main/province_mapping.csv")%>%select(c("Name",pop = "Population..2019..1."))
-  # write.csv("countries/data/thailand_pop.csv",row.names=FALSE)
+  # write.csv("countries/data/thailand_pop.csv",row.names = FALSE)
   # popul <- read.csv("countries/data/thailand_pop.csv")
   Thailanddf <- dplyr::inner_join(caseTable, pop_thailand, by = c("provinces" = "Name"))
 
