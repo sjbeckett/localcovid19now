@@ -1,16 +1,3 @@
-#' dataQueryItaly
-#'
-#' @param date search for Italian COVID-19 data on this date
-#'
-#' @return returns data for Italy on specified date. Called by LoadItaly().
-#' @keywords internal
-dataQueryItaly <- function(date) {
-  denominazione_regione <- denominazione_provincia <- codice_provincia <- totale_casi <- NULL
-  data <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(date), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character()), show_col_types = FALSE, progress = FALSE) %>%
-    dplyr::select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
-  return(data)
-}
-
 #' LoadItaly
 #'
 #' @description Reads in subnational data for Italy to calculate most recent estimate of per capita active COVID-19 cases.
