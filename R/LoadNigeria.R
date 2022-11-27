@@ -13,7 +13,6 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadNigeria <- function() {
-
   # Humanitarian Emergency Response Africa  https://data.humdata.org/dataset/nigeria_covid19_subnational
   # sourced from data collected by Nigeria Centre for Disease Control and National Primary Health Care Development Agency.
   # updated ~ weekly.

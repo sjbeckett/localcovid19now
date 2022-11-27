@@ -21,23 +21,23 @@ LoadItaly <- function() {
 
   # Italian Department of Civil Protection COVID-19 Data: https://github.com/pcm-dpc/COVID-19/
   # italy: need to download data_cur and data_past respectively
-    
-    latestdata <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-latest.csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
+
+  latestdata <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-latest.csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
     dplyr::select(latest_date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases = totale_casi)
-  
-    pastdate = lubridate::date(latestdata$latest_date[1]) - lubridate::days(14)
-  
-    
-    pastdata <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(pastdate), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
-      dplyr::select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases_past = totale_casi)
-    
-  
+
+  pastdate <- lubridate::date(latestdata$latest_date[1]) - lubridate::days(14)
+
+
+  pastdata <- vroom::vroom(paste0("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-", stringr::str_replace_all(as.character(pastdate), "-", ""), ".csv"), col_types = vroom::cols(note = vroom::col_character())) %>%
+    dplyr::select(date = data, region = denominazione_regione, province = denominazione_provincia, code = codice_provincia, cases_past = totale_casi)
+
+
   data_join <- latestdata %>%
     dplyr::inner_join(pastdata, by = c("code")) %>%
     dplyr::inner_join(pop_italy, by = c("code"))
   data_join$CaseDiff <- (data_join$cases - data_join$cases_past) * 10 / 14
   data_join$date <- lubridate::as_date(data_join$latest_date)
-  
+
   # geometry
   # geom <<- st_read("https://raw.githubusercontent.com/appliedbinf/covid19-event-risk-planner/master/COVID19-Event-Risk-Planner/map_data/italy_simpler.geojson")
   # data("geomItaly")

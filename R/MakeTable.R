@@ -93,7 +93,7 @@ create_c19r_data <- function(df_in,
     }
   }
 
-  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join, by="geoid") %>%
+  risk_data_df <- purrr::reduce(.x = append(list(df_in), risk_data), .f = dplyr::left_join, by = "geoid") %>%
     dplyr::mutate(updated = lubridate::ymd(gsub("-", "", Sys.Date())))
 
   utils::write.csv(risk_data_df,

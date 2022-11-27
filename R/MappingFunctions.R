@@ -28,7 +28,7 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 ## create risk-maps and active case per capita maps in Leaflet and tmap
 
 #' EventMap_leaflet
-#' 
+#'
 #' @description Creates an interactive Leaflet map displaying exposure risk for the input data.
 #'
 #' @param DATA Data containing prevalence information to map.
@@ -119,8 +119,8 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
   DATA$percapcases <- DATA$pInf * people
   MMap <- DATA
 
-  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
-  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey", bins=bins)
+  bins <- 0.01 * c(0, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 100) * people
+  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey", bins = bins)
   JAM <- leaflet::leafletOptions(worldCopyJump = TRUE)
 
   labels <- sprintf(
@@ -222,12 +222,12 @@ PerCapitaMap_tmap <- function(DATA, people = 100000, boundaryweights = 0.05, pro
   utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
-  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
-  
+  bins <- 0.01 * c(0, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 100) * people
+
   DATA$percapcases <- DATA$pInf * people
 
   tmap::tm_shape(DATA) +
-    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights,  breaks = bins) +
+    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights, breaks = bins) +
     tmap::tm_shape(World) +
     tmap::tm_layout(legend.outside = TRUE, legend.outside.position = "right", title = maptitle) +
     tmap::tm_borders("grey", lwd = .5)

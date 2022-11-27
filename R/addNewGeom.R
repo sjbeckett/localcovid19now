@@ -25,9 +25,8 @@ moveFiles <- function(x) {
 #' @examples
 #' addNewGeoms()
 addNewGeoms <- function() {
-  
   iso3 <- m49code <- macro_code <- micro_code <- geoid <- country_name <- macro_name <- NULL
-  
+
   rlang::check_installed(c("here"), reason = "to use addNewGeoms()")
   # Fields will be as follows:
   ## geoid = ISO3m49_micro_macro
