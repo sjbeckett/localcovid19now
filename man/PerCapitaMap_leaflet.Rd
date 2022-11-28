@@ -19,10 +19,9 @@ Outputs an interactive leaflet map displaying active cases per 'people' for the 
 \description{
 Creates an interactive Leaflet map displaying active cases per 'people' for the input data.
 }
-\seealso{
-Other mapplots: 
-\code{\link{EventMap_leaflet}()},
-\code{\link{EventMap_tmap}()},
-\code{\link{PerCapitaMap_tmap}()}
-}
-\concept{mapplots}
+\concept{mapplots
+#' @examples
+\dontrun{
+Denmark <- LoadDenmark()
+PerCapitaMap_leaflet(Denmark)
+}}

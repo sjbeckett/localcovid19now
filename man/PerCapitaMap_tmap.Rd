@@ -29,10 +29,15 @@ Outputs a tmap displaying active cases per 'people' for the input data.
 \description{
 Creates a tmap map displaying active cases per 'people' for the input data.
 }
+\examples{
+\dontrun{
+Denmark <- LoadDenmark()
+PerCapitaMap_tmap(Denmark)
+}
+}
 \seealso{
 Other mapplots: 
 \code{\link{EventMap_leaflet}()},
-\code{\link{EventMap_tmap}()},
-\code{\link{PerCapitaMap_leaflet}()}
+\code{\link{EventMap_tmap}()}
 }
 \concept{mapplots}

@@ -31,7 +31,6 @@ EventMap_leaflet(Austria, 50, Austria$AB)
 \seealso{
 Other mapplots: 
 \code{\link{EventMap_tmap}()},
-\code{\link{PerCapitaMap_leaflet}()},
 \code{\link{PerCapitaMap_tmap}()}
 }
 \concept{mapplots}
