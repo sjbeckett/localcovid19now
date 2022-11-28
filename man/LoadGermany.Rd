@@ -16,7 +16,9 @@ Reads in subnational data for Germany to calculate most recent estimate of per c
 COVID-19 case data for Germany is from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/} \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about}.
 }
 \examples{
+\dontrun{
 Germany <- LoadGermany()
+}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

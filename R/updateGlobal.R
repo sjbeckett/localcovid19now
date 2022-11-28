@@ -3,7 +3,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' updateGlobal()
+#' }
 updateGlobal <- function() {
   filename <- geoid <- m49code <- iso3 <- country_name <- macro_code <- macro_name <- micro_code <- micro_name <- NULL
 

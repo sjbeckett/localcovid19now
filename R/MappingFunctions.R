@@ -2,25 +2,23 @@
 #'
 #' @description Calculates the percentage probability that one or more persons in a group, with size G, may be infectious given the underlying prevalence of disease.
 #'
-#' @param ActiveCases Per capita active cases.
+#' @param pcActiveCases Per capita active cases.
 #' @param A Ascertainment bias (ratio of infections to cases)
 #' @param G Event size for risk to be calculated for.
 #' @param rounding Number of decimal places to round to. Default of 0.
 #'
 #' @return Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
-#' @export
 #'
 #' @seealso [calcRisk()]
 #' @examples
-#' \dontrun{
 #' # estimated risk that one or more are infectious in a group of 100,
 #' # when there are 50 active cases in population of 10,000 and cases
 #' # are underascertained by a factor of 4.
 #' estRisk(50 / 10000, 4, 100)
-#' }
-estRisk <- function(ActiveCases, A, G, rounding = 0) {
+#' @export
+estRisk <- function(pcActiveCases, A, G, rounding = 0) {
   # A is ascertainment bias, G is group size
-  Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
+  Risk <- 100 * (1 - (1 - (A * pcActiveCases))^G)
   return(round(Risk, rounding))
 }
 
@@ -112,6 +110,11 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 #' @return Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
 #'
 #' @family mapplots
+#' #' @examples
+#' \dontrun{
+#' Denmark <- LoadDenmark()
+#' PerCapitaMap_leaflet(Denmark)
+#' }
 #' @export
 PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `PerCapitaMap_leaflet()`")
@@ -174,13 +177,13 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 #' @return Outputs a tmap displaying exposure risk for the input data.
 #'
 #' @family mapplots
-#' @export
 #' @examples
 #' \dontrun{
 #' Austria <- LoadAustria()
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50, Austria$AB)
 #' }
+#' @export
 EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
   rlang::check_installed("tmap", reason = "to use EventMap_tmap()")
@@ -214,6 +217,11 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 #' @return Outputs a tmap displaying active cases per 'people' for the input data.
 #'
 #' @family mapplots
+#' @examples
+#' \dontrun{
+#' Denmark <- LoadDenmark()
+#' PerCapitaMap_tmap(Denmark)
+#' }
 #' @export
 PerCapitaMap_tmap <- function(DATA, people = 100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
