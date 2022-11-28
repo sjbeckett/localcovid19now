@@ -110,7 +110,7 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 #' @return Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
 #'
 #' @family mapplots
-#' #' @examples
+#' @examples
 #' \dontrun{
 #' Denmark <- LoadDenmark()
 #' PerCapitaMap_leaflet(Denmark)

@@ -38,6 +38,7 @@ PerCapitaMap_tmap(Denmark)
 \seealso{
 Other mapplots: 
 \code{\link{EventMap_leaflet}()},
-\code{\link{EventMap_tmap}()}
+\code{\link{EventMap_tmap}()},
+\code{\link{PerCapitaMap_leaflet}()}
 }
 \concept{mapplots}
