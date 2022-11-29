@@ -28,6 +28,10 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   # list with recent subnational data as of 8th August 2021. Note other useable datasets may exist.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
   utils::data(list = c("geomArgentina", "geomAfghanistan", "geomColombia", "geomMozambique"), envir = environment())
+  geomArgentina <- sf::st_as_sf(geomArgentina)
+  geomAfghanistan <- sf::st_as_sf(geomAfghanistan)
+  geomColombia <- sf::st_as_sf(geomColombia)
+  geomMozambique <- sf::st_as_sf(geomMozambique)
 
   # index file
   INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()), show_col_types = FALSE, progress = FALSE)
@@ -55,7 +59,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
       past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
     }
     CaseDiff[bb] <- (10 / 14) * (curr - past)
-    if (length(DAT$population[1]) == 1) {
+    if ("population" %in% names(DAT)) {
       Pop[bb] <- DAT$population[1]
     } else {
       Pop[bb] <- NA

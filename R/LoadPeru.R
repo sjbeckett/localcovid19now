@@ -23,6 +23,7 @@ LoadPeru <- function() {
 
   geomPeru <- NULL
   utils::data("geomPeru", envir = environment())
+  geomPeru <- sf::st_as_sf(geomPeru)
 
   x <- as.data.frame(COVID19::covid19("Peru", level = 2, verbose = FALSE))
 

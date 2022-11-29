@@ -18,6 +18,8 @@ LoadSaudiArabia <- function() {
 
   misc_saudiarabia <- pop_saudiarabia <- geomSaudiArabia <- NULL
   utils::data(list = c("misc_saudiarabia", "pop_saudiarabia", "geomSaudiArabia"), envir = environment())
+  
+  geomSaudiArabia <- sf::st_as_sf(geomSaudiArabia)
 
 <<<<<<< HEAD
   Casesdataset <- sf::st_read("https://services6.arcgis.com/bKYAIlQgwHslVRaK/arcgis/rest/services/VWPlacesCasesHostedView/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json", quiet = TRUE)

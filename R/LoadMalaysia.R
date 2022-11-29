@@ -17,6 +17,7 @@ LoadMalaysia <- function() {
   pop_malaysia <- geomMalaysia <- NULL
   utils::data("geomMalaysia", envir = environment())
   utils::data("pop_malaysia", envir = environment())
+  geomMalaysia <- sf::st_as_sf(geomMalaysia)
 
   casesbystate <- vroom::vroom("https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/cases_state.csv", show_col_types = FALSE, progress = FALSE) # new cases by state by time
   casesbystate$date <- lubridate::as_date(casesbystate$date)

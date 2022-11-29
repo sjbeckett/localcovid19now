@@ -20,7 +20,9 @@ COVID-19 data from the Statens Serum Institut (SSI):
 }
 }
 \examples{
+\dontrun{
 Denmark <- LoadDenmark()
+}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

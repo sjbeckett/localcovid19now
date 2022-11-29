@@ -16,6 +16,7 @@ LoadEcuador <- function() {
 
   geomEcuador <- NULL
   utils::data("geomEcuador", envir = environment())
+  geomEcuador <- sf::st_as_sf(geomEcuador)
 
   CaseDate <- vroom::vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv", show_col_types = FALSE, progress = FALSE) # cantons
   # CaseDate = read.csv("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/provincias.csv") #provinces

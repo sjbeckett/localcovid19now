@@ -17,6 +17,7 @@ LoadFrance <- function() {
   # Note this resource also contains data for overseas departments of France, and for Saint Barthélemy, Saint Martin, and Saint Pierre and Miquelon.
   pop <- geomFrance <- NULL
   utils::data("geomFrance", envir = environment())
+  geomFrance <- sf::st_as_sf(geomFrance)
 
 
   Code <- Department <- Population <- dep <- jour <- P <- cl_age90 <- cases <- NULL

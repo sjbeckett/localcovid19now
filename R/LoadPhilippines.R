@@ -14,9 +14,10 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  . <- geomPeru <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
-  utils::data("geomPeru", envir = environment())
+  . <- geomPhilippines <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
+  utils::data("geomPhilippines", envir = environment())
   utils::data("pop_philippines", envir = environment())
+  geomPhilippines <- sf::st_as_sf(geomPhilippines)
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
@@ -66,7 +67,7 @@ LoadPhilippines <- function() {
           DateRecover = vroom::col_date(format = "%Y-%m-%d"),
           DateOnset = vroom::col_date(format = "%Y-%m-%d")
         ),
-        show_col_types = FALSE
+        show_col_types = FALSE, progress = FALSE
       )
       unlink(temp)
       return(A)
@@ -122,7 +123,7 @@ LoadPhilippines <- function() {
 
   ### Municipalities:
   province <- unique(philippinesData$Province)
-  province <- province[is.na(province) == F] # remove NA values
+  province <- province[is.na(province) == FALSE] # remove NA values
 
   getDataPH <- function(pro_codes) {
     Table <- c()

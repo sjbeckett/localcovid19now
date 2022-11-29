@@ -10,7 +10,9 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
+#' \dontrun{
 #' Denmark <- LoadDenmark()
+#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadDenmark <- function() {
@@ -29,6 +31,7 @@ LoadDenmark <- function() {
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
   utils::data("geomDenmark", envir = environment())
+  geomDenmark <- sf::st_as_sf(geomDenmark)
 
   # case data
   # 1.)  identify file location from webpages

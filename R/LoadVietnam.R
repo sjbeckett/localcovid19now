@@ -31,6 +31,7 @@ LoadVietnam <- function() {
   misc_vietnam <- geomVietnam <- NULL
   utils::data("misc_vietnam", envir = environment())
   utils::data("geomVietnam", envir = environment())
+  geomVietnam <- sf::st_as_sf(geomVietnam)
 
   # ProvinceInfo <- misc_vietnam
   # Geometry

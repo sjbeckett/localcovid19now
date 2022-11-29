@@ -1,34 +1,41 @@
-#' LoadEurope
+#' LoadEuropeTESTING
 #'
 #' @description Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases.
-#'
+#' 
+#' @param tidy If TRUE, then perform tidying according to other parameters. If FALSE, then do nothing.
+#' @param DaysOld  Set any pInf data more than this days old to NA.
+#' @param minimumpercapitaactivecases Set any pInf data less than this to NA.
+#' @param RiskEval Set pInf to NA when risk is below RiskEval$minimumRisk (%) using RiskEval$ascertainmentbias and a maximum group size, RiskEval$maximumN (Note: this setting overwrites minimumpercapitaactivecases).
+#' @param dropNACountry If TRUE, remove rows for countries whose pInf estimates all return NA.
+#' @param dropNAall If TRUE, remove rows for any region whose pInf estimates all return NA
+#' 
 #' @note
 #' Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' Europe <- LoadEurope()
+#' Europe2 <- LoadEuropeTESTING()
 #' @seealso [LoadCountries()]
 #' @export
-LoadEurope <- function() {
+LoadEuropeTESTING <- function(tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = FALSE, dropNAall = FALSE) {
+  
+  tryCatch({
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
   # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
-
+  
   geomEurope <- NULL
   utils::data("geomEurope", envir = environment())
   geomEurope <- sf::st_as_sf(geomEurope)
   
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")
-
-  
   EUWHO <- vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data", col_types = c(DateRpt = "c"), show_col_types = FALSE, progress = FALSE)
-
+  
   EUWHO$pInf <- EUWHO$Incidence14day / 100000 * (10 / 14) # incidence is cases in 14 days per 100,000 people. Convert to prop of pop. in 10 days.
   # Join using UID
   EuroMap <- dplyr::inner_join(geomEurope, EUWHO, by = c("micro_code" = "UID"))
-
+  
   ## Remove countries
   # Turkmenistan - no testing performed. Hence no cases found.
   EuroMap <- EuroMap[-which(EuroMap$country_name == "Turkmenistan"), ]
@@ -64,12 +71,18 @@ LoadEurope <- function() {
         TRUE ~ country_name
       )
     )
-
+  
   EuroMap$RegionName <- paste(EuroMap$micro_name, EuroMap$country_name, sep = ", ")
   EuroMap$Country <- EuroMap$country_name
-
+  
   EUROPE_DATA <- subset(EuroMap, select = c("DateRpt", "geoid", "RegionName", "Country", "pInf", "geometry"))
   colnames(EUROPE_DATA)[1] <- "DateReport"
-
+  
+  EUROPE_DATA <- tidy_Data(EUROPE_DATA, tidy, DaysOld, minimumpercapitaactivecases, RiskEval, dropNACountry, dropNAall)
+  
   return(EUROPE_DATA)
+  }, warning = function(w){LoadErrorWarning("LoadEuropeTESTING")}
+  
+  )
+  
 }

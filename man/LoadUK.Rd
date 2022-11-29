@@ -16,7 +16,9 @@ Reads in subnational data for the United Kingdom to calculate most recent estima
 The COVID-19 data is from the UK API from Public Health England and NHSX: \url{https://coronavirus.data.gov.uk}.
 }
 \examples{
+\dontrun{
 UK <- LoadUK()
+}
 }
 \seealso{
 \code{\link[=LoadCountries]{LoadCountries()}}

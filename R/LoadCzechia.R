@@ -21,7 +21,8 @@ LoadCzechia <- function() {
 
   pop_czechia <- geomCzechia <- NULL
   utils::data(list = c("geomCzechia", "pop_czechia"), envir = environment())
-
+  geomCzechia <- sf::st_as_sf(geomCzechia)
+  
   District <- Confirmed <- Date <- NULL
 
   # case data

@@ -19,6 +19,7 @@ LoadPakistan <- function() {
 
   geomPakistan <- NULL
   utils::data("geomPakistan", envir = environment())
+  geomPakistan <- sf::st_as_sf(geomPakistan)
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
