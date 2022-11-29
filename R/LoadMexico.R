@@ -8,7 +8,9 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
+#' \dontrun{
 #' Mexico <- LoadMexico()
+#' }
 #' @seealso [LoadCountries()]
 #' @export
 LoadMexico <- function() {
@@ -32,7 +34,7 @@ LoadMexico <- function() {
     } else {
       aa <- aa + 1
     }
-    if (aa > 6) {
+    if (aa > 30) {
       warning("no recent data")
       flag <- 2
     }
