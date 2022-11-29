@@ -8,7 +8,6 @@
 #' @param rounding Number of decimal places to round to. Default of 0.
 #'
 #' @return Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
-#' @export
 #'
 #' @seealso [calcRisk()]
 #' @examples
@@ -16,6 +15,7 @@
 #' # when there are 50 active cases in population of 10,000 and cases
 #' # are underascertained by a factor of 4.
 #' estRisk(50 / 10000, 4, 100)
+#' @export
 estRisk <- function(pcActiveCases, A, G, rounding = 0) {
   # A is ascertainment bias, G is group size
   Risk <- 100 * (1 - (1 - (A * pcActiveCases))^G)
@@ -177,13 +177,13 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 #' @return Outputs a tmap displaying exposure risk for the input data.
 #'
 #' @family mapplots
-#' @export
 #' @examples
 #' \dontrun{
 #' Austria <- LoadAustria()
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50, Austria$AB)
 #' }
+#' @export
 EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
   rlang::check_installed("tmap", reason = "to use EventMap_tmap()")
