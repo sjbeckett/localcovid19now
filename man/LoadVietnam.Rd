@@ -10,14 +10,16 @@ LoadVietnam()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. \url{https://covid19.ncsc.gov.vn/dulieu}.
 }
 \examples{
+\dontrun{
 Vietnam <- LoadVietnam()
 }
+}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

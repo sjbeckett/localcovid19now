@@ -10,7 +10,7 @@ tidy_Data(
   DaysOld = 30,
   minimumpercapitaactivecases = 0,
   RiskEval = NULL,
-  dropNACountry = FALSE,
+  dropNACountry = TRUE,
   dropNAall = FALSE
 )
 }

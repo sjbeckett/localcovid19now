@@ -20,7 +20,7 @@ getDataND <- function(Mcode, netherlandsData) {
 
 #' LoadNetherlands
 #'
-#' @description Reads in subnational data for Netherlands to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Netherlands to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Covid-19 numbers per municipality as of publication date. RIVM / I & V / EPI. OSIRIS General Infectious Diseases (AIZ). \url{https://data.rivm.nl/geonetwork/srv/dut/catalog.search#/metadata/5f6bc429-1596-490e-8618-1ed8fd768427?tab=general}.
@@ -31,7 +31,7 @@ getDataND <- function(Mcode, netherlandsData) {
 #' \dontrun{
 #' Netherlands <- LoadNetherlands()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadNetherlands <- function() {
   pop_netherlands <- NULL

@@ -1,6 +1,6 @@
 #' LoadBelgium
 #'
-#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data was obtained from Sciensano, the Belgian institute for health: \url{https://epistat.wiv-isp.be/covid/}
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Belgium <- LoadBelgium()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
@@ -44,16 +44,17 @@ LoadBelgium <- function() {
         latest_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(cond) {
-        warning(paste0("No data for ", getDate(aa, 0)))
+        #warning(paste0("No data for ", getDate(aa, 0)))
       }
     )
-    if (is.null(dim(latest_data)) == FALSE) {
+    
+    if (is.null(latest_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data1")
       flag <- 2
     }
   }
@@ -61,7 +62,6 @@ LoadBelgium <- function() {
   UpdateDate <- getDate(aa, 1)
   # find past data
   flag <- 0
-  aa <- 0
   past_data <- NULL
 
   while (flag == 0) {
@@ -71,16 +71,16 @@ LoadBelgium <- function() {
         past_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(e) {
-        warning(paste0("No data for ", getDate(14 + aa, 0)))
+        #warning(paste0("No data for ", getDate(14 + aa, 0)))
       }
     )
-    if (is.null(dim(past_data)) == FALSE) {
+    if (is.null(past_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data2")
       flag <- 2
     }
   }

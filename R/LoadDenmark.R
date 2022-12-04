@@ -1,6 +1,6 @@
 #' LoadDenmark
 #'
-#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #'  COVID-19 data from the Statens Serum Institut (SSI):
@@ -10,8 +10,10 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
+#' \dontrun{
 #' Denmark <- LoadDenmark()
-#' @seealso [LoadCountries()]
+#' }
+#' @seealso [LoadData()]
 #' @export
 LoadDenmark <- function() {
   # COVID-19 data from the Statens Serum Institut (SSI):
@@ -29,6 +31,7 @@ LoadDenmark <- function() {
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
   utils::data("geomDenmark", envir = environment())
+  geomDenmark <- sf::st_as_sf(geomDenmark)
 
   # case data
   # 1.)  identify file location from webpages

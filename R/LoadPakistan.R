@@ -1,6 +1,6 @@
 #' LoadPakistan
 #'
-#' @description Reads in subnational data for Pakistan to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Pakistan to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io}
@@ -12,13 +12,14 @@
 #'
 #' @examples
 #' Pakistan <- LoadPakistan()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadPakistan <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
 
   geomPakistan <- NULL
   utils::data("geomPakistan", envir = environment())
+  geomPakistan <- sf::st_as_sf(geomPakistan)
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 

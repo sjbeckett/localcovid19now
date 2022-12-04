@@ -1,6 +1,6 @@
 #' LoadCzechia
 #'
-#' @description Reads in subnational data for Czechia to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Czechia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: \url{https://onemocneni-aktualne.mzcr.cz/covid-19}.
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' Czechia <- LoadCzechia()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadCzechia <- function() {
   # COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: https://onemocneni-aktualne.mzcr.cz/covid-19
@@ -21,7 +21,8 @@ LoadCzechia <- function() {
 
   pop_czechia <- geomCzechia <- NULL
   utils::data(list = c("geomCzechia", "pop_czechia"), envir = environment())
-
+  geomCzechia <- sf::st_as_sf(geomCzechia)
+  
   District <- Confirmed <- Date <- NULL
 
   # case data

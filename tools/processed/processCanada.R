@@ -1,5 +1,5 @@
 ## Do not run this code, it will run automatically when running updateGlobal.R
-geomCountry <- st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/health_regions.geojson")
+geomCountry <- sf::st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/health_regions.geojson")
 sf::st_crs(geomCountry) = 3347 # CRS for Canada:  Statistics Canada Lambert
 geomCountry = sf::st_transform(geomCountry, crs = 4326)
 geomCountry$HR_UID = as.numeric(geomCountry$hruid)
@@ -28,12 +28,12 @@ geomCountry <- dplyr::inner_join(geomCountry,Regions,by = c("region" = "abbrev")
 #  st_drop_geometry() %>%
 #  readr::write_csv(paste0("countries/data/misc", str_to_title("Canada"), ".csv"))
 geomCountry <- geomCountry %>%
-  mutate(country_name = "Canada") %>%
+  dplyr::mutate(country_name = "Canada") %>%
 # If country_name doesn't match the format found in updateGeometry/UNSD_m49.xlsx's 'CountryorArea' column, use the following instead:()
 # #mutate(match_name = "differentformatname")%>%
 # #inner_join(m49, by=c("match_name" = "CountryorArea"))%>%
-inner_join(m49, by = c("country_name" = "CountryorArea")) %>%
-  select(
+  dplyr::inner_join(m49, by = c("country_name" = "CountryorArea")) %>%
+  dplyr::select(
     m49code = M49Code,
     iso3 = ISOalpha3Code,
     country_name,
@@ -42,6 +42,6 @@ inner_join(m49, by = c("country_name" = "CountryorArea")) %>%
     micro_code = HR_UID,
     micro_name = name_short
   ) %>%
-st_make_valid() %>%
-  mutate(across(.cols = ends_with("code"), .fns = as.character))
-assign(paste0("geom", str_to_title("Canada")), geomCountry)
+sf::st_make_valid() %>%
+  dplyr::mutate(across(.cols = dplyr::ends_with("code"), .fns = as.character))
+assign(paste0("geom", stringr::str_to_title("Canada")), geomCountry)

@@ -1,6 +1,6 @@
 #' LoadCuba
 #'
-#' @description Reads in subnational data for Cuba to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Cuba to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated from local health resources by Covid19CubaData \url{http://covid19cubadata.github.io/}.
@@ -11,11 +11,12 @@
 #' \dontrun{
 #' Cuba <- LoadCuba()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadCuba <- function() {
   # Data aggregated from local health resources by Covid19CubaData http://covid19cubadata.github.io/
   utils::data("geomCuba", envir = environment())
+  geomCuba <- sf::st_as_sf(geomCuba)
 
   # Old dataset -> July 4 2021
   # cuba_data = read.csv("https://covid19cubadata.github.io/data/covid19-casos.csv", encoding = 'UTF-8')

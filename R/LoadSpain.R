@@ -1,6 +1,6 @@
 #' LoadSpain
 #'
-#' @description Reads in subnational data for Spain to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Spain to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos III: \url{https://cnecovid.isciii.es/covid19/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Spain <- LoadSpain()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSpain <- function() {
   # COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos III: https://cnecovid.isciii.es/covid19/
@@ -21,7 +21,8 @@ LoadSpain <- function() {
 
   geomSpain <- misc_spain <- NULL
   utils::data(list = c("geomSpain", "misc_spain"), envir = environment())
-
+  geomSpain <- sf::st_as_sf(geomSpain)
+  
   SPAIN <- utils::read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
 
   # code link file

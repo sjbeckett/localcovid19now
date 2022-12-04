@@ -1,6 +1,6 @@
 #' LoadSweden
 #'
-#' @description Reads in subnational data for Sweden to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Sweden to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Swedish COVID-19 National Statistics from Folkh?lsomyndigheten: \url{https://experience.arcgis.com/experience/09f821667ce64bf7be6f9f87457ed9aa/page/page_0/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Sweden <- LoadSweden()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSweden <- function() {
   Totalt_antal_fall <- County <- cases <- pop_sweden <- cases_past <- date_past <- NULL

@@ -1,6 +1,6 @@
 #' LoadThailand
 #'
-#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
@@ -8,13 +8,17 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
+#' \dontrun{
 #' Thailand <- LoadThailand()
-#' @seealso [LoadCountries()]
+#' }
+#' @seealso [LoadData()]
 #' @export
 LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand
   geomThailand <- pop_thailand <- misc_thailand <- micro_code <- NULL
   utils::data(list = c("geomThailand", "pop_thailand", "misc_thailand"), envir = environment())
+  geomThailand <- sf::st_as_sf(geomThailand)
+  
   # cases
   cases <- utils::read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
 

@@ -1,6 +1,6 @@
 #' LoadOman
 #'
-#' @description Reads in subnational data for Oman to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Oman to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: \url{https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases}.
@@ -9,12 +9,13 @@
 #'
 #' @examples
 #' Oman <- LoadOman()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadOman <- function() {
   # Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases
 
   utils::data("geomOman", envir = environment())
+  geomOman <- sf::st_as_sf(geomOman)
 
   CaseData <- utils::read.csv("https://www.dropbox.com/s/ylop7xswywi147c/cases_oman.csv?dl=1")
   Governorates <- sort(unique(CaseData$name))

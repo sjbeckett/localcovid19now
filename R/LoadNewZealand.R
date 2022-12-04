@@ -1,6 +1,6 @@
 #' LoadNewZealand
 #'
-#' @description Reads in subnational data for New Zealand to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for New Zealand to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 Data Repository by the Institute of Environmental Science and Research: \url{https://github.com/ESR-NZ/NZ_COVID19_Data/}
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' NewZealand <- LoadNewZealand()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadNewZealand <- function() {
   # COVID-19 Data Repository by the Institute of Environmental Science and Research: https://github.com/ESR-NZ/NZ_COVID19_Data/
@@ -21,6 +21,7 @@ LoadNewZealand <- function() {
   # Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
 
   utils::data("geomNZ", envir = environment())
+  geomNZ <- sf::st_as_sf(geomNZ)
 
   # New Zealand's dashboard and system is currently down due to a system upgrade, hence why this isn't finding anything.
 

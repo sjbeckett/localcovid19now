@@ -1,6 +1,6 @@
 #' LoadEcuador
 #'
-#' @description Reads in subnational data for Ecuador to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Ecuador to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: \url{https://github.com/andrab/ecuacovid}.
@@ -9,13 +9,14 @@
 #'
 #' @examples
 #' Ecuador <- LoadEcuador()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadEcuador <- function() {
   # Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: https://github.com/andrab/ecuacovid
 
   geomEcuador <- NULL
   utils::data("geomEcuador", envir = environment())
+  geomEcuador <- sf::st_as_sf(geomEcuador)
 
   CaseDate <- vroom::vroom("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/cantones.csv", show_col_types = FALSE, progress = FALSE) # cantons
   # CaseDate = read.csv("https://github.com/andrab/ecuacovid/raw/master/datos_crudos/positivas/provincias.csv") #provinces

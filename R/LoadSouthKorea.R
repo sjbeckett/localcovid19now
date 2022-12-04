@@ -1,6 +1,6 @@
 #' LoadSouthKorea
 #'
-#' @description Reads in subnational data for South Korea to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for South Korea to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data collated by \url{https://github.com/staedi/nCOV-summary/} from the South Korea CDC: \url{http://ncov.mohw.go.kr/}.
@@ -8,8 +8,10 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
+#' \dontrun{
 #' SouthKorea <- LoadSouthKorea()
-#' @seealso [LoadCountries()]
+#' }
+#' @seealso [LoadData()]
 #' @export
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/
@@ -17,7 +19,8 @@ LoadSouthKorea <- function() {
   geomSouthKorea <- misc_southkorea <- NULL
   utils::data("geomSouthKorea", envir = environment())
   utils::data("misc_southkorea", envir = environment())
-
+  geomSouthKorea <- sf::st_as_sf(geomSouthKorea)
+  
   data <- utils::read.csv("https://raw.githubusercontent.com/staedi/nCOV-summary/master/time_series_covid19_infections.csv")
   SKOR <- data[which(data$adm0_a3 == "KOR"), ]
 

@@ -35,7 +35,6 @@ Imports:
     magrittr,
     purrr,
     readxl,
-    rgdal,
     rlang,
     sf,
     stringr,
@@ -67,4 +66,4 @@ Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
