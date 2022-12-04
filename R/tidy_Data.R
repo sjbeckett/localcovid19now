@@ -27,7 +27,15 @@ tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecas
   # Set any data where Risk is below RiskEval$minimumRisk (%) using RiskEval$ascertainmentbias and a maximum group size, RiskEval$maximumN to Not Available. (Note: this setting overwrites minimumpercapitaactivecases).
   # remove rows for countries whose estimates all return NA
   # remove rows for any region whose estimates return NA
-
+  
+  #type checking
+  stopifnot("`tidy` must be a logical." = is.logical(tidy))
+  stopifnot("`dropNACountry` must be a logical." = is.logical(dropNACountry))
+  stopifnot("`dropNAall` must be a logical." = is.logical(dropNAall))
+  stopifnot("`DaysOld` must be numeric and positive." = is.numeric(DaysOld) & DaysOld > 0)
+  stopifnot("`minimumpercapitaactivecases` must be numeric and greater than or equal to 0." = is.numeric(minimumpercapitaactivecases) & minimumpercapitaactivecases >= 0)
+  stopifnot("`RiskEval` must be numeric and between 0 and 100 (%)." = is.numeric(RiskEval) & RiskEval >= 0 & RiskEval <= 100)
+  
   if (tidy == TRUE) {
 
   ## set NA conditions:
