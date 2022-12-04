@@ -28,6 +28,8 @@ LoadEuropeTESTINGBROKEN <- function(tidy = TRUE, DaysOld = 30, minimumpercapitaa
     
     geomEurope <- NULL
     utils::data("geomEurope", envir = environment())
+    geomEurope <- sf::st_as_sf(geomEurope)
+    
     # most uptodate data
     # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")
     ##LINK IS PURPOSEFULLY BROKEN ##

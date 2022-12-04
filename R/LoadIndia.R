@@ -17,7 +17,7 @@ LoadIndia <- function() {
 
   pop_india <- geomIndia <- NULL
   utils::data(list = c("geomIndia", "pop_india"), envir = environment())
-
+  geomIndia <- sf::st_as_sf(geomIndia)
 
   data <- jsonlite::read_json("https://api.covid19tracker.in/data/static/timeseries.min.json")
   # UN - unknown; TT - total for India

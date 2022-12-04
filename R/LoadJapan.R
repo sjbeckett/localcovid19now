@@ -37,6 +37,7 @@ LoadJapan <- function() {
   pop_japan <- geomJapan <- NULL
   utils::data("geomJapan", envir = environment())
   utils::data("pop_japan", envir = environment())
+  geomJapan <- sf::st_as_sf(geomJapan)
 
   dataJapan <- jsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:

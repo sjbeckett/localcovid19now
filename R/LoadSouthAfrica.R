@@ -18,7 +18,8 @@ LoadSouthAfrica <- function() {
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="GT"]="GP"
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="LIM"]="LP"
   utils::data(list = c("geomSouthAfrica", "pop_southafrica"), envir = environment())
-  # data("geomSouthAfrica")
+  geomSouthAfrica <- sf::st_as_sf(geomSouthAfrica)
+
   PRO <- unique(geomSouthAfrica$micro_code)
 
   # covid case data, see: https://github.com/dsfsi/covid19za

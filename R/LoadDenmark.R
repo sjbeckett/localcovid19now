@@ -29,6 +29,7 @@ LoadDenmark <- function() {
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
   utils::data("geomDenmark", envir = environment())
+  geomDenmark <- sf::st_as_sf(geomDenmark)
 
   # case data
   # 1.)  identify file location from webpages

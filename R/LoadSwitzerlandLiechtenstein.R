@@ -16,6 +16,7 @@ LoadSwitzerlandLiechtenstein <- function() {
 
   geomSwitzerlandLiechtenstein <- NULL
   utils::data("geomSwitzerlandLiechtenstein", envir = environment())
+  geomSwitzerlandLiechtenstein <- sf::st_as_sf(geomSwitzerlandLiechtenstein)
 
   # 1. import API to find code for most recent file version (date and code change for new data)
   datastructure <- jsonlite::fromJSON("https://www.covid19.admin.ch/api/data/context")

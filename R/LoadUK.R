@@ -52,6 +52,8 @@ LoadUK <- function() {
   utils::data("geomUnitedKingdom", envir = environment())
   utils::data("pop_uk", envir = environment())
   utils::data("misc_uk", envir = environment())
+  
+  geomUnitedKingdom <- sf::st_as_sf(geomUnitedKingdom)
 
   cur_date <- lubridate::today()
 

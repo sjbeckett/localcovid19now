@@ -17,7 +17,8 @@ LoadSouthKorea <- function() {
   geomSouthKorea <- misc_southkorea <- NULL
   utils::data("geomSouthKorea", envir = environment())
   utils::data("misc_southkorea", envir = environment())
-
+  geomSouthKorea <- sf::st_as_sf(geomSouthKorea)
+  
   data <- utils::read.csv("https://raw.githubusercontent.com/staedi/nCOV-summary/master/time_series_covid19_infections.csv")
   SKOR <- data[which(data$adm0_a3 == "KOR"), ]
 

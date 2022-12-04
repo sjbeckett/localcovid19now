@@ -17,6 +17,7 @@ LoadIndonesia <- function() {
 
   micro_name <- NULL
   utils::data("geomIndonesia", envir = environment())
+  geomIndonesia <- sf::st_as_sf(geomIndonesia)
 
   provinces <- unique(cases$Location)
   DateReport <- c()

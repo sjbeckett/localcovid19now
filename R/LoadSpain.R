@@ -21,7 +21,8 @@ LoadSpain <- function() {
 
   geomSpain <- misc_spain <- NULL
   utils::data(list = c("geomSpain", "misc_spain"), envir = environment())
-
+  geomSpain <- sf::st_as_sf(geomSpain)
+  
   SPAIN <- utils::read.csv("https://cnecovid.isciii.es/covid19/resources/casos_tecnica_provincia.csv", na.strings = FALSE)
 
   # code link file

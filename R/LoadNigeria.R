@@ -19,6 +19,7 @@ LoadNigeria <- function() {
 
   geomNigeria <- NULL
   utils::data("geomNigeria", envir = environment())
+  geomNigeria <- sf::st_as_sf(geomNigeria)
 
   casedata <- vroom::vroom("https://data.humdata.org/dataset/f5c35452-d766-468a-a272-4bd82d0a3be0/resource/15b9978f-422b-4b3d-9513-359b520d8352/download/nga_subnational_covid19_hera.csv", delim = ";", show_col_types = FALSE, progress = FALSE)
 

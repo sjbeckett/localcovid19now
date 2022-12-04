@@ -14,8 +14,8 @@
 #' @seealso [LoadCountries()]
 #' @export
 LoadPhilippines <- function() {
-  . <- geomPeru <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
-  utils::data("geomPeru", envir = environment())
+  . <- geomPhilippines <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
+  utils::data("geomPhilippines", envir = environment())
   utils::data("pop_philippines", envir = environment())
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker

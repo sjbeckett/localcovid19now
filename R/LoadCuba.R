@@ -16,6 +16,7 @@
 LoadCuba <- function() {
   # Data aggregated from local health resources by Covid19CubaData http://covid19cubadata.github.io/
   utils::data("geomCuba", envir = environment())
+  geomCuba <- sf::st_as_sf(geomCuba)
 
   # Old dataset -> July 4 2021
   # cuba_data = read.csv("https://covid19cubadata.github.io/data/covid19-casos.csv", encoding = 'UTF-8')

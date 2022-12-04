@@ -15,6 +15,8 @@ LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand
   geomThailand <- pop_thailand <- misc_thailand <- micro_code <- NULL
   utils::data(list = c("geomThailand", "pop_thailand", "misc_thailand"), envir = environment())
+  geomThailand <- sf::st_as_sf(geomThailand)
+  
   # cases
   cases <- utils::read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
 

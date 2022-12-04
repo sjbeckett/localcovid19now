@@ -14,6 +14,7 @@
 LoadNorway <- function() {
   geomNorway <- NULL
   utils::data("geomNorway", envir = environment())
+  geomNorway <- sf::st_as_sf(geomNorway)
 
   data <- vroom::vroom("https://raw.githubusercontent.com/thohan88/covid19-nor-data/master/data/01_infected/msis/municipality.csv", show_col_types = FALSE, progress = FALSE)
   data$date <- as.Date(data$date)

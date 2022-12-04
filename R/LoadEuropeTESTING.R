@@ -26,6 +26,8 @@ LoadEuropeTESTING <- function(tidy = TRUE, DaysOld = 30, minimumpercapitaactivec
   
   geomEurope <- NULL
   utils::data("geomEurope", envir = environment())
+  geomEurope <- sf::st_as_sf(geomEurope)
+  
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")
   EUWHO <- vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data", col_types = c(DateRpt = "c"), show_col_types = FALSE, progress = FALSE)

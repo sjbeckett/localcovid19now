@@ -18,6 +18,8 @@ LoadJHUCSSE <- function() {
   pop_smallcountries <- NULL
   utils::data("geomSmallCountries", envir = environment())
   utils::data("pop_smallcountries", envir = environment())
+  geomSmallCountries <- sf::st_as_sf(geomSmallCountries)
+  
 
   CountryList <- c("Singapore", "Brunei", "Djibouti", "Qatar", "Marshall Islands", "Saint Kitts and Nevis", "Timor-Leste", "Maldives", "Grenada", "Saint Vincent and the Grenadines", "Saint Lucia", "Barbados", "Antigua and Barbuda", "Seychelles", "Palau", "Micronesia", "Dominica", "Bahrain", "Kiribati", "Sao Tome and Principe", "Comoros", "Mauritius", "Samoa", "Trinidad and Tobago", "Lebanon", "Jamaica", "Gambia", "Vanuatu", "Bahamas", "Eswatini", "Kuwait", "Fiji", "El Salvador", "Belize", "Cabo Verde", "West Bank and Gaza")
 

@@ -21,6 +21,7 @@ LoadMexico <- function() {
 
   geomMexico <- NULL
   utils::data("geomMexico", envir = environment())
+  geomMexico <- sf::st_as_sf(geomMexico)
 
   flag <- 0
   aa <- 1

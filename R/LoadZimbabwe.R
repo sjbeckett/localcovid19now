@@ -19,6 +19,7 @@ LoadZimbabwe <- function() {
   # note could be improved by calling data from ESRI, provincial timeseries feature Id: 20703dd3a24f45f08ea37034285d3492
   utils::data("geomZimbabwe", envir = environment())
   utils::data("pop_zimbabwe", envir = environment())
+  geomZimbabwe <- sf::st_as_sf(geomZimbabwe)
 
   Data <- utils::read.csv("https://raw.githubusercontent.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/master/time_series_data/daily_provincial_records.csv")
 
