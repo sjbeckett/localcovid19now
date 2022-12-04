@@ -12,6 +12,8 @@
 #' risk <- calcRisk(.001, 50)
 #'
 calcRisk <- function(p_I, g) {
+  stopifnot("`g` must be a positive value." = is.numeric(g) & g>0)
+
   r <- 1 - (1 - p_I)**g
   return(r * 100)
 }

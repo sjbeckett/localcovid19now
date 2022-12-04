@@ -17,6 +17,9 @@
 #' estRisk(50 / 10000, 4, 100)
 #' @export
 estRisk <- function(pcActiveCases, A, G, rounding = 0) {
+  stopifnot("`A` must be a positive value." = is.numeric(A) & A>0)
+  stopifnot("`G` must be a positive value." = is.numeric(G) & G>0)
+  stopifnot("`rounding` must be numeric." = is.numeric(rounding))
   # A is ascertainment bias, G is group size
   Risk <- 100 * (1 - (1 - (A * pcActiveCases))^G)
   return(round(Risk, rounding))
