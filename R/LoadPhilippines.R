@@ -17,6 +17,7 @@ LoadPhilippines <- function() {
   . <- geomPhilippines <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL
   utils::data("geomPhilippines", envir = environment())
   utils::data("pop_philippines", envir = environment())
+  geomPhilippines <- sf::st_as_sf(geomPhilippines)
 
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 

@@ -19,7 +19,7 @@
 #' Europe2 <- tidy_Data(Europe2)
 #' }
 #' @export
-tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = FALSE, dropNAall = FALSE) {
+tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE) {
   # DATA is a dataset created from a LoadX function.
   # Perform tidying only when tidy is TRUE.
   # Set any data older than DaysOld to Not Available.
@@ -29,12 +29,8 @@ tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecas
   # remove rows for any region whose estimates return NA
   
   #type checking
-  stopifnot("`tidy` must be a logical." = is.logical(tidy))
-  stopifnot("`dropNACountry` must be a logical." = is.logical(dropNACountry))
-  stopifnot("`dropNAall` must be a logical." = is.logical(dropNAall))
-  stopifnot("`DaysOld` must be numeric and positive." = is.numeric(DaysOld) & DaysOld > 0)
-  stopifnot("`minimumpercapitaactivecases` must be numeric and greater than or equal to 0." = is.numeric(minimumpercapitaactivecases) & minimumpercapitaactivecases >= 0)
-  stopifnot("`RiskEval` must be numeric and between 0 and 100 (%)." = is.numeric(RiskEval) & RiskEval >= 0 & RiskEval <= 100)
+  stopifnot("`DATA` must have row entries." = nrow(DATA)>0)
+  assertOptions__tidy_Data(tidy,DaysOld,minimumpercapitaactivecases,RiskEval,dropNACountry,dropNAall)
   
   if (tidy == TRUE) {
 
@@ -74,5 +70,6 @@ tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecas
   }
 
   }
+  
   return(DATA)
 }
