@@ -37,5 +37,11 @@ General framework for loading and tidying data.
 }
 \examples{
 LoadDataHelper("LoadUS")
+
+RE = c()
+RE$minimumRisk = 5
+RE$ascertainmentbias = 5
+RE$maximumN = 100
+LoadDataHelper("LoadUS", RiskEval=RE)
 }
 \keyword{internal}

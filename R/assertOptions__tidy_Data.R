@@ -21,5 +21,7 @@ stopifnot("`dropNACountry` must be a logical." = is.logical(dropNACountry))
 stopifnot("`dropNAall` must be a logical." = is.logical(dropNAall))
 stopifnot("`DaysOld` must be numeric and positive." = is.numeric(DaysOld) & DaysOld > 0)
 stopifnot("`minimumpercapitaactivecases` must be numeric and greater than or equal to 0." = is.numeric(minimumpercapitaactivecases) & minimumpercapitaactivecases >= 0)
-stopifnot("`RiskEval` must be numeric and between 0 and 100 (%)." = is.numeric(RiskEval) & RiskEval >= 0 & RiskEval <= 100)
+stopifnot("`RiskEval$minimumRisk` must be numeric and between 0 and 100 (%)." = is.numeric(RiskEval$minimumRisk) & RiskEval$minimumRisk >= 0 & RiskEval$minimumRisk <= 100)
+stopifnot("`RiskEval$ascertainmentbias` must be numeric and positive." = is.numeric(RiskEval$ascertainmentbias) & RiskEval$ascertainmentbias > 0)
+stopifnot("`RiskEval$maximumN' must be numeric and positive." = is.numeric(RiskEval$maximumN) & RiskEval$maximumN > 0)
 }

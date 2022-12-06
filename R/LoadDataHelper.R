@@ -14,15 +14,21 @@
 #'
 #' @examples
 #' LoadDataHelper("LoadUS")
+#' 
+#' RE = c()
+#' RE$minimumRisk = 5
+#' RE$ascertainmentbias = 5
+#' RE$maximumN = 100
+#' LoadDataHelper("LoadUS", RiskEval=RE)
 #' @export
-LoadDataHelper <- function(functionName,tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE){
+LoadDataHelper <- function(functionName, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE){
   
   assertOptions__tidy_Data(tidy,DaysOld,minimumpercapitaactivecases,RiskEval,dropNACountry,dropNAall)
   
   tryCatch({
     DataLoader <- get(functionName)
     DATA <- DataLoader()
-    DATA <- tidy_Data(DATA)
+    DATA <- tidy_Data(DATA,tidy,DaysOld,minimumpercapitaactivecases,RiskEval,dropNACountry,dropNAall)
     if (nrow(DATA) == 0){
       message(paste0("NOTE: tidy_Data options removed all rows from the data object returned by ", functionName,"."))
     }

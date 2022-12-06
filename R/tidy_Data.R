@@ -44,7 +44,7 @@ tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecas
   if (!is.null(minimumpercapitaactivecases) == TRUE || !is.null(RiskEval) == TRUE) {
     if (!is.null(RiskEval) == TRUE) {
       # Will set pInf to NA for a region if computed risk <= RiskEval$minimumRisk for the largest considered event size and ascertainment bias.
-      minimumpercapitaactivecases <- (1 / RiskEval$maxAscertainmentbias) * (1 - (1 - RiskEval$minimumRisk / 100)^(1 / RiskEval$maximumN))
+      minimumpercapitaactivecases <- (1 / RiskEval$ascertainmentbias) * (1 - (1 - RiskEval$minimumRisk / 100)^(1 / RiskEval$maximumN))
     }
     DATA$pInf[which(DATA$pInf <= minimumpercapitaactivecases)] <- NA
   }
@@ -61,7 +61,9 @@ tidy_Data <- function(DATA, tidy = TRUE, DaysOld = 30, minimumpercapitaactivecas
         REM_IND <- c(REM_IND, CIND)
       }
     }
-    DATA <- DATA[-REM_IND, ]
+    if (length(REM_IND) > 0){
+      DATA <- DATA[-REM_IND, ]
+    }
   }
 
   # 2. by NA
