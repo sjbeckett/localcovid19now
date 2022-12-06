@@ -33,6 +33,6 @@ nothing.
 Checks if inputs to tidy_Data are appropriate.
 }
 \examples{
-assertOptions__tidy_Data(tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE)
+assertOptions__tidy_Data(TRUE, 30, 0, NULL, TRUE, FALSE)
 }
 \keyword{internal}

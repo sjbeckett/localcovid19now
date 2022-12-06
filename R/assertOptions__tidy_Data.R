@@ -12,7 +12,7 @@
 #' @return nothing.
 #'
 #' @examples
-#' assertOptions__tidy_Data(tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE)
+#' assertOptions__tidy_Data(TRUE, 30, 0, NULL, TRUE, FALSE)
 #' @export
 assertOptions__tidy_Data <- function(tidy, DaysOld, minimumpercapitaactivecases, RiskEval, dropNACountry, dropNAall) {
 #type checking
