@@ -41,19 +41,20 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(aa, 0), ".csv")
     tryCatch(
       {
-        latest_data <- vroom::vroom(STRING, show_col_types = FALSE)
+        latest_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(cond) {
-        warning(paste0("No data for ", getDate(aa, 0)))
+        #warning(paste0("No data for ", getDate(aa, 0)))
       }
     )
-    if (is.null(dim(latest_data)) == FALSE) {
+    
+    if (is.null(latest_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data1")
       flag <- 2
     }
   }
@@ -61,26 +62,25 @@ LoadBelgium <- function() {
   UpdateDate <- getDate(aa, 1)
   # find past data
   flag <- 0
-  aa <- 0
   past_data <- NULL
 
   while (flag == 0) {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(14 + aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(14 + aa, 0), ".csv")
     tryCatch(
       {
-        past_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE, show_col_types = FALSE)
+        past_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(e) {
-        warning(paste0("No data for ", getDate(14 + aa, 0)))
+        #warning(paste0("No data for ", getDate(14 + aa, 0)))
       }
     )
-    if (is.null(dim(past_data)) == FALSE) {
+    if (is.null(past_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data2")
       flag <- 2
     }
   }

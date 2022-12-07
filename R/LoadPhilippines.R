@@ -67,7 +67,7 @@ LoadPhilippines <- function() {
           DateRecover = vroom::col_date(format = "%Y-%m-%d"),
           DateOnset = vroom::col_date(format = "%Y-%m-%d")
         ),
-        show_col_types = FALSE
+        show_col_types = FALSE, progress = FALSE
       )
       unlink(temp)
       return(A)
@@ -123,7 +123,7 @@ LoadPhilippines <- function() {
 
   ### Municipalities:
   province <- unique(philippinesData$Province)
-  province <- province[is.na(province) == F] # remove NA values
+  province <- province[is.na(province) == FALSE] # remove NA values
 
   getDataPH <- function(pro_codes) {
     Table <- c()

@@ -25,18 +25,20 @@ LoadMexico <- function() {
 
   flag <- 0
   aa <- 1
+  MEX <- NULL
+  
   while (flag == 0) {
     DATE <- Sys.Date() - aa
     formDATE <- format(DATE, "%Y%m%d")
     STRING <- paste0("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_", formDATE)
     MEX <- try(vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE), silent = TRUE) # note older files are DELETED.
-    if (is.null(dim(MEX)) == FALSE) {
+    if (is.null(MEX) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
     if (aa > 30) {
-      warning("no recent data")
+      stop("no recent data")
       flag <- 2
     }
   }

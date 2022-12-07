@@ -59,7 +59,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
       past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
     }
     CaseDiff[bb] <- (10 / 14) * (curr - past)
-    if (length(DAT$population[1]) == 1) {
+    if ("population" %in% names(DAT)) {
       Pop[bb] <- DAT$population[1]
     } else {
       Pop[bb] <- NA
