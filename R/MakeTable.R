@@ -35,7 +35,7 @@ calcRisk <- function(p_I, g) {
 #'
 #' @examples
 #' \dontrun{
-#' Canada <- LoadCanada()
+#' Canada <- LoadData("LoadCanada")
 #' create_c19r_data(Canada)
 #' }
 create_c19r_data <- function(df_in,
