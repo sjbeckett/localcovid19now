@@ -23,7 +23,7 @@ Creates an interactive Leaflet map displaying exposure risk for the input data.
 }
 \examples{
 \dontrun{
-Austria <- LoadAustria()
+Austria <- LoadData("LoadAustria")
 Austria$AB <- 4
 EventMap_leaflet(Austria, 50, Austria$AB)
 }

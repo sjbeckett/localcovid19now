@@ -21,6 +21,7 @@ install_github("sjbeckett/localcovid19now")
 
 library("localcovid19now")
 ```
+We note that our package uses other common packages across the R ecosystem to run. The installation of these packages should be initialized by the above commands. We also note that some users [may need to change default timeout settings](https://github.com/sjbeckett/localcovid19now/issues/58) in order to install the package.
 
 ## Use
 
@@ -38,6 +39,10 @@ US_and_Malaysia <- LoadData(c("LoadUS","LoadMalaysia"))
 googledrive::drive_auth(email = TRUE)
 
 Philippines <- LoadData("LoadPhilippines")
+
+#A list of loading options is given by:
+countrylist
+
 ```
 or to load all available datasets as:
 
@@ -73,7 +78,7 @@ EventMap_tmap(US,100,US$AB)
 
 #maps can be saved using tmap commands. Here we also use a projection more suited to the US:
 MAP = EventMap_tmap(US,100,US$AB,projection=5070)
-tmap_save(MAP,"US_RiskMap.png")
+tmap::tmap_save(MAP,"US_RiskMap.png")
 
 #Some resources for choosing projections can be found here: https://proj.org/usage/index.html and here: https://epsg.io/ and 
 

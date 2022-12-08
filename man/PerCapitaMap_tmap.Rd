@@ -31,7 +31,7 @@ Creates a tmap map displaying active cases per 'people' for the input data.
 }
 \examples{
 \dontrun{
-Denmark <- LoadDenmark()
+Denmark <- LoadData("LoadDenmark")
 PerCapitaMap_tmap(Denmark)
 }
 }

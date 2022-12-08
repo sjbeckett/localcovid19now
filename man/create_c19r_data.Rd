@@ -32,7 +32,7 @@ Creates a table showing the estimated risk that one or more people will be infec
 }
 \examples{
 \dontrun{
-Canada <- LoadCanada()
+Canada <- LoadData("LoadCanada")
 create_c19r_data(Canada)
 }
 }
