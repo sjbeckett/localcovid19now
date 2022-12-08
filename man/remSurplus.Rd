@@ -26,3 +26,4 @@ data("geomGlobal")
 remSurplus(geomGlobal)
 }
 }
+\keyword{internal}

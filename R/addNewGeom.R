@@ -1,6 +1,7 @@
 #' Move Processed Files
 #'
 #' @param x File name to be moved
+#' @keywords internal
 #'
 #' @export
 #'
@@ -19,7 +20,7 @@ moveFiles <- function(x) {
 #' Add New Country Geometries
 #'
 #' @return world Map with new geoms added
-#'
+#' @keywords internal
 #' @export
 #'
 #' @examples
@@ -77,7 +78,7 @@ addNewGeoms <- function() {
 }
 
 #' Reset processed files
-#'
+#' @keywords internal
 #' @export
 #'
 #' @examples

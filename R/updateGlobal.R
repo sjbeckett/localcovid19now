@@ -2,6 +2,7 @@
 #'
 #' @export
 #'
+#' @keywords internal
 #' @examples
 #' \dontrun{
 #' updateGlobal()

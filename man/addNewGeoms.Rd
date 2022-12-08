@@ -15,3 +15,4 @@ Add New Country Geometries
 \examples{
 addNewGeoms()
 }
+\keyword{internal}

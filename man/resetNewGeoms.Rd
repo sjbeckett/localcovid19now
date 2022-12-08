@@ -12,3 +12,4 @@ Reset processed files
 \examples{
 resetNewGeoms()
 }
+\keyword{internal}

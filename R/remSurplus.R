@@ -6,6 +6,7 @@
 #' @return input_file Updated input file
 #' @export
 #'
+#' @keywords internal
 #' @examples
 #' \dontrun{
 #' data("geomGlobal")
