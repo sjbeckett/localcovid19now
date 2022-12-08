@@ -1,6 +1,6 @@
 #' LoadGermany
 #'
-#' @description Reads in subnational data for Germany to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Germany to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 case data for Germany is from the Robert Koch-Institut and the Bundesamt für Kartographie und Geodäsie: \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/} \url{https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0/about}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Germany <- LoadGermany()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadGermany <- function() {
   Landkreis <- AnzahlFall <- Meldedatum <- IdLandkreis <- Date <- Region <- Cases <- latestDate <- CumSum <- pastDate <- difference <- NULL

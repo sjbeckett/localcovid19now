@@ -1,6 +1,6 @@
 #' LoadChina
 #'
-#' @description Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data for first-level administrative divisions in China is aggregated from the
@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' China <- LoadChina()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadChina <- function() {
   # COVID-19 data for first-level administrative divisions in China is aggregated from

@@ -10,7 +10,7 @@ LoadPeru()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io} and
@@ -23,5 +23,5 @@ Peru <- LoadPeru()
 Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, \url{https://doi.org/10.21105/joss.02376}
 }
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

@@ -1,6 +1,6 @@
 #' LoadSouthAfrica
 #'
-#' @description Reads in subnational data for South Africa to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for South Africa to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: \url{https://github.com/dsfsi/covid19za}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' SouthAfrica <- LoadSouthAfrica()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSouthAfrica <- function() {
   # Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: https://github.com/dsfsi/covid19za

@@ -1,6 +1,6 @@
 #' LoadGoogleSourced
 #'
-#' @description Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated from local health resources in the Google COVID-19 Open Data datasets \url{https://goo.gle/covid-19-open-data}.
@@ -14,7 +14,7 @@
 #' \dontrun{
 #' GS <- LoadGoogleSourced()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadGoogleSourced <- function() { # takes a long time to process.
   # @article{Wahltinez2020,

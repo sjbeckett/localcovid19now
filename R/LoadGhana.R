@@ -1,6 +1,6 @@
 #' LoadGhana
 #'
-#' @description Reads in subnational data for Ghana to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Ghana to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Health): \url{https://data.humdata.org/dataset/ghana-coronavirus-covid-19-subnational-cases}.
@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' Ghana <- LoadGhana()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadGhana <- function() {
   name <- cases <- latest_date <- past_date <- cumulative_cases <- macro_name <- country_name <- report_date <- case_diff <- DateReport <- geoid <- RegionName <- pInf <- NULL

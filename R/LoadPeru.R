@@ -1,6 +1,6 @@
 #' LoadPeru
 #'
-#' @description Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io} and
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' Peru <- LoadPeru()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadPeru <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io

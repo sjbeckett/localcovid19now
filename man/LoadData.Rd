@@ -49,9 +49,13 @@ General framework for loading and tidying data.
 }
 \examples{
 LoadData("LoadUS")
+LoadData("LoadUS", dropNAall = TRUE)
+LoadData("LoadNewZealand",tidy = FALSE)
 LoadData(c("LoadUS","LoadMalaysia"))
 \dontrun{
 LoadData()
 }
 }
-\keyword{internal}
+\seealso{
+\code{\link[=tidy_Data]{tidy_Data()}}
+}

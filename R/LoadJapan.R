@@ -21,7 +21,7 @@ getDataJapan <- function(dataSet, i) {
 
 #' LoadJapan
 #'
-#' @description Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
@@ -30,7 +30,7 @@ getDataJapan <- function(dataSet, i) {
 #'
 #' @examples
 #' Japan <- LoadJapan()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/

@@ -1,6 +1,6 @@
 #' LoadPhilippines
 #'
-#' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases. Note that this process requires the use of the googledrive package which requires the users google credentials to be provided.
+#' @description Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases. Note that this process requires the use of the googledrive package which requires the users google credentials to be provided. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Philippines <- LoadPhilippines()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadPhilippines <- function() {
   . <- geomPhilippines <- pop_philippines <- name <- id <- ProvRes <- DateRepConf <- RegionRes <- TotalReported <- Province <- pop_philippines <- NULL

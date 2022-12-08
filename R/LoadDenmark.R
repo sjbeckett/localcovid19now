@@ -1,6 +1,6 @@
 #' LoadDenmark
 #'
-#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #'  COVID-19 data from the Statens Serum Institut (SSI):
@@ -13,7 +13,7 @@
 #' \dontrun{
 #' Denmark <- LoadDenmark()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadDenmark <- function() {
   # COVID-19 data from the Statens Serum Institut (SSI):

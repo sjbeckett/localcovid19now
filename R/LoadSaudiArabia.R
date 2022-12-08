@@ -1,6 +1,6 @@
 #' LoadSaudiArabia
 #'
-#' @description Reads in subnational data for Saudi Arabia to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Saudi Arabia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. \url{https://covid19.moh.gov.sa/}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' SaudiArabia <- LoadSaudiArabia()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSaudiArabia <- function() {
   # Data sourced from Ministry of Health, Covid19 Command and Control Center CCC, The National Health Emergency Operation Center NHEOC; and assembled by National Health Command and Control NHCC, Covid19 Data and Informatics Committee. https://covid19.moh.gov.sa/

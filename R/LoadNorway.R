@@ -1,6 +1,6 @@
 #' LoadNorway
 #'
-#' @description Reads in subnational data for Norway to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Norway to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Thomas, Haarstad, F., Manuel & YBK. Public COVID-19 Data for Norway (covid19data.no). \url{https://github.com/thohan88/covid19-nor-data}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Norway <- LoadNorway()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadNorway <- function() {
   geomNorway <- NULL

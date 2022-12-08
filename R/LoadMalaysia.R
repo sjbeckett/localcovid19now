@@ -1,6 +1,6 @@
 #' LoadMalaysia
 #'
-#' @description Reads in subnational data for Malaysia to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Malaysia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  \url{https://github.com/MoH-Malaysia/covid19-public}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Malaysia <- LoadMalaysia()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadMalaysia <- function() {
   # Official data on the COVID-19 epidemic in Malaysia. Powered by CPRC, CPRC Hospital System, MKAK, and MySejahtera.  https://github.com/MoH-Malaysia/covid19-public
