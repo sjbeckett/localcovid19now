@@ -1,6 +1,6 @@
 #' LoadNigeria
 #'
-#' @description Reads in subnational data for Nigeria to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Nigeria to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data collated by Humanitarian Emergency Response Africa  \url{https://data.humdata.org/dataset/nigeria_covid19_subnational} which is
@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' Nigeria <- LoadNigeria()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadNigeria <- function() {
   # Humanitarian Emergency Response Africa  https://data.humdata.org/dataset/nigeria_covid19_subnational

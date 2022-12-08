@@ -21,7 +21,7 @@ Creates an interactive Leaflet map displaying active cases per 'people' for the 
 }
 \examples{
 \dontrun{
-Denmark <- LoadDenmark()
+Denmark <- LoadData("LoadDenmark")
 PerCapitaMap_leaflet(Denmark)
 }
 }

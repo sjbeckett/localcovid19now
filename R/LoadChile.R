@@ -1,6 +1,6 @@
 #' LoadChile
 #'
-#' @description Reads in subnational data for Chile to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Chile to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io}
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' Chile <- LoadChile()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadChile <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io

@@ -1,6 +1,6 @@
 #' LoadEurope
 #'
-#' @description Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Europe <- LoadEurope()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71

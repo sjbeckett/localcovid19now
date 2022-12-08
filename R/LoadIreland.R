@@ -1,6 +1,6 @@
 #' LoadIreland
 #'
-#' @description Reads in subnational data for Ireland to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Ireland to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data is provided by the Health Service Executive (HSE), Health Protection Surveillance Centre (HPSC), The Central Statistics Office (CSO) and Gov.ie and accessed via Ireland's COVID-19 Data Hub: \url{https://covid19ireland-geohive.hub.arcgis.com/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Ireland <- LoadIreland()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadIreland <- function() {
   TimeStamp <- CountyName <- ConfirmedCovidCases <- PopulationCensus16 <- cases <- pop <- miscIreland <- NULL

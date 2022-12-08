@@ -1,6 +1,6 @@
 #' LoadMexico
 #'
-#' @description Reads in subnational data for Mexico to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Mexico to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data is sourced from the Covid-19 México hub page: \url{https://datos.covid-19.conacyt.mx/}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Mexico <- LoadMexico()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadMexico <- function() {
   # COVID-19 Covid-19 México hub page: https://datos.covid-19.conacyt.mx/

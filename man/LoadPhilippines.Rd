@@ -10,7 +10,7 @@ LoadPhilippines()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases. Note that this process requires the use of the googledrive package which requires the users google credentials to be provided.
+Reads in subnational data for Philippines to calculate most recent estimate of per capita active COVID-19 cases. Note that this process requires the use of the googledrive package which requires the users google credentials to be provided. Use with LoadData() is recommended.
 }
 \note{
 Data obtained from the Republic of Philippines Department of Health: \url{https://doh.gov.ph/covid19tracker}.
@@ -21,5 +21,5 @@ Philippines <- LoadPhilippines()
 }
 }
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

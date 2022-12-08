@@ -1,6 +1,6 @@
 #' LoadItaly
 #'
-#' @description Reads in subnational data for Italy to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Italy to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data collated by the Italian Department of Civil Protection COVID-19: \url{https://github.com/pcm-dpc/COVID-19/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Italy <- LoadItaly()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadItaly <- function() {
   code <- cases <- region <- province <- pop_italy <- totale_casi <- codice_provincia <- denominazione_regione <- denominazione_provincia <- NULL

@@ -1,6 +1,6 @@
 #' LoadThailand
 #'
-#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Thailand <- LoadThailand()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand

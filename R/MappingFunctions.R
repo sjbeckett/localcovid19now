@@ -42,7 +42,7 @@ estRisk <- function(pcActiveCases, A, G, rounding = 0) {
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Austria <- LoadAustria()
+#' Austria <- LoadData("LoadAustria")
 #' Austria$AB <- 4
 #' EventMap_leaflet(Austria, 50, Austria$AB)
 #' }
@@ -115,7 +115,7 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Denmark <- LoadDenmark()
+#' Denmark <- LoadData("LoadDenmark")
 #' PerCapitaMap_leaflet(Denmark)
 #' }
 #' @export
@@ -182,7 +182,7 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Austria <- LoadAustria()
+#' Austria <- LoadData("LoadAustria")
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50, Austria$AB)
 #' }
@@ -222,7 +222,7 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Denmark <- LoadDenmark()
+#' Denmark <- LoadData("LoadDenmark")
 #' PerCapitaMap_tmap(Denmark)
 #' }
 #' @export

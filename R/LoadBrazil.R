@@ -1,6 +1,6 @@
 #' LoadBrazil
 #'
-#' @description Reads in subnational data for Brazil to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Brazil to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data are aggregated from Ministério da Saúde and Brasil.IO by \url{https://github.com/wcota/covid19br}
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' Brazil <- LoadBrazil()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadBrazil <- function() {
   state <- pop2020 <- NULL

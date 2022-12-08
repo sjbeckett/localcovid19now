@@ -1,6 +1,6 @@
 #' LoadEcuador
 #'
-#' @description Reads in subnational data for Ecuador to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Ecuador to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: \url{https://github.com/andrab/ecuacovid}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Ecuador <- LoadEcuador()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadEcuador <- function() {
   # Data compiled from the Servicio Nacional de Gestión de Riesgos y Emergencias del Ecuador by Ecuacovid: https://github.com/andrab/ecuacovid

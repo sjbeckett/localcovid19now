@@ -1,6 +1,6 @@
 #' LoadIndonesia
 #'
-#' @description Reads in subnational data for Indonesia to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Indonesia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Live data, interactive charts & maps of Indonesia provincial COVID-19 daily cases and vaccination. Live version: \url{https://erlange.github.io/INACOVID/}
@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' Indonesia <- LoadIndonesia()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadIndonesia <- function() {
 <<<<<<< HEAD

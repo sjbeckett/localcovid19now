@@ -1,6 +1,6 @@
 #' LoadCanada
 #'
-#' @description Reads in subnational data for Canada to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Canada to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated by the COVID-19 Canada Open Data Working Group from local health resources at \url{https://github.com/ccodwg/Covid19Canada}.
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' Canada <- LoadCanada()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadCanada <- function() {
   # Load geometry and population data

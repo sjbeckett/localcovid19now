@@ -1,6 +1,6 @@
 #' LoadSouthKorea
 #'
-#' @description Reads in subnational data for South Korea to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for South Korea to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data collated by \url{https://github.com/staedi/nCOV-summary/} from the South Korea CDC: \url{http://ncov.mohw.go.kr/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' SouthKorea <- LoadSouthKorea()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSouthKorea <- function() {
   # collated by https://github.com/staedi/nCOV-summary/ from the South Korea CDC: http://ncov.mohw.go.kr/

@@ -1,6 +1,6 @@
 #' LoadJHUCSSE
 #'
-#' @description Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University \url{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}.
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' JH <- LoadJHUCSSE()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadJHUCSSE <- function() {
   pop_smallcountries <- NULL

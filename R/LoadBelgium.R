@@ -1,6 +1,6 @@
 #' LoadBelgium
 #'
-#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data was obtained from Sciensano, the Belgian institute for health: \url{https://epistat.wiv-isp.be/covid/}
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Belgium <- LoadBelgium()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/

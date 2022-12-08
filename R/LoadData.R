@@ -13,15 +13,17 @@
 #' @param dropNAall If TRUE, remove rows for any region whose pInf estimates all return NA. (passed to tidy_Data).
 #' @param custom If TRUE, allows for use with functions not listed in object countrylist (experimental usage).
 #' @param verbose If TRUE, reports on loading progress and returns warnings/errors to console.
-#' @keywords internal
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
 #' LoadData("LoadUS")
+#' LoadData("LoadUS", dropNAall = TRUE)
+#' LoadData("LoadNewZealand",tidy = FALSE)
 #' LoadData(c("LoadUS","LoadMalaysia"))
 #' \dontrun{
 #' LoadData()
 #' }
+#' @seealso [tidy_Data()]
 #' @export
 LoadData <- function(functionNames = NULL, filepath = NULL, interactiveMode = interactive(), tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE, custom = FALSE, verbose = TRUE){
   

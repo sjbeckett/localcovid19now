@@ -1,6 +1,6 @@
 #' LoadUS
 #'
-#' @description Reads in subnational data for the United States to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for the United States to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Real-time county level COVID19 data comes from the NYTimes COVID19 data project: \url{https://github.com/nytimes/covid-19-data}.
@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' US <- LoadUS()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadUS <- function() {
   micro_code <- fips <- cases <- deaths <- date_past <- pop_usa <- NULL

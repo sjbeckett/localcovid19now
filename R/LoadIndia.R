@@ -1,6 +1,6 @@
 #' LoadIndia
 #'
-#' @description Reads in subnational data for India to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for India to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data collated by \url{https://covid19tracker.in/}, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' India <- LoadIndia()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadIndia <- function() {
   # Data collated by https://covid19tracker.in/, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports

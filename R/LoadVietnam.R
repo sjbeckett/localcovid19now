@@ -1,6 +1,6 @@
 #' LoadVietnam
 #'
-#' @description Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. \url{https://covid19.ncsc.gov.vn/dulieu}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Vietnam <- LoadVietnam()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadVietnam <- function() {
   # Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. https://covid19.ncsc.gov.vn/dulieu

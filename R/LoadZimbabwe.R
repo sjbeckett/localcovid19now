@@ -1,6 +1,6 @@
 #' LoadZimbabwe
 #'
-#' @description Reads in subnational data for Zimbabwe to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Zimbabwe to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Sourced from the COVID-19 Data Repository by African Surveyors Connect \url{https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/}.
@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' Zimbabwe <- LoadZimbabwe()
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadZimbabwe <- function() {
   # COVID-19 Data Repository by African Surveyors Connect https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/

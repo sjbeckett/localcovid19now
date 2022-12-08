@@ -10,7 +10,7 @@ LoadFrance()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for France to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for France to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Santé publique France COVID-19 data for France :  \url{https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/} // \url{https://www.data.gouv.fr/fr/datasets/donnees-de-laboratoires-pour-le-depistage-a-compter-du-18-05-2022-si-dep/}.
@@ -20,5 +20,5 @@ Note this resource also contains data for overseas departments of France, and fo
 France <- LoadFrance()
 }
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

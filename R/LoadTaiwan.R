@@ -1,6 +1,6 @@
 #' LoadTaiwan
 #'
-#' @description Reads in subnational data for Taiwan to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Taiwan to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data sourced from Taiwan Centers for Disease Control \url{https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Taiwan <- LoadTaiwan()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadTaiwan <- function() {
   # sourced from Taiwan Centers for Disease Control https://data.cdc.gov.tw/en/dataset/aagsdctable-day-19cov
