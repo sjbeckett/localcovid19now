@@ -21,6 +21,7 @@ install_github("sjbeckett/localcovid19now")
 
 library("localcovid19now")
 ```
+We note that our package uses other common packages across the R ecosystem to run. The installation of these packages should be initialized by the above commands. We also note that some users [may need to change default timeout settings](https://github.com/sjbeckett/localcovid19now/issues/58) in order to install the package.
 
 ## Use
 
