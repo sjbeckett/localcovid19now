@@ -6,6 +6,7 @@
 \usage{
 LoadData(
   functionNames = NULL,
+  custom = FALSE,
   filepath = NULL,
   interactiveMode = interactive(),
   tidy = TRUE,
@@ -14,12 +15,13 @@ LoadData(
   RiskEval = NULL,
   dropNACountry = TRUE,
   dropNAall = FALSE,
-  custom = FALSE,
   verbose = TRUE
 )
 }
 \arguments{
 \item{functionNames}{Name(s) of function representing that for loading data - options are in countrylist. Use NULL to attempt to download all available datasets.}
+
+\item{custom}{If TRUE, allows for use with functions not listed in object countrylist (experimental usage).}
 
 \item{filepath}{Optionally, provide a filepath to save an error csv file to.}
 
@@ -36,8 +38,6 @@ LoadData(
 \item{dropNACountry}{If TRUE, remove rows for countries whose pInf estimates all return NA.(passed to tidy_Data).}
 
 \item{dropNAall}{If TRUE, remove rows for any region whose pInf estimates all return NA. (passed to tidy_Data).}
-
-\item{custom}{If TRUE, allows for use with functions not listed in object countrylist (experimental usage).}
 
 \item{verbose}{If TRUE, reports on loading progress and returns warnings/errors to console.}
 }
