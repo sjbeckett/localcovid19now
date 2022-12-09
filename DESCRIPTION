@@ -35,7 +35,6 @@ Imports:
     magrittr,
     purrr,
     readxl,
-    rgdal,
     rlang,
     sf,
     stringr,
