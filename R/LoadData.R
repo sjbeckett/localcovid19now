@@ -28,23 +28,40 @@
 LoadData <- function(functionNames = NULL, filepath = NULL, interactiveMode = interactive(), tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE, custom = FALSE, verbose = TRUE){
   
   #check inputs
+  stopifnot("`filepath` must be a character string." = is.character(filepath))
   assertOptions__tidy_Data(tidy,DaysOld,minimumpercapitaactivecases,RiskEval,dropNACountry,dropNAall)
   stopifnot("`interactiveMode` must be a logical." = is.logical(interactiveMode))
   stopifnot("`custom` must be a logical." = is.logical(custom))
   stopifnot("`verbose` must be a logical." = is.logical(verbose))
-  
+
   
   # COMBINE DATASETS INTO SINGLE OBJECT
   NEWMAP <- c()
   
+  utils::data(countrylist, envir = environment())
+  
   # assign country list if not provided
   if (is.null(functionNames)) {
-    utils::data(countrylist, envir = environment())
     functionNames <- countrylist
   }
   
   # check Load options that are input match allowable options.
   if (custom == FALSE){
+    
+    indcheck <- which(!(functionNames %in% countrylist))
+    if(length(indcheck)>0){ #if not on main list, check on the alt_countrylist
+      utils::data(alt_countrylist, envir = environment())
+        for(aa in indcheck){
+          thisC <- which(alt_countrylist$case == functionNames[aa])
+          if(length(thisC)>0){
+            functionNames[aa] <- alt_countrylist$call[thisC]
+          }
+        }
+    }
+
+    # remove possible duplicates
+    functionNames = unique(functionNames)
+    
     stopifnot("`functionNames` must match options in object countrylist, or be set to NULL." = all(functionNames %in% countrylist))
   }
   
