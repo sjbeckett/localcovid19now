@@ -25,13 +25,13 @@
 #' }
 #' @seealso [tidy_Data()]
 #' @export
-LoadData <- function(functionNames = NULL, filepath = NULL, interactiveMode = interactive(), tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE, custom = FALSE, verbose = TRUE){
+LoadData <- function(functionNames = NULL, custom = FALSE, filepath = NULL, interactiveMode = interactive(), tidy = TRUE, DaysOld = 30, minimumpercapitaactivecases = 0, RiskEval = NULL, dropNACountry = TRUE, dropNAall = FALSE, verbose = TRUE){
   
   #check inputs
+  stopifnot("`custom` must be a logical." = is.logical(custom))
   stopifnot("`filepath` must be a character string, or be set to null." = is.character(filepath) || is.null(filepath))
   assertOptions__tidy_Data(tidy,DaysOld,minimumpercapitaactivecases,RiskEval,dropNACountry,dropNAall)
   stopifnot("`interactiveMode` must be a logical." = is.logical(interactiveMode))
-  stopifnot("`custom` must be a logical." = is.logical(custom))
   stopifnot("`verbose` must be a logical." = is.logical(verbose))
 
   
