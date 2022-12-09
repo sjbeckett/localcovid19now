@@ -39,6 +39,10 @@ US_and_Malaysia <- LoadData(c("LoadUS","LoadMalaysia"))
 googledrive::drive_auth(email = TRUE)
 
 Philippines <- LoadData("LoadPhilippines")
+
+#A list of loading options is given by:
+countrylist
+
 ```
 or to load all available datasets as:
 
@@ -74,7 +78,7 @@ EventMap_tmap(US,100,US$AB)
 
 #maps can be saved using tmap commands. Here we also use a projection more suited to the US:
 MAP = EventMap_tmap(US,100,US$AB,projection=5070)
-tmap_save(MAP,"US_RiskMap.png")
+tmap::tmap_save(MAP,"US_RiskMap.png")
 
 #Some resources for choosing projections can be found here: https://proj.org/usage/index.html and here: https://epsg.io/ and 
 

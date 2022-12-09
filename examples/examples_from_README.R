@@ -15,8 +15,9 @@ googledrive::drive_auth(email = TRUE)
 
 Philippines <- LoadData("LoadPhilippines")
 
-#A list of all loading options is given by:
+#A list of loading options is given by:
 countrylist
+
 
 ## or to load all available datasets as:
 
@@ -28,11 +29,11 @@ GLOBALMAP2 <- LoadData(dropNACountry = FALSE)
 
 ## Once loaded, the per capita active case data can be mapped with built in helper functions: 
 
-#show per capita active cases per 100,000 people in leaflet
+#show per capita active cases per 100,000 people in leaflet for GLOBALMAP
 PerCapitaMap_leaflet(GLOBALMAP,100000)
 
-#show per capita active cases per 100,000 people in tmap
-PerCapitaMap_tmap(GLOBALMAP,100000)
+#show per capita active cases per 100,000 people in tmap for GLOBALMAP2
+PerCapitaMap_tmap(GLOBALMAP2,100000)
 
 #Can save this type of object using tmap options.
 GMAP = PerCapitaMap_tmap(GLOBALMAP2,100000)
