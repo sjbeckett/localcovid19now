@@ -28,19 +28,18 @@ LoadCanada <- function() {
   CANADADATA <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/data/hr/cases_hr.csv", show_col_types = FALSE, progress = FALSE)
   pop_canada <- vroom::vroom("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/hr.csv",show_col_types = FALSE, progress = FALSE) # contains pop and health region ID codes
 
-  # shrink this data file
+  # get dates
   DATES <- as.Date(CANADADATA$date)
-  DatIND <- which(DATES < max(DATES) - 100)
-  CANDATASMALLER <- CANADADATA[-DatIND, ]
+
 
   # Assemble the data required to calculate risk scores and match health region ID's
   CANADARISK <- c()
-  C_hr <- unique(CANDATASMALLER$sub_region_1) # list of unique health regions
+  C_hr <- unique(CANADADATA$sub_region_1) # list of unique health regions
   C_hr <- C_hr[-which(C_hr == 9999)] # remove entries not assigned a health region
 
 
   for (aa in 1:length(C_hr)) { # loop over health regions
-    subsetdata <- CANDATASMALLER[which(CANDATASMALLER$sub_region_1 == C_hr[aa]), ]
+    subsetdata <- CANADADATA[which(CANADADATA$sub_region_1 == C_hr[aa]), ]
     MD <- max(subsetdata$date)
     LD <- MD - 14
     MC <- subsetdata$value[which(subsetdata$date == MD)]
