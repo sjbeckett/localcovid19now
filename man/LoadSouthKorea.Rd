@@ -16,7 +16,9 @@ Reads in subnational data for South Korea to calculate most recent estimate of p
 Data collated by \url{https://github.com/staedi/nCOV-summary/} from the South Korea CDC: \url{http://ncov.mohw.go.kr/}.
 }
 \examples{
+\dontrun{
 SouthKorea <- LoadSouthKorea()
+}
 }
 \seealso{
 \code{\link[=LoadData]{LoadData()}}
