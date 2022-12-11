@@ -22,6 +22,8 @@ LoadPhilippines <- function() {
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
   rlang::check_installed(c("pdftools", "googledrive"), reason = "to use `LoadPhilippines()`")
+  
+  check_gdrive_scope()
 
   # silence googledrive in this specific scope
   googledrive::local_drive_quiet()
@@ -160,4 +162,22 @@ LoadPhilippines <- function() {
   PHILIPPINES_DATA <- subset(philippinesMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
   return(PHILIPPINES_DATA)
+}
+
+
+#' check_gdrive_scope
+#' @description runs a googledrive function that requires permissions to be shared by user with the tidyverse API. This function is designed to check if these permissions (needed for LoadPhilippines to work) are enabled, and error if not.
+#' @keywords internal
+#' @examples 
+#' \dontrun{
+#' check_gdrive_scope()
+#' }
+#' @export
+check_gdrive_scope <- function(){
+  check <- NULL
+  tryCatch({
+    check <- googledrive::drive_about()
+  },error = function(e){
+    stop("Insufficient permissions provided to googledrive.\nData requiring googledrive will not be loaded. \nTo provide permissions use googledrive::drive_auth().")
+  })
 }

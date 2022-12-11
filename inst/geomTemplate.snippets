@@ -1,4 +1,5 @@
 snippet geomTemplate
+	`r paste("##", 'Please save this file as "tools/toProcess/process<CountryName>.R", where "<CountryName> is replaced with the appropriate country or region name. You may have to create the folder "tools/toProcess"')`
 	`r paste("##", "Do not run this code, it will run automatically when running updateGlobal.R")`
 	geomCountry <- sf::st_read("${1:file}")
 	`r paste("#", "UNSD_m49 called by addNewGeom.R\n")`
