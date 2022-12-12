@@ -11,7 +11,7 @@ Function to integrate in new geometries and update the geometries across the pac
 }
 \examples{
 \dontrun{
-loacalcovid19now:::updateGlobal()
+localcovid19now:::updateGlobal()
 }
 }
 \keyword{internal}

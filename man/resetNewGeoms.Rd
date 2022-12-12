@@ -14,7 +14,10 @@ resetNewGeoms(file_list = NULL, ...)
 @param file_list a vector of file names to be reset. if \code{NULL}, default, all files in the \code{processed} folder will be reset.
 }
 \examples{
+\dontrun{
+dir.create(here::here("tools", "toProcess"))
 file.create(here::here("tools", "processed", "processTestFile.R"))
-loacalcovid19now:::resetNewGeoms("processTestFile.R")
+localcovid19now:::resetNewGeoms("processTestFile.R")
+}
 }
 \keyword{internal}

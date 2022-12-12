@@ -6,7 +6,7 @@
 #' @keywords internal
 #' @examples
 #' \dontrun{
-#' loacalcovid19now:::updateGlobal()
+#' localcovid19now:::updateGlobal()
 #' }
 updateGlobal <- function() {
   filename <- geoid <- m49code <- iso3 <- country_name <- macro_code <- macro_name <- micro_code <- micro_name <- NULL
@@ -166,8 +166,11 @@ updateGlobal <- function() {
 #'
 #'
 #' @examples
+#' \dontrun{
+#' dir.create(here::here("tools", "toProcess"))
 #' file.create(here::here("tools", "toProcess", "processTestFile.R"))
-#' loacalcovid19now:::moveProcessedFiles("processTestFile.R")
+#' localcovid19now:::moveProcessedFiles("processTestFile.R")
+#' }
 moveProcessedFiles <- function(x, ...) {
   rlang::check_installed(c("here"), reason = "to use moveProcessedFiles()")
   if (stringr::str_sub(x, 1, 7) != "process") {
@@ -202,7 +205,9 @@ moveProcessedFiles <- function(x, ...) {
 #'
 #'
 #' @examples
-#' loacalcovid19now:::addNewGeoms()
+#' \dontrun{
+#' localcovid19now:::addNewGeoms()
+#' }
 addNewGeoms <- function() {
   iso3 <- m49code <- macro_code <- micro_code <- geoid <- country_name <- macro_name <- NULL
 
@@ -266,8 +271,11 @@ addNewGeoms <- function() {
 #'
 #'
 #' @examples
+#' \dontrun{
+#' dir.create(here::here("tools", "toProcess"))
 #' file.create(here::here("tools", "processed", "processTestFile.R"))
-#' loacalcovid19now:::resetNewGeoms("processTestFile.R")
+#' localcovid19now:::resetNewGeoms("processTestFile.R")
+#' }
 resetNewGeoms <- function(file_list = NULL, ...) {
   rlang::check_installed(c("here"), reason = "to use resetNewGeoms()")
 
@@ -312,8 +320,10 @@ resetNewGeoms <- function(file_list = NULL, ...) {
 #'
 #' @keywords internal
 #' @examples
+#' \dontrun{
 #' data("geomGlobal")
-#' loacalcovid19now:::remGeoSurplus(geomGlobal)
+#' localcovid19now:::remGeoSurplus(geomGlobal)
+#' }
 remGeoSurplus <- function(input_file,
                           collection_files = c("geomEurope", "geomSmallCountries")) {
   iso3 <- filename <- isDup <- NULL

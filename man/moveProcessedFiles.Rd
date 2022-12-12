@@ -15,7 +15,10 @@ moveProcessedFiles(x, ...)
 Moves files from "toProcess" to "processed" folder when updating country geometries. Designed to only work with the "processFileName" naming convention. This is part of the geometry updating system and is designed for developers.
 }
 \examples{
+\dontrun{
+dir.create(here::here("tools", "toProcess"))
 file.create(here::here("tools", "toProcess", "processTestFile.R"))
-loacalcovid19now:::moveProcessedFiles("processTestFile.R")
+localcovid19now:::moveProcessedFiles("processTestFile.R")
+}
 }
 \keyword{internal}
