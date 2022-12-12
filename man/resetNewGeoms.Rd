@@ -4,12 +4,17 @@
 \alias{resetNewGeoms}
 \title{Reset processed files}
 \usage{
-resetNewGeoms()
+resetNewGeoms(file_list = NULL, ...)
+}
+\arguments{
+\item{...}{pass arguments to \code{file.copy}}
 }
 \description{
 @description Resets all files in the "tools/process" folder back to "tools/toProcess". Useful in the event that something was processed improperly and you need to reset the geometries to a more stable version. Running when not necessary will result in files being moved to the toProcess folder that do not need to be processed again. This could lead to errors if there are conflicting files in the "processed" folder.
+@param file_list a vector of file names to be reset. if \code{NULL}, default, all files in the \code{processed} folder will be reset.
 }
 \examples{
-resetNewGeoms()
+file.create(here::here("tools", "processed", "processTestFile.R"))
+loacalcovid19now:::resetNewGeoms("processTestFile.R")
 }
 \keyword{internal}

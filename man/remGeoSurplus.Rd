@@ -21,9 +21,7 @@ input_file Updated input file
 Some geography files are collections of many countries that overlap with other files that have their own higher-quality data. The remGeoSurplus function ensures each country is only present once in the dataset.
 }
 \examples{
-\dontrun{
 data("geomGlobal")
-remGeoSurplus(geomGlobal)
-}
+loacalcovid19now:::remGeoSurplus(geomGlobal)
 }
 \keyword{internal}

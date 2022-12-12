@@ -1,173 +1,12 @@
-#' Move Processed Files
-#'
-#' @description Moves files from "toProcess" to "processed" folder when updating country geometries. Designed to only work with the "processFileName" naming convention. This is part of the geometry updating system and is designed for developers.
-#' @param x File name to be moved
-#' @keywords internal
-#'
-#' @export
-#'
-#' @examples
-#' file.create(here::here("tools", "toProcess", "processTestFile.R"))
-#' moveProcessedFiles("processTestFile.R")
-moveProcessedFiles <- function(x) {
-  rlang::check_installed(c("here"), reason = "to use moveProcessedFiles()")
-  if (stringr::str_sub(x, 1, 7) != "process") {
-    cat("File", x, "is not formatted correctly. Please review standards.")
-  } else {
-    file.copy(
-      from = here::here("tools", "toProcess", x),
-      to = here::here("tools", "processed", x)
-    )
-    file.remove(here::here("tools", "toProcess", x))
-  }
-}
-
-#' Add New Country Geometries
-#'
-#' @description Internal function for the geometry update process. Processes new geometries using "processX.R" scripts in the "tools/toProcess" folder and further formats the geometries correctly to be integrated into the system overall. Running this function outside of a geometry update may cause errors from moving process scripts prematurely.
-#' @return world Map with new geoms added
-#' @keywords internal
-#' @export
-#'
-#' @examples
-#' addNewGeoms()
-addNewGeoms <- function() {
-  iso3 <- m49code <- macro_code <- micro_code <- geoid <- country_name <- macro_name <- NULL
-
-  rlang::check_installed(c("here"), reason = "to use addNewGeoms()")
-  # Fields will be as follows:
-  ## geoid = ISO3m49_micro_macro
-  ## m49code
-  ## iso3
-  ## county_name
-  ## macro_code
-  ## macro_name
-  ## micro_code
-  ## micro_name
-  ## geometry
-
-  necessary_cols <- dplyr::tibble("macro_code" = NA_character_, "macro_name" = NA_character_, "micro_code" = NA_character_, "micro_name" = NA_character_)
-
-  ## Load in the m49 codes for countries
-  utils::data("m49", envir = environment())
-
-  file_list <- list.files(here::here("tools", "toProcess"))[which(stringr::str_sub(list.files(here::here("tools", "toProcess")), 1, 7) == "process")] # only use files formatted as "processX"
-
-  if (length(file_list) > 0) {
-    # This "source" needs to be replaced bc it's bad form in a package, but I haven't figured out how it would work better yet
-    lapply(file_list, \(x) source(here::here("tools", "toProcess", x)))
-    geom_list <- paste0("geom", stringr::str_extract(file_list, "(?<=process)[:alpha:]+(?=.R$)"))
-
-    worldNew <- purrr::map_df(
-      geom_list,
-      ~ get(.x) %>%
-        dplyr::mutate(
-          filename = .x
-        ) %>%
-        sf::st_collection_extract() %>%
-        sf::st_cast("MULTIPOLYGON")
-    ) %>%
-      dplyr::left_join(necessary_cols) %>%
-      tidyr::replace_na(list("macro_code" = "00", "micro_code" = "00")) %>%
-      dplyr::mutate(
-        geoid = paste(paste0(iso3, m49code), macro_code, micro_code, sep = "_")
-      ) %>%
-      dplyr::select(geoid, m49code, iso3, country_name, macro_code, macro_name, dplyr::everything()) %>%
-      sf::st_as_sf() %>%
-      tibble::remove_rownames()
-
-    lapply(file_list, moveProcessedFiles)
-
-
-    return(worldNew)
-  } else {
-    cat("\nNo new geometries processed. toProcess folder is empty.\n")
-  }
-}
-
-#' Reset processed files
-#'
-#'  @description Resets all files in the "tools/process" folder back to "tools/toProcess". Useful in the event that something was processed improperly and you need to reset the geometries to a more stable version. Running when not necessary will result in files being moved to the toProcess folder that do not need to be processed again. This could lead to errors if there are conflicting files in the "processed" folder.
-#' @keywords internal
-#' @export
-#'
-#' @examples
-#' resetNewGeoms()
-resetNewGeoms <- function() {
-  rlang::check_installed(c("here"), reason = "to use resetNewGeoms()")
-  file_list <- list.files(here::here("tools", "processed"))[which(stringr::str_sub(list.files(here::here("tools", "processed")), 1, 7) == "process")]
-
-  cat("\nresetting processed geometry scripts...\n")
-
-  lapply(
-    file_list,
-    \(x){
-      file.copy(
-        from = here::here("tools", "processed", x),
-        to = here::here("tools", "toProcess", x)
-      )
-      file.remove(here::here("tools", "processed", x))
-    }
-  )
-}
-
-
-
-#' Remove Surplus Geometries
-#'
-#' @description Some geography files are collections of many countries that overlap with other files that have their own higher-quality data. The remGeoSurplus function ensures each country is only present once in the dataset.
-#'
-#' @param input_file In file
-#' @param collection_files File(s) with geoms to remove
-#'
-#' @return input_file Updated input file
-#' @export
-#'
-#' @keywords internal
-#' @examples
-#' \dontrun{
-#' data("geomGlobal")
-#' remGeoSurplus(geomGlobal)
-#' }
-remGeoSurplus <- function(input_file,
-                          collection_files = c("geomEurope", "geomSmallCountries")) {
-  iso3 <- filename <- isDup <- NULL
-  isoFile <- input_file %>%
-    sf::st_drop_geometry() %>%
-    dplyr::select(iso3, filename) %>%
-    dplyr::distinct()
-
-  coll1Iso <- isoFile %>%
-    dplyr::filter(filename == collection_files[1]) %>%
-    dplyr::pull(iso3)
-  distIso <- isoFile %>%
-    dplyr::filter(!filename %in% collection_files) %>%
-    dplyr::pull(iso3)
-
-  input_file <- input_file %>%
-    dplyr::mutate(
-      isDup = dplyr::case_when(
-        filename == collection_files[2] & iso3 %in% coll1Iso ~ 1,
-        filename %in% collection_files & iso3 %in% c(distIso, "ASM", "GUM", "MNP", "VIR", "PRI") ~ 1,
-        TRUE ~ 0
-      )
-    ) %>%
-    dplyr::filter(isDup == 0, !is.na(iso3)) %>%
-    dplyr::select(-isDup)
-
-  return(input_file)
-}
-
-
 #' Update Global Geometries
 #'
 #' @description Function to integrate in new geometries and update the geometries across the package
-#' @export
+#'
 #'
 #' @keywords internal
 #' @examples
 #' \dontrun{
-#' updateGlobal()
+#' loacalcovid19now:::updateGlobal()
 #' }
 updateGlobal <- function() {
   filename <- geoid <- m49code <- iso3 <- country_name <- macro_code <- macro_name <- micro_code <- micro_name <- NULL
@@ -253,63 +92,253 @@ updateGlobal <- function() {
 
   # Save each geometry as filename.Rda for the package to use
   for (y in seq_along(globalList)) {
-    cat("\n")
-    # if (file.exists(here::here("data", paste0(names(globalList[y]), ".rda"))) & !names(globalList[y]) %in% updatedFiles) {
+    try({
+      cat("\n")
+      # if (file.exists(here::here("data", paste0(names(globalList[y]), ".rda"))) & !names(globalList[y]) %in% updatedFiles) {
 
-    # If the relevant geometry is already in the pacakge, check if it's different than the new one
-    if (exists(names(globalList[y])) & !names(globalList[y]) %in% updatedFiles) {
-      # Bring in existing geometry
-      data(list = names(globalList[y]), envir = environment())
-      assign(x = "existing", get(names(globalList[y])))
+      # If the relevant geometry is already in the pacakge, check if it's different than the new one
+      if (exists(names(globalList[y])) & !names(globalList[y]) %in% updatedFiles) {
+        # Bring in existing geometry
+        data(list = names(globalList[y]), envir = environment())
+        assign(x = "existing", get(names(globalList[y])))
 
-      # existing <- sf::st_read(paste0("countries/data/geom/", names(globalList[y]), ".geojson"), quiet = T)
-      # Isolate the new geometry
-      newgeom <- globalList[[y]]
+        # existing <- sf::st_read(paste0("countries/data/geom/", names(globalList[y]), ".geojson"), quiet = T)
+        # Isolate the new geometry
+        newgeom <- globalList[[y]]
 
-      # If all geometry of the new and existing files AND all the dataframe values of new and existing are the same, do not overwrite the existing file
-      if (nrow(newgeom) != nrow(existing)) {
-        # If they aren't the same, overwrite the existing file
-        cat("overwrite existing geometry: ", names(globalList[y]), "\n")
-        # assign(x = names(globalList[y]), value = globalList[y][[1]])
-        # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
-        # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+        # If all geometry of the new and existing files AND all the dataframe values of new and existing are the same, do not overwrite the existing file
+        if (nrow(newgeom) != nrow(existing)) {
+          # If they aren't the same, overwrite the existing file
+          message("overwrite existing geometry: ", names(globalList[y]), "\n")
+          # assign(x = names(globalList[y]), value = globalList[y][[1]])
+          # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+          # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
 
-        purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
-          assign(name, obj)
-          do.call("use_data", list(as.name(name), overwrite = TRUE))
-        })
-      } else if (!all(purrr::map_lgl(
-        1:nrow(newgeom),
-        ~ sf::st_geometry(existing)[.x] == sf::st_geometry(newgeom)[.x]
-      ), na.rm = T) & !all(sf::st_drop_geometry(existing) == sf::st_drop_geometry(newgeom), na.rm = T)
-      ) {
-        # If they aren't the same, overwrite the existing file
-        cat("overwrite existing geometry: ", names(globalList[y]), "\n")
-        # assign(x = names(globalList[y]), value = globalList[y][[1]])
-        # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
-        # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+          purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+            assign(name, obj)
+            do.call(eval(parse(text = "usethis::use_data")), list(as.name(name), overwrite = TRUE))
+          })
+        } else if (!all(purrr::map_lgl(
+          1:nrow(newgeom),
+          ~ sf::st_geometry(existing)[.x] == sf::st_geometry(newgeom)[.x]
+        ), na.rm = T) & !all(sf::st_drop_geometry(existing) == sf::st_drop_geometry(newgeom), na.rm = T)
+        ) {
+          # If they aren't the same, overwrite the existing file
+          message("overwrite existing geometry: ", names(globalList[y]), "\n")
+          # assign(x = names(globalList[y]), value = globalList[y][[1]])
+          # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+          # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
 
-        purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
-          assign(name, obj)
-          do.call("use_data", list(as.name(name), overwrite = TRUE))
-        })
+          purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+            assign(name, obj)
+            do.call(eval(parse(text = "usethis::use_data")), list(as.name(name), overwrite = TRUE))
+          })
 
-        rm(list = names(globalList[y]))
+          rm(list = names(globalList[y]))
+        } else {
+          cat("geometries (", y, ") are the same\n")
+        }
       } else {
-        cat("geometries (", y, ") are the same\n")
+        # If the geometry is part of the newly updated geometries (updatedFiles), over(write) without checking as changes have been made and it may not be the same size as the existing geometry, which would throw an error in the similarity check
+        message("write new geometry: ", names(globalList[y]), "\n")
+        # assign(x = names(globalList[y]), value = globalList[y][[1]])
+        # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
+        # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
+        purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
+          assign(name, obj)
+          do.call(eval(parse(text = "usethis::use_data")), list(as.name(name), overwrite = TRUE))
+        })
+        rm(list = names(globalList[y]))
       }
-    } else {
-      # If the geometry is part of the newly updated geometries (updatedFiles), over(write) without checking as changes have been made and it may not be the same size as the existing geometry, which would throw an error in the similarity check
-      cat("write new geometry: ", names(globalList[y]), "\n")
-      # assign(x = names(globalList[y]), value = globalList[y][[1]])
-      # usethis::use_data(get(names(globalList[y])), overwrite = T) # Use data for package
-      # sf::st_write(obj = get(names(globalList[y])), paste0("countries/data/geom/", names(globalList[y]), ".geojson"), delete_dsn = T)
-      purrr::walk2(globalList[y], names(globalList[y]), function(obj, name) {
-        assign(name, obj)
-        do.call("use_data", list(as.name(name), overwrite = TRUE))
-      })
-      rm(list = names(globalList[y]))
-    }
+    })
   }
   rm(existing, newgeom)
+}
+
+
+#' Move Processed Files
+#'
+#' @description Moves files from "toProcess" to "processed" folder when updating country geometries. Designed to only work with the "processFileName" naming convention. This is part of the geometry updating system and is designed for developers.
+#' @param x File name to be moved
+#' @param ... pass arguments to `file.copy`
+#' @keywords internal
+#'
+#'
+#'
+#' @examples
+#' file.create(here::here("tools", "toProcess", "processTestFile.R"))
+#' loacalcovid19now:::moveProcessedFiles("processTestFile.R")
+moveProcessedFiles <- function(x, ...) {
+  rlang::check_installed(c("here"), reason = "to use moveProcessedFiles()")
+  if (stringr::str_sub(x, 1, 7) != "process") {
+    stop("File", x, "is not formatted correctly. Please review standards.")
+  } else {
+    cat("\n", x, "...")
+    if (
+      file.copy(
+        from = here::here("tools", "toProcess", x),
+        to = here::here("tools", "processed", x), ...
+      )) {
+      cat(" copied ...")
+      if (
+        file.remove(here::here("tools", "toProcess", x))) {
+        cat(" moved ...\n")
+      } else {
+        stop("failed to delete", paste0("tools/toProcess/", x))
+      }
+    } else {
+      cat("\n")
+      stop("failed to copy ", paste0("tools/toProcess/", x))
+    }
+  }
+}
+
+
+#' Add New Country Geometries
+#'
+#' @description Internal function for the geometry update process. Processes new geometries using "processX.R" scripts in the "tools/toProcess" folder and further formats the geometries correctly to be integrated into the system overall. Running this function outside of a geometry update may cause errors from moving process scripts prematurely.
+#' @return world Map with new geoms added
+#' @keywords internal
+#'
+#'
+#' @examples
+#' loacalcovid19now:::addNewGeoms()
+addNewGeoms <- function() {
+  iso3 <- m49code <- macro_code <- micro_code <- geoid <- country_name <- macro_name <- NULL
+
+  rlang::check_installed(c("here"), reason = "to use addNewGeoms()")
+  # Fields will be as follows:
+  ## geoid = ISO3m49_micro_macro
+  ## m49code
+  ## iso3
+  ## county_name
+  ## macro_code
+  ## macro_name
+  ## micro_code
+  ## micro_name
+  ## geometry
+
+  necessary_cols <- dplyr::tibble("macro_code" = NA_character_, "macro_name" = NA_character_, "micro_code" = NA_character_, "micro_name" = NA_character_)
+
+  ## Load in the m49 codes for countries
+  utils::data("m49", envir = environment())
+
+  file_list <- list.files(here::here("tools", "toProcess"))[which(stringr::str_sub(list.files(here::here("tools", "toProcess")), 1, 7) == "process")] # only use files formatted as "processX"
+
+  if (length(file_list) > 0) {
+    # This "source" needs to be replaced bc it's bad form in a package, but I haven't figured out how it would work better yet
+    lapply(file_list, \(x) source(here::here("tools", "toProcess", x)))
+    geom_list <- paste0("geom", stringr::str_extract(file_list, "(?<=process)[:alpha:]+(?=.R$)"))
+
+    worldNew <- purrr::map_df(
+      geom_list,
+      ~ get(.x) %>%
+        dplyr::mutate(
+          filename = .x
+        ) %>%
+        sf::st_collection_extract() %>%
+        sf::st_cast("MULTIPOLYGON")
+    ) %>%
+      dplyr::left_join(necessary_cols) %>%
+      tidyr::replace_na(list("macro_code" = "00", "micro_code" = "00")) %>%
+      dplyr::mutate(
+        geoid = paste(paste0(iso3, m49code), macro_code, micro_code, sep = "_")
+      ) %>%
+      dplyr::select(geoid, m49code, iso3, country_name, macro_code, macro_name, dplyr::everything()) %>%
+      sf::st_as_sf() %>%
+      tibble::remove_rownames()
+
+    lapply(file_list, moveProcessedFiles)
+
+
+    return(worldNew)
+  } else {
+    message("\nNo new geometries processed. toProcess folder is empty.\n")
+  }
+}
+
+#' Reset processed files
+#'
+#'  @description Resets all files in the "tools/process" folder back to "tools/toProcess". Useful in the event that something was processed improperly and you need to reset the geometries to a more stable version. Running when not necessary will result in files being moved to the toProcess folder that do not need to be processed again. This could lead to errors if there are conflicting files in the "processed" folder.
+#'  @param file_list a vector of file names to be reset. if `NULL`, default, all files in the `processed` folder will be reset.
+#' @param ... pass arguments to `file.copy`
+#' @keywords internal
+#'
+#'
+#' @examples
+#' file.create(here::here("tools", "processed", "processTestFile.R"))
+#' loacalcovid19now:::resetNewGeoms("processTestFile.R")
+resetNewGeoms <- function(file_list = NULL, ...) {
+  rlang::check_installed(c("here"), reason = "to use resetNewGeoms()")
+
+  if (is.null(file_list)) {
+    file_list <- list.files(here::here("tools", "processed"))[which(stringr::str_sub(list.files(here::here("tools", "processed")), 1, 7) == "process")]
+    message("\nresetting all processed geometry scripts...\n")
+  }
+  lapply(
+    file_list,
+    \(x){
+      cat("\n", x, "...")
+      if (
+        file.copy(
+          from = here::here("tools", "processed", x),
+          to = here::here("tools", "toProcess", x), ...
+        )) {
+        cat(" copied ...")
+        if (
+          file.remove(here::here("tools", "processed", x))) {
+          cat(" moved ...\n")
+        } else {
+          stop("failed to delete", paste0("tools/toProcess/", x))
+        }
+      } else {
+        stop("failed to copy", paste0("tools/toProcess/", x))
+      }
+    }
+  )
+}
+
+
+
+#' Remove Surplus Geometries
+#'
+#' @description Some geography files are collections of many countries that overlap with other files that have their own higher-quality data. The remGeoSurplus function ensures each country is only present once in the dataset.
+#'
+#' @param input_file In file
+#' @param collection_files File(s) with geoms to remove
+#'
+#' @return input_file Updated input file
+#'
+#'
+#' @keywords internal
+#' @examples
+#' data("geomGlobal")
+#' loacalcovid19now:::remGeoSurplus(geomGlobal)
+remGeoSurplus <- function(input_file,
+                          collection_files = c("geomEurope", "geomSmallCountries")) {
+  iso3 <- filename <- isDup <- NULL
+  isoFile <- input_file %>%
+    sf::st_drop_geometry() %>%
+    dplyr::select(iso3, filename) %>%
+    dplyr::distinct()
+
+  coll1Iso <- isoFile %>%
+    dplyr::filter(filename == collection_files[1]) %>%
+    dplyr::pull(iso3)
+  distIso <- isoFile %>%
+    dplyr::filter(!filename %in% collection_files) %>%
+    dplyr::pull(iso3)
+
+  input_file <- input_file %>%
+    dplyr::mutate(
+      isDup = dplyr::case_when(
+        filename == collection_files[2] & iso3 %in% coll1Iso ~ 1,
+        filename %in% collection_files & iso3 %in% c(distIso, "ASM", "GUM", "MNP", "VIR", "PRI") ~ 1,
+        TRUE ~ 0
+      )
+    ) %>%
+    dplyr::filter(isDup == 0, !is.na(iso3)) %>%
+    dplyr::select(-isDup)
+
+  return(input_file)
 }
