@@ -22,6 +22,8 @@ LoadPhilippines <- function() {
   # Republic of Philippines Department of Health: https://doh.gov.ph/covid19tracker
 
   rlang::check_installed(c("pdftools", "googledrive"), reason = "to use `LoadPhilippines()`")
+  
+  check_gdrive_scope()
 
   # silence googledrive in this specific scope
   googledrive::local_drive_quiet()
@@ -160,4 +162,15 @@ LoadPhilippines <- function() {
   PHILIPPINES_DATA <- subset(philippinesMap, select = c("DateReport", "geoid", "RegionName", "Country", "pInf", "geometry"))
 
   return(PHILIPPINES_DATA)
+}
+
+
+#'
+check_gdrive_scope <- function(){
+  check <- NULL
+  tryCatch({
+    check <- googledrive::drive_about()
+  },error = function(e){
+    stop("Insufficient permissions provided to googledrive.\n Data requiring googledrive will not be loaded. \nTo provide permissions use googledrive::drive_auth().")
+  })
 }
