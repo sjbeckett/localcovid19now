@@ -61,8 +61,8 @@ and visualized via the \textit{localcovid19now} pipeline is shown in Figure \aut
 
 ![Active cases per 100,000 people (as of 9 December 2022). Greyscale polygons denote ar-
 eas where data estimates are over 30 days old, which we show here to show the current package
-scope. This map was created using the localcovid19now package by running the code: GlobalMap =
-LoadData(dropNAcountries=FALSE); PerCapitaMap_tmap(GlobalMap,100000). More examples are
+scope. This map was created using the localcovid19now package by running the code: `GlobalMap =
+LoadData(dropNAcountries=FALSE); PerCapitaMap_tmap(GlobalMap,100000)`. More examples are
 shown on the packages homepage.\label{fig:global}](Global_pc_tmap.png)
 
  Our motivation in developing this project is in providing data-driven localized epidemic information that connects case data to potential exposure risk. While individual perception of COVID-19 exposure risk is linked to utilization of risk-reducing actions, individual assessment of risk has been found to be generally uncorrelated to estimated exposure risk [@Sinclaire2100970118]. In contrast, communicating infection exposure risk estimates, as we do at the [COVID-19 Event Risk Tool](https://covid19risk.biosci.gatech.edu), has been shown as an effective intervention in realigning perceptions of localized event risks [@Sinclaire2100970118; @sinclair2021imagining; @sinclair2022counteracting]. The package additionally includes functionality to help users visualize data (via leaflet [@leaflet] or tmap [@tmap]), including that of per capita active documented infections and estimated event-based risk.
