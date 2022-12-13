@@ -11,6 +11,6 @@
 #' @export
 LoadErrorWarning <- function(text){
   
-  message(paste0("Unable to load data in the ", text, ".R function. This may be due to changes to, or lack of availability of, the underlying dataset."))
+  message(paste0("Unable to load data in the ", text, ".R function.\nThis may be due to changes to, or lack of availability of, the underlying dataset."))
   
 }

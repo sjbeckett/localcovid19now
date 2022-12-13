@@ -62,16 +62,21 @@ LoadData <- function(functionNames = NULL, custom = FALSE, filepath = NULL, inte
     stopifnot("`functionNames` must match options in object countrylist, or be set to NULL." = all(functionNames %in% countrylist))
   }
   
-  # check whether googledrive credentials are available if in non-interactive mode.
-  if (interactiveMode == FALSE) {
-    TOKEN <- googledrive::drive_has_token()
-    if (TOKEN == FALSE) {
-      warning("No googledrive token found. Will avoid loading data requiring token. For more about providing authorization, see: https://gargle.r-lib.org/articles/non-interactive-auth.html")
-      if ("LoadPhilippines" %in% functionNames) {
+  
+  #check googledrive permissions if trying to load using this package.
+  if ("LoadPhilippines" %in% functionNames) {
+    if (interactiveMode == FALSE) {
+      TOKEN <- googledrive::drive_has_token()
+      if (TOKEN == FALSE) {
+        warning("No googledrive token found. Will avoid loading data requiring token.\nFor more about providing authorization, see: https://gargle.r-lib.org/articles/non-interactive-auth.html \nor run googledrive::drive_auth().")
         functionNames <- functionNames[-which(functionNames == "LoadPhilippines")]
       }
+    } else {
+      check_gdrive_scope()
     }
   }
+  
+  
   
   # initialize data frame to store error/warning information
   errors <- data.frame(countryn = c(), errort = c(), datetime = c())

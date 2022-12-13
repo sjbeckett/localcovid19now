@@ -171,6 +171,6 @@ check_gdrive_scope <- function(){
   tryCatch({
     check <- googledrive::drive_about()
   },error = function(e){
-    stop("Insufficient permissions provided to googledrive.\n Data requiring googledrive will not be loaded. \nTo provide permissions use googledrive::drive_auth().")
+    stop("Insufficient permissions provided to googledrive.\nData requiring googledrive will not be loaded. \nTo provide permissions use googledrive::drive_auth().")
   })
 }
