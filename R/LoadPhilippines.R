@@ -165,6 +165,11 @@ LoadPhilippines <- function() {
 }
 
 
+#' check_gdrive_scope
+#' @description runs a googledrive function that requires permissions to be shared by user with the tidyverse API. This function is designed to check if these permissions (needed for LoadPhilippines to work) are enabled, and error if not.
+#' @keywords internal
+#' @examples 
+#' check_gdrive_scope()
 #'
 check_gdrive_scope <- function(){
   check <- NULL
