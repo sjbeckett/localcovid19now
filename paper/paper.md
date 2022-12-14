@@ -73,6 +73,6 @@ We thank Seolha Lee for her contributions to developing the COVID-19 Event Risk 
 
 # Author contributions
 
-SJB led the project. SJB, FB-T, QN and ATC contributed to dataset collection and coding methods for data curation. SJB, FB-T and ATC contributed to package development. LR, CA, and JSW provided substantial contributions via decision and design guidance, project management, and were involved in financial acquisition. SJB wrote the manuscript with contributions from all authors.
+SJB led the project. SJB, FB-T, QN and ATC contributed to dataset collection and coding methods for data curation. SJB, FB-T and ATC contributed to package development. LR, CA, and JSW provided substantial contributions via decision and design guidance, and project management. SJB wrote the manuscript with contributions from all authors.
 
 # References
