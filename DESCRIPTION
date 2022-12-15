@@ -22,7 +22,7 @@ Description: Extract, clean and map recent subnational level data on
     active COVID-19 cases across multiple countries.  Provides tools to
     extract and clean data from multiple data sources; and tools to
     visualize, via mapping, the data in terms of per capita active
-    infections; or as the risk (%) that one or more individuals in a group
+    infections; or as the risk that one or more individuals in a group
     of a particular size are infectious.
 License: MIT + file LICENSE
 URL: https://github.com/sjbeckett/localcovid19now/
