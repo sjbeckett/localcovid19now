@@ -26,7 +26,7 @@ Authors:
   \item Aroon T. Chande \email{achande@ihrc.com} (\href{https://orcid.org/0000-0001-5260-3135}{ORCID})
   \item Lavanya Rishishwar \email{lrishishwar@ihrc.com} (\href{https://orcid.org/0000-0002-2055-9392 }{ORCID})
   \item Clio Andris \email{clio@gatech.edu} (\href{https://orcid.org/0000-0002-8559-5079}{ORCID})
-  \item Joshua S. Weitz \email{jsweitz@gatech.edu} (\href{https://orcid.org/0000-0002-3433-8312 }{ORCID})
+  \item Joshua S. Weitz \email{jsweitz@gatech.edu} (\href{https://orcid.org/0000-0002-3433-8312}{ORCID})
 }
 
 }
