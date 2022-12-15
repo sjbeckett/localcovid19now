@@ -1,6 +1,6 @@
 Package: localcovid19now
 Title: Processing and mapping COVID-19 case data at subnational scales
-Version: 0.0.0.9900
+Version: 0.1
 Authors@R: c(
     person("Stephen J.", "Beckett", , "stephen.beckett@biology.gatech.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4410-2960")),
@@ -14,7 +14,9 @@ Authors@R: c(
     person("Clio", "Andris", , "clio@gatech.edu", role = "aut",
            comment = c(ORCID = "0000-0002-8559-5079")),
     person("Joshua S.", "Weitz", , "jsweitz@gatech.edu", role = "aut",
-           comment = c(ORCID = "0000-0002-3433-8312"))
+           comment = c(ORCID = "0000-0002-3433-8312")),
+    person("Kaitlyn", "Johnson", , "kjohnson@rockfound.org", role = "ctb",
+           comment = c(ORCID = "0000-0001-8011-0012"))
   )
 Description: Extract, clean and map recent subnational level data on
     active COVID-19 cases across multiple countries.  Provides tools to
