@@ -14,7 +14,7 @@ Authors@R: c(
     person("Clio", "Andris", , "clio@gatech.edu", role = "aut",
            comment = c(ORCID = "0000-0002-8559-5079")),
     person("Joshua S.", "Weitz", , "jsweitz@gatech.edu", role = "aut",
-           comment = c(ORCID = "0000-0002-3433-8312 "))
+           comment = c(ORCID = "0000-0002-3433-8312"))
   )
 Description: Extract, clean and map recent subnational level data on
     active COVID-19 cases across multiple countries.  Provides tools to
@@ -45,6 +45,7 @@ Imports:
     utils,
     vroom
 Suggests:
+    testthat (>= 3.0.0),
     glue,
     googledrive,
     here,
@@ -67,3 +68,4 @@ LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
