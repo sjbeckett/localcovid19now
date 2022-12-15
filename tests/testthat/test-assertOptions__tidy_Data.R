@@ -8,7 +8,11 @@ test_that("check assertion options", {
   
   RE = c()
   RE$minimumRisk = 50
+  expect_error(assertOptions__tidy_Data(tidy = TRUE, DaysOld = 25, minimumpercapitaactivecases = 0.5, RiskEval = RE, dropNACountry = TRUE , dropNAall = TRUE))
+  
   RE$ascertainmentbias = 2
+  expect_error(assertOptions__tidy_Data(tidy = TRUE, DaysOld = 25, minimumpercapitaactivecases = 0.5, RiskEval = RE, dropNACountry = TRUE , dropNAall = TRUE))
+  
   RE$maximumN = 10
   
   expect_error(assertOptions__tidy_Data(tidy = 1, DaysOld = 25, minimumpercapitaactivecases = 0.5, RiskEval = RE, dropNACountry = TRUE , dropNAall = TRUE))
