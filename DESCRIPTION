@@ -47,6 +47,7 @@ Imports:
     utils,
     vroom
 Suggests:
+    testthat (>= 3.0.0),
     glue,
     googledrive,
     here,
@@ -69,3 +70,4 @@ LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
