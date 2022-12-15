@@ -37,7 +37,7 @@ PerCapitaMap_tmap(GLOBALMAP2,100000)
 
 #Can save this type of object using tmap options.
 GMAP = PerCapitaMap_tmap(GLOBALMAP2,100000)
-tmap::tmap_save(GMAP,"Global_pc_tmap.png")
+tmap::tmap_save(GMAP,"\inst\examples\Global_pc_tmap.png")
 
 ## Additionally, with a provided assumed ascertainment bias (ratio between true infections and recorded cases), the risk that one or more people in a group of a particular size can be estimated and mapped:
 
@@ -52,11 +52,11 @@ EventMap_tmap(US,100,US$AB)
 
 #maps can be saved using tmap commands. Here we also use a projection more suited to the US:
 MAP = EventMap_tmap(US,100,US$AB,projection=5070)
-tmap::tmap_save(MAP,"US_RiskMap.png")
+tmap::tmap_save(MAP,"\inst\examples\US_RiskMap.png")
 
 #Some resources for choosing projections can be found here: https://proj.org/usage/index.html and here: https://epsg.io/ and 
 
 #we can also create a table of event risk by location as:
-create_c19r_data(df_in = US, risk_output = "USrisk.csv", asc_bias_list = cbind(AB4 = US$AB))
+create_c19r_data(df_in = US, risk_output = "\inst\examples\USrisk.csv", asc_bias_list = cbind(AB4 = US$AB))
 
 ## We caution that the case ascertainment bias may differ both across different regions and across time (due to differences in testing strategies).
