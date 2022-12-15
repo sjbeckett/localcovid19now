@@ -15,7 +15,7 @@ updateGlobal <- function() {
   rlang::check_installed(c("rmapshaper", "here"), reason = "to use `updateGlobal()`")
 
   # Open the most recent WorldPreSimplified geojson. Manually modify if this is not the most up-to-date file.
-  ## Because zipfile named with seconds post epoch, `max(dir("updateGeometry/WorldPreSimplified"))` gives most recent version. Using ctime property potentially not reliable bc file creation with git.
+  ## Because zipfile named with minutes post epoch, `max(dir("updateGeometry/WorldPreSimplified"))` gives most recent version. Using ctime property potentially not reliable bc file creation with git.
   zipfiles <- list.files(here::here("tools/WorldPreSimplified"))
 
   temp <- utils::unzip(zipfile = here::here("tools/WorldPreSimplified", max(zipfiles)), exdir = tempdir())

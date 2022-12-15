@@ -9,7 +9,7 @@ authors:
   - name: Stephen J. Beckett^[Corresponding author]
     orcid: 0000-0002-4410-2960 
     affiliation: "1"
-  - name: Freyja Brandel-Tanis
+  - name: Freyja A. Brandel-Tanis
     orcid: 0000-0003-2870-6980
     affiliation: "2, 3"
   - name: Quan Nguyen
@@ -73,6 +73,6 @@ We thank Seolha Lee for her contributions to developing the COVID-19 Event Risk 
 
 # Author contributions
 
-SJB led the project. SJB, FB-T, QN and ATC contributed to dataset collection and coding methods for data curation. SJB, FB-T and ATC contributed to package development. LR, CA, and JSW provided substantial contributions via decision and design guidance, and project management. SJB wrote the manuscript with contributions from all authors.
+SJB led the project. SJB, FAB, QN and ATC contributed to dataset collection and coding methods for data curation. SJB, FAB and ATC contributed to package development. LR, CA, and JSW provided substantial contributions via decision and design guidance, and project management. SJB wrote the manuscript with contributions from all authors.
 
 # References
