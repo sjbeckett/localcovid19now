@@ -4,7 +4,7 @@ name: Add artifact link to pull request
 on:
   workflow_run:
     workflows: 
-      # - Check and Test
+      - maps
       - upload
     types: 
       - completed
