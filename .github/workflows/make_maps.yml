@@ -5,6 +5,10 @@ name: maps
 on:
   pull_request:
     branches: [main, master, revise]
+    paths: 
+      - 'R/*.R'
+      - 'data/*'
+
   workflow_dispatch:
 
 
