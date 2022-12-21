@@ -47,11 +47,10 @@ LoadData <- function(functionNames = NULL, custom = FALSE, filepath = NULL, inte
   
   indcheck <- which(!(functionNames %in% countrylist))
   if(length(indcheck)>0){ #if not on main list, check on the alt_countrylist
-    utils::data(alt_countrylist, envir = environment())
       for(aa in indcheck){
-        thisC <- which(alt_countrylist$case == functionNames[aa])
+        thisC <- which(localcovid19now::alt_countrylist$inputCase == functionNames[aa])
         if(length(thisC)>0){
-          functionNames[aa] <- alt_countrylist$call[thisC]
+          functionNames[aa] <- localcovid19now::alt_countrylist$loadingCall[thisC]
         }
       }
   }
