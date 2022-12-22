@@ -28,12 +28,6 @@
     <loc>/reference/EventMap_tmap.html</loc>
   </url>
   <url>
-    <loc>/reference/Haiti.html</loc>
-  </url>
-  <url>
-    <loc>/reference/India.html</loc>
-  </url>
-  <url>
     <loc>/reference/LoadAlgeria.html</loc>
   </url>
   <url>
@@ -58,19 +52,22 @@
     <loc>/reference/LoadChina.html</loc>
   </url>
   <url>
-    <loc>/reference/LoadCountries.html</loc>
-  </url>
-  <url>
     <loc>/reference/LoadCuba.html</loc>
   </url>
   <url>
     <loc>/reference/LoadCzechia.html</loc>
   </url>
   <url>
+    <loc>/reference/LoadData.html</loc>
+  </url>
+  <url>
     <loc>/reference/LoadDenmark.html</loc>
   </url>
   <url>
     <loc>/reference/LoadEcuador.html</loc>
+  </url>
+  <url>
+    <loc>/reference/LoadErrorWarning.html</loc>
   </url>
   <url>
     <loc>/reference/LoadEurope.html</loc>
@@ -187,16 +184,22 @@
     <loc>/reference/addNewGeoms.html</loc>
   </url>
   <url>
-    <loc>/reference/calc_risk.html</loc>
+    <loc>/reference/alt_countrylist.html</loc>
+  </url>
+  <url>
+    <loc>/reference/assertOptions__tidy_Data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/calcRisk.html</loc>
+  </url>
+  <url>
+    <loc>/reference/check_gdrive_scope.html</loc>
   </url>
   <url>
     <loc>/reference/countrylist.html</loc>
   </url>
   <url>
     <loc>/reference/create_c19r_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataQueryItaly.html</loc>
   </url>
   <url>
     <loc>/reference/dataQueryUK.html</loc>
@@ -376,9 +379,6 @@
     <loc>/reference/m49.html</loc>
   </url>
   <url>
-    <loc>/reference/makeMaps.html</loc>
-  </url>
-  <url>
     <loc>/reference/miscPakistan.html</loc>
   </url>
   <url>
@@ -418,7 +418,7 @@
     <loc>/reference/misc_vietnam.html</loc>
   </url>
   <url>
-    <loc>/reference/moveFiles.html</loc>
+    <loc>/reference/moveProcessedFiles.html</loc>
   </url>
   <url>
     <loc>/reference/names_belgium.html</loc>
@@ -511,7 +511,7 @@
     <loc>/reference/pop_zimbabwe.html</loc>
   </url>
   <url>
-    <loc>/reference/remSurplus.html</loc>
+    <loc>/reference/remGeoSurplus.html</loc>
   </url>
   <url>
     <loc>/reference/resetNewGeoms.html</loc>
