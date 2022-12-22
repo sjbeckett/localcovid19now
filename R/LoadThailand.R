@@ -1,6 +1,6 @@
 #' LoadThailand
 #'
-#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Thailand to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  \url{https://djay.github.io/covidthailand}.
@@ -11,11 +11,14 @@
 #' \dontrun{
 #' Thailand <- LoadThailand()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadThailand <- function() {
   # Thailand Covid testing and case data gathered and combined from various sources for others to download or view:  https://djay.github.io/covidthailand
-  utils::data(list = c("geomThailand", "pop_thailand"), envir = environment())
+  geomThailand <- pop_thailand <- misc_thailand <- micro_code <- NULL
+  utils::data(list = c("geomThailand", "pop_thailand", "misc_thailand"), envir = environment())
+  geomThailand <- sf::st_as_sf(geomThailand)
+  
   # cases
   cases <- utils::read.csv("https://raw.githubusercontent.com/wiki/djay/covidthailand/cases_by_province.csv") # new cases per day
 
@@ -25,14 +28,14 @@ LoadThailand <- function() {
   for (aa in 1:length(provinces)) {
     subsetdata <- cases[which(cases$Province == provinces[aa]), ]
     DateReport[aa] <- max(subsetdata$Date)
-    CaseDifference[aa] <- 10 / 14 * sum(subsetdata$Cases[which(as.Date(subsetdata$Date) > (as.Date(DateReport) - 14))])
+    CaseDifference[aa] <- 10 / 14 * sum(subsetdata$Cases[which(as.Date(subsetdata$Date) > (as.Date(DateReport[aa]) - 14))])
   }
   caseTable <- data.frame(provinces, DateReport, CaseDifference)
 
 
   # pop
   # popul = read.csv("https://github.com/djay/covidthailand/raw/main/province_mapping.csv")%>%select(c("Name",pop = "Population..2019..1."))
-  # write.csv("countries/data/thailand_pop.csv",row.names=FALSE)
+  # write.csv("countries/data/thailand_pop.csv",row.names = FALSE)
   # popul <- read.csv("countries/data/thailand_pop.csv")
   Thailanddf <- dplyr::inner_join(caseTable, pop_thailand, by = c("provinces" = "Name"))
 
@@ -53,7 +56,8 @@ LoadThailand <- function() {
   ThailandMap <- dplyr::inner_join(geomThailand, Thailanddf, by = c("micro_name" = "provinces")) %>%
     dplyr::mutate(micro_code = as.numeric(micro_code)) %>%
     dplyr::inner_join(misc_thailand, by = c("micro_code" = "pro_code"))
-
+  
+  
   ThailandMap$pInf <- ThailandMap$CaseDifference / ThailandMap$pop
   ThailandMap$RegionName <- paste(paste(ThailandMap$micro_name, ThailandMap$pro_th, sep = "/"), ThailandMap$country_name, sep = ", ")
   ThailandMap$Country <- ThailandMap$country_name

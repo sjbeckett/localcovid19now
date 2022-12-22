@@ -2,7 +2,7 @@
 % Please edit documentation in R/MappingFunctions.R
 \name{PerCapitaMap_tmap}
 \alias{PerCapitaMap_tmap}
-\title{PerCapitaMap_leaflet}
+\title{PerCapitaMap_tmap}
 \usage{
 PerCapitaMap_tmap(
   DATA,
@@ -27,7 +27,13 @@ PerCapitaMap_tmap(
 Outputs a tmap displaying active cases per 'people' for the input data.
 }
 \description{
-PerCapitaMap_leaflet
+Creates a tmap map displaying active cases per 'people' for the input data.
+}
+\examples{
+\dontrun{
+Denmark <- LoadData("LoadDenmark")
+PerCapitaMap_tmap(Denmark)
+}
 }
 \seealso{
 Other mapplots: 

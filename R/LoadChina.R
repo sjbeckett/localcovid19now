@@ -1,6 +1,6 @@
 #' LoadChina
 #'
-#' @description Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 data for first-level administrative divisions in China is aggregated from the
@@ -16,10 +16,8 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' China <- LoadChina()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadChina <- function() {
   # COVID-19 data for first-level administrative divisions in China is aggregated from
@@ -29,7 +27,9 @@ LoadChina <- function() {
   # https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
   # Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 
+  pop_china <- NULL
   data("geomChina", envir = environment())
+  geomChina <- sf::st_as_sf(geomChina)
   data("pop_china", envir = environment())
   # load cases data
   data <- utils::read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")

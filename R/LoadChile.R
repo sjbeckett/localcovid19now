@@ -1,6 +1,6 @@
 #' LoadChile
 #'
-#' @description Reads in subnational data for Chile to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Chile to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io}
@@ -15,7 +15,7 @@
 #' \dontrun{
 #' Chile <- LoadChile()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadChile <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
@@ -24,10 +24,11 @@ LoadChile <- function() {
   geomChile <- NULL
 
   utils::data("geomChile", envir = environment())
+  geomChile <- sf::st_as_sf(geomChile)
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
-  x <- as.data.frame(COVID19::covid19("Chile", level = 2))
+  x <- as.data.frame(COVID19::covid19("Chile", level = 2, verbose = FALSE))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()

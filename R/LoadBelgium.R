@@ -1,9 +1,9 @@
 #' LoadBelgium
 #'
-#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Belgium to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
-#' Data was obtained from Sciensano, the Belgian institute for health: \url{https://epistat.wiv-isp.be/covid/}
+#' Data was obtained from Sciensano, the Belgian institute for health: \url{https://epistat.wiv-isp.be/covid/}. We note that this function needs to read files corresponding to daily reports (some of which may not exist),
 #'
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
@@ -11,11 +11,11 @@
 #' \dontrun{
 #' Belgium <- LoadBelgium()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadBelgium <- function() {
   # Sciensano, the Belgian institute for health: https://epistat.wiv-isp.be/covid/
-  geomBelgium <- pop_belgium <- NULL
+  geomBelgium <- pop_belgium <- names_belgium <- NULL
 
   utils::data("geomBelgium", "names_belgium", "pop_belgium", envir = environment())
   geomBelgium <- sf::st_as_sf(geomBelgium)
@@ -41,19 +41,20 @@ LoadBelgium <- function() {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(aa, 0), ".csv")
     tryCatch(
       {
-        latest_data <- vroom::vroom(STRING)
+        latest_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(cond) {
-        warning(paste0("No data for ", getDate(aa, 0)))
+        #warning(paste0("No data for ", getDate(aa, 0)))
       }
     )
-    if (is.null(dim(latest_data)) == FALSE) {
+    
+    if (is.null(latest_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data1")
       flag <- 2
     }
   }
@@ -61,26 +62,25 @@ LoadBelgium <- function() {
   UpdateDate <- getDate(aa, 1)
   # find past data
   flag <- 0
-  aa <- 0
   past_data <- NULL
 
   while (flag == 0) {
     STRING <- paste0("https://epistat.sciensano.be/Data/", getDate(14 + aa, 0), "/COVID19BE_CASES_MUNI_CUM_", getDate(14 + aa, 0), ".csv")
     tryCatch(
       {
-        past_data <- vroom::vroom(STRING)
+        past_data <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
       },
       error = function(e) {
-        warning(paste0("No data for ", getDate(14 + aa, 0)))
+        #warning(paste0("No data for ", getDate(14 + aa, 0)))
       }
     )
-    if (is.null(dim(past_data)) == FALSE) {
+    if (is.null(past_data) == FALSE) {
       flag <- 1
     } else {
       aa <- aa + 1
     }
-    if (aa > 5) {
-      warning("no recent data")
+    if (aa > 30) {
+      stop("no recent data2")
       flag <- 2
     }
   }

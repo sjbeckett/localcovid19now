@@ -5,7 +5,6 @@ on:
   workflow_run:
     workflows: 
       - maps
-      - upload
     types: 
       - completed
   workflow_dispatch:
@@ -21,5 +20,5 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             prefix: "Check images for correctness:"
-            format: url
+            format: names
             addTo: pull

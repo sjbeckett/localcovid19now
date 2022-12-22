@@ -1,6 +1,6 @@
 #' LoadGoogleSourced
 #'
-#' @description Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for various regions in the Google COVID-19 dataset to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated from local health resources in the Google COVID-19 Open Data datasets \url{https://goo.gle/covid-19-open-data}.
@@ -14,7 +14,7 @@
 #' \dontrun{
 #' GS <- LoadGoogleSourced()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadGoogleSourced <- function() { # takes a long time to process.
   # @article{Wahltinez2020,
@@ -28,9 +28,13 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   # list with recent subnational data as of 8th August 2021. Note other useable datasets may exist.
   LIST <- c("Argentina", "Colombia", "Afghanistan", "Mozambique")
   utils::data(list = c("geomArgentina", "geomAfghanistan", "geomColombia", "geomMozambique"), envir = environment())
+  geomArgentina <- sf::st_as_sf(geomArgentina)
+  geomAfghanistan <- sf::st_as_sf(geomAfghanistan)
+  geomColombia <- sf::st_as_sf(geomColombia)
+  geomMozambique <- sf::st_as_sf(geomMozambique)
 
   # index file
-  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()))
+  INDEX <- vroom::vroom("https://storage.googleapis.com/covid19-open-data/v3/index.csv", col_types = vroom::cols(aggregation_level = vroom::col_double(), .default = vroom::col_character()), show_col_types = FALSE, progress = FALSE)
   KEYS <- c()
   LOCALES <- c()
   COUNTRY <- c()
@@ -45,7 +49,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
   CaseDiff <- c()
   Pop <- c()
   for (bb in 1:length(KEYS)) {
-    DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE)
+    DAT <- vroom::vroom(paste0("https://storage.googleapis.com/covid19-open-data/v3/location/", KEYS[bb], ".csv"), guess_max = 1000, show_col_types = FALSE, progress = FALSE)
     naIND <- which(is.na(DAT$cumulative_confirmed))
     DateReport[bb] <- as.character(max(DAT$date[-naIND]))
     curr <- DAT$cumulative_confirmed[which(DAT$date == as.Date(DateReport[bb]))]
@@ -55,7 +59,7 @@ LoadGoogleSourced <- function() { # takes a long time to process.
       past <- interpolated[[2]][which(DAT$date == as.Date(DateReport[bb]) - 14)]
     }
     CaseDiff[bb] <- (10 / 14) * (curr - past)
-    if (length(DAT$population[1]) == 1) {
+    if ("population" %in% names(DAT)) {
       Pop[bb] <- DAT$population[1]
     } else {
       Pop[bb] <- NA

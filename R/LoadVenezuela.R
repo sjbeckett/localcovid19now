@@ -1,6 +1,6 @@
 #' LoadVenezuela
 #'
-#' @description Reads in subnational data for Venezuela to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Venezuela to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data is aggregated from local resources by OCHA Venezuela:  \url{https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela}.
@@ -8,17 +8,18 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Venezuela <- LoadVenezuela()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadVenezuela <- function() {
   # Aggregated from local resources by OCHA Venezuela:  https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela
 
-  utils::data("geomVenezuela", envir = environment())
+  pop_venezuela <- geomVenezuela <- NULL
+  utils::data(list = c("geomVenezuela","pop_venezuela"), envir = environment())
+  
+  geomVenezuela <- sf::st_as_sf(geomVenezuela)
 
-  casedata <- vroom::vroom("https://docs.google.com/spreadsheets/d/e/2PACX-1vQI4s0no2TS1dYxbv82nhKD7iz8fbDGwdsOI4kzJ0cg3gjOR51KIw_rNOff97Xic_fRQD41xmsDGUfM/pub?gid=1029482781&single=true&output=csv")
+  casedata <- vroom::vroom("https://docs.google.com/spreadsheets/d/e/2PACX-1vQI4s0no2TS1dYxbv82nhKD7iz8fbDGwdsOI4kzJ0cg3gjOR51KIw_rNOff97Xic_fRQD41xmsDGUfM/pub?gid=1029482781&single=true&output=csv", show_col_types = FALSE, progress = FALSE)
 
   regions <- names(casedata)[1:25]
   DateReport <- rep(utils::tail(casedata$date, 1), length(regions))

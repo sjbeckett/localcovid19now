@@ -17,7 +17,13 @@ PerCapitaMap_leaflet(DATA, people = 1e+05, boundaryweights = 0.05)
 Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
 }
 \description{
-PerCapitaMap_leaflet
+Creates an interactive Leaflet map displaying active cases per 'people' for the input data.
+}
+\examples{
+\dontrun{
+Denmark <- LoadData("LoadDenmark")
+PerCapitaMap_leaflet(Denmark)
+}
 }
 \seealso{
 Other mapplots: 

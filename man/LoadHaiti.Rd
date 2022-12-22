@@ -10,16 +10,14 @@ LoadHaiti()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Haiti to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Haiti to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Released by the Ministry of Public Health and Population of Haiti to the Humanitarian Data Exchange: https://data.humdata.org/dataset/haiti-covid-19-subnational-cases.
 }
 \examples{
-\dontrun{
 Haiti <- LoadHaiti()
 }
-}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

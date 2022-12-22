@@ -1,6 +1,6 @@
 #' LoadIndia
 #'
-#' @description Reads in subnational data for India to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for India to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data collated by \url{https://covid19tracker.in/}, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
@@ -11,14 +11,15 @@
 #' \dontrun{
 #' India <- LoadIndia()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadIndia <- function() {
   # Data collated by https://covid19tracker.in/, an initiative of the Indian Institute of Technology Hyderabad, from state bulletins and official reports
   # with thanks to the covid19india.org team for their outstanding work in creating the original portal, and for making their code base public.
 
+  pop_india <- geomIndia <- NULL
   utils::data(list = c("geomIndia", "pop_india"), envir = environment())
-
+  geomIndia <- sf::st_as_sf(geomIndia)
 
   data <- jsonlite::read_json("https://api.covid19tracker.in/data/static/timeseries.min.json")
   # UN - unknown; TT - total for India
@@ -53,7 +54,7 @@ LoadIndia <- function() {
   #  vec <- data.frame(Code = code, State = state, Population = population)
   #  populationTable <- rbind(populationTable,vec)
   # }
-  # write.csv(populationTable,"popIndia.csv",row.names=FALSE)
+  # write.csv(populationTable,"popIndia.csv",row.names = FALSE)
   # data("pop_india")
 
 

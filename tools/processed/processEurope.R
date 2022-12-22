@@ -2,7 +2,7 @@
 ## Changed to add micro_name and micro_code that are the same as country code and name
 # Europe
 geomEurope <- sf::st_read(here::here("updateGeometry/geomEurope.geojson"))
-namesEurope <- vroom::vroom(here::here("updateGeometry/namesEurope.csv"))
+namesEurope <- vroom::vroom(here::here("updateGeometry/namesEurope.csv"), show_col_types = FALSE, progress = FALSE)
 
 temp <- unzip(zipfile = here::here("updateGeometry/ne_10m_admin_0_countries_lakes.zip"), exdir = tempdir())
 

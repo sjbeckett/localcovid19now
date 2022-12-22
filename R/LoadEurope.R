@@ -1,6 +1,6 @@
 #' LoadEurope
 #'
-#' @description Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
@@ -8,19 +8,22 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Europe <- LoadEurope()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadEurope <- function() {
   # Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71
   # https://www.arcgis.com/home/item.html?id=494604e767074ce1946d86aa4d8a3b5a
 
+  geomEurope <- NULL
   utils::data("geomEurope", envir = environment())
+  geomEurope <- sf::st_as_sf(geomEurope)
+  
   # most uptodate data
   # EUWHO = read.csv("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data",encoding="UTF-8")
-  EUWHO <- vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data", col_types = c(DateRpt = "c"))
+
+  
+  EUWHO <- vroom::vroom("https://arcgis.com/sharing/rest/content/items/54d73d4fd4d94a0c8a9651bc4cd59be0/data", col_types = c(DateRpt = "c"), show_col_types = FALSE, progress = FALSE)
 
   EUWHO$pInf <- EUWHO$Incidence14day / 100000 * (10 / 14) # incidence is cases in 14 days per 100,000 people. Convert to prop of pop. in 10 days.
   # Join using UID

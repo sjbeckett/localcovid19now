@@ -7,16 +7,14 @@
 LoadAustralia()
 }
 \description{
-Reads in subnational data for Australia to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Australia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Data was obtained from \url{https://github.com/M3IT/COVID-19_Data} and aggregated by www.covid19data.com.au from local health resources.
 }
 \examples{
-\dontrun{
 Australia <- LoadAustralia()
 }
-}
 \seealso{
-\link{LoadCountries}
+\code{\link[=LoadData]{LoadData()}}
 }

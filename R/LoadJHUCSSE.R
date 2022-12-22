@@ -1,6 +1,6 @@
 #' LoadJHUCSSE
 #'
-#' @description Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for various regions in the JHU CSSE COVID-19 Dataset to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data Aggregated by the COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University \url{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}.
@@ -11,21 +11,22 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' JH <- LoadJHUCSSE()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadJHUCSSE <- function() {
+  pop_smallcountries <- NULL
   utils::data("geomSmallCountries", envir = environment())
   utils::data("pop_smallcountries", envir = environment())
+  geomSmallCountries <- sf::st_as_sf(geomSmallCountries)
+  
 
   CountryList <- c("Singapore", "Brunei", "Djibouti", "Qatar", "Marshall Islands", "Saint Kitts and Nevis", "Timor-Leste", "Maldives", "Grenada", "Saint Vincent and the Grenadines", "Saint Lucia", "Barbados", "Antigua and Barbuda", "Seychelles", "Palau", "Micronesia", "Dominica", "Bahrain", "Kiribati", "Sao Tome and Principe", "Comoros", "Mauritius", "Samoa", "Trinidad and Tobago", "Lebanon", "Jamaica", "Gambia", "Vanuatu", "Bahamas", "Eswatini", "Kuwait", "Fiji", "El Salvador", "Belize", "Cabo Verde", "West Bank and Gaza")
 
   ProvinceList <- c("Falkland Islands (Malvinas)", "New Caledonia", "Turks and Caicos Islands", "Anguilla", "British Virgin Islands", "Bermuda", "Sint Maarten", "Aruba", "Curacao", "Cook Islands")
 
   # load cases data
-  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names)
+  data <- vroom::vroom("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv", .name_repair = make.names, show_col_types = FALSE, progress = FALSE)
 
   # get updated date:
   date <- names(data)[length(names(data))]

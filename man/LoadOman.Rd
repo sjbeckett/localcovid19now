@@ -10,16 +10,14 @@ LoadOman()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Oman to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Oman to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Ministry of Health for Oman, collated by Safeture for the Humanitarian Data Exchange: \url{https://data.humdata.org/dataset/oman-coronavirus-covid-19-subnational-cases}.
 }
 \examples{
-\dontrun{
 Oman <- LoadOman()
 }
-}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

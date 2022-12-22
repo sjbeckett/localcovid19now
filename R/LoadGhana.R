@@ -1,6 +1,6 @@
 #' LoadGhana
 #'
-#' @description Reads in subnational data for Ghana to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Ghana to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data provided on HDX by Safeture from the Ghana Health Service (Ministry of Health): \url{https://data.humdata.org/dataset/ghana-coronavirus-covid-19-subnational-cases}.
@@ -9,10 +9,8 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Ghana <- LoadGhana()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadGhana <- function() {
   name <- cases <- latest_date <- past_date <- cumulative_cases <- macro_name <- country_name <- report_date <- case_diff <- DateReport <- geoid <- RegionName <- pInf <- NULL
@@ -22,8 +20,8 @@ LoadGhana <- function() {
   geomGhana <- sf::st_as_sf(geomGhana)
 
   temp <- tempfile()
-  utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp)
-  casesGhana <- vroom::vroom(temp)
+  utils::download.file(url = "https://www.dropbox.com/s/2uxzix4upet0nlm/cases_ghana.csv?dl=1", destfile = temp, quiet = TRUE)
+  casesGhana <- vroom::vroom(temp, show_col_types = FALSE, progress = FALSE)
 
   ghanaCases <- casesGhana %>%
     dplyr::group_by(name) %>%

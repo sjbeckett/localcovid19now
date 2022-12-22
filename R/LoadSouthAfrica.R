@@ -1,6 +1,6 @@
 #' LoadSouthAfrica
 #'
-#' @description Reads in subnational data for South Africa to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for South Africa to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: \url{https://github.com/dsfsi/covid19za}.
@@ -8,10 +8,8 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' SouthAfrica <- LoadSouthAfrica()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSouthAfrica <- function() {
   # Data Science for Social Impact Research Group @ University of Pretoria, Coronavirus COVID-19 (2019-nCoV) Data Repository for South Africa. Available on: https://github.com/dsfsi/covid19za
@@ -20,11 +18,12 @@ LoadSouthAfrica <- function() {
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="GT"]="GP"
   # geomSouthAfrica$PROVINCE[geomSouthAfrica$PROVINCE=="LIM"]="LP"
   utils::data(list = c("geomSouthAfrica", "pop_southafrica"), envir = environment())
-  # data("geomSouthAfrica")
+  geomSouthAfrica <- sf::st_as_sf(geomSouthAfrica)
+
   PRO <- unique(geomSouthAfrica$micro_code)
 
   # covid case data, see: https://github.com/dsfsi/covid19za
-  COVID_data_SA <- vroom::vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv")
+  COVID_data_SA <- vroom::vroom("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/covid19za_provincial_cumulative_timeline_confirmed.csv", show_col_types = FALSE, progress = FALSE)
 
   DiffCases <- c()
   Date <- c()
@@ -37,7 +36,7 @@ LoadSouthAfrica <- function() {
   geomSouthAfrica$date <- Date
 
   # population data, see: https://github.com/dsfsi/covid19za/blob/master/data/district_data/za_province_pop.csv
-  # pop_southafrica <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header=FALSE)
+  # pop_southafrica <-read.csv("https://raw.githubusercontent.com/dsfsi/covid19za/master/data/district_data/za_province_pop.csv",header = FALSE)
   # data("pop_southafrica")
 
   PROVINCECode <- c("GP", "KZN", "WC", "EC", "LP", "MP", "NW", "FS", "NC")

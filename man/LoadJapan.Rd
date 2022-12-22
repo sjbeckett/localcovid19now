@@ -10,16 +10,14 @@ LoadJapan()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
 }
 \examples{
-\dontrun{
 Japan <- LoadJapan()
 }
-}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

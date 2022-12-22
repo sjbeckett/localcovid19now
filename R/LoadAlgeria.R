@@ -1,6 +1,6 @@
 #' LoadAlgeria
 #'
-#' @description Reads in subnational data for Algeria to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Algeria to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data was obtained using the Algeria Coronavirus Tracker API \url{https://corona-dz.live/}, documented at \url{https://github.com/Amine27/covid-19-dz} whcih sources information from the Algerian Ministry of Health, Population and Hospital Reform website.
@@ -11,10 +11,10 @@
 #' \dontrun{
 #' Algeria <- LoadAlgeria()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadAlgeria <- function() {
-  pop_algeria <- NULL
+  pop_algeria <- geomAlgeria <- NULL
 
   # Algeria Coronavirus Tracker API https://corona-dz.live/ https://github.com/Amine27/covid-19-dz
   ALG <- jsonlite::fromJSON("https://api.corona-dz.live/province/all")

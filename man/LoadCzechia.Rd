@@ -10,19 +10,17 @@ LoadCzechia()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Czechia to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Czechia to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 COVID-19 data sourced from National Health Information System, Regional Hygiene Stations, Ministry of Health of the Czech Republic and prepared by the Institute of Health Information and Statistics of the Czech Republic and the Institute of Biostatistics and Analyses, Faculty of Medicine, Masaryk University: \url{https://onemocneni-aktualne.mzcr.cz/covid-19}.
 }
 \examples{
-\dontrun{
 Czechia <- LoadCzechia()
-}
 }
 \references{
 Komenda M., Karolyi M., Bulhart V., Žofka J., Brauner T., Hak J., Jarkovský J., Mužík J., Blaha M., Kubát J., Klimeš D., Langhammer P., Danková Š ., Májek O., Bartunková M., Dušek L. COVID 19: Overview of the current situation in the Czech Republic. Disease currently online. Prague: Ministry of Health of the Czech Republic, 2020. Available from: \url{https://onemocneni-aktualne.mzcr.cz/covid-19 }. Development: joint workplace of IHIS CR and IBA LF MU. ISSN 2694-9423.
 }
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

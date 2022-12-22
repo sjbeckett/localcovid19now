@@ -24,9 +24,6 @@ dataQueryUK <- function(date) {
       )
       dmod <- dmod + 1
     }
-    if (date != cur_date) {
-      cat("\nnew cur_date:", as.character(cur_date), "\n")
-    }
   }
 
   # Convert response from binary to JSON:
@@ -38,7 +35,7 @@ dataQueryUK <- function(date) {
 
 #' LoadUK
 #'
-#' @description Reads in subnational data for the United Kingdom to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for the United Kingdom to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' The COVID-19 data is from the UK API from Public Health England and NHSX: \url{https://coronavirus.data.gov.uk}.
@@ -49,14 +46,16 @@ dataQueryUK <- function(date) {
 #' \dontrun{
 #' UK <- LoadUK()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadUK <- function() {
   # The COVID-19 data is from the UK API from Public Health England and NHSX: https://coronavirus.data.gov.uk
-
+  geomUnitedKingdom <- pop_uk <- misc_uk <- NULL
   utils::data("geomUnitedKingdom", envir = environment())
   utils::data("pop_uk", envir = environment())
   utils::data("misc_uk", envir = environment())
+  
+  geomUnitedKingdom <- sf::st_as_sf(geomUnitedKingdom)
 
   cur_date <- lubridate::today()
 

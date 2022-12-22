@@ -10,16 +10,14 @@ LoadEurope()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Europe to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 Data aggregated from local health resources in the WHO European Region COVID19 Subnational Explorer \url{https://experience.arcgis.com/experience/3a056fc8839d47969ef59949e9984a71}.
 }
 \examples{
-\dontrun{
 Europe <- LoadEurope()
 }
-}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

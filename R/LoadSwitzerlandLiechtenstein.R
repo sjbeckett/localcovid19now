@@ -1,6 +1,6 @@
 #' LoadSwitzerlandLiechtenstein
 #'
-#' @description Reads in subnational data for Switzerland and also data for Liechtenstein to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Switzerland and also data for Liechtenstein to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained via the Federal Office of Public Health FOPH \url{https://www.covid19.admin.ch/en/overview}.
@@ -11,18 +11,20 @@
 #' \dontrun{
 #' SwitzerlandLiechtenstein <- LoadSwitzerlandLiechtenstein()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadSwitzerlandLiechtenstein <- function() {
   # Federal Office of Public Health FOPH https://www.covid19.admin.ch/en/overview
 
+  geomSwitzerlandLiechtenstein <- NULL
   utils::data("geomSwitzerlandLiechtenstein", envir = environment())
+  geomSwitzerlandLiechtenstein <- sf::st_as_sf(geomSwitzerlandLiechtenstein)
 
   # 1. import API to find code for most recent file version (date and code change for new data)
   datastructure <- jsonlite::fromJSON("https://www.covid19.admin.ch/api/data/context")
   # 2. find URL for case data by region and read in
   chURL <- datastructure$sources$individual$csv$daily$cases
-  CHdata <- vroom::vroom(chURL)
+  CHdata <- vroom::vroom(chURL, show_col_types = FALSE, progress = FALSE)
 
   # 3. only need regional data, not that for whole country (CH) or whole dataset (CHFL)
   CHdata <- CHdata[-c(which(CHdata$geoRegion == "CH"), which(CHdata$geoRegion == "CHFL")), ]

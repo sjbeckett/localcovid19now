@@ -1,24 +1,27 @@
 #' calculate risk
 #'
-#' @param ActiveCases Per capita active cases.
+#' @description Calculates the percentage probability that one or more persons in a group, with size G, may be infectious given the underlying prevalence of disease.
+#'
+#' @param pcActiveCases Per capita active cases.
 #' @param A Ascertainment bias (ratio of infections to cases)
 #' @param G Event size for risk to be calculated for.
 #' @param rounding Number of decimal places to round to. Default of 0.
 #'
 #' @return Returns the risk that one or more people at an event size G may be infectious given case prevalence and ascertainment bias parameters.
-#' @export
 #'
-#' @seealso [calc_risk()]
+#' @seealso [calcRisk()]
 #' @examples
-#' \dontrun{
 #' # estimated risk that one or more are infectious in a group of 100,
 #' # when there are 50 active cases in population of 10,000 and cases
 #' # are underascertained by a factor of 4.
 #' estRisk(50 / 10000, 4, 100)
-#' }
-estRisk <- function(ActiveCases, A, G, rounding = 0) {
+#' @export
+estRisk <- function(pcActiveCases, A, G, rounding = 0) {
+  stopifnot("`A` must be a positive value." = is.numeric(A) & A>0)
+  stopifnot("`G` must be a positive value." = is.numeric(G) & G>0)
+  stopifnot("`rounding` must be numeric." = is.numeric(rounding))
   # A is ascertainment bias, G is group size
-  Risk <- 100 * (1 - (1 - (A * ActiveCases))^G)
+  Risk <- 100 * (1 - (1 - (A * pcActiveCases))^G)
   return(round(Risk, rounding))
 }
 
@@ -26,6 +29,8 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 ## create risk-maps and active case per capita maps in Leaflet and tmap
 
 #' EventMap_leaflet
+#'
+#' @description Creates an interactive Leaflet map displaying exposure risk for the input data.
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
@@ -37,7 +42,7 @@ estRisk <- function(ActiveCases, A, G, rounding = 0) {
 #' @family mapplots
 #' @examples
 #' \dontrun{
-#' Austria <- LoadAustria()
+#' Austria <- LoadData("LoadAustria")
 #' Austria$AB <- 4
 #' EventMap_leaflet(Austria, 50, Austria$AB)
 #' }
@@ -99,6 +104,8 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 
 #' PerCapitaMap_leaflet
 #'
+#' @description Creates an interactive Leaflet map displaying active cases per 'people' for the input data.
+#'
 #' @param DATA Data containing prevalence information to map.
 #' @param people Transform from proportion of population to per 'people'.
 #' @param boundaryweights Weight assigned to the maps boundary edges.
@@ -106,6 +113,11 @@ EventMap_leaflet <- function(DATA, G, AB, boundaryweights = 0.05) { # DATA - map
 #' @return Outputs an interactive leaflet map displaying active cases per 'people' for the input data.
 #'
 #' @family mapplots
+#' @examples
+#' \dontrun{
+#' Denmark <- LoadData("LoadDenmark")
+#' PerCapitaMap_leaflet(Denmark)
+#' }
 #' @export
 PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights
   rlang::check_installed(c("leaflet", "RColorBrewer"), reason = "to use `PerCapitaMap_leaflet()`")
@@ -113,8 +125,8 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
   DATA$percapcases <- DATA$pInf * people
   MMap <- DATA
 
-  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
-  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey", bins=bins)
+  bins <- 0.01 * c(0, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 100) * people
+  pal <- leaflet::colorBin("YlOrRd", domain = MMap$percapcases, na.color = "grey", bins = bins)
   JAM <- leaflet::leafletOptions(worldCopyJump = TRUE)
 
   labels <- sprintf(
@@ -156,6 +168,8 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 
 #' EventMap_tmap
 #'
+#' @description Creates a tmap map displaying active cases per 'people' for the input data.
+#'
 #' @param DATA Data containing prevalence information to map.
 #' @param G Event size to compute risk for.
 #' @param AB Case ascertainment bias to compute risk for.
@@ -166,13 +180,13 @@ PerCapitaMap_leaflet <- function(DATA, people = 100000, boundaryweights = 0.05) 
 #' @return Outputs a tmap displaying exposure risk for the input data.
 #'
 #' @family mapplots
-#' @export
 #' @examples
 #' \dontrun{
-#' Austria <- LoadAustria()
+#' Austria <- LoadData("LoadAustria")
 #' Austria$AB <- 4
 #' EventMap_tmap(Austria, 50, Austria$AB)
 #' }
+#' @export
 EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, G - group size, AB - case ascertainment bias, boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map.
 
   rlang::check_installed("tmap", reason = "to use EventMap_tmap()")
@@ -193,7 +207,9 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 }
 
 
-#' PerCapitaMap_leaflet
+#' PerCapitaMap_tmap
+#'
+#' @description Creates a tmap map displaying active cases per 'people' for the input data.
 #'
 #' @param DATA Data containing prevalence information to map.
 #' @param people Transform from proportion of population to per 'people'.
@@ -204,6 +220,11 @@ EventMap_tmap <- function(DATA, G, AB, boundaryweights = 0.05, projectionCRS = "
 #' @return Outputs a tmap displaying active cases per 'people' for the input data.
 #'
 #' @family mapplots
+#' @examples
+#' \dontrun{
+#' Denmark <- LoadData("LoadDenmark")
+#' PerCapitaMap_tmap(Denmark)
+#' }
 #' @export
 PerCapitaMap_tmap <- function(DATA, people = 100000, boundaryweights = 0.05, projectionCRS = "+proj=eqearth", maptitle = NA) { # DATA - map data, people - transform from proportion of population to per 'people', boundaryweights - polygon edge weights, projectionCRS - type of geographic projection to use, maptitle - adds a title to the map
 
@@ -212,12 +233,12 @@ PerCapitaMap_tmap <- function(DATA, people = 100000, boundaryweights = 0.05, pro
   utils::data("World", package = "tmap", envir = environment())
   # use equal earth projection
   DATA <- sf::st_transform(DATA, crs = projectionCRS)
-  bins <- 0.01*c(0,0.1,0.25,0.5,1,2.5,5,10,100)*people
-  
+  bins <- 0.01 * c(0, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 100) * people
+
   DATA$percapcases <- DATA$pInf * people
 
   tmap::tm_shape(DATA) +
-    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights,  breaks = bins) +
+    tmap::tm_polygons(col = "percapcases", id = "geoid", title = paste("Active cases per", prettyNum(people, big.mark = ",", scientific = FALSE), "people"), border.col = "lightgrey", border.alpha = 0.2, lwd = boundaryweights, breaks = bins) +
     tmap::tm_shape(World) +
     tmap::tm_layout(legend.outside = TRUE, legend.outside.position = "right", title = maptitle) +
     tmap::tm_borders("grey", lwd = .5)

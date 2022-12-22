@@ -1,6 +1,6 @@
 #' LoadVietnam
 #'
-#' @description Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Vietnam to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. \url{https://covid19.ncsc.gov.vn/dulieu}.
@@ -11,7 +11,7 @@
 #' \dontrun{
 #' Vietnam <- LoadVietnam()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadVietnam <- function() {
   # Official data on the COVID-19 epidemic in Vietnam collected by the Vietnam Ministry of Health & Ministry of Information and Communications. Operated by National Center for Technology for COVID-19 Prevention and Control. Developed by VN National Cyber Security Center. https://covid19.ncsc.gov.vn/dulieu
@@ -25,10 +25,13 @@ LoadVietnam <- function() {
   # ProvinceInfo$Population[aa] = provincedata[[aa]]$population
   # }
   # ProvinceInfo=data.frame(ProvinceInfo)
-  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names=FALSE)
+  # write.csv(ProvinceInfo,"countries/data/VietnamProvinceInfo.csv",row.names = FALSE)
   # ProvinceInfo <- read.csv("countries/data/VietnamProvinceInfo.csv")
+
+  misc_vietnam <- geomVietnam <- NULL
   utils::data("misc_vietnam", envir = environment())
   utils::data("geomVietnam", envir = environment())
+  geomVietnam <- sf::st_as_sf(geomVietnam)
 
   # ProvinceInfo <- misc_vietnam
   # Geometry

@@ -1,0 +1,39 @@
+snippet geomTemplate
+	`r paste("##", 'Please save this file as "tools/toProcess/process<CountryName>.R", where "<CountryName> is replaced with the appropriate country or region name. You may have to create the folder "tools/toProcess"')`
+	`r paste("##", "Do not run this code, it will run automatically when running updateGlobal.R")`
+	geomCountry <- sf::st_read("${1:file}")
+	`r paste("#", "UNSD_m49 called by addNewGeom.R\n")`
+	`r paste("#", "m49code: numeric country code")`
+	`r paste("#", "iso3: text country code")`
+	`r paste("#", "county_name: country name (English)")`
+	`r paste("#", "macro_code, macro_name: higher region code/name (e.g., US State)")`
+	`r paste("#", "micro_code, micro_name: data granularity code/name (e.g., US County, the case-aggregate level)")`
+	`r paste("#", "Use the following if *.geojson includes population data, alternate names, or something else useful\n")`
+	`r paste("#", "Make sure LoadCountryName.R references this new file\n")`
+	
+	CountryName <- "${2:CountryName}" # Make variable with country name to fill in below. Be sure to use camelcase (e.g., "UnitedKingdom")
+	
+	`r paste("#", "If there isn't any meaningful surplus data in the geometry file (e.g., population or alternative names), you can comment out the next three lines.\n")`
+	purrr::walk2(sf::st_drop_geometry(geomCountry), CountryName, function(obj, name) {
+		assign(name, obj)
+		do.call("use_data", list(as.name(name), overwrite = TRUE))
+	})
+	
+	geomCountry <- geomCountry %>%
+		dplyr::mutate(country_name = CountryName) %>%
+	`r paste("#", "If country_name doesn't match the format found in the package dataset m49's (or updateGeometry/UNSD_m49.xlsx's) 'CountryorArea' column, use the following instead:")`
+	`r paste("#", '#mutate(match_name = "differentformatname")%>%')`
+	`r paste("#", '#inner_join(m49, by=c("match_name" = "CountryorArea"))%>%')`
+	dplyr::inner_join(m49, by = c("country_name" = "CountryorArea")) %>%
+		dplyr::select(
+		m49code = M49Code,
+		iso3 = ISOalpha3Code,
+		country_name,
+		macro_code = "${3:macro_code}", # corresponding column names from *.geojson
+		macro_name = "${4:macro_name}", # if there isn't a corresponding column, leave it blank or use `macro_code = row_number()` in mutate. You _need_ micro_code or macro_code such that the macro/micro code pair is unique for each row
+		micro_code = "${5:micro_code}",
+		micro_name = "${6:micro_name}"
+	) %>%
+		sf::st_make_valid() %>%
+		dplyr::mutate(across(.cols = dplyr::ends_with("code"), .fns = as.character))
+	assign(paste0("geom", CountryName), geomCountry)

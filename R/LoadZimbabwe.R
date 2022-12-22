@@ -1,6 +1,6 @@
 #' LoadZimbabwe
 #'
-#' @description Reads in subnational data for Zimbabwe to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Zimbabwe to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Sourced from the COVID-19 Data Repository by African Surveyors Connect \url{https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/}.
@@ -8,18 +8,18 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Zimbabwe <- LoadZimbabwe()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadZimbabwe <- function() {
   # COVID-19 Data Repository by African Surveyors Connect https://github.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/
   # Dashboard: https://surveyor-jr.maps.arcgis.com/apps/dashboards/8ef907d2658c44c6a143819aa7979b20
 
+  geomZimbabwe <- pop_zimbabwe <- NULL
   # note could be improved by calling data from ESRI, provincial timeseries feature Id: 20703dd3a24f45f08ea37034285d3492
   utils::data("geomZimbabwe", envir = environment())
   utils::data("pop_zimbabwe", envir = environment())
+  geomZimbabwe <- sf::st_as_sf(geomZimbabwe)
 
   Data <- utils::read.csv("https://raw.githubusercontent.com/African-Surveyors-Connect/Zimbabwe-COVID-19-Data/master/time_series_data/daily_provincial_records.csv")
 
@@ -42,7 +42,7 @@ LoadZimbabwe <- function() {
   Province <- c("Harare", "Manicaland", "Mashonaland Central", "Mashonaland East", "Mashonaland West", "Midlands", "Masvingo", "Matabeleland North", "Matabeleland South", "Bulawayo")
 
   # Pop = read.csv("https://github.com/zimgeospatial/census/raw/master/province_population.csv")
-  # write.csv(Pop,"countries/data/Zimbabwe_pop.csv",row.names=FALSE)
+  # write.csv(Pop,"countries/data/Zimbabwe_pop.csv",row.names = FALSE)
   zimbabwedf <- data.frame(Province, DateReport, CaseDiff)
 
 

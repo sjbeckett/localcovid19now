@@ -10,16 +10,14 @@ LoadSpain()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for Spain to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for Spain to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 COVID-19 data from España Ministerio de Sanidad and Instituto de Salud Carlos III: \url{https://cnecovid.isciii.es/covid19/}.
 }
 \examples{
-\dontrun{
 Spain <- LoadSpain()
 }
-}
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

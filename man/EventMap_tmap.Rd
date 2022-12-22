@@ -30,11 +30,11 @@ EventMap_tmap(
 Outputs a tmap displaying exposure risk for the input data.
 }
 \description{
-EventMap_tmap
+Creates a tmap map displaying active cases per 'people' for the input data.
 }
 \examples{
 \dontrun{
-Austria <- LoadAustria()
+Austria <- LoadData("LoadAustria")
 Austria$AB <- 4
 EventMap_tmap(Austria, 50, Austria$AB)
 }

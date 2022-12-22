@@ -28,11 +28,11 @@ create_c19r_data(
 Creates, and writes to file, a table showing estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 }
 \description{
-Create Table of Risk Estimates
+Creates a table showing the estimated risk that one or more people will be infectious for the given input locations, event sizes and ascertainment biases.
 }
 \examples{
 \dontrun{
-Canada <- LoadCanada()
+Canada <- LoadData("LoadCanada")
 create_c19r_data(Canada)
 }
 }

@@ -1,6 +1,6 @@
 #' LoadDenmark
 #'
-#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Denmark to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #'  COVID-19 data from the Statens Serum Institut (SSI):
@@ -13,7 +13,7 @@
 #' \dontrun{
 #' Denmark <- LoadDenmark()
 #' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadDenmark <- function() {
   # COVID-19 data from the Statens Serum Institut (SSI):
@@ -21,7 +21,7 @@ LoadDenmark <- function() {
   #- https://experience.arcgis.com/experience/aa41b29149f24e20a4007a0c4e13db1d
 
 
-  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- NULL
+  SampleDate <- Municipality <- Cases <- CumCases <- .data <- Date <- geomDenmark <- NULL
 
   # geometry
   # geomDenmark <- st_read('https://raw.githubusercontent.com/magnuslarsen/geoJSON-Danish-municipalities/master/municipalities/municipalities.geojson')
@@ -31,6 +31,7 @@ LoadDenmark <- function() {
   # Name2save3 = geomDenmark$micro_name[73] #"Ringkøbing-Skjern"
   #
   utils::data("geomDenmark", envir = environment())
+  geomDenmark <- sf::st_as_sf(geomDenmark)
 
   # case data
   # 1.)  identify file location from webpages
@@ -54,9 +55,9 @@ LoadDenmark <- function() {
   # 2.) download and extract data:
   temp <- tempfile() # temporary file for download
   temp2 <- tempdir() # temporary file for extraction
-  utils::download.file(DOWNLOADLINK, destfile = temp)
+  utils::download.file(DOWNLOADLINK, destfile = temp, quiet = TRUE)
   utils::unzip(zipfile = temp, exdir = temp2)
-  DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";")
+  DenmarkData <- vroom::vroom(file.path(temp2, "Municipality_cases_time_series.csv"), delim = ";", show_col_types = FALSE, progress = FALSE)
   unlink(temp)
   unlink(temp2)
 

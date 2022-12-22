@@ -6,15 +6,18 @@
 \usage{
 tidy_Data(
   DATA,
+  tidy = TRUE,
   DaysOld = 30,
   minimumpercapitaactivecases = 0,
   RiskEval = NULL,
-  dropNACountry = FALSE,
+  dropNACountry = TRUE,
   dropNAall = FALSE
 )
 }
 \arguments{
 \item{DATA}{Data created using a LoadCountry call.}
+
+\item{tidy}{If TRUE, then perform tidying according to other parameters. If FALSE, then do nothing.}
 
 \item{DaysOld}{Set any pInf data more than this days old to NA.}
 
@@ -34,7 +37,8 @@ For an object read in with a LoadCountry function, sets the per capita active ca
 }
 \examples{
 \dontrun{
-Philippines <- LoadPhilippines()
-Philippines <- tidy_Data(Philippines)
+Europe1 <- LoadEurope() #tidy_Data is run within LoadX functions.
+Europe2 <- LoadEurope(tidy = FALSE)
+Europe2 <- tidy_Data(Europe2)
 }
 }

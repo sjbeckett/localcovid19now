@@ -1,6 +1,6 @@
 #' LoadAustria
 #'
-#' @description Reads in subnational data for Austria to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Austria to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data is from the Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria \url{https://www.data.gv.at/covid-19/}.
@@ -9,7 +9,7 @@
 #' \dontrun{
 #' Austria <- LoadAustria()
 #' }
-#' @seealso [LoadCountries]
+#' @seealso [LoadData]
 #' @export
 LoadAustria <- function() {
   # Load in geometry
@@ -20,7 +20,7 @@ LoadAustria <- function() {
 
   # Federal Ministry for Social Affairs, Health, Care and Consumer Protection (BMSGPK) data on COVID-19 for Austria: https://www.data.gv.at/covid-19/
   # case data
-  data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";") %>%
+  data <- vroom::vroom("https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline_GKZ.csv", delim = ";", show_col_types = FALSE, progress = FALSE) %>%
     dplyr::select(date = Time, name = Bezirk, code = GKZ, population = AnzEinwohner, cases = AnzahlFaelleSum)
   # date is in format dd.mm.YYYY HH:MM:SS
   # reformat the date

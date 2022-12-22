@@ -21,7 +21,7 @@ getDataJapan <- function(dataSet, i) {
 
 #' LoadJapan
 #'
-#' @description Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Japan to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data from covid19japan.com, based on national and prefectural government reports: \url{https://github.com/reustle/covid19japan-data/}.
@@ -29,15 +29,15 @@ getDataJapan <- function(dataSet, i) {
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Japan <- LoadJapan()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadJapan <- function() {
   # Data from covid19japan.com, based on national and prefectural government reports: https://github.com/reustle/covid19japan-data/
+  pop_japan <- geomJapan <- NULL
   utils::data("geomJapan", envir = environment())
   utils::data("pop_japan", envir = environment())
+  geomJapan <- sf::st_as_sf(geomJapan)
 
   dataJapan <- jsonlite::read_json("https://raw.githubusercontent.com/reustle/covid19japan-data/master/docs/summary/latest.json", encoding = "UTF-8")
   # get updated date:

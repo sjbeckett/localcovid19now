@@ -1,3 +1,6 @@
+#' alt_countrylist
+"alt_countrylist"
+
 #' countrylist
 "countrylist"
 
@@ -67,7 +70,6 @@
 #' geomHaiti
 "geomHaiti"
 
-
 #' geomIndia
 "geomIndia"
 
@@ -109,7 +111,6 @@
 
 #' geomPakistan
 "geomPakistan"
-
 
 #' geomPeru
 "geomPeru"
@@ -158,12 +159,6 @@
 
 #' geomZimbabwe
 "geomZimbabwe"
-
-#' Haiti
-"Haiti"
-
-#' India
-"India"
 
 #' m49
 "m49"

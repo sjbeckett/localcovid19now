@@ -10,7 +10,7 @@ LoadChina()
 A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 }
 \description{
-Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases.
+Reads in subnational data for China to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 }
 \note{
 COVID-19 data for first-level administrative divisions in China is aggregated from the
@@ -20,13 +20,11 @@ by the COVID-19 Data Repository by the Center for Systems Science and Engineerin
 \url{https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data}.
 }
 \examples{
-\dontrun{
 China <- LoadChina()
-}
 }
 \references{
 Dong, E., Du, H., & Gardner, L. (2020). An interactive web-based dashboard to track COVID-19 in real time. The Lancet infectious diseases, 20(5), 533-534.
 }
 \seealso{
-\code{\link[=LoadCountries]{LoadCountries()}}
+\code{\link[=LoadData]{LoadData()}}
 }

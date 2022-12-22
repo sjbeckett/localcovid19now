@@ -1,6 +1,6 @@
 #' LoadNewZealand
 #'
-#' @description Reads in subnational data for New Zealand to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for New Zealand to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' COVID-19 Data Repository by the Institute of Environmental Science and Research: \url{https://github.com/ESR-NZ/NZ_COVID19_Data/}
@@ -12,10 +12,8 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' NewZealand <- LoadNewZealand()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadNewZealand <- function() {
   # COVID-19 Data Repository by the Institute of Environmental Science and Research: https://github.com/ESR-NZ/NZ_COVID19_Data/
@@ -23,28 +21,18 @@ LoadNewZealand <- function() {
   # Jefferies, Sarah, et al. "COVID-19 in New Zealand and the impact of the national response: a descriptive epidemiological study." The Lancet Public Health 5.11 (2020): e612-e623.
 
   utils::data("geomNZ", envir = environment())
+  geomNZ <- sf::st_as_sf(geomNZ)
 
   # New Zealand's dashboard and system is currently down due to a system upgrade, hence why this isn't finding anything.
 
   # load case data
-  # need to try 2 days if it doesn't work!
-  flag <- 0
-  aa <- 0
-  while (flag == 0) {
-    DATE <- Sys.Date() - aa
-    formDATE <- format(DATE, "%Y-%m-%d")
-    STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", formDATE, ".csv")
-    NZ <- try(vroom::vroom(STRING))
-    if (is.null(dim(NZ)) == FALSE) {
-      flag <- 1
-    } else {
-      aa <- aa + 1
-    }
-    if (aa > 30) {
-      warning("no recent data")
-      flag <- 2
-    }
-  }
+
+  # find list of files recorded in the github folder NZ_COVID19_Data/overview_case at https://github.com/ESR-NZ/NZ_COVID19_Data/tree/master/overview_case
+  AA <- jsonlite::read_json("https://api.github.com/repos/ESR-NZ/NZ_COVID19_Data/git/trees/ceaec305a9bbfef50f7c9e90a029db7c123fa97f")
+  lastfile_str <- AA$tree[[length(AA$tree)]]$path
+  STRING <- paste0("https://github.com/ESR-NZ/NZ_COVID19_Data/raw/master/overview_case/", lastfile_str)
+  NZ <- vroom::vroom(STRING, show_col_types = FALSE, progress = FALSE)
+
 
   Regions <- unique(NZ$DHBName)
   DateReport <- c()

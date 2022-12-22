@@ -1,6 +1,6 @@
 #' LoadPeru
 #'
-#' @description Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases.
+#' @description Reads in subnational data for Peru to calculate most recent estimate of per capita active COVID-19 cases. Use with LoadData() is recommended.
 #'
 #' @note
 #' Data obtained from COVID-19 Data Hub \url{https://covid19datahub.io} and
@@ -12,10 +12,8 @@
 #' @return A simple feature returning the date of most recent data (DateReport), a unique region code (geoid), the region name (RegionName) and country name (Country), the number of active cases per capita (pInf) and the regions geometry (geometry).
 #'
 #' @examples
-#' \dontrun{
 #' Peru <- LoadPeru()
-#' }
-#' @seealso [LoadCountries()]
+#' @seealso [LoadData()]
 #' @export
 LoadPeru <- function() {
   # Data obtained from COVID-19 Data Hub https://covid19datahub.io
@@ -23,9 +21,11 @@ LoadPeru <- function() {
 
   # Guidotti et al., (2020). COVID-19 Data Hub. Journal of Open Source Software, 5(51), 2376, https://doi.org/10.21105/joss.02376
 
+  geomPeru <- NULL
   utils::data("geomPeru", envir = environment())
+  geomPeru <- sf::st_as_sf(geomPeru)
 
-  x <- as.data.frame(COVID19::covid19("Peru", level = 2))
+  x <- as.data.frame(COVID19::covid19("Peru", level = 2, verbose = FALSE))
 
   regions <- unique(x$administrative_area_level_2)
   DateReport <- c()
