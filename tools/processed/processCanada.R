@@ -1,5 +1,5 @@
 ## Do not run this code, it will run automatically when running updateGlobal.R
-geomCountry <- sf::st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/health_regions.geojson")
+geomCountry <- sf::st_read("https://raw.githubusercontent.com/ccodwg/CovidTimelineCanada/main/geo/hr.geojson")
 sf::st_crs(geomCountry) = 3347 # CRS for Canada:  Statistics Canada Lambert
 geomCountry = sf::st_transform(geomCountry, crs = 4326)
 geomCountry$HR_UID = as.numeric(geomCountry$hruid)
