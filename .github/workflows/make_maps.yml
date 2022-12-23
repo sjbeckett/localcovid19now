@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [main, master, revise]
     paths: 
-      - 'R/*.R'
-      - 'data/*'
+      - 'R/**'
+      - 'data/**'
 
   workflow_dispatch:
 
