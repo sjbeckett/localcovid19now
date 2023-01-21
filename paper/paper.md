@@ -27,19 +27,19 @@ authors:
     orcid: 0000-0002-3433-8312
     affiliation: "1, 7, 8"
 affiliations:
- - name: School of Biological Sciences, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of Biological Sciences, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 1
- - name: School of City and Regional Planning, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of City and Regional Planning, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 2
- - name: School of Civil and Environmental Engineering, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of Civil and Environmental Engineering, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 3
- - name: School of Chemical and Biomolecular Engineering, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of Chemical and Biomolecular Engineering, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 4
- - name: Applied Bioinformatics Laboratory, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: Applied Bioinformatics Laboratory, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 5
- - name: School of Interactive Computing, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of Interactive Computing, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 6
- - name: School of Physics, Georgia Institute of Technology, Atlanta, GA, USA
+ - name: School of Physics, Georgia Institute of Technology, Atlanta, GA, United States of America
    index: 7
  - name: Institut de Biologie, École Normale Supérieure, Paris, France
    index: 8
