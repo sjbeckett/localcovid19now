@@ -1,0 +1,16 @@
+bibentry(
+  "Article",
+  title = "localcovid19now: processing and mapping COVID-19 case data at subnational scales",
+  author = "Stephen J. Beckett and Freyja A. Brandel-Tanis and Quan Nguyen and Aroon T. Chande and Lavanya Rishishwar and Clio Andris and Joshua S. Weitz",
+  year = 2023,
+  journal = "Journal of Open Source Software",
+  volume = 8,
+  number = 81,
+  pages = 4898,
+  doi = "10.21105/joss.04898",
+  textVersion="Beckett SJ, Brandel-Tanis FA, Nguyen Q, Chande AT,
+Rishishwar L, Andris C, Weitz JS. (2023). localcovid19now:
+processing and mapping COVID-19 case data at subnational
+scales. Journal of Open Source Software, 8(81), 4898.
+doi: 10.21105/joss.04898."
+)
